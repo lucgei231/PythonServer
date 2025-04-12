@@ -2,7 +2,7 @@ import os
 import json
 import random
 import datetime
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, session
 from non_static.utils import example_util_function, ExampleUtility
 from non_static.quiz import get_random_question, validate_answer, read_quiz
 import win32com.client
@@ -10,6 +10,7 @@ import win32com.client
 speaker = win32com.client.Dispatch("SAPI.SpVoice")
 
 app = Flask(__name__)
+app.secret_key = "your_random_secret_key_here"
 
 def log_event(ip, event):
     logs_dir = os.path.join(os.path.dirname(__file__), "logs")
@@ -43,9 +44,12 @@ def home():
         print("Error reading quiz folder:", e)
     return render_template('home.html', quizzes=quizzes)
 
-# Render the quiz page for the given quiz name (without .txt)
+# Render the quiz page for the given quiz name (without .txt) and initialize score tracking
 @app.route('/<quiz_name>')
 def quiz_index(quiz_name):
+    session['correct_count'] = 0
+    session['total_attempt'] = 0
+    session['quiz_name'] = quiz_name
     return render_template('index.html', quiz_name=quiz_name)
 
 @app.route('/<quiz_name>/quiz/question', methods=['GET'])
@@ -70,22 +74,34 @@ def quiz_validate(quiz_name):
     print(f"Answer received: {answer} for question: {question_text}")
     is_correct = False
 
+    # Track score in session
+    session['total_attempt'] = session.get('total_attempt', 0) + 1
+
     # Read all questions from the specified quiz file
     all_questions = read_quiz(quiz_name)
     for possible_question in all_questions:
         if possible_question["question"] == question_text:
-            is_correct = answer == possible_question["answer"]
+            is_correct = answer.lower().strip() == possible_question["answer"].lower().strip()
             break
 
     if is_correct:
+        session['correct_count'] = session.get('correct_count', 0) + 1
         log_event(ip, f"Correct answer for question: '{question_text}'")
     else:
         log_event(ip, f"Incorrect answer for question: '{question_text}'")
 
     print(f"User answered question: {question_text} and said '{answer}' in quiz {quiz_name}")
-    speaker.Speak(f"Test")
 
     return jsonify({'is_correct': is_correct})
+
+@app.route('/<quiz_name>/quiz/finish', methods=['GET'])
+def quiz_finish(quiz_name):
+    correct = session.get('correct_count', 0)
+    total = session.get('total_attempt', 0)
+    ip = request.remote_addr
+    log_event(ip, f"Finished quiz '{quiz_name}' with {correct} correct out of {total} attempts")
+    result = {'score': correct, 'total': total}
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5601)

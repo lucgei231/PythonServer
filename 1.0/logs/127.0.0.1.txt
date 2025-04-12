@@ -218,3 +218,145 @@
 2025-04-12 15:50:36.188932: Submitted answer for question 'What is the name of the dimension you reach by entering a portal made of end portal frames?' with answer 'test' in quiz 'Minecraft Quiz'
 2025-04-12 15:50:36.188932: Incorrect answer for question: 'What is the name of the dimension you reach by entering a portal made of end portal frames?'
 2025-04-12 15:50:36.188932: Disconnected
+2025-04-12 15:52:35.317391: Connected
+2025-04-12 15:52:35.334658: Disconnected
+2025-04-12 15:52:35.475025: Connected
+2025-04-12 15:52:35.511056: Connected
+2025-04-12 15:52:36.060083: Disconnected
+2025-04-12 15:52:36.078788: Disconnected
+2025-04-12 15:52:36.111091: Connected
+2025-04-12 15:52:36.114087: Requested question from quiz 'Minecraft Quiz': How many blocks high is a Nether portal?
+2025-04-12 15:52:36.120089: Disconnected
+2025-04-12 15:52:36.178623: Connected
+2025-04-12 15:52:36.183165: Disconnected
+2025-04-12 15:52:40.057155: Connected
+2025-04-12 15:52:40.057155: Submitted answer for question 'How many blocks high is a Nether portal?' with answer '5' in quiz 'Minecraft Quiz'
+2025-04-12 15:52:40.074121: Correct answer for question: 'How many blocks high is a Nether portal?'
+2025-04-12 15:52:40.077131: Disconnected
+2025-04-12 15:52:41.599513: Connected
+2025-04-12 15:52:41.599513: Requested question from quiz 'Minecraft Quiz': Which enchantment makes tools and weapons last longer?
+2025-04-12 15:52:41.599513: Disconnected
+2025-04-12 15:53:10.867324: Connected
+2025-04-12 15:53:10.871541: Submitted answer for question 'Which enchantment makes tools and weapons last longer?' with answer 'Unbreaking' in quiz 'Minecraft Quiz'
+2025-04-12 15:53:10.872561: Correct answer for question: 'Which enchantment makes tools and weapons last longer?'
+2025-04-12 15:53:10.878358: Disconnected
+2025-04-12 15:53:12.417073: Connected
+2025-04-12 15:53:12.417073: Requested question from quiz 'Minecraft Quiz': What does the Potion of Invisibility do?
+2025-04-12 15:53:12.417073: Disconnected
+2025-04-12 15:53:19.471330: Connected
+2025-04-12 15:53:19.471330: Submitted answer for question 'What does the Potion of Invisibility do?' with answer 'invisible' in quiz 'Minecraft Quiz'
+2025-04-12 15:53:19.471330: Correct answer for question: 'What does the Potion of Invisibility do?'
+2025-04-12 15:53:19.487054: Disconnected
+2025-04-12 15:53:21.019076: Connected
+2025-04-12 15:53:21.023283: Requested question from quiz 'Minecraft Quiz': What are you looking for when using a map to locate a Woodland Mansion?
+2025-04-12 15:53:21.025304: Disconnected
+2025-04-12 15:54:49.624185: Connected
+2025-04-12 15:54:49.627067: Submitted answer for question 'What are you looking for when using a map to locate a Woodland Mansion?' with answer 'roofed forest' in quiz 'Minecraft Quiz'
+2025-04-12 15:54:49.631417: Correct answer for question: 'What are you looking for when using a map to locate a Woodland Mansion?'
+2025-04-12 15:54:49.633429: Disconnected
+2025-04-12 15:54:51.162529: Connected
+2025-04-12 15:54:51.166098: Requested question from quiz 'Minecraft Quiz': What is the maximum level of enchantments using an enchanting table?
+2025-04-12 15:54:51.170137: Disconnected
+2025-04-12 15:55:11.747191: Connected
+2025-04-12 15:55:11.747191: Submitted answer for question 'What is the maximum level of enchantments using an enchanting table?' with answer '3' in quiz 'Minecraft Quiz'
+2025-04-12 15:55:11.747191: Incorrect answer for question: 'What is the maximum level of enchantments using an enchanting table?'
+2025-04-12 15:55:11.753532: Disconnected
+2025-04-12 15:55:14.965614: Connected
+2025-04-12 15:55:14.979504: Submitted answer for question 'What is the maximum level of enchantments using an enchanting table?' with answer '4' in quiz 'Minecraft Quiz'
+2025-04-12 15:55:14.986520: Incorrect answer for question: 'What is the maximum level of enchantments using an enchanting table?'
+2025-04-12 15:55:15.030330: Disconnected
+2025-04-12 15:55:19.111283: Connected
+2025-04-12 15:55:19.113811: Submitted answer for question 'What is the maximum level of enchantments using an enchanting table?' with answer '5' in quiz 'Minecraft Quiz'
+2025-04-12 15:55:19.116834: Incorrect answer for question: 'What is the maximum level of enchantments using an enchanting table?'
+2025-04-12 15:55:19.119824: Disconnected
+2025-04-12 15:55:25.330945: Connected
+2025-04-12 15:55:25.341993: Disconnected
+2025-04-12 15:55:25.517719: Connected
+2025-04-12 15:55:25.538811: Connected
+2025-04-12 15:55:26.157980: Disconnected
+2025-04-12 15:55:26.164103: Disconnected
+2025-04-12 15:55:26.277987: Connected
+2025-04-12 15:55:26.283527: Requested question from quiz 'Minecraft Quiz': How many obsidian blocks are required to make an Enchantment Table?
+2025-04-12 15:55:26.301475: Disconnected
+2025-04-12 15:55:26.302475: Connected
+2025-04-12 15:55:26.308476: Disconnected
+2025-04-12 15:55:31.107257: Connected
+2025-04-12 15:55:31.110593: Submitted answer for question 'How many obsidian blocks are required to make an Enchantment Table?' with answer '3' in quiz 'Minecraft Quiz'
+2025-04-12 15:55:31.114625: Incorrect answer for question: 'How many obsidian blocks are required to make an Enchantment Table?'
+2025-04-12 15:55:31.114625: Disconnected
+2025-04-12 15:55:35.225735: Connected
+2025-04-12 15:55:35.225735: Submitted answer for question 'How many obsidian blocks are required to make an Enchantment Table?' with answer '5' in quiz 'Minecraft Quiz'
+2025-04-12 15:55:35.238779: Incorrect answer for question: 'How many obsidian blocks are required to make an Enchantment Table?'
+2025-04-12 15:55:35.243639: Disconnected
+2025-04-12 15:55:43.858488: Connected
+2025-04-12 15:55:43.862408: Disconnected
+2025-04-12 15:55:43.996065: Connected
+2025-04-12 15:55:44.002520: Disconnected
+2025-04-12 15:55:44.034202: Connected
+2025-04-12 15:55:44.050226: Disconnected
+2025-04-12 15:55:44.202065: Connected
+2025-04-12 15:55:44.208474: Requested question from quiz 'Minecraft Quiz': What hostile mob is only found underwater?
+2025-04-12 15:55:44.212472: Disconnected
+2025-04-12 15:55:44.252753: Connected
+2025-04-12 15:55:44.265284: Disconnected
+2025-04-12 15:55:54.697002: Connected
+2025-04-12 15:55:54.699485: Submitted answer for question 'What hostile mob is only found underwater?' with answer 'dRoWnEd' in quiz 'Minecraft Quiz'
+2025-04-12 15:55:54.701501: Incorrect answer for question: 'What hostile mob is only found underwater?'
+2025-04-12 15:55:54.707600: Disconnected
+2025-04-12 15:56:26.966255: Connected
+2025-04-12 15:56:26.982473: Disconnected
+2025-04-12 15:56:27.139760: Connected
+2025-04-12 15:56:27.160891: Connected
+2025-04-12 15:56:27.701084: Disconnected
+2025-04-12 15:56:27.740667: Disconnected
+2025-04-12 15:56:27.778804: Connected
+2025-04-12 15:56:27.781807: Requested question from quiz 'Minecraft Quiz': What material do you use to craft a diamond pickaxe?
+2025-04-12 15:56:27.785805: Disconnected
+2025-04-12 15:56:27.832269: Connected
+2025-04-12 15:56:27.836297: Disconnected
+2025-04-12 15:56:39.688381: Connected
+2025-04-12 15:56:39.698443: Disconnected
+2025-04-12 15:56:39.820141: Connected
+2025-04-12 15:56:39.830858: Connected
+2025-04-12 15:56:40.207072: Disconnected
+2025-04-12 15:56:40.224091: Disconnected
+2025-04-12 15:56:40.255077: Connected
+2025-04-12 15:56:40.258076: Requested question from quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair?
+2025-04-12 15:56:40.262049: Disconnected
+2025-04-12 15:56:40.284849: Connected
+2025-04-12 15:56:40.288715: Disconnected
+2025-04-12 15:56:41.903659: Connected
+2025-04-12 15:56:41.917095: Disconnected
+2025-04-12 15:56:42.319588: Connected
+2025-04-12 15:56:42.325651: Disconnected
+2025-04-12 15:56:42.694336: Connected
+2025-04-12 15:56:42.694336: Disconnected
+2025-04-12 15:56:43.727475: Connected
+2025-04-12 15:56:43.730917: Disconnected
+2025-04-12 15:56:43.883752: Connected
+2025-04-12 15:56:43.883752: Disconnected
+2025-04-12 15:56:44.137756: Connected
+2025-04-12 15:56:44.137756: Disconnected
+2025-04-12 15:56:44.248757: Connected
+2025-04-12 15:56:44.248757: Requested question from quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair?
+2025-04-12 15:56:44.248757: Disconnected
+2025-04-12 15:56:44.248757: Connected
+2025-04-12 15:56:44.248757: Disconnected
+2025-04-12 15:56:47.136702: Connected
+2025-04-12 15:56:47.139709: Disconnected
+2025-04-12 15:56:47.245836: Connected
+2025-04-12 15:56:47.254597: Connected
+2025-04-12 15:56:47.256229: Disconnected
+2025-04-12 15:56:47.261766: Disconnected
+2025-04-12 15:56:47.315396: Connected
+2025-04-12 15:56:47.317412: Submitted answer for question 'What is the name of the default Minecraft character with brown hair?' with answer 'steve' in quiz 'Minecraft Quiz'
+2025-04-12 15:56:47.319428: Correct answer for question: 'What is the name of the default Minecraft character with brown hair?'
+2025-04-12 15:56:47.323467: Disconnected
+2025-04-12 15:56:47.405889: Connected
+2025-04-12 15:56:47.410764: Requested question from quiz 'Minecraft Quiz': What is the name of the achievement for defeating the Ender Dragon?
+2025-04-12 15:56:47.414802: Disconnected
+2025-04-12 15:56:47.447878: Connected
+2025-04-12 15:56:47.455791: Disconnected
+2025-04-12 15:56:49.155768: Connected
+2025-04-12 15:56:49.160689: Requested question from quiz 'Minecraft Quiz': What does the Potion of Invisibility do?
+2025-04-12 15:56:49.160689: Disconnected

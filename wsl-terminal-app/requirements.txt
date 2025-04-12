@@ -1,0 +1,5 @@
+Flask
+flask-wtf
+flask-socketio
+eventlet
+subprocess32

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WSL Terminal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        #terminal {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            font-family: monospace;
+        }
+        #commandInput {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">WSL Terminal</h1>
+        <div id="terminal"></div>
+        <input type="text" id="commandInput" class="form-control" placeholder="Enter command..." autofocus>
+    </div>
+
+    <script>
+        const terminal = document.getElementById('terminal');
+        const commandInput = document.getElementById('commandInput');
+
+        commandInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const command = commandInput.value;
+                terminal.innerHTML += `<div>> ${command}</div>`;
+                commandInput.value = '';
+
+                fetch('/execute', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ command: command })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    terminal.innerHTML += `<div>${data.output}</div>`;
+                    terminal.scrollTop = terminal.scrollHeight;
+                })
+                .catch(error => {
+                    terminal.innerHTML += `<div>Error: ${error}</div>`;
+                    terminal.scrollTop = terminal.scrollHeight;
+                });
+            }
+        });
+
+        document.getElementById("command-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const command = document.getElementById("command-input").value;
+            const response = await fetch("/terminal", {
+                method: "POST",
+                body: new URLSearchParams({command}),
+                headers: {"Content-Type": "application/x-www-form-urlencoded"}
+            });
+            const data = await response.json();
+            document.getElementById("output").textContent = data.output;
+        });
+    </script>
+</body>
+</html>
