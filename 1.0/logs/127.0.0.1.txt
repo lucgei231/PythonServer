@@ -1,0 +1,220 @@
+2025-04-12 15:33:05.912115: Connected
+2025-04-12 15:33:05.931197: Disconnected
+2025-04-12 15:33:06.083304: Connected
+2025-04-12 15:33:06.114420: Connected
+2025-04-12 15:33:06.515262: Disconnected
+2025-04-12 15:33:06.623458: Disconnected
+2025-04-12 15:33:06.650484: Connected
+2025-04-12 15:33:06.660481: Requested question from quiz 'Minecraft Quiz': How many blocks high is a Nether portal?
+2025-04-12 15:33:06.663484: Disconnected
+2025-04-12 15:33:06.695843: Connected
+2025-04-12 15:33:06.703867: Disconnected
+2025-04-12 15:33:23.623711: Connected
+2025-04-12 15:33:23.636873: Submitted answer for question 'How many blocks high is a Nether portal?' with answer '7' in quiz 'Minecraft Quiz'
+2025-04-12 15:33:23.638902: Incorrect answer for question: 'How many blocks high is a Nether portal?'
+2025-04-12 15:33:23.648470: Disconnected
+2025-04-12 15:34:18.531056: Connected
+2025-04-12 15:34:18.531056: Submitted answer for question 'How many blocks high is a Nether portal?' with answer '6' in quiz 'Minecraft Quiz'
+2025-04-12 15:34:18.539393: Incorrect answer for question: 'How many blocks high is a Nether portal?'
+2025-04-12 15:34:18.541360: Disconnected
+2025-04-12 15:34:26.393852: Connected
+2025-04-12 15:34:26.400300: Submitted answer for question 'How many blocks high is a Nether portal?' with answer '5' in quiz 'Minecraft Quiz'
+2025-04-12 15:34:26.405272: Incorrect answer for question: 'How many blocks high is a Nether portal?'
+2025-04-12 15:34:26.408256: Disconnected
+2025-04-12 15:34:27.505154: Connected
+2025-04-12 15:34:27.507597: Submitted answer for question 'How many blocks high is a Nether portal?' with answer '4' in quiz 'Minecraft Quiz'
+2025-04-12 15:34:27.510588: Incorrect answer for question: 'How many blocks high is a Nether portal?'
+2025-04-12 15:34:27.512611: Disconnected
+2025-04-12 15:34:28.943521: Connected
+2025-04-12 15:34:28.945528: Submitted answer for question 'How many blocks high is a Nether portal?' with answer '8' in quiz 'Minecraft Quiz'
+2025-04-12 15:34:28.948521: Incorrect answer for question: 'How many blocks high is a Nether portal?'
+2025-04-12 15:34:28.951572: Disconnected
+2025-04-12 15:34:30.229373: Connected
+2025-04-12 15:34:30.229373: Submitted answer for question 'How many blocks high is a Nether portal?' with answer '9' in quiz 'Minecraft Quiz'
+2025-04-12 15:34:30.229373: Incorrect answer for question: 'How many blocks high is a Nether portal?'
+2025-04-12 15:34:30.229373: Disconnected
+2025-04-12 15:36:09.122518: Connected
+2025-04-12 15:36:09.124505: Submitted answer for question 'How many blocks high is a Nether portal?' with answer '5' in quiz 'Minecraft Quiz'
+2025-04-12 15:36:09.126517: Incorrect answer for question: 'How many blocks high is a Nether portal?'
+2025-04-12 15:36:09.128528: Disconnected
+2025-04-12 15:36:46.326531: Connected
+2025-04-12 15:36:46.328532: Submitted answer for question 'How many blocks high is a Nether portal?' with answer '5' in quiz 'Minecraft Quiz'
+2025-04-12 15:36:46.331555: Incorrect answer for question: 'How many blocks high is a Nether portal?'
+2025-04-12 15:36:46.332570: Disconnected
+2025-04-12 15:36:48.877722: Connected
+2025-04-12 15:36:48.879725: Submitted answer for question 'How many blocks high is a Nether portal?' with answer 'five' in quiz 'Minecraft Quiz'
+2025-04-12 15:36:48.882724: Incorrect answer for question: 'How many blocks high is a Nether portal?'
+2025-04-12 15:36:48.885721: Disconnected
+2025-04-12 15:36:52.998675: Connected
+2025-04-12 15:36:53.000697: Submitted answer for question 'How many blocks high is a Nether portal?' with answer 'six' in quiz 'Minecraft Quiz'
+2025-04-12 15:36:53.008380: Incorrect answer for question: 'How many blocks high is a Nether portal?'
+2025-04-12 15:36:53.010899: Disconnected
+2025-04-12 15:38:01.757387: Connected
+2025-04-12 15:38:01.759386: Submitted answer for question 'How many blocks high is a Nether portal?' with answer 'At least 5 blocks high' in quiz 'Minecraft Quiz'
+2025-04-12 15:38:01.789655: Correct answer for question: 'How many blocks high is a Nether portal?'
+2025-04-12 15:38:01.791692: Disconnected
+2025-04-12 15:38:03.313559: Connected
+2025-04-12 15:38:03.313559: Requested question from quiz 'Minecraft Quiz': What hostile mob is only found underwater?
+2025-04-12 15:38:03.313559: Disconnected
+2025-04-12 15:42:09.833758: Connected
+2025-04-12 15:42:09.856580: Disconnected
+2025-04-12 15:42:09.999923: Connected
+2025-04-12 15:42:10.029585: Connected
+2025-04-12 15:42:10.510259: Disconnected
+2025-04-12 15:42:10.591168: Disconnected
+2025-04-12 15:42:10.623535: Connected
+2025-04-12 15:42:10.654532: Requested question from quiz 'Minecraft Quiz': What does the Potion of Invisibility do?
+2025-04-12 15:42:10.668049: Disconnected
+2025-04-12 15:42:10.670065: Connected
+2025-04-12 15:42:10.678342: Disconnected
+2025-04-12 15:42:15.735198: Connected
+2025-04-12 15:42:15.742809: Submitted answer for question 'What does the Potion of Invisibility do?' with answer 'invisible' in quiz 'Minecraft Quiz'
+2025-04-12 15:42:15.749815: Correct answer for question: 'What does the Potion of Invisibility do?'
+2025-04-12 15:42:15.752806: Disconnected
+2025-04-12 15:42:17.265541: Connected
+2025-04-12 15:42:17.265541: Requested question from quiz 'Minecraft Quiz': What plant can be used to make dye and tame ocelots?
+2025-04-12 15:42:17.265541: Disconnected
+2025-04-12 15:42:24.734504: Connected
+2025-04-12 15:42:24.740081: Submitted answer for question 'What plant can be used to make dye and tame ocelots?' with answer 'cocoa beans' in quiz 'Minecraft Quiz'
+2025-04-12 15:42:24.743086: Incorrect answer for question: 'What plant can be used to make dye and tame ocelots?'
+2025-04-12 15:42:24.745073: Disconnected
+2025-04-12 15:42:34.397913: Connected
+2025-04-12 15:42:34.400276: Submitted answer for question 'What plant can be used to make dye and tame ocelots?' with answer 'cocoa beans' in quiz 'Minecraft Quiz'
+2025-04-12 15:42:34.400276: Incorrect answer for question: 'What plant can be used to make dye and tame ocelots?'
+2025-04-12 15:42:34.405971: Disconnected
+2025-04-12 15:42:44.307946: Connected
+2025-04-12 15:42:44.309946: Submitted answer for question 'What plant can be used to make dye and tame ocelots?' with answer 'cocoa beans' in quiz 'Minecraft Quiz'
+2025-04-12 15:42:44.314941: Incorrect answer for question: 'What plant can be used to make dye and tame ocelots?'
+2025-04-12 15:42:44.317944: Disconnected
+2025-04-12 15:42:52.349588: Connected
+2025-04-12 15:42:52.352585: Submitted answer for question 'What plant can be used to make dye and tame ocelots?' with answer 'Cocoa Beans' in quiz 'Minecraft Quiz'
+2025-04-12 15:42:52.370640: Correct answer for question: 'What plant can be used to make dye and tame ocelots?'
+2025-04-12 15:42:52.383008: Disconnected
+2025-04-12 15:42:53.913881: Connected
+2025-04-12 15:42:53.915902: Requested question from quiz 'Minecraft Quiz': What block cannot be broken in Survival mode?
+2025-04-12 15:42:53.925992: Disconnected
+2025-04-12 15:44:39.774242: Connected
+2025-04-12 15:44:39.800667: Disconnected
+2025-04-12 15:44:40.385215: Connected
+2025-04-12 15:44:41.011638: Disconnected
+2025-04-12 15:44:41.076121: Connected
+2025-04-12 15:44:41.080098: Disconnected
+2025-04-12 15:44:41.474946: Connected
+2025-04-12 15:44:41.476948: Requested question from quiz 'Minecraft Quiz': What is the maximum level of enchantments using an enchanting table?
+2025-04-12 15:44:41.490299: Disconnected
+2025-04-12 15:44:41.498792: Connected
+2025-04-12 15:44:41.501161: Disconnected
+2025-04-12 15:44:50.644818: Connected
+2025-04-12 15:44:50.644818: Submitted answer for question 'What is the maximum level of enchantments using an enchanting table?' with answer '5' in quiz 'Minecraft Quiz'
+2025-04-12 15:44:50.655253: Incorrect answer for question: 'What is the maximum level of enchantments using an enchanting table?'
+2025-04-12 15:44:50.657262: Disconnected
+2025-04-12 15:44:52.600402: Connected
+2025-04-12 15:44:52.605716: Submitted answer for question 'What is the maximum level of enchantments using an enchanting table?' with answer '1' in quiz 'Minecraft Quiz'
+2025-04-12 15:44:52.617131: Incorrect answer for question: 'What is the maximum level of enchantments using an enchanting table?'
+2025-04-12 15:44:52.632664: Disconnected
+2025-04-12 15:47:02.146005: Connected
+2025-04-12 15:47:02.165981: Disconnected
+2025-04-12 15:47:02.329920: Connected
+2025-04-12 15:47:02.370713: Connected
+2025-04-12 15:47:02.863935: Disconnected
+2025-04-12 15:47:02.918771: Disconnected
+2025-04-12 15:47:02.962934: Connected
+2025-04-12 15:47:02.970931: Requested question from quiz 'Minecraft Quiz': What is the name of the dimension you reach by entering a portal made of end portal frames?
+2025-04-12 15:47:03.030975: Disconnected
+2025-04-12 15:47:03.056631: Connected
+2025-04-12 15:47:03.065167: Disconnected
+2025-04-12 15:47:14.227298: Connected
+2025-04-12 15:47:14.234431: Submitted answer for question 'What is the name of the dimension you reach by entering a portal made of end portal frames?' with answer 'end' in quiz 'Minecraft Quiz'
+2025-04-12 15:47:14.238378: Incorrect answer for question: 'What is the name of the dimension you reach by entering a portal made of end portal frames?'
+2025-04-12 15:47:14.243594: Disconnected
+2025-04-12 15:47:21.509001: Connected
+2025-04-12 15:47:21.511532: Submitted answer for question 'What is the name of the dimension you reach by entering a portal made of end portal frames?' with answer 'End' in quiz 'Minecraft Quiz'
+2025-04-12 15:47:21.514534: Correct answer for question: 'What is the name of the dimension you reach by entering a portal made of end portal frames?'
+2025-04-12 15:47:21.518669: Disconnected
+2025-04-12 15:47:23.048333: Connected
+2025-04-12 15:47:23.052361: Requested question from quiz 'Minecraft Quiz': What do Creepers drop when killed?
+2025-04-12 15:47:23.054374: Disconnected
+2025-04-12 15:47:24.435622: Connected
+2025-04-12 15:47:24.451488: Disconnected
+2025-04-12 15:47:24.809375: Connected
+2025-04-12 15:47:24.809375: Disconnected
+2025-04-12 15:47:25.181434: Connected
+2025-04-12 15:47:25.181434: Disconnected
+2025-04-12 15:47:26.321526: Connected
+2025-04-12 15:47:26.325466: Disconnected
+2025-04-12 15:47:26.420927: Connected
+2025-04-12 15:47:26.421927: Disconnected
+2025-04-12 15:47:26.445076: Connected
+2025-04-12 15:47:26.445076: Disconnected
+2025-04-12 15:47:26.529988: Connected
+2025-04-12 15:47:26.531988: Requested question from quiz 'Minecraft Quiz': What is the name of the dimension you reach by entering a portal made of end portal frames?
+2025-04-12 15:47:26.533969: Disconnected
+2025-04-12 15:47:26.718130: Connected
+2025-04-12 15:47:26.718130: Disconnected
+2025-04-12 15:47:35.147161: Connected
+2025-04-12 15:47:35.147161: Submitted answer for question 'What is the name of the dimension you reach by entering a portal made of end portal frames?' with answer 'test' in quiz 'Minecraft Quiz'
+2025-04-12 15:47:35.155054: Incorrect answer for question: 'What is the name of the dimension you reach by entering a portal made of end portal frames?'
+2025-04-12 15:47:35.164741: Disconnected
+2025-04-12 15:47:43.759342: Connected
+2025-04-12 15:47:43.764449: Submitted answer for question 'What do Creepers drop when killed?' with answer 'gunpowder' in quiz 'Minecraft Quiz'
+2025-04-12 15:47:43.764449: Incorrect answer for question: 'What do Creepers drop when killed?'
+2025-04-12 15:47:43.771219: Disconnected
+2025-04-12 15:47:45.344095: Connected
+2025-04-12 15:47:45.344095: Submitted answer for question 'What is the name of the dimension you reach by entering a portal made of end portal frames?' with answer 'test' in quiz 'Minecraft Quiz'
+2025-04-12 15:47:45.344095: Incorrect answer for question: 'What is the name of the dimension you reach by entering a portal made of end portal frames?'
+2025-04-12 15:47:45.344095: Disconnected
+2025-04-12 15:48:09.312351: Connected
+2025-04-12 15:48:09.328221: Disconnected
+2025-04-12 15:48:09.514561: Connected
+2025-04-12 15:48:09.688235: Disconnected
+2025-04-12 15:48:09.869494: Connected
+2025-04-12 15:48:09.869494: Disconnected
+2025-04-12 15:48:12.363840: Connected
+2025-04-12 15:48:12.363840: Disconnected
+2025-04-12 15:48:12.454973: Connected
+2025-04-12 15:48:12.463859: Disconnected
+2025-04-12 15:48:12.478190: Connected
+2025-04-12 15:48:12.478190: Disconnected
+2025-04-12 15:48:12.581692: Connected
+2025-04-12 15:48:12.581692: Requested question from quiz 'Minecraft Quiz': What food item restores the most hunger points?
+2025-04-12 15:48:12.581692: Disconnected
+2025-04-12 15:48:12.645276: Connected
+2025-04-12 15:48:12.645276: Disconnected
+2025-04-12 15:48:14.355625: Connected
+2025-04-12 15:48:14.359264: Submitted answer for question 'What food item restores the most hunger points?' with answer 'test' in quiz 'Minecraft Quiz'
+2025-04-12 15:48:14.361285: Incorrect answer for question: 'What food item restores the most hunger points?'
+2025-04-12 15:48:14.363303: Disconnected
+2025-04-12 15:48:50.704345: Connected
+2025-04-12 15:48:50.704345: Submitted answer for question 'What do Creepers drop when killed?' with answer 'Gunpowder' in quiz 'Minecraft Quiz'
+2025-04-12 15:48:50.704345: Correct answer for question: 'What do Creepers drop when killed?'
+2025-04-12 15:48:50.711618: Disconnected
+2025-04-12 15:49:29.648563: Connected
+2025-04-12 15:49:29.675245: Disconnected
+2025-04-12 15:49:29.828676: Connected
+2025-04-12 15:49:29.844983: Connected
+2025-04-12 15:49:30.393236: Disconnected
+2025-04-12 15:49:30.407231: Disconnected
+2025-04-12 15:49:30.440046: Connected
+2025-04-12 15:49:30.444045: Requested question from quiz 'Minecraft Quiz': What does the Potion of Invisibility do?
+2025-04-12 15:49:30.448057: Disconnected
+2025-04-12 15:49:30.486207: Connected
+2025-04-12 15:49:30.503484: Disconnected
+2025-04-12 15:49:37.905623: Connected
+2025-04-12 15:49:37.907622: Submitted answer for question 'What does the Potion of Invisibility do?' with answer 'invisible' in quiz 'Minecraft Quiz'
+2025-04-12 15:49:37.912619: Correct answer for question: 'What does the Potion of Invisibility do?'
+2025-04-12 15:49:37.914618: Disconnected
+2025-04-12 15:49:42.568840: Connected
+2025-04-12 15:49:42.574139: Disconnected
+2025-04-12 15:49:42.685604: Connected
+2025-04-12 15:49:42.689953: Disconnected
+2025-04-12 15:49:42.695954: Connected
+2025-04-12 15:49:42.702958: Disconnected
+2025-04-12 15:49:42.878928: Connected
+2025-04-12 15:49:42.882930: Requested question from quiz 'Minecraft Quiz': What are you looking for when using a map to locate a Woodland Mansion?
+2025-04-12 15:49:42.886930: Disconnected
+2025-04-12 15:49:42.935345: Connected
+2025-04-12 15:49:42.941987: Disconnected
+2025-04-12 15:50:36.184365: Connected
+2025-04-12 15:50:36.188932: Submitted answer for question 'What is the name of the dimension you reach by entering a portal made of end portal frames?' with answer 'test' in quiz 'Minecraft Quiz'
+2025-04-12 15:50:36.188932: Incorrect answer for question: 'What is the name of the dimension you reach by entering a portal made of end portal frames?'
+2025-04-12 15:50:36.188932: Disconnected

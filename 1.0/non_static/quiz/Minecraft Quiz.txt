@@ -11,13 +11,13 @@ What is the rarest ore in the Overworld?
 Emerald  
 
 How many blocks high is a Nether portal?  
-At least 5 blocks high  
+5
 
 What do Creepers drop when killed?  
 Gunpowder  
 
 What is the Ender Dragon's main attack?  
-Fireball-like Dragon’s Breath  
+dragons breath
 
 What food item restores the most hunger points?  
 Steak  
@@ -28,20 +28,17 @@ How many obsidian blocks are required to make an Enchantment Table?
 Which mob can be tamed using bones?  
 Wolf  
 
-What happens when you wear a carved pumpkin on your head?  
-Endermen won't attack you when you look at them  
-
 What tool do you need to mine stone?  
 Pickaxe  
 
 What are you looking for when using a map to locate a Woodland Mansion?  
-A dark forest biome  
+roofed forest
 
 What is the maximum level of enchantments using an enchanting table?  
-Level 30  
+30  
 
 What is the name of the dimension you reach by entering a portal made of end portal frames?  
-The End  
+End  
 
 What block cannot be broken in Survival mode?  
 Bedrock  
@@ -50,10 +47,10 @@ What plant can be used to make dye and tame ocelots?
 Cocoa Beans  
 
 What does the Potion of Invisibility do?  
-Makes you invisible to mobs and players  
+invisible
 
 What block can Redstone activate to make light?  
-Redstone Lamp  
+Redstone lamp
 
 What hostile mob is only found underwater?  
 Guardian  
@@ -65,10 +62,10 @@ Which enchantment makes tools and weapons last longer?
 Unbreaking  
 
 How many hearts does the player have in Survival mode?  
-10 hearts  
+10 
 
 What is the name of the achievement for defeating the Ender Dragon?  
 Free the End  
 
 What do you trade with Villagers to get emeralds?  
-Various items like paper, wheat, or coal  
+paper
