@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select a Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .quiz-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px;
+        }
+        .quiz-button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select a Quiz</h1>
+    {% if quizzes %}
+    <div class="quiz-buttons">
+        {% for quiz in quizzes %}
+        <a class="quiz-button" href="{{ url_for('quiz_index', quiz_name=quiz) }}">{{ quiz }}</a>
+        {% endfor %}
+    </div>
+    {% else %}
+  <p>No quizzes available.</p>
+    {% endif %}
+</body>
+</html>

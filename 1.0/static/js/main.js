@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const quizForm = document.getElementById('quiz-form');
     const resultEl = document.getElementById('result');
-    const answerInput = document.getElementById('user-answer');  // updated id to match index.html
+    const answerInput = document.getElementById('user-answer');  
+    const quizName = document.getElementById('quiz-name').value; // get quiz name
 
     // Store the current question globally after loading it
     window.currentQuestion = null;
@@ -13,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             resultEl.textContent = "No question loaded.";
             return;
         }
-        fetch('/quiz/validate', {
+        fetch(`/${quizName}/quiz/validate`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -44,7 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function displayQuestion() {
-    fetch('/quiz/question')
+    const quizName = document.getElementById('quiz-name').value;
+    fetch(`/${quizName}/quiz/question`)
         .then(response => response.json())
         .then(data => {
             window.currentQuestion = data; // store the current question globally
