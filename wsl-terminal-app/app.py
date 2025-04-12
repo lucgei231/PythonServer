@@ -14,7 +14,12 @@ def about():
 @app.route("/terminal", methods=["GET", "POST"])
 def terminal():
     if request.method == "POST":
-        command = request.form.get("command")
+        # Support both JSON and form data
+        if request.is_json:
+            command = request.json.get("command")
+        else:
+            command = request.form.get("command")
+            
         print("Received command:", command)  # Debug: log received command
         output = ""
         if command:
@@ -32,8 +37,8 @@ def terminal():
             output = "No command provided."
         print("Returning output:", output)  # Debug
         return jsonify({"output": output})
-    # For GET, simply render the terminal page
+    # For GET, render the terminal page
     return render_template("terminal.html", output="")
 
 if __name__ == "__main__":
-    app.run(debug=True, host="127.0.0.1", port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5000)

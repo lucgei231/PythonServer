@@ -40,7 +40,7 @@
                 terminal.innerHTML += `<div>> ${command}</div>`;
                 commandInput.value = '';
 
-                fetch('/execute', {
+                fetch('/terminal', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -57,18 +57,6 @@
                     terminal.scrollTop = terminal.scrollHeight;
                 });
             }
-        });
-
-        document.getElementById("command-form").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const command = document.getElementById("command-input").value;
-            const response = await fetch("/terminal", {
-                method: "POST",
-                body: new URLSearchParams({command}),
-                headers: {"Content-Type": "application/x-www-form-urlencoded"}
-            });
-            const data = await response.json();
-            document.getElementById("output").textContent = data.output;
         });
     </script>
 </body>
