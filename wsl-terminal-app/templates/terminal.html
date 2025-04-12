@@ -18,8 +18,14 @@
             font-family: monospace;
         }
         #commandInput {
-            width: 100%;
+            width: calc(100% - 70px);
             margin-top: 10px;
+            display: inline-block;
+        }
+        #goButton {
+            width: 60px;
+            margin-top: 10px;
+            display: inline-block;
         }
     </style>
 </head>
@@ -27,37 +33,51 @@
     <div class="container">
         <h1 class="mt-5">WSL Terminal</h1>
         <div id="terminal"></div>
-        <input type="text" id="commandInput" class="form-control" placeholder="Enter command..." autofocus>
+        <div class="form-inline">
+            <input type="text" id="commandInput" class="form-control" placeholder="Enter command..." autofocus>
+            <button id="goButton" class="btn btn-primary ml-2">Go</button>
+        </div>
     </div>
 
     <script>
         const terminal = document.getElementById('terminal');
         const commandInput = document.getElementById('commandInput');
+        const goButton = document.getElementById('goButton');
 
+        // Define a function to send the command
+        const sendCommand = () => {
+            const command = commandInput.value;
+            if (!command) return;
+            terminal.innerHTML += `<div>> ${command}</div>`;
+            commandInput.value = '';
+
+            fetch('/terminal', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ command: command })
+            })
+            .then(response => response.json())
+            .then(data => {
+                terminal.innerHTML += `<div>${data.output}</div>`;
+                terminal.scrollTop = terminal.scrollHeight;
+            })
+            .catch(error => {
+                terminal.innerHTML += `<div>Error: ${error}</div>`;
+                terminal.scrollTop = terminal.scrollHeight;
+            });
+        };
+
+        // Trigger on "Enter" key press
         commandInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
-                const command = commandInput.value;
-                terminal.innerHTML += `<div>> ${command}</div>`;
-                commandInput.value = '';
-
-                fetch('/terminal', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ command: command })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    terminal.innerHTML += `<div>${data.output}</div>`;
-                    terminal.scrollTop = terminal.scrollHeight;
-                })
-                .catch(error => {
-                    terminal.innerHTML += `<div>Error: ${error}</div>`;
-                    terminal.scrollTop = terminal.scrollHeight;
-                });
+                sendCommand();
             }
         });
+
+        // Trigger on clicking the "Go" button
+        goButton.addEventListener('click', sendCommand);
     </script>
 </body>
 </html>
