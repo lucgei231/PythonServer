@@ -50,18 +50,34 @@ def quiz_index(quiz_name):
     session['correct_count'] = 0
     session['total_attempt'] = 0
     session['quiz_name'] = quiz_name
-    return render_template('index.html', quiz_name=quiz_name)
+    # Get the toggle from a query parameter; default is True (shuffle questions)
+    shuffle_param = request.args.get('shuffle', 'true').lower() == 'true'
+    session['shuffle'] = shuffle_param
+
+    # Read the quiz questions from file
+    questions = read_quiz(quiz_name)
+    # Shuffle if desired
+    if session['shuffle']:
+         random.shuffle(questions)
+    # Save the list to session
+    session['questions'] = questions
+    return render_template('index.html', quiz_name=quiz_name, shuffle=shuffle_param)
 
 @app.route('/<quiz_name>/quiz/question', methods=['GET'])
 def quiz_question(quiz_name):
-    question_and_answer = get_random_question(quiz_name)
-    question = {
-        "question": question_and_answer["question"]
-    }
+    # Use the saved list of questions, if available.
+    questions = session.get('questions', [])
+    if questions:
+        # Get the next question from the list.
+        question_and_answer = questions.pop(0)
+        session['questions'] = questions  # update the session
+    else:
+        # Fallback to get a random question if the list is empty.
+        question_and_answer = get_random_question(quiz_name)
     ip = request.remote_addr
-    log_event(ip, f"Requested question from quiz '{quiz_name}': {question['question']}")
-    print(f"User asked for a question from {quiz_name}: {question}")
-    return jsonify(question)
+    log_event(ip, f"Requested question from quiz '{quiz_name}': {question_and_answer['question']}")
+    print(f"User asked for a question from {quiz_name}: {question_and_answer['question']}")
+    return jsonify({"question": question_and_answer["question"]})
 
 @app.route('/<quiz_name>/quiz/validate', methods=['POST'])
 def quiz_validate(quiz_name):
@@ -102,6 +118,23 @@ def quiz_finish(quiz_name):
     log_event(ip, f"Finished quiz '{quiz_name}' with {correct} correct out of {total} attempts")
     result = {'score': correct, 'total': total}
     return jsonify(result)
+
+# New route to toggle the shuffle setting
+@app.route('/<quiz_name>/toggle_shuffle', methods=['POST'])
+def toggle_shuffle(quiz_name):
+    # Toggle the current shuffle state (default True)
+    current = session.get('shuffle', True)
+    new_setting = not current
+    session['shuffle'] = new_setting
+
+    # Reload the quiz questions and shuffle them if needed
+    questions = read_quiz(quiz_name)
+    if new_setting:
+        random.shuffle(questions)
+    session['questions'] = questions
+
+    # Return the new shuffle state as confirmation
+    return jsonify({"shuffle": new_setting})
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5601)

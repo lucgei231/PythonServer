@@ -366,3 +366,187 @@
 2025-04-13 16:21:42.561810: Disconnected
 2025-04-13 16:21:42.617298: Connected
 2025-04-13 16:21:42.648868: Disconnected
+2025-04-13 16:23:47.114038: Connected
+2025-04-13 16:23:47.117862: Disconnected
+2025-04-13 16:23:47.214857: Connected
+2025-04-13 16:23:47.218890: Disconnected
+2025-04-13 16:23:47.267393: Connected
+2025-04-13 16:23:47.271534: Disconnected
+2025-04-13 16:23:47.905076: Connected
+2025-04-13 16:23:47.909439: Disconnected
+2025-04-13 16:23:47.975610: Connected
+2025-04-13 16:23:47.975610: Disconnected
+2025-04-13 16:23:48.015254: Connected
+2025-04-13 16:23:48.017296: Disconnected
+2025-04-13 16:23:48.128890: Connected
+2025-04-13 16:23:48.130993: Disconnected
+2025-04-13 16:23:48.198204: Connected
+2025-04-13 16:23:48.203002: Disconnected
+2025-04-13 16:23:48.240973: Connected
+2025-04-13 16:23:48.245374: Disconnected
+2025-04-13 16:23:48.366917: Connected
+2025-04-13 16:23:48.366917: Disconnected
+2025-04-13 16:23:48.449965: Connected
+2025-04-13 16:23:48.453506: Disconnected
+2025-04-13 16:23:48.486100: Connected
+2025-04-13 16:23:48.490095: Disconnected
+2025-04-13 16:23:48.559197: Connected
+2025-04-13 16:23:48.559197: Disconnected
+2025-04-13 16:23:48.636240: Connected
+2025-04-13 16:23:48.636240: Disconnected
+2025-04-13 16:23:48.670882: Connected
+2025-04-13 16:23:48.673881: Disconnected
+2025-04-13 16:23:48.777482: Connected
+2025-04-13 16:23:48.779675: Disconnected
+2025-04-13 16:23:48.848137: Connected
+2025-04-13 16:23:48.859421: Disconnected
+2025-04-13 16:23:48.887981: Connected
+2025-04-13 16:23:48.891013: Disconnected
+2025-04-13 16:25:24.697960: Connected
+2025-04-13 16:25:24.714381: Disconnected
+2025-04-13 16:25:24.805776: Connected
+2025-04-13 16:25:25.121240: Disconnected
+2025-04-13 16:25:25.193238: Connected
+2025-04-13 16:25:25.201231: Disconnected
+2025-04-13 16:26:55.844233: Connected
+2025-04-13 16:26:55.850510: Disconnected
+2025-04-13 16:26:56.017442: Connected
+2025-04-13 16:26:56.022437: Disconnected
+2025-04-13 16:26:56.152894: Connected
+2025-04-13 16:26:56.156703: Disconnected
+2025-04-13 16:26:57.913568: Connected
+2025-04-13 16:26:57.915158: Disconnected
+2025-04-13 16:26:58.001127: Connected
+2025-04-13 16:26:58.004138: Disconnected
+2025-04-13 16:26:58.020609: Connected
+2025-04-13 16:26:58.086037: Disconnected
+2025-04-13 16:26:58.105031: Connected
+2025-04-13 16:26:58.131648: Connected
+2025-04-13 16:26:58.133416: Requested question from quiz 'Minecraft Quiz': What do you trade with Villagers to get emeralds?
+2025-04-13 16:26:58.133416: Disconnected
+2025-04-13 16:26:58.133416: Disconnected
+2025-04-13 16:27:13.270425: Connected
+2025-04-13 16:27:13.273426: Disconnected
+2025-04-13 16:27:13.339293: Connected
+2025-04-13 16:27:13.343295: Disconnected
+2025-04-13 16:27:13.401150: Connected
+2025-04-13 16:27:13.406150: Disconnected
+2025-04-13 16:27:13.438153: Connected
+2025-04-13 16:27:13.441153: Requested question from quiz 'Minecraft Quiz': What plant can be used to make dye and tame ocelots?
+2025-04-13 16:27:13.443150: Disconnected
+2025-04-13 16:27:13.458593: Connected
+2025-04-13 16:27:13.464657: Disconnected
+2025-04-13 16:27:20.335858: Connected
+2025-04-13 16:27:20.337851: Submitted answer for question 'What plant can be used to make dye and tame ocelots?' with answer 'cocoad beans' in quiz 'Minecraft Quiz'
+2025-04-13 16:27:20.339849: Incorrect answer for question: 'What plant can be used to make dye and tame ocelots?'
+2025-04-13 16:27:20.341865: Disconnected
+2025-04-13 16:28:43.393265: Connected
+2025-04-13 16:28:43.395263: Disconnected
+2025-04-13 16:28:43.582807: Connected
+2025-04-13 16:28:43.585811: Disconnected
+2025-04-13 16:29:04.170674: Connected
+2025-04-13 16:29:04.172687: Disconnected
+2025-04-13 16:29:04.251078: Connected
+2025-04-13 16:29:04.267073: Disconnected
+2025-04-13 16:29:04.269165: Connected
+2025-04-13 16:29:04.272160: Disconnected
+2025-04-13 16:29:04.292176: Connected
+2025-04-13 16:29:04.295161: Requested question from quiz 'Minecraft Quiz': What plant can be used to make dye and tame ocelots?
+2025-04-13 16:29:04.298852: Disconnected
+2025-04-13 16:29:04.320918: Connected
+2025-04-13 16:29:04.322920: Disconnected
+2025-04-13 16:29:04.965841: Connected
+2025-04-13 16:29:04.965841: Disconnected
+2025-04-13 16:29:05.054591: Connected
+2025-04-13 16:29:05.057576: Disconnected
+2025-04-13 16:29:05.069206: Connected
+2025-04-13 16:29:05.073361: Disconnected
+2025-04-13 16:29:05.088978: Connected
+2025-04-13 16:29:05.091978: Requested question from quiz 'Minecraft Quiz': What food item restores the most hunger points?
+2025-04-13 16:29:05.093969: Disconnected
+2025-04-13 16:29:05.119524: Connected
+2025-04-13 16:29:05.121543: Disconnected
+2025-04-13 16:29:07.636662: Connected
+2025-04-13 16:29:07.640671: Disconnected
+2025-04-13 16:29:22.405693: Connected
+2025-04-13 16:29:22.407695: Submitted answer for question 'What food item restores the most hunger points?' with answer 'golden carrot' in quiz 'Minecraft Quiz'
+2025-04-13 16:29:22.409696: Incorrect answer for question: 'What food item restores the most hunger points?'
+2025-04-13 16:29:22.411690: Disconnected
+2025-04-13 16:29:28.269019: Connected
+2025-04-13 16:29:28.271006: Submitted answer for question 'What food item restores the most hunger points?' with answer 'steak' in quiz 'Minecraft Quiz'
+2025-04-13 16:29:28.273028: Correct answer for question: 'What food item restores the most hunger points?'
+2025-04-13 16:29:28.275011: Disconnected
+2025-04-13 16:29:29.792388: Connected
+2025-04-13 16:29:29.808162: Requested question from quiz 'Minecraft Quiz': What block cannot be broken in Survival mode?
+2025-04-13 16:29:29.808162: Disconnected
+2025-04-13 16:29:34.614904: Connected
+2025-04-13 16:29:34.616896: Submitted answer for question 'What block cannot be broken in Survival mode?' with answer 'bedrock' in quiz 'Minecraft Quiz'
+2025-04-13 16:29:34.619895: Correct answer for question: 'What block cannot be broken in Survival mode?'
+2025-04-13 16:29:34.622895: Disconnected
+2025-04-13 16:29:36.149062: Connected
+2025-04-13 16:29:36.157924: Requested question from quiz 'Minecraft Quiz': How many obsidian blocks are required to make an Enchantment Table?
+2025-04-13 16:29:36.157924: Disconnected
+2025-04-13 16:29:39.171616: Connected
+2025-04-13 16:29:39.171616: Submitted answer for question 'How many obsidian blocks are required to make an Enchantment Table?' with answer '4' in quiz 'Minecraft Quiz'
+2025-04-13 16:29:39.181658: Correct answer for question: 'How many obsidian blocks are required to make an Enchantment Table?'
+2025-04-13 16:29:39.184689: Disconnected
+2025-04-13 16:29:40.701006: Connected
+2025-04-13 16:29:40.710525: Requested question from quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair?
+2025-04-13 16:29:40.710525: Disconnected
+2025-04-13 16:29:44.855730: Connected
+2025-04-13 16:29:44.865336: Submitted answer for question 'What is the name of the default Minecraft character with brown hair?' with answer 'steve' in quiz 'Minecraft Quiz'
+2025-04-13 16:29:44.868334: Correct answer for question: 'What is the name of the default Minecraft character with brown hair?'
+2025-04-13 16:29:44.871338: Disconnected
+2025-04-13 16:29:46.377471: Connected
+2025-04-13 16:29:46.393634: Requested question from quiz 'Minecraft Quiz': What are you looking for when using a map to locate a Woodland Mansion?
+2025-04-13 16:29:46.393634: Disconnected
+2025-04-13 16:29:56.365209: Connected
+2025-04-13 16:29:56.365209: Submitted answer for question 'What are you looking for when using a map to locate a Woodland Mansion?' with answer 'roofed forest' in quiz 'Minecraft Quiz'
+2025-04-13 16:29:56.365209: Correct answer for question: 'What are you looking for when using a map to locate a Woodland Mansion?'
+2025-04-13 16:29:56.365209: Disconnected
+2025-04-13 16:29:57.896509: Connected
+2025-04-13 16:29:57.912352: Requested question from quiz 'Minecraft Quiz': What are you looking for when using a map to locate a Woodland Mansion?
+2025-04-13 16:29:57.912352: Disconnected
+2025-04-13 16:30:03.076736: Connected
+2025-04-13 16:30:03.076736: Submitted answer for question 'What are you looking for when using a map to locate a Woodland Mansion?' with answer 'roofed forest' in quiz 'Minecraft Quiz'
+2025-04-13 16:30:03.080921: Correct answer for question: 'What are you looking for when using a map to locate a Woodland Mansion?'
+2025-04-13 16:30:03.083934: Disconnected
+2025-04-13 16:30:04.591912: Connected
+2025-04-13 16:30:04.607861: Requested question from quiz 'Minecraft Quiz': Which enchantment makes tools and weapons last longer?
+2025-04-13 16:30:04.607861: Disconnected
+2025-04-13 16:30:15.352632: Connected
+2025-04-13 16:30:15.364093: Submitted answer for question 'Which enchantment makes tools and weapons last longer?' with answer 'unbreaking' in quiz 'Minecraft Quiz'
+2025-04-13 16:30:15.367123: Correct answer for question: 'Which enchantment makes tools and weapons last longer?'
+2025-04-13 16:30:15.370108: Disconnected
+2025-04-13 16:30:16.891005: Connected
+2025-04-13 16:30:16.892980: Requested question from quiz 'Minecraft Quiz': How many obsidian blocks are required to make an Enchantment Table?
+2025-04-13 16:30:16.896974: Disconnected
+2025-04-13 16:30:19.848878: Connected
+2025-04-13 16:30:19.850877: Submitted answer for question 'How many obsidian blocks are required to make an Enchantment Table?' with answer '4' in quiz 'Minecraft Quiz'
+2025-04-13 16:30:19.853883: Correct answer for question: 'How many obsidian blocks are required to make an Enchantment Table?'
+2025-04-13 16:30:19.855906: Disconnected
+2025-04-13 16:30:21.362172: Connected
+2025-04-13 16:30:21.378052: Requested question from quiz 'Minecraft Quiz': What is the Ender Dragon's main attack?
+2025-04-13 16:30:21.380576: Disconnected
+2025-04-13 16:33:38.835930: Connected
+2025-04-13 16:33:38.854104: Disconnected
+2025-04-13 16:33:38.977806: Connected
+2025-04-13 16:33:38.995522: Connected
+2025-04-13 16:33:39.458992: Disconnected
+2025-04-13 16:33:39.474059: Disconnected
+2025-04-13 16:33:39.495787: Connected
+2025-04-13 16:33:39.496783: Requested question from quiz 'Minecraft Quiz': What block can Redstone activate to make light?
+2025-04-13 16:33:39.506346: Disconnected
+2025-04-13 16:33:39.529348: Connected
+2025-04-13 16:33:39.533962: Disconnected
+2025-04-13 16:33:42.405531: Connected
+2025-04-13 16:33:42.407547: Disconnected
+2025-04-13 16:33:42.492978: Connected
+2025-04-13 16:33:42.498532: Disconnected
+2025-04-13 16:33:42.508996: Connected
+2025-04-13 16:33:42.518004: Disconnected
+2025-04-13 16:33:42.540006: Connected
+2025-04-13 16:33:42.543005: Requested question from quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair?
+2025-04-13 16:33:42.548014: Disconnected
+2025-04-13 16:33:42.563003: Connected
+2025-04-13 16:33:42.568260: Disconnected
