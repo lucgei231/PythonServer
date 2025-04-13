@@ -550,3 +550,165 @@
 2025-04-13 16:33:42.548014: Disconnected
 2025-04-13 16:33:42.563003: Connected
 2025-04-13 16:33:42.568260: Disconnected
+2025-04-13 16:37:23.283594: Connected
+2025-04-13 16:37:23.290707: Disconnected
+2025-04-13 16:37:23.391668: Connected
+2025-04-13 16:37:23.413514: Connected
+2025-04-13 16:37:23.909573: Disconnected
+2025-04-13 16:37:23.912575: Disconnected
+2025-04-13 16:37:23.926959: Connected
+2025-04-13 16:37:23.930973: Requested question from quiz 'Minecraft Quiz': What do Creepers drop when killed?
+2025-04-13 16:37:23.935724: Disconnected
+2025-04-13 16:37:23.956964: Connected
+2025-04-13 16:37:23.956964: Disconnected
+2025-04-13 16:37:26.485381: Connected
+2025-04-13 16:37:26.489404: Disconnected
+2025-04-13 16:37:26.567921: Connected
+2025-04-13 16:37:26.567921: Disconnected
+2025-04-13 16:37:26.582727: Connected
+2025-04-13 16:37:26.589852: Disconnected
+2025-04-13 16:37:26.610094: Connected
+2025-04-13 16:37:26.612101: Requested question from quiz 'Minecraft Quiz': What does the Potion of Invisibility do?
+2025-04-13 16:37:26.615103: Disconnected
+2025-04-13 16:37:26.635098: Connected
+2025-04-13 16:37:26.639106: Disconnected
+2025-04-13 16:37:51.241881: Connected
+2025-04-13 16:37:51.260320: Disconnected
+2025-04-13 16:37:51.361998: Connected
+2025-04-13 16:37:51.363998: Connected
+2025-04-13 16:37:51.681444: Disconnected
+2025-04-13 16:37:51.707804: Disconnected
+2025-04-13 16:37:51.727645: Connected
+2025-04-13 16:37:51.727645: Requested question from quiz 'Minecraft Quiz': How many blocks high is a Nether portal?
+2025-04-13 16:37:51.739935: Disconnected
+2025-04-13 16:37:51.758726: Connected
+2025-04-13 16:37:51.763023: Disconnected
+2025-04-13 16:37:53.521266: Connected
+2025-04-13 16:37:53.525268: Disconnected
+2025-04-13 16:37:53.620071: Connected
+2025-04-13 16:37:53.628586: Connected
+2025-04-13 16:37:53.628586: Disconnected
+2025-04-13 16:37:53.632471: Disconnected
+2025-04-13 16:37:53.726560: Connected
+2025-04-13 16:37:53.728561: Requested question from quiz 'Minecraft Quiz': What tool do you need to mine stone?
+2025-04-13 16:37:53.765931: Disconnected
+2025-04-13 16:37:53.822208: Connected
+2025-04-13 16:37:53.828205: Disconnected
+2025-04-13 16:37:55.135642: Connected
+2025-04-13 16:37:55.135642: Disconnected
+2025-04-13 16:37:55.218267: Connected
+2025-04-13 16:37:55.234934: Disconnected
+2025-04-13 16:37:55.237937: Connected
+2025-04-13 16:37:55.243744: Disconnected
+2025-04-13 16:37:55.272112: Connected
+2025-04-13 16:37:55.274110: Requested question from quiz 'Minecraft Quiz': What are you looking for when using a map to locate a Woodland Mansion?
+2025-04-13 16:37:55.279114: Disconnected
+2025-04-13 16:37:55.293367: Connected
+2025-04-13 16:37:55.293367: Disconnected
+2025-04-13 16:38:53.953134: Connected
+2025-04-13 16:38:53.974690: Disconnected
+2025-04-13 16:38:54.078758: Connected
+2025-04-13 16:38:54.088397: Connected
+2025-04-13 16:38:54.579306: Disconnected
+2025-04-13 16:38:54.603824: Disconnected
+2025-04-13 16:38:54.623852: Connected
+2025-04-13 16:38:54.623852: Requested question from quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair?
+2025-04-13 16:38:54.623852: Disconnected
+2025-04-13 16:38:54.648613: Connected
+2025-04-13 16:38:54.654295: Disconnected
+2025-04-13 16:38:56.075746: Connected
+2025-04-13 16:38:56.075746: Disconnected
+2025-04-13 16:38:56.168751: Connected
+2025-04-13 16:38:56.177838: Connected
+2025-04-13 16:38:56.177838: Disconnected
+2025-04-13 16:38:56.181639: Disconnected
+2025-04-13 16:38:56.204041: Connected
+2025-04-13 16:38:56.206036: Requested question from quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair?
+2025-04-13 16:38:56.215041: Disconnected
+2025-04-13 16:38:56.232456: Connected
+2025-04-13 16:38:56.237526: Disconnected
+2025-04-13 16:39:00.135138: Connected
+2025-04-13 16:39:00.137171: Submitted answer for question 'What is the name of the default Minecraft character with brown hair?' with answer 'steve' in quiz 'Minecraft Quiz'
+2025-04-13 16:39:00.140166: Correct answer for question: 'What is the name of the default Minecraft character with brown hair?'
+2025-04-13 16:39:00.143156: Disconnected
+2025-04-13 16:39:01.661096: Connected
+2025-04-13 16:39:01.661096: Requested question from quiz 'Minecraft Quiz': Quiz file not found
+2025-04-13 16:39:01.677046: Disconnected
+2025-04-13 16:39:33.050150: Connected
+2025-04-13 16:39:33.054143: Disconnected
+2025-04-13 16:39:33.143709: Connected
+2025-04-13 16:39:33.147745: Disconnected
+2025-04-13 16:39:33.161379: Connected
+2025-04-13 16:39:33.168030: Disconnected
+2025-04-13 16:39:33.203531: Connected
+2025-04-13 16:39:33.205536: Requested question from quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair?
+2025-04-13 16:39:33.210535: Disconnected
+2025-04-13 16:39:33.233186: Connected
+2025-04-13 16:39:33.239024: Disconnected
+2025-04-13 16:39:37.004880: Connected
+2025-04-13 16:39:37.005879: Submitted answer for question 'What is the name of the default Minecraft character with brown hair?' with answer 'steve' in quiz 'Minecraft Quiz'
+2025-04-13 16:39:37.008913: Correct answer for question: 'What is the name of the default Minecraft character with brown hair?'
+2025-04-13 16:39:37.010876: Disconnected
+2025-04-13 16:39:38.526989: Connected
+2025-04-13 16:39:38.526989: Requested question from quiz 'Minecraft Quiz': Quiz file not found
+2025-04-13 16:39:38.534722: Disconnected
+2025-04-13 16:39:39.936809: Connected
+2025-04-13 16:39:39.940806: Disconnected
+2025-04-13 16:39:41.237502: Connected
+2025-04-13 16:39:41.242986: Disconnected
+2025-04-13 16:39:41.324203: Connected
+2025-04-13 16:39:41.324203: Disconnected
+2025-04-13 16:39:41.376625: Connected
+2025-04-13 16:39:41.381393: Disconnected
+2025-04-13 16:39:41.399935: Connected
+2025-04-13 16:39:41.405935: Requested question from quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair?
+2025-04-13 16:39:41.411942: Disconnected
+2025-04-13 16:39:41.432138: Connected
+2025-04-13 16:39:41.437795: Disconnected
+2025-04-13 16:39:45.383401: Connected
+2025-04-13 16:39:45.387911: Submitted answer for question 'What is the name of the default Minecraft character with brown hair?' with answer 'steve' in quiz 'Minecraft Quiz'
+2025-04-13 16:39:45.391906: Correct answer for question: 'What is the name of the default Minecraft character with brown hair?'
+2025-04-13 16:39:45.394907: Disconnected
+2025-04-13 16:39:46.913300: Connected
+2025-04-13 16:39:46.913300: Requested question from quiz 'Minecraft Quiz': Quiz file not found
+2025-04-13 16:39:46.913300: Disconnected
+2025-04-13 16:41:21.723858: Connected
+2025-04-13 16:41:21.736340: Disconnected
+2025-04-13 16:41:24.248127: Connected
+2025-04-13 16:41:24.248127: Disconnected
+2025-04-13 16:42:54.651622: Connected
+2025-04-13 16:42:54.655434: Disconnected
+2025-04-13 16:43:46.341493: Connected
+2025-04-13 16:43:46.358559: Disconnected
+2025-04-13 16:43:46.488599: Connected
+2025-04-13 16:43:46.498154: Connected
+2025-04-13 16:43:46.979945: Disconnected
+2025-04-13 16:43:46.999428: Disconnected
+2025-04-13 16:43:47.029100: Connected
+2025-04-13 16:43:47.030097: Requested question from quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair?
+2025-04-13 16:43:47.035096: Disconnected
+2025-04-13 16:43:47.050351: Connected
+2025-04-13 16:43:47.053139: Disconnected
+2025-04-13 16:43:50.664214: Connected
+2025-04-13 16:43:50.666215: Submitted answer for question 'What is the name of the default Minecraft character with brown hair?' with answer 'steve' in quiz 'Minecraft Quiz'
+2025-04-13 16:43:50.670552: Correct answer for question: 'What is the name of the default Minecraft character with brown hair?'
+2025-04-13 16:43:50.674689: Disconnected
+2025-04-13 16:43:52.196764: Connected
+2025-04-13 16:43:52.212891: Requested question from quiz 'Minecraft Quiz': What item is needed to craft a crafting table?
+2025-04-13 16:43:52.212891: Disconnected
+2025-04-13 16:43:56.742050: Connected
+2025-04-13 16:43:56.742050: Submitted answer for question 'What item is needed to craft a crafting table?' with answer 'wood' in quiz 'Minecraft Quiz'
+2025-04-13 16:43:56.742050: Incorrect answer for question: 'What item is needed to craft a crafting table?'
+2025-04-13 16:43:56.753400: Disconnected
+2025-04-13 16:43:59.550791: Connected
+2025-04-13 16:43:59.551800: Submitted answer for question 'What item is needed to craft a crafting table?' with answer 'planks' in quiz 'Minecraft Quiz'
+2025-04-13 16:43:59.555047: Incorrect answer for question: 'What item is needed to craft a crafting table?'
+2025-04-13 16:43:59.555047: Disconnected
+2025-04-13 16:44:07.589501: Connected
+2025-04-13 16:44:07.591521: Submitted answer for question 'What item is needed to craft a crafting table?' with answer 'wooden planks' in quiz 'Minecraft Quiz'
+2025-04-13 16:44:07.594498: Incorrect answer for question: 'What item is needed to craft a crafting table?'
+2025-04-13 16:44:07.598494: Disconnected
+2025-04-13 16:44:11.356639: Connected
+2025-04-13 16:44:11.356639: Submitted answer for question 'What item is needed to craft a crafting table?' with answer 'oak planks' in quiz 'Minecraft Quiz'
+2025-04-13 16:44:11.371712: Incorrect answer for question: 'What item is needed to craft a crafting table?'
+2025-04-13 16:44:11.378713: Disconnected

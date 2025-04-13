@@ -51,7 +51,7 @@ def quiz_index(quiz_name):
     session['total_attempt'] = 0
     session['quiz_name'] = quiz_name
     # Get the toggle from a query parameter; default is True (shuffle questions)
-    shuffle_param = request.args.get('shuffle', 'true').lower() == 'true'
+    shuffle_param = request.args.get('shuffle', 'false').lower() == 'true'
     session['shuffle'] = shuffle_param
 
     # Read the quiz questions from file
@@ -123,7 +123,7 @@ def quiz_finish(quiz_name):
 @app.route('/<quiz_name>/toggle_shuffle', methods=['POST'])
 def toggle_shuffle(quiz_name):
     # Toggle the current shuffle state (default True)
-    current = session.get('shuffle', True)
+    current = session.get('shuffle', False)
     new_setting = not current
     session['shuffle'] = new_setting
 
