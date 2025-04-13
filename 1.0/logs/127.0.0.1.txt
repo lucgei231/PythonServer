@@ -712,3 +712,194 @@
 2025-04-13 16:44:11.356639: Submitted answer for question 'What item is needed to craft a crafting table?' with answer 'oak planks' in quiz 'Minecraft Quiz'
 2025-04-13 16:44:11.371712: Incorrect answer for question: 'What item is needed to craft a crafting table?'
 2025-04-13 16:44:11.378713: Disconnected
+2025-04-13 16:44:45.037677: Connected
+2025-04-13 16:44:45.039692: Submitted answer for question 'What item is needed to craft a crafting table?' with answer '4 wooden planks' in quiz 'Minecraft Quiz'
+2025-04-13 16:44:45.042690: Correct answer for question: 'What item is needed to craft a crafting table?'
+2025-04-13 16:44:45.046692: Disconnected
+2025-04-13 16:44:46.565677: Connected
+2025-04-13 16:44:46.565677: Requested question from quiz 'Minecraft Quiz': What material do you use to craft a diamond pickaxe?
+2025-04-13 16:44:46.565677: Disconnected
+2025-04-13 16:44:56.805591: Connected
+2025-04-13 16:44:56.805591: Submitted answer for question 'What material do you use to craft a diamond pickaxe?' with answer '3 diamonds and 2 sticks' in quiz 'Minecraft Quiz'
+2025-04-13 16:44:56.820121: Correct answer for question: 'What material do you use to craft a diamond pickaxe?'
+2025-04-13 16:44:56.823923: Disconnected
+2025-04-13 16:44:58.338663: Connected
+2025-04-13 16:44:58.338663: Requested question from quiz 'Minecraft Quiz': What is the rarest ore in the Overworld?
+2025-04-13 16:44:58.350555: Disconnected
+2025-04-13 16:45:03.511282: Connected
+2025-04-13 16:45:03.513288: Submitted answer for question 'What is the rarest ore in the Overworld?' with answer 'emerald' in quiz 'Minecraft Quiz'
+2025-04-13 16:45:03.517283: Correct answer for question: 'What is the rarest ore in the Overworld?'
+2025-04-13 16:45:03.520282: Disconnected
+2025-04-13 16:45:05.032882: Connected
+2025-04-13 16:45:05.048660: Requested question from quiz 'Minecraft Quiz': How many blocks high is a Nether portal?
+2025-04-13 16:45:05.053543: Disconnected
+2025-04-13 16:45:07.124123: Connected
+2025-04-13 16:45:07.124123: Submitted answer for question 'How many blocks high is a Nether portal?' with answer '5' in quiz 'Minecraft Quiz'
+2025-04-13 16:45:07.124123: Correct answer for question: 'How many blocks high is a Nether portal?'
+2025-04-13 16:45:07.137163: Disconnected
+2025-04-13 16:45:08.650655: Connected
+2025-04-13 16:45:08.666367: Requested question from quiz 'Minecraft Quiz': What do Creepers drop when killed?
+2025-04-13 16:45:08.666367: Disconnected
+2025-04-13 16:45:12.588863: Connected
+2025-04-13 16:45:12.590862: Submitted answer for question 'What do Creepers drop when killed?' with answer 'gunpowder' in quiz 'Minecraft Quiz'
+2025-04-13 16:45:12.594866: Correct answer for question: 'What do Creepers drop when killed?'
+2025-04-13 16:45:12.596893: Disconnected
+2025-04-13 16:45:14.117126: Connected
+2025-04-13 16:45:14.117126: Requested question from quiz 'Minecraft Quiz': What is the Ender Dragon's main attack?
+2025-04-13 16:45:14.133044: Disconnected
+2025-04-13 16:45:23.056477: Connected
+2025-04-13 16:45:23.056477: Submitted answer for question 'What is the Ender Dragon's main attack?' with answer 'dragons breath' in quiz 'Minecraft Quiz'
+2025-04-13 16:45:23.056477: Correct answer for question: 'What is the Ender Dragon's main attack?'
+2025-04-13 16:45:23.056477: Disconnected
+2025-04-13 16:45:24.581823: Connected
+2025-04-13 16:45:24.581823: Requested question from quiz 'Minecraft Quiz': What food item restores the most hunger points?
+2025-04-13 16:45:24.597601: Disconnected
+2025-04-13 16:45:33.252438: Connected
+2025-04-13 16:45:33.252438: Submitted answer for question 'What food item restores the most hunger points?' with answer 'steak' in quiz 'Minecraft Quiz'
+2025-04-13 16:45:33.257735: Correct answer for question: 'What food item restores the most hunger points?'
+2025-04-13 16:45:33.261767: Disconnected
+2025-04-13 16:45:34.782139: Connected
+2025-04-13 16:45:34.782139: Requested question from quiz 'Minecraft Quiz': How many obsidian blocks are required to make an Enchantment Table?
+2025-04-13 16:45:34.797808: Disconnected
+2025-04-13 16:45:38.759994: Connected
+2025-04-13 16:45:38.762026: Submitted answer for question 'How many obsidian blocks are required to make an Enchantment Table?' with answer '5' in quiz 'Minecraft Quiz'
+2025-04-13 16:45:38.762026: Incorrect answer for question: 'How many obsidian blocks are required to make an Enchantment Table?'
+2025-04-13 16:45:38.762026: Disconnected
+2025-04-13 16:45:41.290154: Connected
+2025-04-13 16:45:41.291146: Submitted answer for question 'How many obsidian blocks are required to make an Enchantment Table?' with answer '4' in quiz 'Minecraft Quiz'
+2025-04-13 16:45:41.294142: Correct answer for question: 'How many obsidian blocks are required to make an Enchantment Table?'
+2025-04-13 16:45:41.296143: Disconnected
+2025-04-13 16:45:42.818745: Connected
+2025-04-13 16:45:42.818745: Requested question from quiz 'Minecraft Quiz': Which mob can be tamed using bones?
+2025-04-13 16:45:42.818745: Disconnected
+2025-04-13 16:45:45.921668: Connected
+2025-04-13 16:45:45.923688: Submitted answer for question 'Which mob can be tamed using bones?' with answer 'wolf' in quiz 'Minecraft Quiz'
+2025-04-13 16:45:45.926698: Correct answer for question: 'Which mob can be tamed using bones?'
+2025-04-13 16:45:45.930712: Disconnected
+2025-04-13 16:45:47.458220: Connected
+2025-04-13 16:45:47.465349: Requested question from quiz 'Minecraft Quiz': What tool do you need to mine stone?
+2025-04-13 16:45:47.470606: Disconnected
+2025-04-13 16:45:51.715455: Connected
+2025-04-13 16:45:51.715455: Submitted answer for question 'What tool do you need to mine stone?' with answer 'pickaxe' in quiz 'Minecraft Quiz'
+2025-04-13 16:45:51.721459: Correct answer for question: 'What tool do you need to mine stone?'
+2025-04-13 16:45:51.725509: Disconnected
+2025-04-13 16:45:53.234085: Connected
+2025-04-13 16:45:53.234085: Requested question from quiz 'Minecraft Quiz': What are you looking for when using a map to locate a Woodland Mansion?
+2025-04-13 16:45:53.249905: Disconnected
+2025-04-13 16:46:02.914177: Connected
+2025-04-13 16:46:02.914177: Submitted answer for question 'What are you looking for when using a map to locate a Woodland Mansion?' with answer 'roofed forest' in quiz 'Minecraft Quiz'
+2025-04-13 16:46:02.922627: Correct answer for question: 'What are you looking for when using a map to locate a Woodland Mansion?'
+2025-04-13 16:46:02.925619: Disconnected
+2025-04-13 16:46:04.433952: Connected
+2025-04-13 16:46:04.433952: Requested question from quiz 'Minecraft Quiz': What is the maximum level of enchantments using an enchanting table?
+2025-04-13 16:46:04.449802: Disconnected
+2025-04-13 16:46:20.377541: Connected
+2025-04-13 16:46:20.379561: Submitted answer for question 'What is the maximum level of enchantments using an enchanting table?' with answer '20' in quiz 'Minecraft Quiz'
+2025-04-13 16:46:20.382558: Incorrect answer for question: 'What is the maximum level of enchantments using an enchanting table?'
+2025-04-13 16:46:20.385540: Disconnected
+2025-04-13 16:46:32.411293: Connected
+2025-04-13 16:46:32.411293: Submitted answer for question 'What is the maximum level of enchantments using an enchanting table?' with answer '40' in quiz 'Minecraft Quiz'
+2025-04-13 16:46:32.422905: Incorrect answer for question: 'What is the maximum level of enchantments using an enchanting table?'
+2025-04-13 16:46:32.424901: Disconnected
+2025-04-13 16:46:34.857871: Connected
+2025-04-13 16:46:34.859868: Submitted answer for question 'What is the maximum level of enchantments using an enchanting table?' with answer '30' in quiz 'Minecraft Quiz'
+2025-04-13 16:46:34.862911: Correct answer for question: 'What is the maximum level of enchantments using an enchanting table?'
+2025-04-13 16:46:34.865911: Disconnected
+2025-04-13 16:46:36.382082: Connected
+2025-04-13 16:46:36.398109: Requested question from quiz 'Minecraft Quiz': What is the name of the dimension you reach by entering a portal made of end portal frames?
+2025-04-13 16:46:36.398109: Disconnected
+2025-04-13 16:46:39.644952: Connected
+2025-04-13 16:46:39.653930: Submitted answer for question 'What is the name of the dimension you reach by entering a portal made of end portal frames?' with answer 'end' in quiz 'Minecraft Quiz'
+2025-04-13 16:46:39.657487: Correct answer for question: 'What is the name of the dimension you reach by entering a portal made of end portal frames?'
+2025-04-13 16:46:39.660497: Disconnected
+2025-04-13 16:46:41.169857: Connected
+2025-04-13 16:46:41.169857: Requested question from quiz 'Minecraft Quiz': What block cannot be broken in Survival mode?
+2025-04-13 16:46:41.183739: Disconnected
+2025-04-13 16:46:46.114279: Connected
+2025-04-13 16:46:46.116289: Submitted answer for question 'What block cannot be broken in Survival mode?' with answer 'bedrock' in quiz 'Minecraft Quiz'
+2025-04-13 16:46:46.116289: Correct answer for question: 'What block cannot be broken in Survival mode?'
+2025-04-13 16:46:46.123075: Disconnected
+2025-04-13 16:46:47.638949: Connected
+2025-04-13 16:46:47.638949: Requested question from quiz 'Minecraft Quiz': What plant can be used to make dye and tame ocelots?
+2025-04-13 16:46:47.654645: Disconnected
+2025-04-13 16:46:52.044987: Connected
+2025-04-13 16:46:52.046984: Submitted answer for question 'What plant can be used to make dye and tame ocelots?' with answer 'cocoa beans' in quiz 'Minecraft Quiz'
+2025-04-13 16:46:52.049994: Correct answer for question: 'What plant can be used to make dye and tame ocelots?'
+2025-04-13 16:46:52.052975: Disconnected
+2025-04-13 16:46:53.579076: Connected
+2025-04-13 16:46:53.581096: Requested question from quiz 'Minecraft Quiz': What does the Potion of Invisibility do?
+2025-04-13 16:46:53.585273: Disconnected
+2025-04-13 16:46:57.355384: Connected
+2025-04-13 16:46:57.355384: Submitted answer for question 'What does the Potion of Invisibility do?' with answer 'invisible' in quiz 'Minecraft Quiz'
+2025-04-13 16:46:57.368460: Correct answer for question: 'What does the Potion of Invisibility do?'
+2025-04-13 16:46:57.371065: Disconnected
+2025-04-13 16:46:58.885035: Connected
+2025-04-13 16:46:58.885035: Requested question from quiz 'Minecraft Quiz': What block can Redstone activate to make light?
+2025-04-13 16:46:58.885035: Disconnected
+2025-04-13 16:47:05.423099: Connected
+2025-04-13 16:47:05.425103: Submitted answer for question 'What block can Redstone activate to make light?' with answer 'redstone lamp' in quiz 'Minecraft Quiz'
+2025-04-13 16:47:05.428100: Correct answer for question: 'What block can Redstone activate to make light?'
+2025-04-13 16:47:05.431096: Disconnected
+2025-04-13 16:47:06.953927: Connected
+2025-04-13 16:47:06.956023: Requested question from quiz 'Minecraft Quiz': What hostile mob is only found underwater?
+2025-04-13 16:47:06.956023: Disconnected
+2025-04-13 16:48:13.192132: Connected
+2025-04-13 16:48:13.192132: Submitted answer for question 'What hostile mob is only found underwater?' with answer 'drowned' in quiz 'Minecraft Quiz'
+2025-04-13 16:48:13.200771: Incorrect answer for question: 'What hostile mob is only found underwater?'
+2025-04-13 16:48:13.202790: Disconnected
+2025-04-13 16:49:14.680004: Connected
+2025-04-13 16:49:14.682003: Submitted answer for question 'What hostile mob is only found underwater?' with answer 'guardian' in quiz 'Minecraft Quiz'
+2025-04-13 16:49:14.685993: Correct answer for question: 'What hostile mob is only found underwater?'
+2025-04-13 16:49:14.689324: Disconnected
+2025-04-13 16:49:16.204526: Connected
+2025-04-13 16:49:16.204526: Requested question from quiz 'Minecraft Quiz': What is the name of the biome with large mushrooms?
+2025-04-13 16:49:16.204526: Disconnected
+2025-04-13 16:49:25.208019: Connected
+2025-04-13 16:49:25.208019: Submitted answer for question 'What is the name of the biome with large mushrooms?' with answer 'mushroom fields' in quiz 'Minecraft Quiz'
+2025-04-13 16:49:25.208019: Correct answer for question: 'What is the name of the biome with large mushrooms?'
+2025-04-13 16:49:25.226143: Disconnected
+2025-04-13 16:49:26.745602: Connected
+2025-04-13 16:49:26.746607: Requested question from quiz 'Minecraft Quiz': Which enchantment makes tools and weapons last longer?
+2025-04-13 16:49:26.748601: Disconnected
+2025-04-13 16:49:31.074212: Connected
+2025-04-13 16:49:31.076194: Submitted answer for question 'Which enchantment makes tools and weapons last longer?' with answer 'unbreaking' in quiz 'Minecraft Quiz'
+2025-04-13 16:49:31.079182: Correct answer for question: 'Which enchantment makes tools and weapons last longer?'
+2025-04-13 16:49:31.081199: Disconnected
+2025-04-13 16:49:32.596332: Connected
+2025-04-13 16:49:32.597296: Requested question from quiz 'Minecraft Quiz': How many hearts does the player have in Survival mode?
+2025-04-13 16:49:32.599317: Disconnected
+2025-04-13 16:49:42.339648: Connected
+2025-04-13 16:49:42.346089: Submitted answer for question 'How many hearts does the player have in Survival mode?' with answer '10' in quiz 'Minecraft Quiz'
+2025-04-13 16:49:42.346089: Correct answer for question: 'How many hearts does the player have in Survival mode?'
+2025-04-13 16:49:42.346089: Disconnected
+2025-04-13 16:49:43.884179: Connected
+2025-04-13 16:49:43.886202: Requested question from quiz 'Minecraft Quiz': What is the name of the achievement for defeating the Ender Dragon?
+2025-04-13 16:49:43.888248: Disconnected
+2025-04-13 16:49:50.692269: Connected
+2025-04-13 16:49:50.706856: Submitted answer for question 'What is the name of the achievement for defeating the Ender Dragon?' with answer 'free the end' in quiz 'Minecraft Quiz'
+2025-04-13 16:49:50.710877: Correct answer for question: 'What is the name of the achievement for defeating the Ender Dragon?'
+2025-04-13 16:49:50.714877: Disconnected
+2025-04-13 16:49:52.238599: Connected
+2025-04-13 16:49:52.238599: Requested question from quiz 'Minecraft Quiz': What do you trade with Villagers to get emeralds?
+2025-04-13 16:49:52.254690: Disconnected
+2025-04-13 16:50:09.811706: Connected
+2025-04-13 16:50:09.813699: Submitted answer for question 'What do you trade with Villagers to get emeralds?' with answer 'paper' in quiz 'Minecraft Quiz'
+2025-04-13 16:50:09.817703: Correct answer for question: 'What do you trade with Villagers to get emeralds?'
+2025-04-13 16:50:09.821701: Disconnected
+2025-04-13 16:50:11.338411: Connected
+2025-04-13 16:50:11.354100: Requested question from quiz 'Minecraft Quiz': What do Creepers drop when killed?
+2025-04-13 16:50:11.354100: Disconnected
+2025-04-13 16:50:19.031601: Connected
+2025-04-13 16:50:19.031601: Submitted answer for question 'What do Creepers drop when killed?' with answer 'gunpowder' in quiz 'Minecraft Quiz'
+2025-04-13 16:50:19.042813: Correct answer for question: 'What do Creepers drop when killed?'
+2025-04-13 16:50:19.045799: Disconnected
+2025-04-13 16:50:20.565500: Connected
+2025-04-13 16:50:20.569312: Requested question from quiz 'Minecraft Quiz': What are you looking for when using a map to locate a Woodland Mansion?
+2025-04-13 16:50:20.569312: Disconnected
+2025-04-13 16:50:31.941348: Connected
+2025-04-13 16:50:31.943359: Submitted answer for question 'What are you looking for when using a map to locate a Woodland Mansion?' with answer 'roofed forest' in quiz 'Minecraft Quiz'
+2025-04-13 16:50:31.946341: Correct answer for question: 'What are you looking for when using a map to locate a Woodland Mansion?'
+2025-04-13 16:50:31.949358: Disconnected
+2025-04-13 16:50:33.469734: Connected
+2025-04-13 16:50:33.485754: Requested question from quiz 'Minecraft Quiz': What material do you use to craft a diamond pickaxe?
+2025-04-13 16:50:33.489335: Disconnected
