@@ -65,21 +65,32 @@ def quiz_index(quiz_name):
     session['questions'] = questions
     return render_template('index.html', quiz_name=quiz_name, shuffle=shuffle_param)
 
+# Function to store the current question for each IP
 @app.route('/<quiz_name>/quiz/question', methods=['GET'])
 def quiz_question(quiz_name):
-    # Use the saved list of questions, if available.
     questions = session.get('questions', [])
-    if questions:
-        # Get the next question from the list.
-        question_and_answer = questions.pop(0)
-        session['questions'] = questions  # update the session
-    else:
-        # Fallback to get a random question if the list is empty.
-        question_and_answer = get_random_question(quiz_name)
     ip = request.remote_addr
-    log_event(ip, f"Requested question from quiz '{quiz_name}': {question_and_answer['question']}")
-    print(f"User asked for a question from {quiz_name}: {question_and_answer['question']}")
-    return jsonify({"question": question_and_answer["question"]})
+
+    if questions:
+        question_and_answer = questions.pop(0)
+        session['questions'] = questions
+
+        # Save the current question to a JSON file
+        question_dir = os.path.join(os.path.dirname(__file__), "non_static", "question")
+        if not os.path.exists(question_dir):
+            os.makedirs(question_dir)
+
+        question_file = os.path.join(question_dir, f"{quiz_name}.json")
+        with open(question_file, "w", encoding="utf-8") as f:
+            json.dump({ip: question_and_answer["question"]}, f)
+
+        log_event(ip, f"Requested question from quiz '{quiz_name}': {question_and_answer['question']}")
+        return jsonify({"question": question_and_answer["question"]})
+
+    else:
+        question_and_answer = get_random_question(quiz_name)
+        log_event(ip, f"Requested question from quiz '{quiz_name}': {question_and_answer['question']}")
+        return jsonify({"question": question_and_answer["question"]})
 
 @app.route('/<quiz_name>/quiz/validate', methods=['POST'])
 def quiz_validate(quiz_name):
@@ -117,6 +128,18 @@ def quiz_finish(quiz_name):
     correct = session.get('correct_count', 0)
     total = session.get('total_attempt', 0)
     ip = request.remote_addr
+
+    # Remove the current question tracking for the IP
+    question_dir = os.path.join(os.path.dirname(__file__), "non_static", "question")
+    question_file = os.path.join(question_dir, f"{quiz_name}.json")
+    if os.path.exists(question_file):
+        with open(question_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if ip in data:
+            del data[ip]
+        with open(question_file, "w", encoding="utf-8") as f:
+            json.dump(data, f)
+
     log_event(ip, f"Finished quiz '{quiz_name}' with {correct} correct out of {total} attempts")
     result = {'score': correct, 'total': total}
     return jsonify(result)
