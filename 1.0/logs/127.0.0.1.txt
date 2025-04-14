@@ -903,3 +903,121 @@
 2025-04-13 16:50:33.469734: Connected
 2025-04-13 16:50:33.485754: Requested question from quiz 'Minecraft Quiz': What material do you use to craft a diamond pickaxe?
 2025-04-13 16:50:33.489335: Disconnected
+2025-04-14 19:37:05.985376: Connected
+2025-04-14 19:37:06.076568: Disconnected
+2025-04-14 19:37:06.164483: Connected
+2025-04-14 19:37:06.213601: Connected
+2025-04-14 19:37:06.839246: Disconnected
+2025-04-14 19:37:06.878433: Disconnected
+2025-04-14 19:37:06.912467: Connected
+2025-04-14 19:37:06.913451: Requested question from quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair?
+2025-04-14 19:37:06.918724: Disconnected
+2025-04-14 19:37:07.089131: Connected
+2025-04-14 19:37:07.091131: Disconnected
+2025-04-14 19:56:49.466654: Connected
+2025-04-14 19:56:49.498024: Disconnected
+2025-04-14 19:56:50.023761: Connected
+2025-04-14 19:56:50.040972: Disconnected
+2025-04-14 19:56:58.264451: Connected
+2025-04-14 19:56:58.286035: Disconnected
+2025-04-14 19:56:58.459478: Connected
+2025-04-14 19:56:58.461501: Disconnected
+2025-04-14 19:56:58.733916: Connected
+2025-04-14 19:56:58.762111: Disconnected
+2025-04-14 19:56:58.868642: Connected
+2025-04-14 19:56:58.868642: Disconnected
+2025-04-14 19:56:59.026683: Connected
+2025-04-14 19:56:59.040822: Requested question from quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair?
+2025-04-14 19:56:59.042564: Disconnected
+2025-04-14 19:57:04.317405: Connected
+2025-04-14 19:57:04.317405: Submitted answer for question 'What is the name of the default Minecraft character with brown hair?' with answer 'steve' in quiz 'Minecraft Quiz'
+2025-04-14 19:57:04.321439: Correct answer for question: 'What is the name of the default Minecraft character with brown hair?'
+2025-04-14 19:57:04.325465: Disconnected
+2025-04-14 19:57:05.976633: Connected
+2025-04-14 19:57:05.976633: Requested question from quiz 'Minecraft Quiz': What item is needed to craft a crafting table?
+2025-04-14 19:57:05.976633: Disconnected
+2025-04-14 19:57:10.366841: Connected
+2025-04-14 19:57:10.366841: Submitted answer for question 'What item is needed to craft a crafting table?' with answer 'wood' in quiz 'Minecraft Quiz'
+2025-04-14 19:57:10.372244: Incorrect answer for question: 'What item is needed to craft a crafting table?'
+2025-04-14 19:57:10.374255: Disconnected
+2025-04-14 19:57:13.124974: Connected
+2025-04-14 19:57:13.126718: Submitted answer for question 'What item is needed to craft a crafting table?' with answer 'planks' in quiz 'Minecraft Quiz'
+2025-04-14 19:57:13.126718: Incorrect answer for question: 'What item is needed to craft a crafting table?'
+2025-04-14 19:57:13.132866: Disconnected
+2025-04-14 19:57:17.036047: Connected
+2025-04-14 19:57:17.036047: Submitted answer for question 'What item is needed to craft a crafting table?' with answer 'wooden planks' in quiz 'Minecraft Quiz'
+2025-04-14 19:57:17.036047: Incorrect answer for question: 'What item is needed to craft a crafting table?'
+2025-04-14 19:57:17.048589: Disconnected
+2025-04-14 19:57:24.694054: Connected
+2025-04-14 19:57:24.696069: Submitted answer for question 'What item is needed to craft a crafting table?' with answer '4 planks' in quiz 'Minecraft Quiz'
+2025-04-14 19:57:24.698083: Incorrect answer for question: 'What item is needed to craft a crafting table?'
+2025-04-14 19:57:24.700098: Disconnected
+2025-04-14 19:57:30.690798: Connected
+2025-04-14 19:57:30.690798: Submitted answer for question 'What item is needed to craft a crafting table?' with answer '4 wooden planks' in quiz 'Minecraft Quiz'
+2025-04-14 19:57:30.696099: Correct answer for question: 'What item is needed to craft a crafting table?'
+2025-04-14 19:57:30.696099: Disconnected
+2025-04-14 19:57:32.348815: Connected
+2025-04-14 19:57:32.348815: Requested question from quiz 'Minecraft Quiz': What material do you use to craft a diamond pickaxe?
+2025-04-14 19:57:32.352837: Disconnected
+2025-04-14 19:57:37.068692: Connected
+2025-04-14 19:57:37.068692: Submitted answer for question 'What material do you use to craft a diamond pickaxe?' with answer 'diamond' in quiz 'Minecraft Quiz'
+2025-04-14 19:57:37.068692: Incorrect answer for question: 'What material do you use to craft a diamond pickaxe?'
+2025-04-14 19:57:37.073209: Disconnected
+2025-04-14 19:57:40.142037: Connected
+2025-04-14 19:57:40.142037: Submitted answer for question 'What material do you use to craft a diamond pickaxe?' with answer 'diamonds' in quiz 'Minecraft Quiz'
+2025-04-14 19:57:40.142037: Incorrect answer for question: 'What material do you use to craft a diamond pickaxe?'
+2025-04-14 19:57:40.150797: Disconnected
+2025-04-14 19:57:41.307642: Connected
+2025-04-14 19:57:41.307642: Submitted answer for question 'What material do you use to craft a diamond pickaxe?' with answer 'wood' in quiz 'Minecraft Quiz'
+2025-04-14 19:57:41.309656: Incorrect answer for question: 'What material do you use to craft a diamond pickaxe?'
+2025-04-14 19:57:41.314596: Disconnected
+2025-04-14 19:57:42.971499: Connected
+2025-04-14 19:57:42.971499: Submitted answer for question 'What material do you use to craft a diamond pickaxe?' with answer 'stick' in quiz 'Minecraft Quiz'
+2025-04-14 19:57:42.971499: Incorrect answer for question: 'What material do you use to craft a diamond pickaxe?'
+2025-04-14 19:57:42.987584: Disconnected
+2025-04-14 19:57:51.692925: Connected
+2025-04-14 19:57:51.692925: Submitted answer for question 'What material do you use to craft a diamond pickaxe?' with answer '2 sticks and 3 diamonds' in quiz 'Minecraft Quiz'
+2025-04-14 19:57:51.708583: Incorrect answer for question: 'What material do you use to craft a diamond pickaxe?'
+2025-04-14 19:57:51.708583: Disconnected
+2025-04-14 19:57:58.829671: Connected
+2025-04-14 19:57:58.829671: Submitted answer for question 'What material do you use to craft a diamond pickaxe?' with answer '3 diamonds and 2 sticks' in quiz 'Minecraft Quiz'
+2025-04-14 19:57:58.829671: Correct answer for question: 'What material do you use to craft a diamond pickaxe?'
+2025-04-14 19:57:58.838495: Disconnected
+2025-04-14 19:58:00.486181: Connected
+2025-04-14 19:58:00.486181: Requested question from quiz 'Minecraft Quiz': What is the rarest ore in the Overworld?
+2025-04-14 19:58:00.486181: Disconnected
+2025-04-14 19:58:04.516698: Connected
+2025-04-14 19:58:04.516698: Submitted answer for question 'What is the rarest ore in the Overworld?' with answer 'emerald' in quiz 'Minecraft Quiz'
+2025-04-14 19:58:04.527125: Correct answer for question: 'What is the rarest ore in the Overworld?'
+2025-04-14 19:58:04.532455: Disconnected
+2025-04-14 19:58:06.180856: Connected
+2025-04-14 19:58:06.182869: Requested question from quiz 'Minecraft Quiz': How many blocks high is a Nether portal?
+2025-04-14 19:58:06.184884: Disconnected
+2025-04-14 19:58:08.717502: Connected
+2025-04-14 19:58:08.717502: Submitted answer for question 'How many blocks high is a Nether portal?' with answer '5' in quiz 'Minecraft Quiz'
+2025-04-14 19:58:08.720545: Correct answer for question: 'How many blocks high is a Nether portal?'
+2025-04-14 19:58:08.724141: Disconnected
+2025-04-14 19:58:10.381825: Connected
+2025-04-14 19:58:10.381825: Requested question from quiz 'Minecraft Quiz': What do Creepers drop when killed?
+2025-04-14 19:58:10.381825: Disconnected
+2025-04-14 19:58:14.287608: Connected
+2025-04-14 19:58:14.287608: Submitted answer for question 'What do Creepers drop when killed?' with answer 'gunpowder' in quiz 'Minecraft Quiz'
+2025-04-14 19:58:14.291380: Correct answer for question: 'What do Creepers drop when killed?'
+2025-04-14 19:58:14.293392: Disconnected
+2025-04-14 19:58:15.934400: Connected
+2025-04-14 19:58:15.936408: Requested question from quiz 'Minecraft Quiz': What is the Ender Dragon's main attack?
+2025-04-14 19:58:15.937919: Disconnected
+2025-04-14 19:58:23.320368: Connected
+2025-04-14 19:58:23.320368: Submitted answer for question 'What is the Ender Dragon's main attack?' with answer 'dragons breath' in quiz 'Minecraft Quiz'
+2025-04-14 19:58:23.320368: Correct answer for question: 'What is the Ender Dragon's main attack?'
+2025-04-14 19:58:23.320368: Disconnected
+2025-04-14 19:58:24.974125: Connected
+2025-04-14 19:58:24.977882: Requested question from quiz 'Minecraft Quiz': What food item restores the most hunger points?
+2025-04-14 19:58:24.977882: Disconnected
+2025-04-14 19:58:29.879805: Connected
+2025-04-14 19:58:29.879805: Submitted answer for question 'What food item restores the most hunger points?' with answer 'steak' in quiz 'Minecraft Quiz'
+2025-04-14 19:58:29.885189: Correct answer for question: 'What food item restores the most hunger points?'
+2025-04-14 19:58:29.885189: Disconnected
+2025-04-14 19:58:31.518766: Connected
+2025-04-14 19:58:31.518766: Requested question from quiz 'Minecraft Quiz': How many obsidian blocks are required to make an Enchantment Table?
+2025-04-14 19:58:31.518766: Disconnected
