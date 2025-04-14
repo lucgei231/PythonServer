@@ -137,4 +137,4 @@ def toggle_shuffle(quiz_name):
     return jsonify({"shuffle": new_setting})
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=5601)
+    app.run(debug=True, host="0.0.0.0", port=5710)
