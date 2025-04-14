@@ -14,10 +14,10 @@ What operator is used to access a member of an object through a pointer?
 ->
 
 Which standard library container is commonly used as a dynamic array?  
-std::vector
+std::vector 
 
 What is function overloading in C++?  
-Defining multiple functions with the same name but different parameter types or numbers.
+overload
 
 What is the default access level for members in a C++ struct?  
 public

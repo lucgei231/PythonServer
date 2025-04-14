@@ -13,3 +13,75 @@
 2025-04-14 20:39:52.958694: Connected
 2025-04-14 20:39:52.958694: Requested question from quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair?
 2025-04-14 20:39:52.964807: Disconnected
+2025-04-14 20:41:34.055585: Connected
+2025-04-14 20:41:34.077702: Disconnected
+2025-04-14 20:41:35.435047: Connected
+2025-04-14 20:41:35.435047: Disconnected
+2025-04-14 20:41:35.734428: Connected
+2025-04-14 20:41:36.021720: Disconnected
+2025-04-14 20:41:37.941726: Connected
+2025-04-14 20:41:37.941726: Disconnected
+2025-04-14 20:41:38.138875: Connected
+2025-04-14 20:41:38.138875: Disconnected
+2025-04-14 20:41:38.260010: Connected
+2025-04-14 20:41:38.262023: Disconnected
+2025-04-14 20:41:38.514195: Connected
+2025-04-14 20:41:38.514195: Requested question from quiz 'C++ Quiz': What is C++?
+2025-04-14 20:41:38.514195: Disconnected
+2025-04-14 20:41:44.784019: Connected
+2025-04-14 20:41:44.784019: Submitted answer for question 'What is C++?' with answer 'better c' in quiz 'C++ Quiz'
+2025-04-14 20:41:44.784019: Correct answer for question: 'What is C++?'
+2025-04-14 20:41:44.784019: Disconnected
+2025-04-14 20:41:46.562778: Connected
+2025-04-14 20:41:46.565216: Requested question from quiz 'C++ Quiz': Who invented C++?
+2025-04-14 20:41:46.565216: Disconnected
+2025-04-14 20:42:49.433978: Connected
+2025-04-14 20:42:49.433978: Submitted answer for question 'Who invented C++?' with answer 'bjarne stroutstrup' in quiz 'C++ Quiz'
+2025-04-14 20:42:49.433978: Incorrect answer for question: 'Who invented C++?'
+2025-04-14 20:42:49.433978: Disconnected
+2025-04-14 20:43:12.516753: Connected
+2025-04-14 20:43:12.516753: Submitted answer for question 'Who invented C++?' with answer 'Bjarne stroustrup' in quiz 'C++ Quiz'
+2025-04-14 20:43:12.516753: Correct answer for question: 'Who invented C++?'
+2025-04-14 20:43:12.516753: Disconnected
+2025-04-14 20:43:14.310473: Connected
+2025-04-14 20:43:14.310473: Requested question from quiz 'C++ Quiz': What is the file extension for a C++ source file?
+2025-04-14 20:43:14.310473: Disconnected
+2025-04-14 20:43:19.270401: Connected
+2025-04-14 20:43:19.286392: Submitted answer for question 'What is the file extension for a C++ source file?' with answer '.cpp' in quiz 'C++ Quiz'
+2025-04-14 20:43:19.290038: Correct answer for question: 'What is the file extension for a C++ source file?'
+2025-04-14 20:43:19.290038: Disconnected
+2025-04-14 20:43:21.058856: Connected
+2025-04-14 20:43:21.058856: Requested question from quiz 'C++ Quiz': Which keyword is used to declare a constant variable in C++?
+2025-04-14 20:43:21.060870: Disconnected
+2025-04-14 20:43:27.381126: Connected
+2025-04-14 20:43:27.383131: Submitted answer for question 'Which keyword is used to declare a constant variable in C++?' with answer 'int' in quiz 'C++ Quiz'
+2025-04-14 20:43:27.384892: Incorrect answer for question: 'Which keyword is used to declare a constant variable in C++?'
+2025-04-14 20:43:27.386902: Disconnected
+2025-04-14 20:43:38.008150: Connected
+2025-04-14 20:43:38.008150: Submitted answer for question 'Which keyword is used to declare a constant variable in C++?' with answer 'const' in quiz 'C++ Quiz'
+2025-04-14 20:43:38.008150: Correct answer for question: 'Which keyword is used to declare a constant variable in C++?'
+2025-04-14 20:43:38.021011: Disconnected
+2025-04-14 20:43:39.802411: Connected
+2025-04-14 20:43:39.802411: Requested question from quiz 'C++ Quiz': What operator is used to access a member of an object through a pointer?
+2025-04-14 20:43:39.802411: Disconnected
+2025-04-14 20:43:49.995179: Connected
+2025-04-14 20:43:49.995179: Submitted answer for question 'What operator is used to access a member of an object through a pointer?' with answer '->' in quiz 'C++ Quiz'
+2025-04-14 20:43:49.995179: Correct answer for question: 'What operator is used to access a member of an object through a pointer?'
+2025-04-14 20:43:49.995179: Disconnected
+2025-04-14 20:43:51.776540: Connected
+2025-04-14 20:43:51.776540: Requested question from quiz 'C++ Quiz': Which standard library container is commonly used as a dynamic array?
+2025-04-14 20:43:51.776540: Disconnected
+2025-04-14 20:44:15.846424: Connected
+2025-04-14 20:44:15.846424: Submitted answer for question 'Which standard library container is commonly used as a dynamic array?' with answer 'std::vector' in quiz 'C++ Quiz'
+2025-04-14 20:44:15.846424: Correct answer for question: 'Which standard library container is commonly used as a dynamic array?'
+2025-04-14 20:44:15.852938: Disconnected
+2025-04-14 20:44:17.653731: Connected
+2025-04-14 20:44:17.656821: Requested question from quiz 'C++ Quiz': What is function overloading in C++?
+2025-04-14 20:44:17.656821: Disconnected
+2025-04-14 20:46:04.859455: Connected
+2025-04-14 20:46:04.859455: Submitted answer for question 'What is function overloading in C++?' with answer 'overload' in quiz 'C++ Quiz'
+2025-04-14 20:46:04.859455: Correct answer for question: 'What is function overloading in C++?'
+2025-04-14 20:46:04.859455: Disconnected
+2025-04-14 20:46:06.637573: Connected
+2025-04-14 20:46:06.637573: Requested question from quiz 'C++ Quiz': What is the default access level for members in a C++ struct?
+2025-04-14 20:46:06.637573: Disconnected
