@@ -16,7 +16,7 @@ def log_event(ip, event):
     logs_dir = os.path.join(os.path.dirname(__file__), "logs")
     if not os.path.exists(logs_dir):
         os.makedirs(logs_dir)
-    log_file = os.path.join(logs_dir, f"{ip}.txt")
+    log_file = os.path.join(logs_dir, f"{ip}.log")
     with open(log_file, "a", encoding="utf-8") as f:
         f.write(f"{datetime.datetime.now()}: {event}\n")
 
