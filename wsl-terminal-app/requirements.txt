@@ -1,4 +1,4 @@
-Flask
+Flask>=2.1
 flask-wtf
 flask-socketio
 eventlet

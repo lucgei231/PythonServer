@@ -2,6 +2,8 @@ import os
 import json
 import random
 import datetime
+import sys
+import threading
 from flask import Flask, render_template, jsonify, request, session
 from non_static.utils import example_util_function, ExampleUtility
 from non_static.quiz import get_random_question, validate_answer, read_quiz
@@ -136,5 +138,15 @@ def toggle_shuffle(quiz_name):
     # Return the new shuffle state as confirmation
     return jsonify({"shuffle": new_setting})
 
+def listen_for_commands():
+    while True:
+        cmd = input()
+        if cmd.strip().lower() == "restart":
+            print("Restarting...")
+            # Restart the process by replacing the current process
+            os.execv(sys.executable, [sys.executable] + sys.argv)
+
 if __name__ == '__main__':
+    # Start the command listener thread
+    threading.Thread(target=listen_for_commands, daemon=True).start()
     app.run(debug=True, host="0.0.0.0", port=5710)
