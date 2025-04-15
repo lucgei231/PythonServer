@@ -68,39 +68,35 @@ def quiz_index(quiz_name):
 # Function to store the current question for each IP
 @app.route('/<quiz_name>/quiz/question', methods=['GET'])
 def quiz_question(quiz_name):
-    try:
-        questions = session.get('questions', [])
-        ip = request.remote_addr
+    questions = session.get('questions', [])
+    ip = request.remote_addr
 
-        question_dir = os.path.join(os.path.dirname(__file__), "non_static", "question")
-        if not os.path.exists(question_dir):
-            os.makedirs(question_dir)
+    question_dir = os.path.join(os.path.dirname(__file__), "non_static", "question")
+    if not os.path.exists(question_dir):
+        os.makedirs(question_dir)
 
-        question_file = os.path.join(question_dir, f"{quiz_name}.json")
-        # Ensure the JSON file exists with an empty structure if it doesn't
-        if not os.path.exists(question_file):
-            with open(question_file, "w", encoding="utf-8") as f:
-                json.dump({}, f)
+    question_file = os.path.join(question_dir, f"{quiz_name}.json")
+    # Ensure the JSON file exists with an empty structure if it doesn't
+    if not os.path.exists(question_file):
+        with open(question_file, "w", encoding="utf-8") as f:
+            json.dump({}, f)
 
-        with open(question_file, "r", encoding="utf-8") as f:
-            data = json.load(f)
+    with open(question_file, "r", encoding="utf-8") as f:
+        data = json.load(f)
 
-        if questions:
-            question_and_answer = questions.pop(0)
-            session['questions'] = questions
+    if questions:
+        question_and_answer = questions.pop(0)
+        session['questions'] = questions
 
-            data[ip] = len(session['questions']) + 1
-            with open(question_file, "w", encoding="utf-8") as f:
-                json.dump(data, f)
+        data[ip] = len(session['questions']) + 1
+        with open(question_file, "w", encoding="utf-8") as f:
+            json.dump(data, f)
 
-            log_event(ip, f"Requested question from quiz '{quiz_name}': {question_and_answer['question']}")
-            return jsonify({"question": question_and_answer["question"]})
-        else:
-            log_event(ip, f"No more questions available for quiz '{quiz_name}'")
-            return jsonify({"message": "No more questions available."})
-    except Exception as e:
-        log_event(ip, f"Error in quiz_question route for quiz '{quiz_name}': {str(e)}")
-        return jsonify({"error": "An error occurred while processing your request."}), 500
+        log_event(ip, f"Requested question from quiz '{quiz_name}': {question_and_answer['question']}")
+        return jsonify({"question": question_and_answer["question"]})
+
+    else:
+        return jsonify({"message": "No more questions available."})
 
 @app.route('/<quiz_name>/quiz/validate', methods=['POST'])
 def quiz_validate(quiz_name):
@@ -203,4 +199,4 @@ def listen_for_commands():
 if __name__ == '__main__':
     # Start the command listener thread
     threading.Thread(target=listen_for_commands, daemon=True).start()
-    app.run(debug=True, host="0.0.0.0", port=5710)
+    app.run(debug=True, host="0.0.0.0", port=5700)

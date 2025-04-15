@@ -1,0 +1,85 @@
+2025-04-15 18:46:25.632449: Connected
+2025-04-15 18:46:25.638936: Disconnected
+2025-04-15 18:46:26.622341: Connected
+2025-04-15 18:46:26.622341: Disconnected
+2025-04-15 18:47:15.661259: Connected
+2025-04-15 18:47:15.671892: Disconnected
+2025-04-15 18:47:16.020915: Connected
+2025-04-15 18:47:16.020915: Disconnected
+2025-04-15 18:47:16.211765: Connected
+2025-04-15 18:47:16.216725: Disconnected
+2025-04-15 18:47:16.576806: Connected
+2025-04-15 18:47:16.596839: Requested question from quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair?
+2025-04-15 18:47:16.596839: Disconnected
+2025-04-15 18:47:22.471758: Connected
+2025-04-15 18:47:22.476401: Submitted answer for question 'What is the name of the default Minecraft character with brown hair?' with answer 'stevve' in quiz 'Minecraft Quiz'
+2025-04-15 18:47:22.476401: Incorrect answer for question: 'What is the name of the default Minecraft character with brown hair?'
+2025-04-15 18:47:22.476401: Disconnected
+2025-04-15 18:47:24.952844: Connected
+2025-04-15 18:47:24.952844: Submitted answer for question 'What is the name of the default Minecraft character with brown hair?' with answer 'steve' in quiz 'Minecraft Quiz'
+2025-04-15 18:47:24.952844: Correct answer for question: 'What is the name of the default Minecraft character with brown hair?'
+2025-04-15 18:47:24.952844: Disconnected
+2025-04-15 18:47:26.775861: Connected
+2025-04-15 18:47:26.790338: Requested question from quiz 'Minecraft Quiz': What item is needed to craft a crafting table?
+2025-04-15 18:47:26.791847: Disconnected
+2025-04-15 18:47:39.937811: Connected
+2025-04-15 18:47:39.937811: Submitted answer for question 'What item is needed to craft a crafting table?' with answer '4 wooden planks' in quiz 'Minecraft Quiz'
+2025-04-15 18:47:39.937811: Correct answer for question: 'What item is needed to craft a crafting table?'
+2025-04-15 18:47:39.953711: Disconnected
+2025-04-15 18:47:41.778753: Connected
+2025-04-15 18:47:41.794840: Requested question from quiz 'Minecraft Quiz': What material do you use to craft a diamond pickaxe?
+2025-04-15 18:47:41.794840: Disconnected
+2025-04-15 18:49:19.482026: Connected
+2025-04-15 18:49:19.482026: Submitted answer for question 'What material do you use to craft a diamond pickaxe?' with answer 'diamond' in quiz 'Minecraft Quiz'
+2025-04-15 18:49:19.482026: Incorrect answer for question: 'What material do you use to craft a diamond pickaxe?'
+2025-04-15 18:49:19.489687: Disconnected
+2025-04-15 18:49:24.095711: Connected
+2025-04-15 18:49:24.095711: Submitted answer for question 'What material do you use to craft a diamond pickaxe?' with answer 'diamonds' in quiz 'Minecraft Quiz'
+2025-04-15 18:49:24.111403: Incorrect answer for question: 'What material do you use to craft a diamond pickaxe?'
+2025-04-15 18:49:24.111403: Disconnected
+2025-04-15 18:49:33.142722: Connected
+2025-04-15 18:49:33.155206: Submitted answer for question 'What material do you use to craft a diamond pickaxe?' with answer '2 diamonds and 3 sticks' in quiz 'Minecraft Quiz'
+2025-04-15 18:49:33.158728: Incorrect answer for question: 'What material do you use to craft a diamond pickaxe?'
+2025-04-15 18:49:33.160703: Disconnected
+2025-04-15 18:49:42.292939: Connected
+2025-04-15 18:49:42.294455: Submitted answer for question 'What material do you use to craft a diamond pickaxe?' with answer '3 diamonds and 2 sticks' in quiz 'Minecraft Quiz'
+2025-04-15 18:49:42.294455: Correct answer for question: 'What material do you use to craft a diamond pickaxe?'
+2025-04-15 18:49:42.299036: Disconnected
+2025-04-15 18:49:44.094053: Connected
+2025-04-15 18:49:44.109954: Requested question from quiz 'Minecraft Quiz': What is the rarest ore in the Overworld?
+2025-04-15 18:49:44.109954: Disconnected
+2025-04-15 18:49:49.981394: Connected
+2025-04-15 18:49:49.997205: Submitted answer for question 'What is the rarest ore in the Overworld?' with answer 'emerald' in quiz 'Minecraft Quiz'
+2025-04-15 18:49:49.997205: Correct answer for question: 'What is the rarest ore in the Overworld?'
+2025-04-15 18:49:49.997205: Disconnected
+2025-04-15 18:49:51.791918: Connected
+2025-04-15 18:49:51.809157: Requested question from quiz 'Minecraft Quiz': How many blocks high is a Nether portal?
+2025-04-15 18:49:51.809157: Disconnected
+2025-04-15 18:49:58.498971: Connected
+2025-04-15 18:49:58.498971: Submitted answer for question 'How many blocks high is a Nether portal?' with answer '5' in quiz 'Minecraft Quiz'
+2025-04-15 18:49:58.503594: Correct answer for question: 'How many blocks high is a Nether portal?'
+2025-04-15 18:49:58.503594: Disconnected
+2025-04-15 18:50:00.290648: Connected
+2025-04-15 18:50:00.322462: Requested question from quiz 'Minecraft Quiz': What do Creepers drop when killed?
+2025-04-15 18:50:00.322462: Disconnected
+2025-04-15 18:50:16.656558: Connected
+2025-04-15 18:50:16.656558: Submitted answer for question 'What do Creepers drop when killed?' with answer 'gunpowder' in quiz 'Minecraft Quiz'
+2025-04-15 18:50:16.656558: Correct answer for question: 'What do Creepers drop when killed?'
+2025-04-15 18:50:16.661074: Disconnected
+2025-04-15 18:50:18.476704: Connected
+2025-04-15 18:50:18.498944: Requested question from quiz 'Minecraft Quiz': What is the Ender Dragon's main attack?
+2025-04-15 18:50:18.498944: Disconnected
+2025-04-15 18:52:45.369790: Connected
+2025-04-15 18:52:45.371813: Submitted answer for question 'What is the Ender Dragon's main attack?' with answer 'dragons breath' in quiz 'Minecraft Quiz'
+2025-04-15 18:52:45.377021: Correct answer for question: 'What is the Ender Dragon's main attack?'
+2025-04-15 18:52:45.377021: Disconnected
+2025-04-15 18:52:47.191022: Connected
+2025-04-15 18:52:47.205244: Requested question from quiz 'Minecraft Quiz': What food item restores the most hunger points?
+2025-04-15 18:52:47.207255: Disconnected
+2025-04-15 18:53:00.886408: Connected
+2025-04-15 18:53:00.886408: Submitted answer for question 'What food item restores the most hunger points?' with answer 'steak' in quiz 'Minecraft Quiz'
+2025-04-15 18:53:00.886408: Correct answer for question: 'What food item restores the most hunger points?'
+2025-04-15 18:53:00.902573: Disconnected
+2025-04-15 18:53:02.699444: Connected
+2025-04-15 18:53:02.724269: Requested question from quiz 'Minecraft Quiz': How many obsidian blocks are required to make an Enchantment Table?
+2025-04-15 18:53:02.724269: Disconnected
