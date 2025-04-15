@@ -35,16 +35,20 @@ def log_disconnection(exception):
 # Home route: list available quizzes found in non_static/quiz/
 @app.route('/')
 def home():
-    quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
-    quizzes = []
     try:
+        quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
+        quizzes = []
         for file in os.listdir(quiz_dir):
             if file.endswith(".txt"):
                 quiz_name = os.path.splitext(file)[0]
                 quizzes.append(quiz_name)
+        # Debugging log
+        print(f"Available quizzes: {quizzes}")
+        return render_template('home.html', quizzes=quizzes)
     except Exception as e:
-        print("Error reading quiz folder:", e)
-    return render_template('home.html', quizzes=quizzes)
+        # Debugging log
+        print(f"Error in home route: {str(e)}")
+        return jsonify({"error": "An error occurred while loading the home page."}), 500
 
 # Render the quiz page for the given quiz name (without .txt) and initialize score tracking
 @app.route('/<quiz_name>')
@@ -72,24 +76,32 @@ def quiz_question(quiz_name):
         questions = session.get('questions', [])
         ip = request.remote_addr
 
+        if not questions:
+            log_event(ip, f"No questions loaded in session for quiz '{quiz_name}'")
+            return jsonify({"error": "No questions loaded. Please restart the quiz."}), 400
+
         question_dir = os.path.join(os.path.dirname(__file__), "non_static", "question")
         if not os.path.exists(question_dir):
             os.makedirs(question_dir)
 
         question_file = os.path.join(question_dir, f"{quiz_name}.json")
-        # Ensure the JSON file exists with an empty structure if it doesn't
         if not os.path.exists(question_file):
             with open(question_file, "w", encoding="utf-8") as f:
                 json.dump({}, f)
 
         with open(question_file, "r", encoding="utf-8") as f:
-            data = json.load(f)
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                log_event(ip, f"Corrupted JSON file for quiz '{quiz_name}'. Resetting.")
+                data = {}
 
-        if questions:
-            question_and_answer = questions.pop(0)
-            session['questions'] = questions
+        current_index = data.get(ip, 0)
+        print(f"Current index for IP {ip}: {current_index}, Total questions: {len(questions)}")
 
-            data[ip] = len(session['questions']) + 1
+        if current_index < len(questions):
+            question_and_answer = questions[current_index]
+            data[ip] = current_index + 1
             with open(question_file, "w", encoding="utf-8") as f:
                 json.dump(data, f)
 
@@ -99,6 +111,7 @@ def quiz_question(quiz_name):
             log_event(ip, f"No more questions available for quiz '{quiz_name}'")
             return jsonify({"message": "No more questions available."})
     except Exception as e:
+        print(f"Error in quiz_question route: {str(e)}")
         log_event(ip, f"Error in quiz_question route for quiz '{quiz_name}': {str(e)}")
         return jsonify({"error": "An error occurred while processing your request."}), 500
 

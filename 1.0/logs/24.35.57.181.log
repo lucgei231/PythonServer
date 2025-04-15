@@ -83,3 +83,111 @@
 2025-04-15 18:53:02.699444: Connected
 2025-04-15 18:53:02.724269: Requested question from quiz 'Minecraft Quiz': How many obsidian blocks are required to make an Enchantment Table?
 2025-04-15 18:53:02.724269: Disconnected
+2025-04-15 18:59:36.184696: Connected
+2025-04-15 18:59:36.184696: Disconnected
+2025-04-15 18:59:36.529143: Connected
+2025-04-15 18:59:36.531156: Disconnected
+2025-04-15 18:59:38.743335: Connected
+2025-04-15 18:59:38.752555: Disconnected
+2025-04-15 18:59:38.928295: Connected
+2025-04-15 18:59:38.928295: Disconnected
+2025-04-15 18:59:39.071581: Connected
+2025-04-15 18:59:39.071581: Disconnected
+2025-04-15 18:59:39.373752: Connected
+2025-04-15 18:59:39.373752: Requested question from quiz 'MCreator': What is MCreator primarily used for?
+2025-04-15 18:59:39.373752: Disconnected
+2025-04-15 18:59:50.769745: Connected
+2025-04-15 18:59:50.779541: Submitted answer for question 'What is MCreator primarily used for?' with answer 'Minecraft modding' in quiz 'MCreator'
+2025-04-15 18:59:50.779541: Incorrect answer for question: 'What is MCreator primarily used for?'
+2025-04-15 18:59:50.785725: Disconnected
+2025-04-15 18:59:53.883340: Connected
+2025-04-15 18:59:53.883340: Submitted answer for question 'What is MCreator primarily used for?' with answer 'modding' in quiz 'MCreator'
+2025-04-15 18:59:53.892136: Incorrect answer for question: 'What is MCreator primarily used for?'
+2025-04-15 18:59:53.892136: Disconnected
+2025-04-15 19:00:10.071835: Connected
+2025-04-15 19:00:10.071835: Submitted answer for question 'What is MCreator primarily used for?' with answer 'creating minecraft mods' in quiz 'MCreator'
+2025-04-15 19:00:10.087672: Correct answer for question: 'What is MCreator primarily used for?'
+2025-04-15 19:00:10.089693: Disconnected
+2025-04-15 19:00:11.922327: Connected
+2025-04-15 19:00:11.955304: Requested question from quiz 'MCreator': Which programming language is commonly used with MCreator?
+2025-04-15 19:00:11.955304: Disconnected
+2025-04-15 19:00:17.375276: Connected
+2025-04-15 19:00:17.375276: Submitted answer for question 'Which programming language is commonly used with MCreator?' with answer 'java' in quiz 'MCreator'
+2025-04-15 19:00:17.391407: Correct answer for question: 'Which programming language is commonly used with MCreator?'
+2025-04-15 19:00:17.391407: Disconnected
+2025-04-15 19:00:19.211152: Connected
+2025-04-15 19:00:19.227204: Requested question from quiz 'MCreator': What is the name of the graphical interface in MCreator for creating mod elements?
+2025-04-15 19:00:19.227204: Disconnected
+2025-04-15 19:00:24.904521: Connected
+2025-04-15 19:00:24.904521: Submitted answer for question 'What is the name of the graphical interface in MCreator for creating mod elements?' with answer 'workspace' in quiz 'MCreator'
+2025-04-15 19:00:24.904521: Correct answer for question: 'What is the name of the graphical interface in MCreator for creating mod elements?'
+2025-04-15 19:00:24.904521: Disconnected
+2025-04-15 19:00:26.703235: Connected
+2025-04-15 19:00:26.730597: Requested question from quiz 'MCreator': Can MCreator generate code automatically for mod elements?
+2025-04-15 19:00:26.730597: Disconnected
+2025-04-15 19:00:31.089191: Connected
+2025-04-15 19:00:31.089191: Submitted answer for question 'Can MCreator generate code automatically for mod elements?' with answer 'yes' in quiz 'MCreator'
+2025-04-15 19:00:31.104871: Correct answer for question: 'Can MCreator generate code automatically for mod elements?'
+2025-04-15 19:00:31.104871: Disconnected
+2025-04-15 19:00:32.909704: Connected
+2025-04-15 19:00:32.937681: Requested question from quiz 'MCreator': What is the default file format for MCreator workspaces?
+2025-04-15 19:00:32.937681: Disconnected
+2025-04-15 19:00:39.842283: Connected
+2025-04-15 19:00:39.844301: Submitted answer for question 'What is the default file format for MCreator workspaces?' with answer '.mcreator' in quiz 'MCreator'
+2025-04-15 19:00:39.848332: Correct answer for question: 'What is the default file format for MCreator workspaces?'
+2025-04-15 19:00:39.850088: Disconnected
+2025-04-15 19:00:41.649828: Connected
+2025-04-15 19:00:41.671702: Requested question from quiz 'MCreator': What is the name of the tool in MCreator used to create custom textures?
+2025-04-15 19:00:41.671702: Disconnected
+2025-04-15 19:01:24.099216: Connected
+2025-04-15 19:01:24.099216: Disconnected
+2025-04-15 19:01:24.497976: Connected
+2025-04-15 19:01:24.497976: Disconnected
+2025-04-15 19:01:24.514113: Connected
+2025-04-15 19:01:24.514113: Disconnected
+2025-04-15 19:01:24.833838: Connected
+2025-04-15 19:01:24.833838: Requested question from quiz 'MCreator': What is MCreator primarily used for?
+2025-04-15 19:01:24.833838: Disconnected
+2025-04-15 19:01:32.880320: Connected
+2025-04-15 19:01:32.886265: Submitted answer for question 'What is MCreator primarily used for?' with answer 'creating minecraft mods' in quiz 'MCreator'
+2025-04-15 19:01:32.887793: Correct answer for question: 'What is MCreator primarily used for?'
+2025-04-15 19:01:32.887793: Disconnected
+2025-04-15 19:01:34.683029: Connected
+2025-04-15 19:01:34.689880: Requested question from quiz 'MCreator': Which programming language is commonly used with MCreator?
+2025-04-15 19:01:34.691907: Disconnected
+2025-04-15 19:01:37.430930: Connected
+2025-04-15 19:01:37.432953: Submitted answer for question 'Which programming language is commonly used with MCreator?' with answer 'java' in quiz 'MCreator'
+2025-04-15 19:01:37.436577: Correct answer for question: 'Which programming language is commonly used with MCreator?'
+2025-04-15 19:01:37.436577: Disconnected
+2025-04-15 19:01:39.238519: Connected
+2025-04-15 19:01:39.238519: Requested question from quiz 'MCreator': What is the name of the graphical interface in MCreator for creating mod elements?
+2025-04-15 19:01:39.250457: Disconnected
+2025-04-15 19:01:43.510399: Connected
+2025-04-15 19:01:43.510399: Submitted answer for question 'What is the name of the graphical interface in MCreator for creating mod elements?' with answer 'worksace' in quiz 'MCreator'
+2025-04-15 19:01:43.521402: Incorrect answer for question: 'What is the name of the graphical interface in MCreator for creating mod elements?'
+2025-04-15 19:01:43.521402: Disconnected
+2025-04-15 19:01:47.091468: Connected
+2025-04-15 19:01:47.091468: Submitted answer for question 'What is the name of the graphical interface in MCreator for creating mod elements?' with answer 'workspace' in quiz 'MCreator'
+2025-04-15 19:01:47.091468: Correct answer for question: 'What is the name of the graphical interface in MCreator for creating mod elements?'
+2025-04-15 19:01:47.101020: Disconnected
+2025-04-15 19:01:48.920225: Connected
+2025-04-15 19:01:48.920225: Requested question from quiz 'MCreator': Can MCreator generate code automatically for mod elements?
+2025-04-15 19:01:48.936380: Disconnected
+2025-04-15 19:01:52.069390: Connected
+2025-04-15 19:01:52.069390: Submitted answer for question 'Can MCreator generate code automatically for mod elements?' with answer 'yes' in quiz 'MCreator'
+2025-04-15 19:01:52.069390: Correct answer for question: 'Can MCreator generate code automatically for mod elements?'
+2025-04-15 19:01:52.080267: Disconnected
+2025-04-15 19:01:53.881246: Connected
+2025-04-15 19:01:53.881246: Requested question from quiz 'MCreator': What is the default file format for MCreator workspaces?
+2025-04-15 19:01:53.897417: Disconnected
+2025-04-15 19:01:59.863543: Connected
+2025-04-15 19:01:59.863543: Submitted answer for question 'What is the default file format for MCreator workspaces?' with answer '.mcreator' in quiz 'MCreator'
+2025-04-15 19:01:59.863543: Correct answer for question: 'What is the default file format for MCreator workspaces?'
+2025-04-15 19:01:59.863543: Disconnected
+2025-04-15 19:02:01.681342: Connected
+2025-04-15 19:02:01.683358: Requested question from quiz 'MCreator': What is the name of the tool in MCreator used to create custom textures?
+2025-04-15 19:02:01.683358: Disconnected
+2025-04-15 19:02:10.073129: Connected
+2025-04-15 19:02:10.073129: Submitted answer for question 'What is the name of the tool in MCreator used to create custom textures?' with answer 'texturer' in quiz 'MCreator'
+2025-04-15 19:02:10.073129: Incorrect answer for question: 'What is the name of the tool in MCreator used to create custom textures?'
+2025-04-15 19:02:10.077893: Disconnected
