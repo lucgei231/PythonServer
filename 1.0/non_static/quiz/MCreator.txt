@@ -26,7 +26,7 @@ Does MCreator support creating custom entities?
 Yes
 
 What is the scripting language used in MCreator for advanced customization?
-Procedure Blocks
+Procedures
 
 Can MCreator be used to create custom dimensions in Minecraft?
 Yes
