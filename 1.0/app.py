@@ -38,36 +38,39 @@ def home():
     try:
         quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
         quizzes = []
-        for file in os.listdir(quiz_dir):
-            if file.endswith(".txt"):
-                quiz_name = os.path.splitext(file)[0]
-                quizzes.append(quiz_name)
-        # Debugging log
-        print(f"Available quizzes: {quizzes}")
+        if os.path.exists(quiz_dir):  # Ensure the directory exists
+            for file in os.listdir(quiz_dir):
+                if file.endswith(".txt"):
+                    quiz_name = os.path.splitext(file)[0]
+                    quizzes.append(quiz_name)
         return render_template('home.html', quizzes=quizzes)
     except Exception as e:
-        # Debugging log
-        print(f"Error in home route: {str(e)}")
-        return jsonify({"error": "An error occurred while loading the home page."}), 500
+        print(f"Error in home route: {str(e)}")  # Log the error
+        return render_template('error.html', message="An error occurred while loading the home page."), 500
 
 # Render the quiz page for the given quiz name (without .txt) and initialize score tracking
 @app.route('/<quiz_name>')
 def quiz_index(quiz_name):
-    session['correct_count'] = 0
-    session['total_attempt'] = 0
-    session['quiz_name'] = quiz_name
-    # Get the toggle from a query parameter; default is True (shuffle questions)
-    shuffle_param = request.args.get('shuffle', 'false').lower() == 'true'
-    session['shuffle'] = shuffle_param
+    try:
+        session['correct_count'] = 0
+        session['total_attempt'] = 0
+        session['quiz_name'] = quiz_name
+        shuffle_param = request.args.get('shuffle', 'false').lower() == 'true'
+        session['shuffle'] = shuffle_param
 
-    # Read the quiz questions from file
-    questions = read_quiz(quiz_name)
-    # Shuffle if desired
-    if session['shuffle']:
-         random.shuffle(questions)
-    # Save the list to session
-    session['questions'] = questions
-    return render_template('index.html', quiz_name=quiz_name, shuffle=shuffle_param)
+        questions = read_quiz(quiz_name)
+        if not questions:  # Ensure questions are loaded
+            return render_template('error.html', message="No questions found for this quiz."), 404
+
+        if session['shuffle']:
+            random.shuffle(questions)
+        session['questions'] = questions
+        return render_template('index.html', quiz_name=quiz_name, shuffle=shuffle_param)
+    except FileNotFoundError:
+        return render_template('error.html', message="Quiz file not found."), 404
+    except Exception as e:
+        print(f"Error in quiz_index route: {str(e)}")  # Log the error
+        return render_template('error.html', message="An error occurred while loading the quiz page."), 500
 
 # Function to store the current question for each IP
 @app.route('/<quiz_name>/quiz/question', methods=['GET'])
@@ -77,7 +80,6 @@ def quiz_question(quiz_name):
         ip = request.remote_addr
 
         if not questions:
-            log_event(ip, f"No questions loaded in session for quiz '{quiz_name}'")
             return jsonify({"error": "No questions loaded. Please restart the quiz."}), 400
 
         question_dir = os.path.join(os.path.dirname(__file__), "non_static", "question")
@@ -93,26 +95,19 @@ def quiz_question(quiz_name):
             try:
                 data = json.load(f)
             except json.JSONDecodeError:
-                log_event(ip, f"Corrupted JSON file for quiz '{quiz_name}'. Resetting.")
                 data = {}
 
         current_index = data.get(ip, 0)
-        print(f"Current index for IP {ip}: {current_index}, Total questions: {len(questions)}")
-
         if current_index < len(questions):
             question_and_answer = questions[current_index]
             data[ip] = current_index + 1
             with open(question_file, "w", encoding="utf-8") as f:
                 json.dump(data, f)
-
-            log_event(ip, f"Requested question from quiz '{quiz_name}': {question_and_answer['question']}")
             return jsonify({"question": question_and_answer["question"]})
         else:
-            log_event(ip, f"No more questions available for quiz '{quiz_name}'")
             return jsonify({"message": "No more questions available."})
     except Exception as e:
-        print(f"Error in quiz_question route: {str(e)}")
-        log_event(ip, f"Error in quiz_question route for quiz '{quiz_name}': {str(e)}")
+        print(f"Error in quiz_question route: {str(e)}")  # Log the error
         return jsonify({"error": "An error occurred while processing your request."}), 500
 
 @app.route('/<quiz_name>/quiz/validate', methods=['POST'])
