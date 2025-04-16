@@ -35,6 +35,7 @@ def terminal():
                 print("Error output:", output)  # Debug: log command error output
         else:
             output = "No command provided."
+        # Disable randomization logic here (if applicable)
         print("Returning output:", output)  # Debug
         return jsonify({"output": output})
     # For GET, render the terminal page

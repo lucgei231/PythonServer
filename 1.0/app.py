@@ -60,17 +60,17 @@ def quiz_index(quiz_name):
         session['correct_count'] = 0
         session['total_attempt'] = 0
         session['quiz_name'] = quiz_name
-        shuffle_param = request.args.get('shuffle', 'false').lower() == 'true'
-        session['shuffle'] = shuffle_param
+        # Remove the shuffle parameter logic
+        session['shuffle'] = False  # Always set shuffle to False
 
+        # Read the quiz questions from file
         questions = read_quiz(quiz_name)
         if not questions:  # Ensure questions are loaded
             return render_template('error.html', message="No questions found for this quiz."), 404
 
-        if session['shuffle']:
-            random.shuffle(questions)
+        # Do not shuffle questions
         session['questions'] = questions
-        return render_template('index.html', quiz_name=quiz_name, shuffle=shuffle_param), 200
+        return render_template('index.html', quiz_name=quiz_name, shuffle=False), 200
     except FileNotFoundError:
         return render_template('error.html', message="Quiz file not found."), 404
     except Exception as e:
