@@ -32,6 +32,11 @@ def log_disconnection(exception):
     ip = request.remote_addr
     log_event(ip, "Disconnected")
 
+# Health check route to verify the server is running
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({"status": "OK"}), 200
+
 # Home route: list available quizzes found in non_static/quiz/
 @app.route('/')
 def home():
@@ -43,7 +48,7 @@ def home():
                 if file.endswith(".txt"):
                     quiz_name = os.path.splitext(file)[0]
                     quizzes.append(quiz_name)
-        return render_template('home.html', quizzes=quizzes)
+        return render_template('home.html', quizzes=quizzes), 200
     except Exception as e:
         print(f"Error in home route: {str(e)}")  # Log the error
         return render_template('error.html', message="An error occurred while loading the home page."), 500
@@ -65,7 +70,7 @@ def quiz_index(quiz_name):
         if session['shuffle']:
             random.shuffle(questions)
         session['questions'] = questions
-        return render_template('index.html', quiz_name=quiz_name, shuffle=shuffle_param)
+        return render_template('index.html', quiz_name=quiz_name, shuffle=shuffle_param), 200
     except FileNotFoundError:
         return render_template('error.html', message="Quiz file not found."), 404
     except Exception as e:
@@ -103,9 +108,9 @@ def quiz_question(quiz_name):
             data[ip] = current_index + 1
             with open(question_file, "w", encoding="utf-8") as f:
                 json.dump(data, f)
-            return jsonify({"question": question_and_answer["question"]})
+            return jsonify({"question": question_and_answer["question"]}), 200
         else:
-            return jsonify({"message": "No more questions available."})
+            return jsonify({"message": "No more questions available."}), 200
     except Exception as e:
         print(f"Error in quiz_question route: {str(e)}")  # Log the error
         return jsonify({"error": "An error occurred while processing your request."}), 500
