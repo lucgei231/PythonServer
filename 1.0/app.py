@@ -4,6 +4,7 @@ import random
 import datetime
 import sys
 import threading
+
 from flask import Flask, render_template, jsonify, request, session
 from non_static.utils import example_util_function, ExampleUtility
 from non_static.quiz import get_random_question, validate_answer, read_quiz
