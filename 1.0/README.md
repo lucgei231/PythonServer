@@ -25,7 +25,7 @@ my-flask-app
 1. **Clone the repository**:
    ```
    git clone <repository-url>
-   cd my-flask-app
+   cd PythonServer/1.0
    ```
 
 2. **Create a virtual environment**:
@@ -56,7 +56,7 @@ my-flask-app
    ```
 
 2. **Access the application**:
-   Open your web browser and go to `http://127.0.0.1:5000`.
+   Open your web browser and go to `http://127.0.0.1:5710`.
 
 ## Features
 
