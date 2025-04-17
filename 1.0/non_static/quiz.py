@@ -23,6 +23,7 @@ def read_quiz(quiz_name):
             answer = lines[i+1] if i+1 < len(lines) else ""
             questions.append({"question": question, "answer": answer})
             i += 2  # Move to the next question
+    # Ensure questions are returned in their original order
     return questions
 
 def get_random_question(quiz_name):
