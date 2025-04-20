@@ -77,8 +77,7 @@ def home():
         print("Home route: found quizzes:", quizzes)  # Debug print
         return render_template('home.html', quizzes=quizzes, user_uploaded=user_uploaded), 200
     except Exception as e:
-        print(f"Error in home route: {str(e)}")
-        return render_template('error.html', message="An error occurred while loading the home page."), 500
+        return f"Error in home route: {str(e)}", 500
 
 @app.route('/addquiz', methods=['GET'], strict_slashes=True)
 def addquiz():
@@ -336,6 +335,7 @@ def editquiz_select():
         uploaded_data = {}
     user_uploaded = uploaded_data.get(ip, [])
     if request.method == "POST":
+        print("POST data:", request.form)  # Add this line
         quiz_to_edit = request.form.get("quiz")
         if quiz_to_edit in user_uploaded:
             return redirect(url_for('edit_quiz', quiz_name=quiz_to_edit))
@@ -343,6 +343,27 @@ def editquiz_select():
             message = "You are not allowed to edit this quiz."
             return render_template("editquiz_select.html", user_uploaded=user_uploaded, message=message)
     return render_template("editquiz_select.html", user_uploaded=user_uploaded)
+
+@app.route('/edit_quiz/<quiz_name>', methods=['GET', 'POST'])
+def edit_quiz(quiz_name):
+    quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
+    quiz_file = os.path.join(quiz_dir, quiz_name + ".txt")
+    if request.method == "POST":
+        new_content = request.form.get("quiz_content", "")
+        try:
+            with open(quiz_file, "w", encoding="utf-8") as f:
+                f.write(new_content)
+            message = "Quiz saved successfully!"
+        except Exception as e:
+            message = f"Error saving quiz: {str(e)}"
+        return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=new_content, message=message)
+    # GET: Load current quiz content
+    if os.path.exists(quiz_file):
+        with open(quiz_file, "r", encoding="utf-8") as f:
+            quiz_content = f.read()
+    else:
+        quiz_content = ""
+    return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=quiz_content)
 
 def listen_for_commands():
     while True:
