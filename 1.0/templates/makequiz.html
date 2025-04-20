@@ -43,6 +43,9 @@
         </form>
         <br>
         <a href="{{ url_for('home') }}">Back to Home</a>
+        <!-- If you have a link to view a newly created quiz, update its URL -->
+<a href="{{ url_for('quiz_index', quiz_name=quiz_name) }}">Go to Quiz Home</a>
+<!-- Ensure that url_for('quiz_index', quiz_name=quiz_name) now generates "/quiz/<quiz_name>" -->
     </div>
 </body>
 </html>

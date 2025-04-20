@@ -83,8 +83,8 @@ def home():
 def addquiz():
     return render_template('addquiz.html')
 
-# Now the dynamic quiz route comes after specific routes
-@app.route('/<quiz_name>')
+# Now the dynamic quiz route comes after specific routes (under a fixed /quiz/ prefix)
+@app.route('/quiz/<quiz_name>')
 def quiz_index(quiz_name):
     try:
         # Initialize tracking variables
@@ -93,40 +93,38 @@ def quiz_index(quiz_name):
         session['quiz_name'] = quiz_name
         session['shuffle'] = False  # Always set shuffle to False
 
-        # Read quiz questions from file
+        # Read quiz questions from file and store into session
         questions = read_quiz(quiz_name)
-        if not questions:
-            return render_template('error.html', message="No questions found for this quiz."), 404
-
-        # Store questions and reset current question index
         session['questions'] = questions
         session['current_question_index'] = 0
-
-        # Redirect immediately to the question page
-        return redirect(url_for('quiz_question', quiz_name=quiz_name))
+        
+        # Redirect to the question page
+        return redirect(url_for('show_question', quiz_name=quiz_name))
     except FileNotFoundError:
-        return render_template('error.html', message="Quiz file not found."), 404
+        return f"Quiz '{quiz_name}' not found.", 404
     except Exception as e:
-        print(f"Error in quiz_index route: {str(e)}")
-        return render_template('error.html', message="An error occurred while loading the quiz page."), 500
+        return f"An error occurred: {str(e)}", 500
 
-# Route to serve the next question for the given quiz
-@app.route('/<quiz_name>/quiz/question', methods=['GET'])
-def quiz_question(quiz_name):
-    questions = session.get('questions', [])
+# Route to serve the next question for the given quiz (under /quiz/ prefix)
+@app.route('/quiz/<quiz_name>/quiz/question', methods=['GET'])
+def show_question(quiz_name):
+    # Retrieve questions and current index from the session
+    questions = session.get('questions')
     current_index = session.get('current_question_index', 0)
-    print(f"Session current question index: {current_index}")
-    
+    if not questions:
+        questions = read_quiz(quiz_name)
+        session['questions'] = questions
+        session['current_question_index'] = 0
+        current_index = 0
     if current_index < len(questions):
-        current_question = questions[current_index]
-        print("Serving question:", current_question)
-        return render_template('question.html', question=current_question, quiz_name=quiz_name)
+        question = questions[current_index]
     else:
-        print("No more questions")
-        return redirect(url_for('quiz_finish', quiz_name=quiz_name))
+        # Provide a fallback object to avoid "question not defined" error in the template
+        question = {'question': "No more questions available", 'options': []}
+    return render_template('question.html', question=question, quiz_name=quiz_name)
 
-# Route to validate the user's answer for a question
-@app.route('/<quiz_name>/quiz/validate', methods=['POST'])
+# Route to validate the user's answer for a question (under /quiz/ prefix)
+@app.route('/quiz/<quiz_name>/quiz/validate', methods=['POST'])
 def quiz_validate(quiz_name):
     ip = get_client_ip()
     answer = request.json.get('answer')
@@ -138,17 +136,18 @@ def quiz_validate(quiz_name):
         correct_answer = current_question.get("answer", "").lower().strip()
         is_correct = answer.lower().strip() == correct_answer
         print(f"User answered '{answer}' for question '{current_question.get('question')}'. Expected: '{correct_answer}'.")
-        
-        # If correct, update the progress index
+        # Increment total attempt count
+        session['total_attempt'] = session.get('total_attempt', 0) + 1
         if is_correct:
+            # Increment correct count and update the question index
+            session['correct_count'] = session.get('correct_count', 0) + 1
             session['current_question_index'] = current_index + 1
-        # Return whether the answer is correct
         return jsonify({'is_correct': is_correct})
     
-    # If there is no current question, return an error.
     return jsonify({'error': 'No question available'}), 400
 
-@app.route('/<quiz_name>/quiz/finish', methods=['GET'])
+# Quiz finish, reset, and toggle_shuffle routes similarly update:
+@app.route('/quiz/<quiz_name>/quiz/finish', methods=['GET'])
 def quiz_finish(quiz_name):
     correct = session.get('correct_count', 0)
     total = session.get('total_attempt', 0)
@@ -173,7 +172,7 @@ def quiz_finish(quiz_name):
     return render_template('index.html', result=f"You got {correct} out of {total}!", play_again=True)
 
 # New route to reset the quiz
-@app.route('/<quiz_name>/reset', methods=['GET', 'POST'])
+@app.route('/quiz/<quiz_name>/reset', methods=['GET', 'POST'])
 def reset_quiz(quiz_name):
     ip = get_client_ip()
     question_dir = os.path.join(os.path.dirname(__file__), "non_static", "question")
@@ -191,7 +190,7 @@ def reset_quiz(quiz_name):
     return jsonify({"message": "Quiz reset successfully."})
 
 # New route to toggle the shuffle setting
-@app.route('/<quiz_name>/toggle_shuffle', methods=['POST'])
+@app.route('/quiz/<quiz_name>/toggle_shuffle', methods=['POST'])
 def toggle_shuffle(quiz_name):
     # Toggle the current shuffle state (default False)
     current = session.get('shuffle', False)
@@ -221,19 +220,28 @@ def upload_quiz():
     if file.filename == '':
         return render_template('error.html', message="No file selected for uploading."), 400
     filename = custom_secure_filename(file.filename)  # Use the custom sanitization that preserves spaces
-    if not filename.endswith('.txt'):
+    if not filename.lower().endswith('.txt'):
         return render_template('error.html', message="Only .txt files are allowed."), 400
     quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
     if not os.path.exists(quiz_dir):
         os.makedirs(quiz_dir)
     file_path = os.path.join(quiz_dir, filename)
-    file.save(file_path)
-    # Record the uploaded quiz for the user's IP
-    uploaded_file = os.path.join(os.path.dirname(__file__), "data", "uploaded.json")
-    if os.path.exists(uploaded_file):
-        with open(uploaded_file, "r", encoding="utf-8") as f:
-            uploaded_data = json.load(f)
-    else:
+    try:
+        file.save(file_path)
+    except Exception as e:
+        return render_template('error.html', message=f"File saving failed: {str(e)}"), 500
+    # Ensure the data directory exists
+    data_dir = os.path.join(os.path.dirname(__file__), "data")
+    if not os.path.exists(data_dir):
+        os.makedirs(data_dir)
+    uploaded_file = os.path.join(data_dir, "uploaded.json")
+    try:
+        if os.path.exists(uploaded_file):
+            with open(uploaded_file, "r", encoding="utf-8") as f:
+                uploaded_data = json.load(f)
+        else:
+            uploaded_data = {}
+    except Exception:
         uploaded_data = {}
     ip = get_client_ip()
     user_list = uploaded_data.get(ip, [])
@@ -241,10 +249,6 @@ def upload_quiz():
     if quiz_base not in user_list:
         user_list.append(quiz_base)
     uploaded_data[ip] = user_list
-    # Ensure the data directory exists
-    data_dir = os.path.join(os.path.dirname(__file__), "data")
-    if not os.path.exists(data_dir):
-        os.makedirs(data_dir)
     with open(uploaded_file, "w", encoding="utf-8") as f:
         json.dump(uploaded_data, f)
     return render_template('addquiz.html', message="Quiz uploaded successfully!")

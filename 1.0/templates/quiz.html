@@ -7,25 +7,21 @@
 </head>
 <body>
   <div class="question-container">
-    {% if question %}
-      <h1>{{ question.question }}</h1>
-      {% if question.options %}
-        <ul>
-          {% for option in question.options %}
-            <li>{{ option }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-      <!-- Answer form -->
-      <form id="answer-form">
-        <input type="text" name="answer" placeholder="Your Answer" required>
-        <button type="submit">Submit Answer</button>
-      </form>
-      <!-- Feedback message under the answer form -->
-      <div id="feedback" style="margin-top:10px; font-weight:bold;"></div>
-    {% else %}
-      <h1>No question provided.</h1>
+    <h1>{{ question.question }}</h1>
+    {% if question.options %}
+      <ul>
+        {% for option in question.options %}
+          <li>{{ option }}</li>
+        {% endfor %}
+      </ul>
     {% endif %}
+    <!-- Answer form -->
+    <form id="answer-form">
+      <input type="text" name="answer" placeholder="Your Answer" required>
+      <button type="submit">Submit Answer</button>
+    </form>
+    <!-- Feedback message under the answer form -->
+    <div id="feedback" style="margin-top:10px; font-weight:bold;"></div>
   </div>
   <script>
     document.getElementById("answer-form").addEventListener("submit", function(e){
