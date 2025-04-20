@@ -6,7 +6,7 @@ import sys
 import threading
 import re
 
-from flask import Flask, render_template, jsonify, request, session
+from flask import Flask, render_template, jsonify, request, session, redirect, url_for
 from non_static.utils import example_util_function, ExampleUtility
 from non_static.quiz import get_random_question, validate_answer, read_quiz
 #from win32com.client import Dispatch  # Removed win32com dependency
@@ -89,67 +89,63 @@ def quiz_index(quiz_name):
 
         # Read the quiz questions from file
         questions = read_quiz(quiz_name)
-        if not questions:  # Ensure questions are loaded
+        if not questions:
             return render_template('error.html', message="No questions found for this quiz."), 404
 
         # Store questions in the session (no shuffling)
         session['questions'] = questions
-        return render_template('index.html', quiz_name=quiz_name, shuffle=False), 200
+        # Instead of rendering an index, redirect to quiz question page:
+        return redirect(url_for('quiz_question', quiz_name=quiz_name))
+
     except FileNotFoundError:
         return render_template('error.html', message="Quiz file not found."), 404
     except Exception as e:
-        print(f"Error in quiz_index route: {str(e)}")  # Log the error
+        print(f"Error in quiz_index route: {str(e)}")
         return render_template('error.html', message="An error occurred while loading the quiz page."), 500
 
 # Route to serve the next question for the given quiz
 @app.route('/<quiz_name>/quiz/question', methods=['GET'])
 def quiz_question(quiz_name):
-    try:
-        questions = session.get('questions', [])  # Retrieve questions from the session
-        ip = request.remote_addr  # Get the user's IP address
-
-        if not questions:  # If no questions are loaded, return an error
-            return jsonify({"error": "No questions loaded. Please restart the quiz."}), 400
-
-        # Directory to store question progress for each user
-        question_dir = os.path.join(os.path.dirname(__file__), "non_static", "question")
-        if not os.path.exists(question_dir):  # Create the directory if it doesn't exist
-            os.makedirs(question_dir)
-
-        # File to store the user's progress for the current quiz
-        question_file = os.path.join(question_dir, f"{quiz_name}.json")
-        if not os.path.exists(question_file):  # Create the file if it doesn't exist
-            with open(question_file, "w", encoding="utf-8") as f:
-                json.dump({}, f)
-
-        # Load the user's progress from the file
+    print("Entered quiz_question for", quiz_name)
+    questions = session.get('questions', [])
+    print("Number of questions in session:", len(questions))
+    if not questions:
+        questions = read_quiz(quiz_name)
+        session['questions'] = questions
+        print("Loaded questions using read_quiz, count:", len(questions))
+    
+    ip = request.remote_addr
+    question_dir = os.path.join(os.path.dirname(__file__), "non_static", "question")
+    if not os.path.exists(question_dir):
+        os.makedirs(question_dir)
+    question_file = os.path.join(question_dir, f"{quiz_name}.json")
+    
+    user_index = 0
+    data = {}
+    if os.path.exists(question_file):
         with open(question_file, "r", encoding="utf-8") as f:
             try:
                 data = json.load(f)
+                user_index = data.get(ip, 0)
             except json.JSONDecodeError:
-                data = {}
-
-        # Determine the current question index for the user
-        current_index = data.get(ip, 0)
-        if current_index < len(questions):  # If there are more questions
-            question_and_answer = questions[current_index]  # Get the current question
-            data[ip] = current_index + 1  # Update the user's progress
-            with open(question_file, "w", encoding="utf-8") as f:
-                json.dump(data, f)  # Save the updated progress
-            return jsonify({"question": question_and_answer["question"]}), 200  # Return the question
-        else:
-            return jsonify({"message": "No more questions available."}), 200  # No more questions
-    except Exception as e:
-        print(f"Error in quiz_question route: {str(e)}")  # Log the error
-        return jsonify({"error": "An error occurred while processing your request."}), 500
+                user_index = 0
+    print(f"User {ip} has index:", user_index)
+    
+    if user_index < len(questions):
+        current_question = questions[user_index]
+        print("Serving question:", current_question)
+        return render_template('question.html', question=current_question, quiz_name=quiz_name)
+    else:
+        print("No more questions for user", ip)
+        return render_template('finish.html', quiz_name=quiz_name)
 
 # Route to validate the user's answer for a question
 @app.route('/<quiz_name>/quiz/validate', methods=['POST'])
 def quiz_validate(quiz_name):
-    ip = request.remote_addr  # Get the user's IP address
-    answer = request.json.get('answer')  # Get the user's answer from the request
-    question_obj = request.json.get('question')  # Get the question object from the request
-    question_text = question_obj["question"]  # Extract the question text
+    ip = request.remote_addr
+    answer = request.json.get('answer')
+    question_obj = request.json.get('question')
+    question_text = question_obj["question"]
     log_event(ip, f"Submitted answer for question '{question_text}' with answer '{answer}' in quiz '{quiz_name}'")
     print(f"Answer received: {answer} for question: {question_text}")
     is_correct = False
@@ -173,7 +169,25 @@ def quiz_validate(quiz_name):
 
     print(f"User answered question: {question_text} and said '{answer}' in quiz {quiz_name}")
 
-    return jsonify({'is_correct': is_correct})  # Return whether the answer was correct
+    # Update progress: increment this IP’s question index
+    question_dir = os.path.join(os.path.dirname(__file__), "non_static", "question")
+    if not os.path.exists(question_dir):
+        os.makedirs(question_dir)
+    question_file = os.path.join(question_dir, f"{quiz_name}.json")
+    data = {}
+    if os.path.exists(question_file):
+        with open(question_file, "r", encoding="utf-8") as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                data = {}
+    current_index = data.get(ip, 0)
+    data[ip] = current_index + 1  # move to next question
+    with open(question_file, "w", encoding="utf-8") as f:
+        json.dump(data, f)
+    
+    # Return whether the answer was correct, etc.
+    return jsonify({'is_correct': is_correct})
 
 @app.route('/<quiz_name>/quiz/finish', methods=['GET'])
 def quiz_finish(quiz_name):
@@ -305,6 +319,51 @@ def deletequiz():
         return render_template("deletequiz.html", message=message, user_uploaded=user_uploaded)
     # For GET method, render the selection form
     return render_template("deletequiz.html", user_uploaded=user_uploaded)
+
+@app.route('/makequiz', methods=['GET', 'POST'])
+def makequiz():
+    if request.method == "POST":
+        # Get the entered quiz content and file name
+        quiz_content = request.form.get('quiz_content')
+        filename = request.form.get('filename')
+        if not filename:
+            return render_template('makequiz.html', message="Please provide a file name.")
+        if not filename.endswith('.txt'):
+            filename += '.txt'
+        quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
+        if not os.path.exists(quiz_dir):
+            os.makedirs(quiz_dir)
+        file_path = os.path.join(quiz_dir, filename)
+        try:
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(quiz_content)
+            # After saving the file, update uploaded.json
+            uploaded_file = os.path.join(os.path.dirname(__file__), "data", "uploaded.json")
+            if os.path.exists(uploaded_file):
+                with open(uploaded_file, "r", encoding="utf-8") as f:
+                    try:
+                        uploaded_data = json.load(f)
+                    except json.JSONDecodeError:
+                        uploaded_data = {}
+            else:
+                uploaded_data = {}
+
+            ip = request.remote_addr
+            user_list = uploaded_data.get(ip, [])
+            quiz_base = os.path.splitext(filename)[0]
+            if quiz_base not in user_list:
+                user_list.append(quiz_base)
+            uploaded_data[ip] = user_list
+            data_dir = os.path.join(os.path.dirname(__file__), "data")
+            if not os.path.exists(data_dir):
+                os.makedirs(data_dir)
+            with open(uploaded_file, "w", encoding="utf-8") as f:
+                json.dump(uploaded_data, f)
+            message = "Quiz created successfully!"
+        except Exception as e:
+            message = f"An error occurred: {str(e)}"
+        return render_template('makequiz.html', message=message)
+    return render_template('makequiz.html')
 
 def listen_for_commands():
     while True:

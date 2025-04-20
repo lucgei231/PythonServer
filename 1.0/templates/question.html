@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="question-container">
+        <h1>{{ question.question }}</h1>
+        {% if question.options %}
+        <ul>
+            {% for option in question.options %}
+            <li>{{ option }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <!-- Answer form -->
+        <form id="answer-form">
+            <input type="text" name="answer" placeholder="Your Answer" required>
+            <button type="submit">Submit Answer</button>
+        </form>
+        <!-- Feedback message under the answer form -->
+        <div id="feedback" style="margin-top:10px; font-weight:bold;"></div>
+    </div>
+    <script>
+        document.getElementById("answer-form").addEventListener("submit", function(e){
+            e.preventDefault();
+            const answerValue = document.querySelector('input[name="answer"]').value;
+            console.log("Submitting answer:", answerValue);
+            fetch("{{ url_for('quiz_validate', quiz_name=quiz_name) }}", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    answer: answerValue,
+                    question: { "question": "{{ question.question }}" }
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Validation response:", data);
+                const feedbackDiv = document.getElementById("feedback");
+                if(data.is_correct) {
+                    feedbackDiv.innerHTML = "<span style='color:green;'>Correct!</span>";
+                } else {
+                    feedbackDiv.innerHTML = "<span style='color:red;'>Incorrect, try again!</span>";
+                }
+                // Delay a page reload to show the feedback message
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            })
+            .catch(error => {
+                console.error("Error submitting answer:", error);
+            });
+        });
+    </script>
+</body>
+</html>

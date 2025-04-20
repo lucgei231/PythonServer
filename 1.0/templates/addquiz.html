@@ -14,6 +14,26 @@
             border: 1px solid #ddd;
             margin-bottom: 20px;
         }
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .action-buttons a, .action-buttons button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        .upload-quiz-button {
+            background-color: red;
+            color: white;
+        }
+        .make-quiz-button {
+            background-color: blue;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -33,8 +53,12 @@
         </div>
         <form method="POST" action="{{ url_for('upload_quiz') }}" enctype="multipart/form-data">
             <input type="file" name="quiz_file" accept=".txt" required>
-            <button type="submit">Upload Quiz</button>
+            <button type="submit" class="upload-quiz-button">Upload Quiz</button>
         </form>
+        <div class="action-buttons">
+            <!-- New Make in Web button -->
+            <a class="make-quiz-button" href="{{ url_for('makequiz') }}">Make in Web</a>
+        </div>
         <br>
         <a href="{{ url_for('home') }}">Back to Home</a>
     </div>

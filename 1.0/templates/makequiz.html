@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Make Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .makequiz-container {
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            font-size: 14px;
+        }
+        .done-button {
+            background-color: green;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        label, input {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="makequiz-container">
+        <h1>Create Your Quiz</h1>
+        {% if message %}
+        <p style="color: green;">{{ message }}</p>
+        {% endif %}
+        <form method="POST" action="{{ url_for('makequiz') }}">
+            <textarea name="quiz_content" placeholder="Enter your quiz text here..."></textarea>
+            <label for="filename">Enter file name (without extension):</label>
+            <input type="text" name="filename" id="filename" required>
+            <br>
+            <button type="submit" class="done-button">Done</button>
+        </form>
+        <br>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
+</body>
+</html>
