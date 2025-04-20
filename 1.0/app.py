@@ -325,26 +325,24 @@ def makequiz():
         return render_template('makequiz.html', message=message)
     return render_template('makequiz.html')
 
-@app.route('/edit_quiz/<quiz_name>', methods=['GET', 'POST'])
-def edit_quiz(quiz_name):
-    quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
-    quiz_file = os.path.join(quiz_dir, quiz_name + ".txt")
-    if request.method == "POST":
-        new_content = request.form.get("quiz_content", "")
-        try:
-            with open(quiz_file, "w", encoding="utf-8") as f:
-                f.write(new_content)
-            message = "Quiz saved successfully!"
-        except Exception as e:
-            message = f"Error saving quiz: {str(e)}"
-        return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=new_content, message=message)
-    # GET: Load current quiz content
-    if os.path.exists(quiz_file):
-        with open(quiz_file, "r", encoding="utf-8") as f:
-            quiz_content = f.read()
+@app.route('/editquiz', methods=['GET', 'POST'])
+def editquiz_select():
+    ip = get_client_ip()
+    uploaded_file = os.path.join(os.path.dirname(__file__), "data", "uploaded.json")
+    if os.path.exists(uploaded_file):
+        with open(uploaded_file, "r", encoding="utf-8") as f:
+            uploaded_data = json.load(f)
     else:
-        quiz_content = ""
-    return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=quiz_content)
+        uploaded_data = {}
+    user_uploaded = uploaded_data.get(ip, [])
+    if request.method == "POST":
+        quiz_to_edit = request.form.get("quiz")
+        if quiz_to_edit in user_uploaded:
+            return redirect(url_for('edit_quiz', quiz_name=quiz_to_edit))
+        else:
+            message = "You are not allowed to edit this quiz."
+            return render_template("editquiz_select.html", user_uploaded=user_uploaded, message=message)
+    return render_template("editquiz_select.html", user_uploaded=user_uploaded)
 
 def listen_for_commands():
     while True:

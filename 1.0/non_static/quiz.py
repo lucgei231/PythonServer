@@ -12,7 +12,7 @@ def read_quiz(quiz_name):
         raise FileNotFoundError(f"Quiz file {file_path} not found")
         
     # Read and parse the quiz file
-    questions = []
+    questions = []ssss
     with open(file_path, "r", encoding="utf-8") as f:
         # Assume each question is separated by a newline and the answer follows on the next line
         lines = [line.strip() for line in f if line.strip()]
