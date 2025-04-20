@@ -2,39 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Select a Quiz</title>
+    <title>Quiz Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
-        .quiz-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 20px;
-        }
+        /* Style for quiz buttons */
         .quiz-button {
-            background-color: #007bff;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
+            padding: 10px 15px;
+            margin: 5px;
             text-decoration: none;
             display: inline-block;
-            font-size: 16px;
-            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+        }
+        /* Style for the Upload Quiz button */
+        .upload-quiz-button {
+            background-color: red;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
             border-radius: 5px;
+        }
+        /* Flex container for aligning title and button on one row */
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Select a Quiz</h1>
-    {% if quizzes %}
-    <div class="quiz-buttons">
-        {% for quiz in quizzes %}
-        <a class="quiz-button" href="{{ url_for('quiz_index', quiz_name=quiz) }}">{{ quiz }}</a>
-        {% endfor %}
+    <div class="container">
+        <!-- Header with title and the Upload Quiz button on the same row -->
+        <div class="header-container">
+            <h1>Select a Quiz</h1>
+            <a class="upload-quiz-button" href="{{ url_for('addquiz') }}">Upload Quiz</a>
+        </div>
+        <!-- Quiz buttons or list of quizzes -->
+        {% if quizzes %}
+        <div class="quiz-buttons">
+            {% for quiz in quizzes %}
+            <a class="quiz-button" href="{{ url_for('quiz_index', quiz_name=quiz) }}">{{ quiz }}</a>
+            {% endfor %}
+        </div>
+        {% else %}
+            <p>No quizzes available.</p>
+        {% endif %}
     </div>
-    {% else %}
-  <p>No quizzes available.</p>
-    {% endif %}
 </body>
 </html>

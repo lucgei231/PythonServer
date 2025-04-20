@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .upload-container {
+            margin: 20px;
+        }
+        .example-format {
+            background-color: #f4f4f4;
+            padding: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <h1>Upload Quiz File</h1>
+        {% if message %}
+        <p style="color: green;">{{ message }}</p>
+        {% endif %}
+        <div class="example-format">
+            <h3>Example Quiz Format (quiz.txt):</h3>
+            <p>Question 1?</p>
+            <p>Answer 1</p>
+            <p>---------------</p>
+            <p>Question 2?</p>
+            <p>Answer 2</p>
+            <!-- Add additional example lines as needed -->
+        </div>
+        <form method="POST" action="{{ url_for('upload_quiz') }}" enctype="multipart/form-data">
+            <input type="file" name="quiz_file" accept=".txt" required>
+            <button type="submit">Upload Quiz</button>
+        </form>
+        <br>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
+</body>
+</html>

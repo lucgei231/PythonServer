@@ -4,14 +4,16 @@ import random
 import datetime
 import sys
 import threading
+import re
 
 from flask import Flask, render_template, jsonify, request, session
 from non_static.utils import example_util_function, ExampleUtility
 from non_static.quiz import get_random_question, validate_answer, read_quiz
-import win32com.client
+#from win32com.client import Dispatch  # Removed win32com dependency
+from werkzeug.utils import secure_filename
 
-# Initialize the text-to-speech engine
-speaker = win32com.client.Dispatch("SAPI.SpVoice")
+# Removed text-to-speech engine initialization that used win32com
+# speaker = win32com.client.Dispatch("SAPI.SpVoice")
 
 # Initialize the Flask app
 app = Flask(__name__)
@@ -32,7 +34,8 @@ def log_event(ip, event):
 @app.before_request
 def log_connection():
     ip = request.remote_addr  # Get the user's IP address
-    log_event(ip, "Connected")  # Log the connection event
+    # Commenting out logging for testing
+    # log_event(ip, "Connected")
 
 # Middleware to log when a user disconnects
 @app.teardown_request
@@ -49,19 +52,24 @@ def health_check():
 @app.route('/')
 def home():
     try:
-        quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")  # Path to quizzes
-        quizzes = []  # List to store quiz names
-        if os.path.exists(quiz_dir):  # Ensure the directory exists
-            for file in os.listdir(quiz_dir):  # Iterate through files in the directory
-                if file.endswith(".txt"):  # Only include .txt files
-                    quiz_name = os.path.splitext(file)[0]  # Extract the quiz name (without extension)
+        quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
+        quizzes = []
+        if os.path.exists(quiz_dir):
+            for file in os.listdir(quiz_dir):
+                if file.endswith(".txt"):
+                    quiz_name = os.path.splitext(file)[0]
                     quizzes.append(quiz_name)
-        return render_template('home.html', quizzes=quizzes), 200  # Render the home page with quiz names
+        print("Home route: found quizzes:", quizzes)  # Debug print
+        return render_template('home.html', quizzes=quizzes), 200
     except Exception as e:
-        print(f"Error in home route: {str(e)}")  # Log the error
+        print(f"Error in home route: {str(e)}")
         return render_template('error.html', message="An error occurred while loading the home page."), 500
 
-# Render the quiz page for the given quiz name and initialize score tracking
+@app.route('/addquiz', methods=['GET'], strict_slashes=True)
+def addquiz():
+    return render_template('addquiz.html')
+
+# Now the dynamic quiz route comes after specific routes
 @app.route('/<quiz_name>')
 def quiz_index(quiz_name):
     try:
@@ -204,7 +212,7 @@ def reset_quiz(quiz_name):
 # New route to toggle the shuffle setting
 @app.route('/<quiz_name>/toggle_shuffle', methods=['POST'])
 def toggle_shuffle(quiz_name):
-    # Toggle the current shuffle state (default True)
+    # Toggle the current shuffle state (default False)
     current = session.get('shuffle', False)
     new_setting = not current
     session['shuffle'] = new_setting
@@ -218,13 +226,42 @@ def toggle_shuffle(quiz_name):
     # Return the new shuffle state as confirmation
     return jsonify({"shuffle": new_setting})
 
+def custom_secure_filename(filename):
+    # Only remove characters that are not alphanumeric, space, a dash, a dot, or an underscore.
+    filename = os.path.basename(filename)
+    filename = re.sub(r'[^\w\s.-]', '', filename).strip()
+    return filename
+
+@app.route('/upload_quiz', methods=['POST'])
+def upload_quiz():
+    if 'quiz_file' not in request.files:
+        return render_template('error.html', message="No file part in the request."), 400
+    file = request.files['quiz_file']
+    if file.filename == '':
+        return render_template('error.html', message="No file selected for uploading."), 400
+    filename = custom_secure_filename(file.filename)  # Use the custom sanitization that preserves spaces
+    if not filename.endswith('.txt'):
+        return render_template('error.html', message="Only .txt files are allowed."), 400
+    quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
+    if not os.path.exists(quiz_dir):
+        os.makedirs(quiz_dir)
+    file_path = os.path.join(quiz_dir, filename)
+    file.save(file_path)
+    return render_template('addquiz.html', message="Quiz uploaded successfully!")
+
 def listen_for_commands():
     while True:
         cmd = input()
-        if cmd.strip().lower() == "restart":
+        cmd_lower = cmd.strip().lower()
+        if cmd_lower == "restart":
             print("Restarting...")
-            # Restart the process by replacing the current process
             os.execv(sys.executable, [sys.executable] + sys.argv)
+        elif cmd_lower == "force-restart":
+            print("Force restarting...")
+            # Start a new process and then exit the current one.
+            import subprocess
+            subprocess.Popen([sys.executable] + sys.argv)
+            sys.exit(0)
 
 if __name__ == '__main__':
     # Start the command listener thread
