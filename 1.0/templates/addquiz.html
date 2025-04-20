@@ -52,7 +52,7 @@
             <!-- Add additional example lines as needed -->
         </div>
         <form method="POST" action="{{ url_for('upload_quiz') }}" enctype="multipart/form-data">
-            <input type="file" name="quiz_file" accept=".txt" required>
+            <input type="file" name="quiz_file" accept=".txt, text/plain" required>
             <button type="submit" class="upload-quiz-button">Upload Quiz</button>
         </form>
         <div class="action-buttons">
