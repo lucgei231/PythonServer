@@ -60,11 +60,14 @@
         </div>
         <!-- Quiz buttons or list of quizzes -->
         {% if quizzes %}
-        <div class="quiz-buttons">
-            {% for quiz in quizzes %}
-            <a class="quiz-button" href="{{ url_for('quiz_index', quiz_name=quiz) }}">{{ quiz }}</a>
-            {% endfor %}
-        </div>
+        <ul>
+          {% for quiz in quizzes %}
+            <li>
+              {{ quiz }}
+              <a href="{{ url_for('edit_quiz', quiz_name=quiz) }}" class="btn btn-warning btn-sm">Edit</a>
+            </li>
+          {% endfor %}
+        </ul>
         {% else %}
             <p>No quizzes available.</p>
         {% endif %}
