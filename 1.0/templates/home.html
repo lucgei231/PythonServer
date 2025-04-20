@@ -15,7 +15,7 @@
             color: white;
             border-radius: 4px;
         }
-        /* Style for the Upload Quiz button */
+        /* Style for the Upload Quiz button (red) */
         .upload-quiz-button {
             background-color: red;
             color: white;
@@ -23,21 +23,40 @@
             text-decoration: none;
             border-radius: 5px;
         }
-        /* Flex container for aligning title and button on one row */
+        /* Style for the Delete Quiz button (yellow) */
+        .delete-quiz-button {
+            background-color: yellow;
+            color: black;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        /* Flex container for aligning title and buttons on one row */
         .header-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 20px;
         }
+        /* Button group for the two action buttons */
+        .button-group {
+            display: flex;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header with title and the Upload Quiz button on the same row -->
+        <!-- Header with title and buttons -->
         <div class="header-container">
             <h1>Select a Quiz</h1>
-            <a class="upload-quiz-button" href="{{ url_for('addquiz') }}">Upload Quiz</a>
+            <div class="button-group">
+                {% if user_uploaded|length > 0 %}
+                <a class="delete-quiz-button" href="{{ url_for('deletequiz') }}">Delete Quiz</a>
+                {% endif %}
+                <a class="upload-quiz-button" href="{{ url_for('addquiz') }}">Upload Quiz</a>
+            </div>
         </div>
         <!-- Quiz buttons or list of quizzes -->
         {% if quizzes %}

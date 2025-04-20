@@ -59,8 +59,16 @@ def home():
                 if file.endswith(".txt"):
                     quiz_name = os.path.splitext(file)[0]
                     quizzes.append(quiz_name)
+        # Load uploaded quizzes for current IP
+        uploaded_file = os.path.join(os.path.dirname(__file__), "data", "uploaded.json")
+        user_uploaded = []
+        ip = request.remote_addr
+        if os.path.exists(uploaded_file):
+            with open(uploaded_file, "r", encoding="utf-8") as f:
+                uploaded_data = json.load(f)
+            user_uploaded = uploaded_data.get(ip, [])
         print("Home route: found quizzes:", quizzes)  # Debug print
-        return render_template('home.html', quizzes=quizzes), 200
+        return render_template('home.html', quizzes=quizzes, user_uploaded=user_uploaded), 200
     except Exception as e:
         print(f"Error in home route: {str(e)}")
         return render_template('error.html', message="An error occurred while loading the home page."), 500
@@ -247,7 +255,56 @@ def upload_quiz():
         os.makedirs(quiz_dir)
     file_path = os.path.join(quiz_dir, filename)
     file.save(file_path)
+    # Record the uploaded quiz for the user's IP
+    uploaded_file = os.path.join(os.path.dirname(__file__), "data", "uploaded.json")
+    if os.path.exists(uploaded_file):
+        with open(uploaded_file, "r", encoding="utf-8") as f:
+            uploaded_data = json.load(f)
+    else:
+        uploaded_data = {}
+    ip = request.remote_addr
+    user_list = uploaded_data.get(ip, [])
+    quiz_base = os.path.splitext(filename)[0]
+    if quiz_base not in user_list:
+        user_list.append(quiz_base)
+    uploaded_data[ip] = user_list
+    # Ensure the data directory exists
+    data_dir = os.path.join(os.path.dirname(__file__), "data")
+    if not os.path.exists(data_dir):
+        os.makedirs(data_dir)
+    with open(uploaded_file, "w", encoding="utf-8") as f:
+        json.dump(uploaded_data, f)
     return render_template('addquiz.html', message="Quiz uploaded successfully!")
+
+@app.route('/deletequiz', methods=['GET', 'POST'])
+def deletequiz():
+    ip = request.remote_addr
+    uploaded_file = os.path.join(os.path.dirname(__file__), "data", "uploaded.json")
+    if os.path.exists(uploaded_file):
+        with open(uploaded_file, "r", encoding="utf-8") as f:
+            uploaded_data = json.load(f)
+    else:
+        uploaded_data = {}
+    user_uploaded = uploaded_data.get(ip, [])
+    if request.method == "POST":
+        quiz_to_delete = request.form.get("quiz")
+        if quiz_to_delete in user_uploaded:
+            # Remove the quiz file
+            quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
+            quiz_file = os.path.join(quiz_dir, quiz_to_delete + ".txt")
+            if os.path.exists(quiz_file):
+                os.remove(quiz_file)
+            # Update the uploaded data
+            user_uploaded.remove(quiz_to_delete)
+            uploaded_data[ip] = user_uploaded
+            with open(uploaded_file, "w", encoding="utf-8") as f:
+                json.dump(uploaded_data, f)
+            message = "Quiz deleted successfully."
+        else:
+            message = "You are not allowed to delete this quiz."
+        return render_template("deletequiz.html", message=message, user_uploaded=user_uploaded)
+    # For GET method, render the selection form
+    return render_template("deletequiz.html", user_uploaded=user_uploaded)
 
 def listen_for_commands():
     while True:
