@@ -41,7 +41,7 @@
         <h1>Upload Quiz File</h1>
         {% if message %}
         <p style="color: green;">{{ message }}</p>
-        {% endif %}
+        {% endif %}s
         <div class="example-format">
             <h3>Example Quiz Format (quiz.txt):</h3>
             <p>Question 1?</p>
@@ -51,7 +51,7 @@
             <p>Answer 2</p>
             <!-- Add additional example lines as needed -->
         </div>
-        <form method="POST" action="{{ url_for('upload_quiz') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ url_for('addquiz') }}" enctype="multipart/form-data">
             <input type="file" name="quiz_file" accept=".txt, text/plain" required>
             <button type="submit" class="upload-quiz-button">Upload Quiz</button>
         </form>

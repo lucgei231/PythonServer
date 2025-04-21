@@ -1,89 +1,89 @@
-What do Creepers drop when killed?  
-Gunpowder
-
-What do you need to mine Diamonds?  
-Iron
-
-What is the default Minecraft player skin called?  
-Steve
-
-What block do you need to craft a Nether Portal?  
-Obsidian
-
-What biome do Polar Bears spawn in?  
-Snowy
-
-What mob explodes when close to the player?  
-Creeper
-
-What tool is used to mine Stone faster?  
-Pickaxe
-
-What is the dimension with floating islands?  
-End
-
-What item do you use to tame a Wolf?  
-Bone
-
-What enchantment makes you swim faster?  
-Depth
-
-What block do you use to craft Bread?  
-Wheat
-
-What do Endermen drop?  
-Pearls
-
-What animal gives you Wool?  
-Sheep
-
-What do you need to breed Cows?  
-Wheat
-
-What structure is found in the End?  
-City
-
-What do Villagers use to choose jobs?  
-Table
-
-What color is Redstone dust?  
-Red
-
-What item lets you glide?  
-Elytra
-
-What block do Bees use to make honey?  
-Hive
-
-What item is needed to cure a Zombie Villager?  
-Apple
-
-What do Skeletons shoot?  
-Arrows
-
-What metal is used to craft Rails?  
-Iron
-
-What fruit teleports you when eaten?  
-Chorus
-
-What mob drops Blaze Rods?  
-Blaze
-
-What material is used to make Armor strongest?  
-Netherite
-
-What potion makes you invisible?  
-Invisibility
-
-What mob is found in the Nether and throws fireballs?  
-Ghast
-
-What block do you use to enchant items?  
-Table
-
-What do you use to light a Nether Portal?  
-Flint
-
-What creature drops Slimeballs?  
-Slime
+What do Creepers drop when killed?  
+Gunpowder
+
+What do you need to mine Diamonds?  
+Iron
+
+What is the default Minecraft player skin called?  
+Steve
+
+What block do you need to craft a Nether Portal?  
+Obsidian
+
+What biome do Polar Bears spawn in?  
+Snowy
+
+What mob explodes when close to the player?  
+Creeper
+
+What tool is used to mine Stone faster?  
+Pickaxe
+
+What is the dimension with floating islands?  
+End
+
+What item do you use to tame a Wolf?  
+Bone
+
+What enchantment makes you swim faster?  
+Depth
+
+What block do you use to craft Bread?  
+Wheat
+
+What do Endermen drop?  
+Pearls
+
+What animal gives you Wool?  
+Sheep
+
+What do you need to breed Cows?  
+Wheat
+
+What structure is found in the End?  
+City
+
+What do Villagers use to choose jobs?  
+Table
+
+What color is Redstone dust?  
+Red
+
+What item lets you glide?  
+Elytra
+
+What block do Bees use to make honey?  
+Hive
+
+What item is needed to cure a Zombie Villager?  
+Apple
+
+What do Skeletons shoot?  
+Arrows
+
+What metal is used to craft Rails?  
+Iron
+
+What fruit teleports you when eaten?  
+Chorus
+
+What mob drops Blaze Rods?  
+Blaze
+
+What material is used to make Armor strongest?  
+Netherite
+
+What potion makes you invisible?  
+Invisibility
+
+What mob is found in the Nether and throws fireballs?  
+Ghast
+
+What block do you use to enchant items?  
+Table
+
+What do you use to light a Nether Portal?  
+Flint
+
+What creature drops Slimeballs?  
+Slime

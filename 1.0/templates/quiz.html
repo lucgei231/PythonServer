@@ -4,8 +4,37 @@
   <meta charset="UTF-8">
   <title>Question</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+    .question-number {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .home-button a {
+      background-color: green;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
+  <div class="header-container">
+    <div class="question-number">
+      Question: {{ question_index|default(1) }}
+    </div>
+    <div class="home-button">
+      <a href="{{ url_for('home') }}">Home</a>
+    </div>
+  </div>
   <div class="question-container">
     <h1>{{ question.question }}</h1>
     {% if question.options %}
@@ -39,7 +68,7 @@
         const feedbackDiv = document.getElementById("feedback");
         if(data.is_correct) {
           feedbackDiv.innerHTML = "<span style='color:green;'>Correct!</span>";
-          // Wait 2 seconds then reload for next question
+          // Wait 2 seconds then reload for next question.
           setTimeout(() => {
             window.location.reload();
           }, 2000);
