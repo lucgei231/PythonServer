@@ -1,0 +1,219 @@
+Starting Server...
+Starting Server...
+Starting Server...
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Starting Server...
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Starting Server...
+Starting Server...
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Starting Server...
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Starting Server...
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Starting Server...
+Starting Server...
+ * Serving Flask app 'app'
+ * Debug mode: on
+Starting Server...
+Starting Server...
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Starting Server...
+Detected IP 127.0.0.1 on /logs
+Starting Server...
+Detected IP 127.0.0.1 on /logs
+Starting Server...
+Starting Server...
+Starting Server...
+Detected IP 127.0.0.1 on /logs
+Starting Server...
+Attempting to unban: '127.0.0.1'
+Banned IPs currently: ['127.0.0.1']
+Unbanned IP: 127.0.0.1
+Detected IP 127.0.0.1 on /logs
+Attempting to unban: '127.0.0.1'
+Banned IPs currently: ['127.0.0.1']
+Unbanned IP: 127.0.0.1
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Starting Server...
+Starting Server...
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Starting Server...
+Starting Server...
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+>hiDetected IP 127.0.0.1 on /logs
+Starting Server...
+Starting Server...
+Starting Server...
+Starting Server...
+Starting Server...
+Starting Server...
+> f
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+> unban-ip 127.0.0.1
+> g
+> f
+> hello
+Detected IP 192.168.50.94 on /logs
+> unban-ip 127.0.0.1
+Detected IP 192.168.50.94 on /logs
+Detected IP 192.168.50.94 on /logs
+Detected IP 192.168.50.94 on /logs
+Detected IP 192.168.50.94 on /logs
+Detected IP 192.168.50.94 on /logs
+Starting Server...
+ * Serving Flask app 'app'
+ * Debug mode: on
+Starting Server...
+Starting Server...
+Starting Server...
+Starting Server...
+Starting Server...
+Starting Server...
+Starting Server...
+Detected IP 127.0.0.1 on /logs
+> unban-ip 127.0.0.1
+Detected IP 127.0.0.1 on /logs
+Starting Server...
+> unban-ip 127.0.0.1
+Detected IP 192.168.50.94 on /logs
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\quiz.txt
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\quiz.txt
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\quiz.txt
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+Detected IP 192.168.50.94 on /logs
+Detected IP 127.0.0.1 on /logs
+> h
+Starting Server...
+Detected IP 192.168.50.94 on /logs
+Detected IP 192.168.50.94 on /logs
+> ban-ip 127.0.0.1 test
+Detected IP 192.168.50.94 on /logs
+> s
+> s
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+Detected IP 192.168.50.94 on /logs
+Starting Server...
+Detected IP 127.0.0.1 on /logs
+Detected IP 127.0.0.1 on /logs
+> unban-ip 127.0.0.1
+> Please enter the password to type a command.
+> LG12345
+> Passcode accepted. You can now enter your commands.
+> unban-ip 127.0.0.1
+Attempting to unban: '127.0.0.1'
+Banned IPs currently: ['192.168.50.80', '127.0.0.1']
+Unbanned IP: 127.0.0.1
+Detected IP 192.168.50.94 on /logs
+Detected IP 192.168.50.94 on /logs
+> hi
+> Please enter the password to type a command.
+> lol
+> Please enter the password to type a command.
+> no
+> Please enter the password to type a command.
+Starting Server...
+Detected IP 192.168.50.94 on /logs
+> s
+> Please enter the password to type a command.
+> s
+> Please enter the password to type a command.
+> s
+> Please enter the password to type a command.
+> s
+> Please enter the password to type a command.
+> s
+> Please enter the password to type a command.
+> s
+> Please enter the password to type a command.
+> s
+> Please enter the password to type a command.
+> s
+> Please enter the password to type a command.
+Starting Server...
+> s> s> s> s> s> s> sDetected IP 192.168.50.94 on /logs
+
+
+
+
+
+
+
+> d> d> d> d> d> d
+
+
+
+
+
+> d
+> Please enter the password to type a command.
+> Please enter the password to type a command.
+> Please enter the password to type a command.
+> Please enter the password to type a command.
+> Please enter the password to type a command.> Please enter the password to type a command.
+> Please enter the password to type a command.
+
+Starting Server...
+ * Serving Flask app 'app'
+ * Debug mode: on
+Starting Server...
+> d
+> Please enter the password to type a command.
+> d
+> Please enter the password to type a command.
+Starting Server...
+Starting Server...
+Starting Server...
+ * Serving Flask app 'app'
+ * Debug mode: on
+Starting Server...
+Starting Server...
+Starting Server...
+Starting Server...
+Detected IP 192.168.50.94 on /logs
+Detected IP 127.0.0.1 on /addquiz
+Detected IP 192.168.50.94 on /logs
+127.0.0.1  is confirming if they want to delete C   Quiz
+Detected IP 192.168.50.94 on /logs
+Detected IP 192.168.50.94 on /logs
+Starting Server...
+Detected IP 192.168.50.94 on /logs
+> message 127.0.0.1 hi
+Detected IP 192.168.50.94 on /logs
+Detected IP 192.168.50.94 on /logs
+Detected IP 192.168.50.94 on /logs
+Detected IP 192.168.50.94 on /logs
+Detected IP 192.168.50.94 on /logs
+Detected IP 192.168.50.94 on /logs
+Starting Server...
+ * Serving Flask app 'app'
+ * Debug mode: on
+Starting Server...
+Starting Server...
+Starting Server...
+Starting Server...

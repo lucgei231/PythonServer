@@ -4,6 +4,16 @@
   <meta charset="UTF-8">
   <title>Quiz Home</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .header-buttons a.view-logs-button {
+      background-color: grey;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-left: 10px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -12,7 +22,8 @@
       <h1>Select a Quiz</h1>
       <div class="header-buttons">
         <a href="{{ url_for('addquiz') }}" class="upload-btn">Add Quiz</a>
-        <a href="{{ url_for('admin_panel') }}" class="admin-btn">Admin Panel</a>
+        <a href="{{ url_for('view_logs') }}" class="view-logs-button">View Logs</a>
+        <!-- No admin panel button means you must manually type /adminpanel in URL -->
       </div>
     </header>
     <!-- Quiz list -->

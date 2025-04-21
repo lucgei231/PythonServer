@@ -251,25 +251,8 @@ def admin_panel():
         if not session.get('admin'):
             # Show login form if not already admin.
             return render_template('adminpanel.html')
-        # Admin is logged in. List all quizzes and aggregate logs.
-        quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
-        quizzes = []
-        if os.path.exists(quiz_dir):
-            for file in os.listdir(quiz_dir):
-                if file.endswith('.txt'):
-                    quiz_name = os.path.splitext(file)[0]
-                    quizzes.append(quiz_name)
-        # Aggregate logs from logs folder.
-        logs_dir = os.path.join(os.path.dirname(__file__), "logs")
-        aggregated_logs = ""
-        if os.path.exists(logs_dir):
-            for filename in os.listdir(logs_dir):
-                if filename.endswith('.log'):
-                    path = os.path.join(logs_dir, filename)
-                    with open(path, "r", encoding="utf-8") as f:
-                        content = f.read()
-                        aggregated_logs += f"\n--- {filename} ---\n" + content
-        return render_template('adminpanel.html', quizzes=quizzes, logs=aggregated_logs)
+        # Admin is logged in—display admin interface.
+        return render_template('adminpanel.html', admin=True)
 
 @app.route('/adminpanel/logout')
 def admin_logout():

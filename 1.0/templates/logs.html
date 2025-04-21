@@ -1,0 +1,232 @@
+<!-- filepath: f:\PythonServer\1.0\templates\logs.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Logs</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: monospace;
+      background: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .log-container {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      background: #333;
+      color: #eee;
+      position: relative;
+    }
+    .command-container {
+      padding: 10px 20px;
+      background: #ddd;
+    }
+    #command-form input[type="text"] {
+      width: 80%;
+      padding: 5px;
+      font-size: 16px;
+    }
+    #command-form button {
+      padding: 5px 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    /* Home button styling */
+    .home-button {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: green;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 4px;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <!-- Green Home Button in top right corner -->
+  <a href="{{ url_for('home') }}" class="home-button">Home</a>
+  <div class="log-container" id="logContainer">
+    {{ logs_content }}
+  </div>
+  <div class="command-container">
+    <form id="command-form">
+      <input type="text" id="commandInput" placeholder="Enter command">
+      <button type="submit">Execute</button>
+    </form>
+  </div>
+  <script>
+    const clientIp = "{{ client_ip }}";
+    const logContainer = document.getElementById("logContainer");
+
+    // Append a message to the log container.
+    function appendMessage(message) {
+      const msgDiv = document.createElement("div");
+      msgDiv.style.color = "#eee";
+      msgDiv.textContent = message;
+      logContainer.appendChild(msgDiv);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+
+    // Reload the log container content from /logs-content.
+    function reloadLogs() {
+      fetch("{{ url_for('logs_content') }}")
+        .then(response => response.text())
+        .then(data => {
+           logContainer.innerHTML = data;
+           logContainer.scrollTop = logContainer.scrollHeight;
+        });
+    }
+
+    // Scroll to bottom on page load.
+    logContainer.scrollTop = logContainer.scrollHeight;
+
+    let passcodeAccepted = false;
+
+    document.getElementById("command-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const commandInput = document.getElementById("commandInput");
+      const command = commandInput.value.trim();
+      if(command === "") return;
+
+      // Check for a "message" command:
+      if (command.toLowerCase().startsWith("message ")) {
+        const parts = command.split(" ");
+        if (parts.length < 3) {
+          appendMessage("Usage: message <ip> <message>");
+          commandInput.value = "";
+          return;
+        }
+        const targetIp = parts[1];
+        const messageText = parts.slice(2).join(" ");
+        // Log the entered command (with client IP and prefix) as usual.
+        fetch("{{ url_for('log_command') }}", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({ command: command })
+        }).then(() => {
+          appendMessage(clientIp + ": > " + command);
+        });
+        // If the target IP matches the client's IP, show the alert.
+        if(clientIp === targetIp) {
+          alert(messageText);
+        }
+        appendMessage("Message sent to " + targetIp + ": " + messageText);
+        commandInput.value = "";
+        reloadLogs();
+        return;
+      }
+
+      // Log the entered command for all other cases.
+      fetch("{{ url_for('log_command') }}", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ command: command })
+      })
+      .then(() => {
+        // For user-entered commands, prepend the IP and "> " prefix.
+        appendMessage(clientIp + ": > " + command);
+
+        // If the passcode hasn't been accepted.
+        if (!passcodeAccepted) {
+          if (command !== "LG12345") {
+            fetch("{{ url_for('log_command') }}", {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify({ command: "Please enter the password to type a command." })
+            })
+            .then(() => {
+              appendMessage("Please enter the password to type a command.");
+              commandInput.value = "";
+              reloadLogs();
+            });
+            return;
+          } else {
+            passcodeAccepted = true;
+            fetch("{{ url_for('log_command') }}", {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify({ command: "Passcode accepted. You can now enter your commands." })
+            })
+            .then(() => {
+              appendMessage("Passcode accepted. You can now enter your commands.");
+              commandInput.value = "";
+              reloadLogs();
+            });
+            return;
+          }
+        }
+
+        // Process the ban-ip command.
+        if (command.startsWith("ban-ip")) {
+          const parts = command.split(' ');
+          if (parts.length >= 3) {
+            const banIp = parts[1];
+            const banReason = parts.slice(2).join(' ');
+            fetch("{{ url_for('ban_ip') }}", {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify({ ip: banIp, reason: banReason })
+            })
+            .then(resp => resp.text())
+            .then(html => {
+              document.body.innerHTML = html;
+            })
+            .catch(err => {
+              appendMessage("Error banning IP.");
+            });
+          } else {
+            appendMessage("Usage: ban-ip <ip> <reason>");
+          }
+          commandInput.value = "";
+          reloadLogs();
+          return;
+        }
+
+        // Process the unban-ip command.
+        if (command.startsWith("unban-ip")) {
+          const parts = command.split(' ');
+          if (parts.length === 2) {
+            const unbanIp = parts[1].trim();
+            fetch("{{ url_for('unban_ip') }}", {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify({ ip: unbanIp })
+            })
+            .then(resp => resp.json())
+            .then(data => {
+              if(data.status) {
+                appendMessage("Unbanned IP: " + unbanIp);
+              } else if(data.error) {
+                appendMessage(data.error);
+              }
+              reloadLogs();
+            })
+            .catch(err => {
+              appendMessage("Error unbanning IP.");
+            });
+          } else {
+            appendMessage("Usage: unban-ip <ip>");
+          }
+          commandInput.value = "";
+          return;
+        }
+
+        // For any other command.
+        appendMessage("Command received: " + command);
+        commandInput.value = "";
+        reloadLogs();
+      });
+    });
+  </script>
+</body>
+</html>

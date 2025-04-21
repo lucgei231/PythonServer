@@ -3,12 +3,35 @@ import json
 import random
 import datetime
 import re
+import sys
 
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for
 from non_static.quiz import read_quiz, get_random_question, validate_answer  # adjust imports as needed
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
 app.secret_key = "your_random_secret_key_here"
+
+# Ensure the logs directory exists.
+logs_dir = os.path.join(os.path.dirname(__file__), "logs")
+if not os.path.exists(logs_dir):
+    os.makedirs(logs_dir)
+
+# Use a fixed filename for all print() output.
+log_filename = os.path.join(os.path.dirname(__file__), "logs", "print.txt")
+
+class Logger(object):
+    def __init__(self, logfile):
+        self.terminal = sys.stdout
+        self.log = open(logfile, "a", encoding="utf-8")
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+        self.log.flush()
+    def flush(self):
+        self.terminal.flush()
+        self.log.flush()
+
+sys.stdout = Logger(log_filename)
 
 def get_client_ip():
     forwarded_for = request.headers.get('X-Forwarded-For')
@@ -24,8 +47,79 @@ def log_connection():
 @app.after_request
 def log_disconnection(response):
     ip = get_client_ip()
-    # Optional: Add disconnection logging here
+    # Optional: Add disconnection l
+    # ogging here
     return response
+
+# Ensure the data directory exists.
+data_dir = os.path.join(os.path.dirname(__file__), "data")
+if not os.path.exists(data_dir):
+    os.makedirs(data_dir)
+banned_file = os.path.join(data_dir, "banned.txt")
+
+def load_banned_ips():
+    banned = {}
+    if os.path.exists(banned_file):
+        with open(banned_file, "r", encoding="utf-8") as f:
+            for line in f:
+                parts = line.strip().split(' ', 1)
+                if len(parts) == 2:
+                    banned_ip, reason = parts
+                    banned[banned_ip.strip()] = reason.strip()
+    return banned
+
+def save_banned_ips(banned):
+    with open(banned_file, "w", encoding="utf-8") as f:
+        for ip, reason in banned.items():
+            f.write(f"{ip.strip()} {reason}\n")
+
+# Global dictionary to track banned IPs.
+banned_ips = load_banned_ips()
+
+@app.before_request
+def check_banned_ip():
+    # Allow log-related endpoints even if banned.
+    allowed_paths = ['/logs', '/logs-content', '/unban-ip', '/log-command']
+    if request.path in allowed_paths:
+        return
+    ip = get_client_ip()
+    if ip in banned_ips:
+        reason = banned_ips[ip]
+        return render_template("error.html", message=f"IP {ip} banned: {reason}"), 403
+
+@app.route('/ban-ip', methods=['GET', 'POST'])
+def ban_ip():
+    if request.method == "GET":
+        protocol = request.environ.get("SERVER_PROTOCOL", "HTTP/1.1")
+        message = f"GET {request.path} {protocol} Not Allowed: Use POST"
+        return render_template("error.html", message=message), 405
+    data = request.get_json()
+    ip_to_ban = data.get('ip', '').strip()   # <<-- Trim here
+    reason = data.get('reason', 'No reason provided.')
+    if ip_to_ban:
+        banned_ips[ip_to_ban] = reason
+        save_banned_ips(banned_ips)
+        return render_template("error.html", message=f"IP {ip_to_ban} banned: {reason}")
+    return jsonify({'error': 'No IP provided.'}), 400
+
+@app.route('/unban-ip', methods=['GET', 'POST'])
+def unban_ip():
+    if request.method == "GET":
+        protocol = request.environ.get("SERVER_PROTOCOL", "HTTP/1.1")
+        message = f"GET {request.path} {protocol} Not Allowed: Use POST"
+        return render_template("error.html", message=message), 405
+    data = request.get_json() or {}
+    ip_to_unban = data.get('ip', '').strip()  # <<-- Also trim here
+    print("Attempting to unban:", repr(ip_to_unban))
+    print("Banned IPs currently:", list(banned_ips.keys()))
+    if ip_to_unban in banned_ips:
+        del banned_ips[ip_to_unban]
+        save_banned_ips(banned_ips)
+        print("Unbanned IP:", ip_to_unban)
+        return jsonify({'status': f'IP {ip_to_unban} unbanned.'})
+    else:
+        print("IP not found in banned list:", repr(ip_to_unban))
+        return jsonify({'error': 'IP not found in banned list.'}), 404
 
 @app.route('/')
 def home():
@@ -57,10 +151,13 @@ def deletequiz():
         quiz = request.args.get("quiz")
         if not quiz:
             return redirect(url_for("home"))
+        print( ip, " is confirming if they want to delete", quiz)
+        # Check if the quiz exists in the uploaded quizzes for this IP.
         return render_template("deletequiz_confirm.html", quiz=quiz)
     
     # POST: actually delete the quiz.
     quiz_to_delete = request.form.get("quiz")
+    print(ip, " is deleting", quiz_to_delete)
     uploaded_file = os.path.join(os.path.dirname(__file__), "data", "uploaded.json")
     if os.path.exists(uploaded_file):
         with open(uploaded_file, "r", encoding="utf-8") as f:
@@ -69,8 +166,10 @@ def deletequiz():
         uploaded_data = {}
     user_uploaded = uploaded_data.get(ip, [])
     
-    # Delete the quiz file if allowed.
+    print(ip, " is confirming if they want to delete", quiz_to_delete)
+    # Check if the quiz exists in the uploaded quizzes for this IP.
     if quiz_to_delete in user_uploaded:
+        print(ip, " is deleting", quiz_to_delete)
         quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
         quiz_file = os.path.join(quiz_dir, quiz_to_delete + ".txt")
         if os.path.exists(quiz_file):
@@ -81,42 +180,32 @@ def deletequiz():
             json.dump(uploaded_data, f)
     
     # Redirect to home page after deletion.
+    print(ip, " is redirecting to home after deleting", quiz_to_delete)
     return redirect(url_for("home"))
 
 @app.route('/addquiz', methods=['GET', 'POST'])
 def addquiz():
+    print("Detected IP", get_client_ip(), "on /addquiz")
     if request.method == 'GET':
         return render_template("addquiz.html")
     # For POST, process the addition (placeholder logic)
+    print("Adding quiz...", quiz_name, "from IP", get_client_ip())
+    # Here you would typically save the quiz data to a file or database.
+    quiz_name = request.form.get("quiz_name")
+    print("Adding quiz...", quiz_name, "from IP", get_client_ip())
     return render_template("addquiz.html", message="Quiz uploaded successfully!")
 
-# ---- Add admin panel routes before dynamic routes ----
-@app.route('/adminpanel', methods=['GET', 'POST'])
-def admin_panel():
-    if request.method == 'POST':
-        password = request.form.get('password', '')
-        if password == 'LG12345!':
-            session['admin'] = True
-            return redirect(url_for('admin_panel'))
-        else:
-            error = "Invalid password!"
-            return render_template('adminpanel.html', error=error)
-    else:
-        if not session.get('admin'):
-            return render_template('adminpanel.html')
-        # Admin is logged in. Render the admin panel (fill in as needed).
-        return render_template('adminpanel.html', admin=True)
-
-# ---- Update dynamic quiz route to use a fixed prefix ----
 @app.route('/quiz/<quiz_name>', methods=['GET'])
 def quiz_index(quiz_name):
     session['quiz_name'] = quiz_name
-
+    print(get_client_ip(), "is playing " + quiz_name)
     # Read the quiz questions.
     try:
         questions = read_quiz(quiz_name)
     except Exception as e:
+        print(get_client_ip(), "Got an errror while reading a quiz: ", str(e))
         return f"Error reading quiz: {str(e)}", 500
+
 
     if not questions:
         return "No questions available.", 404
@@ -151,11 +240,15 @@ def edit_quiz(quiz_name):
     
     if request.method == 'GET':
         # Read quiz text content.
+        print(get_client_ip(), "is currently editing", quiz_name)
         try:
             with open(quiz_file, "r", encoding="utf-8") as f:
                 quiz_content = f.read()
         except Exception as e:
             quiz_content = ""
+            print(get_client_ip(), "Got an error while reading the quiz: ", str(e)) 
+            print(get_client_ip(), "is currently editing", quiz_name)   
+
         # Read question JSON
         try:
             with open(question_file, "r", encoding="utf-8") as f:
@@ -165,6 +258,7 @@ def edit_quiz(quiz_name):
         return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=quiz_content, question_data=question_data)
     else:
         # POST: update both the quiz text and the question data.
+        print(get_client_ip(), "is saving their edits to", quiz_name)
         new_content = request.form.get("quiz_content")
         # This assumes the form passes the question data as a JSON string.
         question_data_str = request.form.get("question_data")
@@ -172,11 +266,13 @@ def edit_quiz(quiz_name):
             new_question_data = json.loads(question_data_str) if question_data_str else {}
         except Exception as e:
             new_question_data = {}
+            print(get_client_ip(), " Got an error while parsing question data: ", str(e))
 
         # Write updated quiz text.
         try:
             with open(quiz_file, "w", encoding="utf-8") as f:
                 f.write(new_content)
+                print(get_client_ip(), "Saved edits to", quiz_name, " successfully.")
         except Exception as e:
             return f"Error updating quiz text: {str(e)}", 500
 
@@ -185,12 +281,13 @@ def edit_quiz(quiz_name):
             with open(question_file, "w", encoding="utf-8") as f:
                 json.dump(new_question_data, f)
         except Exception as e:
+            print(get_client_ip(), " Got an error while parsing question data: ", str(e))
             return f"Error updating question data: {str(e)}", 500
 
         message = "Quiz and question updated successfully!"
         return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=new_content, question_data=new_question_data, message=message)
 
-@app.route('/<quiz_name>/quiz/validate', methods=['POST'])
+@app.route('/quiz/<quiz_name>/quiz/validate', methods=['POST'])
 def quiz_validate(quiz_name):
     answer = request.json.get('answer', '')
     # Load quiz questions.
@@ -254,5 +351,66 @@ def makequiz():
         return render_template("makequiz.html", message=message)
     return render_template("makequiz.html")
 
+@app.route('/logs')
+def view_logs():
+    logs_dir = os.path.join(os.path.dirname(__file__), "logs")
+    logs_content = ""
+    if os.path.exists(logs_dir):
+        # Get files sorted by name.
+        files = sorted(os.listdir(logs_dir))
+        for filename in files:
+            file_path = os.path.join(logs_dir, filename)
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    file_content = f.read()
+                if filename == "print.txt":
+                    logs_content += file_content + "\n\n"
+                else:
+                    # Only show nonempty files.
+                    if file_content.strip() != "":
+                        logs_content += f"--- {filename} ---\n{file_content}\n\n"
+            except Exception as e:
+                logs_content += f"--- {filename} ---\nError reading file: {str(e)}\n\n"
+    else:
+        logs_content = "No logs found."
+    print("Detected IP", get_client_ip(), "on /logs")
+    return render_template("logs.html", logs_content=logs_content)
+
+@app.route('/logs-content')
+def logs_content():
+    logs_dir = os.path.join(os.path.dirname(__file__), "logs")
+    logs_text = ""
+    if os.path.exists(logs_dir):
+        files = sorted(os.listdir(logs_dir))
+        for filename in files:
+            file_path = os.path.join(logs_dir, filename)
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    file_content = f.read()
+                if filename == "print.txt":
+                    logs_text += file_content + "\n\n"
+                else:
+                    if file_content.strip() != "":
+                        logs_text += f"--- {filename} ---\n{file_content}\n\n"
+            except Exception as e:
+                logs_text += f"--- {filename} ---\nError reading file: {str(e)}\n\n"
+    else:
+        logs_text = "No logs found."
+    return logs_text
+
+@app.route('/log-command', methods=['GET', 'POST'])
+def log_command():
+    if request.method == "GET":
+        protocol = request.environ.get("SERVER_PROTOCOL", "HTTP/1.1")
+        message = f"GET {request.path} {protocol} Not Allowed: Use POST"
+        return render_template("error.html", message=message), 405
+    data = request.get_json()
+    command = data.get('command', '').strip()
+    if command:
+        print("> " + command)
+        sys.stdout.flush()
+    return jsonify({'status': 'logged'})
+
 if __name__ == '__main__':
+    print("Starting Server...")
     app.run(debug=True, host="0.0.0.0", port=5702)

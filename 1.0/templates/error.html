@@ -1,16 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <meta charset="UTF-8">
+  <title>Error</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #fdd;
+      padding: 20px;
+    }
+    .error-message {
+      color: red;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .btn {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      text-decoration: none;
+      color: white;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .btn-retry {
+      background-color: red;
+    }
+    .btn-home {
+      background-color: green;
+    }
+  </style>
 </head>
 <body>
-    <div class="error-container">
-        <h1>Error</h1>
-        <p>{{ message }}</p>
-        <a href="{{ url_for('home') }}">Go Back to Home</a>
-    </div>
+  <div class="error-message">
+    {{ message }}
+  </div>
+  <div>
+    <a href="#" class="btn btn-retry" onclick="location.reload();">Retry</a>
+    <a href="{{ url_for('home') }}" class="btn btn-home">Home</a>
+  </div>
 </body>
 </html>
