@@ -11,7 +11,13 @@
     <header style="display: flex; justify-content: space-between; align-items: center;">
       <h1>Select a Quiz</h1>
       <div class="header-buttons">
-        <a href="{{ url_for('addquiz') }}" class="upload-btn">Add Quiz</a>
+        <a href="{{ url_for('addquiz') }}" class="upload-btn">Upload Quiz</a>
+        {% if user_uploaded and user_uploaded|length > 0 %}
+            <a href="{{ url_for('editquiz_select') }}" class="edit-btn">Edit Quiz</a>
+        {% endif %}
+        <a href="{{ url_for('deletequiz') }}" class="delete-btn">Delete Quiz</a>
+        <!-- New grey button to access admin panel -->
+        <a href="{{ url_for('admin_panel') }}" class="gray-btn">Admin Panel</a>
       </div>
     </header>
     <!-- Quiz list -->
@@ -29,4 +35,3 @@
   </div>
 </body>
 </html>
-``` 

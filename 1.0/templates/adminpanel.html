@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .admin-container { margin: 20px; }
+        .gray-btn { background-color: #ccc; color: #333; padding: 10px 15px; border: none; text-decoration: none; border-radius: 5px; }
+        .quiz-list, .log-section { margin-top: 20px; }
+        .quiz-item { margin-bottom: 5px; }
+        pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        {% if not session.admin %}
+            <h1>Admin Login</h1>
+            {% if error %}
+                <p style="color:red;">{{ error }}</p>
+            {% endif %}
+            <form method="POST" action="{{ url_for('admin_panel') }}">
+                <input type="password" name="password" placeholder="Enter admin password" required>
+                <button type="submit">Login</button>
+            </form>
+            <br>
+            <a href="{{ url_for('home') }}" class="gray-btn">Back to Home</a>
+        {% else %}
+            <h1>Admin Panel</h1>
+            <a href="{{ url_for('admin_logout') }}" class="gray-btn">Logout</a>
+            <h2>Quizzes</h2>
+            <ul class="quiz-list">
+                {% for quiz in quizzes %}
+                    <li class="quiz-item">
+                        {{ quiz }} -
+                        <a href="{{ url_for('edit_quiz', quiz_name=quiz) }}">Edit</a> |
+                        <a href="{{ url_for('deletequiz') }}?quiz={{ quiz }}">Delete</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <h2>Aggregated Logs</h2>
+            <div class="log-section">
+                <pre>{{ logs }}</pre>
+            </div>
+            <br>
+            <a href="{{ url_for('home') }}" class="gray-btn">Back to Home</a>
+        {% endif %}
+    </div>
+</body>
+</html>
