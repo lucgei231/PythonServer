@@ -15,6 +15,7 @@ app.secret_key = "your_random_secret_key_here"
 logs_dir = os.path.join(os.path.dirname(__file__), "logs")
 if not os.path.exists(logs_dir):
     os.makedirs(logs_dir)
+print(datetime.datetime.now(), "Logs directory set up at", logs_dir)
 
 # Use a fixed filename for all print() output.
 log_filename = os.path.join(os.path.dirname(__file__), "logs", "print.txt")
@@ -32,23 +33,23 @@ class Logger(object):
         self.log.flush()
 
 sys.stdout = Logger(log_filename)
+print(datetime.datetime.now(), "Starting Server with logger.")
 
 def get_client_ip():
     forwarded_for = request.headers.get('X-Forwarded-For')
-    if forwarded_for:
-        return forwarded_for.split(",")[0].strip()
-    return request.remote_addr
+    return forwarded_for.split(",")[0].strip() if forwarded_for else request.remote_addr
 
 @app.before_request
 def log_connection():
     ip = get_client_ip()
     # Optional: Add connection logging here
 
+
 @app.after_request
 def log_disconnection(response):
     ip = get_client_ip()
-    # Optional: Add disconnection l
-    # ogging here
+    # Optional: Add disconnection logging here
+    print(datetime.datetime.now(), ip, "connection closed.")
     return response
 
 # Ensure the data directory exists.
@@ -78,51 +79,84 @@ banned_ips = load_banned_ips()
 
 @app.before_request
 def check_banned_ip():
+    ip = get_client_ip()
+    print(datetime.datetime.now(), ip, "accessing", request.path)
     # Allow log-related endpoints even if banned.
     allowed_paths = ['/logs', '/logs-content', '/unban-ip', '/log-command']
     if request.path in allowed_paths:
+        print(datetime.datetime.now(), ip, "request path", request.path, "is allowed even if banned.")
         return
-    ip = get_client_ip()
     if ip in banned_ips:
         reason = banned_ips[ip]
+        print(datetime.datetime.now(), ip, "is banned for reason:", reason)
         return render_template("error.html", message=f"IP {ip} banned: {reason}"), 403
+    print(datetime.datetime.now(), ip, "is not banned, continuing request.")
 
 @app.route('/ban-ip', methods=['GET', 'POST'])
 def ban_ip():
+    ip = get_client_ip()
+    print(datetime.datetime.now(), ip, "entered /ban-ip route with method", request.method)
     if request.method == "GET":
         protocol = request.environ.get("SERVER_PROTOCOL", "HTTP/1.1")
         message = f"GET {request.path} {protocol} Not Allowed: Use POST"
+        print(datetime.datetime.now(), ip, "GET request at /ban-ip; returning error message:", message)
         return render_template("error.html", message=message), 405
     data = request.get_json()
+    print(datetime.datetime.now(), ip, "received data in ban-ip:", data)
     ip_to_ban = data.get('ip', '').strip()   # <<-- Trim here
     reason = data.get('reason', 'No reason provided.')
     if ip_to_ban:
         banned_ips[ip_to_ban] = reason
         save_banned_ips(banned_ips)
+        print(datetime.datetime.now(), ip, "banned IP", ip_to_ban, "for reason:", reason)
         return render_template("error.html", message=f"IP {ip_to_ban} banned: {reason}")
+    else:
+        print(datetime.datetime.now(), ip, "no IP provided in ban-ip request.")
     return jsonify({'error': 'No IP provided.'}), 400
 
 @app.route('/unban-ip', methods=['GET', 'POST'])
 def unban_ip():
+    ip = get_client_ip()
+    print(datetime.datetime.now(), ip, "entered /unban-ip route with method", request.method)
     if request.method == "GET":
         protocol = request.environ.get("SERVER_PROTOCOL", "HTTP/1.1")
         message = f"GET {request.path} {protocol} Not Allowed: Use POST"
+        print(datetime.datetime.now(), ip, "GET request at /unban-ip; returning error message:", message)
         return render_template("error.html", message=message), 405
     data = request.get_json() or {}
+    print(datetime.datetime.now(), ip, "received data in unban-ip:", data)
     ip_to_unban = data.get('ip', '').strip()  # <<-- Also trim here
-    print("Attempting to unban:", repr(ip_to_unban))
-    print("Banned IPs currently:", list(banned_ips.keys()))
+    print(datetime.datetime.now(), ip, "attempting to unban IP:", repr(ip_to_unban))
+    print(datetime.datetime.now(), ip, "banned IPs currently:", list(banned_ips.keys()))
     if ip_to_unban in banned_ips:
         del banned_ips[ip_to_unban]
         save_banned_ips(banned_ips)
-        print("Unbanned IP:", ip_to_unban)
+        print(datetime.datetime.now(), ip, "unbanned IP:", ip_to_unban)
         return jsonify({'status': f'IP {ip_to_unban} unbanned.'})
     else:
-        print("IP not found in banned list:", repr(ip_to_unban))
+        print(datetime.datetime.now(), ip, "IP", repr(ip_to_unban), "not found in banned list.")
         return jsonify({'error': 'IP not found in banned list.'}), 404
+
+@app.route('/log-command', methods=['GET', 'POST'])
+def log_command():
+    ip = get_client_ip()
+    print(datetime.datetime.now(), ip, "entered /log-command with method", request.method)
+    if request.method == "GET":
+        protocol = request.environ.get("SERVER_PROTOCOL", "HTTP/1.1")
+        message = f"GET {request.path} {protocol} Not Allowed: Use POST"
+        print(datetime.datetime.now(), ip, "GET request at /log-command; returning error message:", message)
+        return render_template("error.html", message=message), 405
+    data = request.get_json()
+    print(datetime.datetime.now(), ip, "data received in /log-command:", data)
+    command = data.get('command', '').strip()
+    if command:
+        print(datetime.datetime.now(), ip, "logging command:", "> " + command)
+        sys.stdout.flush()
+    return jsonify({'status': 'logged'})
 
 @app.route('/')
 def home():
+    print("DEBUG:", datetime.datetime.now(), "Entered home route.")
     try:
         quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
         quizzes = []
@@ -131,6 +165,7 @@ def home():
                 if file.endswith(".txt"):
                     quiz_name = os.path.splitext(file)[0]
                     quizzes.append(quiz_name)
+                    print("DEBUG: Found quiz:", quiz_name)
         # Load uploaded quizzes for current IP
         uploaded_file = os.path.join(os.path.dirname(__file__), "data", "uploaded.json")
         user_uploaded = []
@@ -139,8 +174,10 @@ def home():
             with open(uploaded_file, "r", encoding="utf-8") as f:
                 uploaded_data = json.load(f)
             user_uploaded = uploaded_data.get(ip, [])
+            print("DEBUG: Uploaded quizzes for IP", ip, ":", user_uploaded)
         return render_template('home.html', quizzes=quizzes, user_uploaded=user_uploaded), 200
     except Exception as e:
+        print("DEBUG: Error in home route:", str(e))
         return f"Error in home route: {str(e)}", 500
 
 @app.route('/deletequiz', methods=['GET', 'POST'])
@@ -398,19 +435,7 @@ def logs_content():
         logs_text = "No logs found."
     return logs_text
 
-@app.route('/log-command', methods=['GET', 'POST'])
-def log_command():
-    if request.method == "GET":
-        protocol = request.environ.get("SERVER_PROTOCOL", "HTTP/1.1")
-        message = f"GET {request.path} {protocol} Not Allowed: Use POST"
-        return render_template("error.html", message=message), 405
-    data = request.get_json()
-    command = data.get('command', '').strip()
-    if command:
-        print("> " + command)
-        sys.stdout.flush()
-    return jsonify({'status': 'logged'})
-
 if __name__ == '__main__':
-    print("Starting Server...")
+    print(datetime.datetime.now(), "Starting Server...")
     app.run(debug=True, host="0.0.0.0", port=5702)
+    print("Server started.")

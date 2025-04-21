@@ -217,3 +217,52 @@ Starting Server...
 Starting Server...
 Starting Server...
 Starting Server...
+127.0.0.1 is currently editing Minecraft Quiz
+Detected IP 192.168.50.94 on /logs
+127.0.0.1 is saving their edits to Minecraft Quiz
+127.0.0.1 Saved edits to Minecraft Quiz  successfully.
+Detected IP 192.168.50.94 on /logs
+Detected IP 192.168.50.94 on /logs
+Starting Server...
+DEBUG: 2025-04-21 18:31:23.233570 Starting Server with logger.
+DEBUG: 2025-04-21 18:31:23.233570 Starting Server...
+DEBUG: 2025-04-21 18:31:26.439661 Starting Server with logger.
+DEBUG: 2025-04-21 18:31:26.451523 Starting Server...
+DEBUG: get_client_ip() returning 192.168.50.94
+DEBUG: 2025-04-21 18:31:28.440819 In check_banned_ip for /logs
+DEBUG: Request path /logs is allowed even if banned.
+DEBUG: get_client_ip() returning 192.168.50.94
+Detected IP 192.168.50.94 on /logs
+DEBUG: get_client_ip() returning 192.168.50.94
+DEBUG: get_client_ip() returning 192.168.50.94
+DEBUG: 2025-04-21 18:31:28.594812 In check_banned_ip for /static/css/style.css
+DEBUG: get_client_ip() returning 192.168.50.94
+DEBUG: IP 192.168.50.94 is not banned, continuing request.
+DEBUG: get_client_ip() returning 192.168.50.94
+DEBUG: 2025-04-21 18:31:55.464473 Starting Server with logger.
+DEBUG: 2025-04-21 18:31:55.471664 Starting Server...
+DEBUG: 2025-04-21 18:32:54.259634 In check_banned_ip for /logs
+DEBUG: Request path /logs is allowed even if banned.
+Detected IP 192.168.50.94 on /logs
+DEBUG: 2025-04-21 18:32:54.447015 In check_banned_ip for /static/css/style.css
+DEBUG: IP 192.168.50.94 is not banned, continuing request.
+DEBUG: 2025-04-21 18:32:59.773575 In check_banned_ip for /
+DEBUG: IP 127.0.0.1 is not banned, continuing request.
+DEBUG: 2025-04-21 18:32:59.777572 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+DEBUG: 2025-04-21 18:32:59.893941 In check_banned_ip for /static/css/style.css
+DEBUG: IP 127.0.0.1 is not banned, continuing request.
+2025-04-21 18:35:01.455521 Starting Server with logger.
+2025-04-21 18:35:01.472243 Starting Server...
+2025-04-21 18:35:06.856311 Starting Server with logger.
+2025-04-21 18:35:06.872509 Starting Server...
+2025-04-21 18:35:27.004892 Starting Server with logger.
+2025-04-21 18:35:27.004892 Starting Server...
