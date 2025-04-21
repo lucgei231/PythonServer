@@ -90,7 +90,25 @@ def addquiz():
     # For POST, process the addition (placeholder logic)
     return render_template("addquiz.html", message="Quiz uploaded successfully!")
 
-@app.route('/<quiz_name>', methods=['GET'])
+# ---- Add admin panel routes before dynamic routes ----
+@app.route('/adminpanel', methods=['GET', 'POST'])
+def admin_panel():
+    if request.method == 'POST':
+        password = request.form.get('password', '')
+        if password == 'LG12345!':
+            session['admin'] = True
+            return redirect(url_for('admin_panel'))
+        else:
+            error = "Invalid password!"
+            return render_template('adminpanel.html', error=error)
+    else:
+        if not session.get('admin'):
+            return render_template('adminpanel.html')
+        # Admin is logged in. Render the admin panel (fill in as needed).
+        return render_template('adminpanel.html', admin=True)
+
+# ---- Update dynamic quiz route to use a fixed prefix ----
+@app.route('/quiz/<quiz_name>', methods=['GET'])
 def quiz_index(quiz_name):
     session['quiz_name'] = quiz_name
 
