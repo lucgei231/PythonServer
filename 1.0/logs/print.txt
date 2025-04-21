@@ -266,3 +266,110 @@ DEBUG: IP 127.0.0.1 is not banned, continuing request.
 2025-04-21 18:35:06.872509 Starting Server...
 2025-04-21 18:35:27.004892 Starting Server with logger.
 2025-04-21 18:35:27.004892 Starting Server...
+2025-04-21 18:36:00.624696 Starting Server with logger.
+2025-04-21 18:36:00.650617 Starting Server...
+2025-04-21 18:36:00.856693 192.168.50.94 accessing /logs
+2025-04-21 18:36:00.858690 192.168.50.94 request path /logs is allowed even if banned.
+Detected IP 192.168.50.94 on /logs
+2025-04-21 18:36:00.933273 192.168.50.94 connection closed.
+2025-04-21 18:36:01.049469 192.168.50.94 accessing /static/css/style.css
+2025-04-21 18:36:01.051230 192.168.50.94 is not banned, continuing request.
+2025-04-21 18:36:01.326758 192.168.50.94 connection closed.
+2025-04-21 18:36:46.428464 Starting Server with logger.
+2025-04-21 18:36:46.444470 Starting Server...
+ * Serving Flask app 'app'
+ * Debug mode: on
+2025-04-21 18:36:47.158810 Starting Server with logger.
+2025-04-21 18:36:47.174933 Starting Server...
+2025-04-21 18:37:12.143726 192.168.50.94 accessing /logs
+2025-04-21 18:37:12.178681 192.168.50.94 request path /logs is allowed even if banned.
+Detected IP 192.168.50.94 on /logs
+2025-04-21 18:37:12.533972 192.168.50.94 connection closed.
+2025-04-21 18:37:15.104250 192.168.50.94 accessing /static/css/style.css
+2025-04-21 18:37:15.105247 192.168.50.94 is not banned, continuing request.
+2025-04-21 18:37:15.579116 192.168.50.94 connection closed.
+2025-04-21 18:41:37.384868 192.168.50.95 accessing /
+2025-04-21 18:41:37.384868 192.168.50.95 is not banned, continuing request.
+DEBUG: 2025-04-21 18:41:37.390925 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.95 : ['MCreator']
+2025-04-21 18:41:37.414491 192.168.50.95 connection closed.
+2025-04-21 18:41:37.578519 192.168.50.95 accessing /static/css/style.css
+2025-04-21 18:41:37.578519 192.168.50.95 is not banned, continuing request.
+2025-04-21 18:41:37.578519 192.168.50.95 connection closed.
+2025-04-21 18:42:57.071145 192.168.50.95 accessing /
+2025-04-21 18:42:57.071145 192.168.50.95 is not banned, continuing request.
+DEBUG: 2025-04-21 18:42:57.087092 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.95 : ['MCreator']
+2025-04-21 18:42:57.087092 192.168.50.95 connection closed.
+2025-04-21 18:42:57.166296 192.168.50.95 accessing /static/css/style.css
+2025-04-21 18:42:57.166296 192.168.50.95 is not banned, continuing request.
+2025-04-21 18:42:57.166296 192.168.50.95 connection closed.
+2025-04-21 18:42:59.798609 192.168.50.95 accessing /logs
+2025-04-21 18:42:59.798609 192.168.50.95 request path /logs is allowed even if banned.
+Detected IP 192.168.50.95 on /logs
+2025-04-21 18:42:59.862065 192.168.50.95 connection closed.
+2025-04-21 18:42:59.909578 192.168.50.95 accessing /static/css/style.css
+2025-04-21 18:42:59.909578 192.168.50.95 is not banned, continuing request.
+2025-04-21 18:42:59.909578 192.168.50.95 connection closed.
+2025-04-21 18:48:10.126618 192.168.50.95 accessing /
+2025-04-21 18:48:10.126618 192.168.50.95 is not banned, continuing request.
+DEBUG: 2025-04-21 18:48:10.144405 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.95 : ['MCreator']
+2025-04-21 18:48:10.144405 192.168.50.95 connection closed.
+2025-04-21 18:48:10.222102 192.168.50.95 accessing /static/css/style.css
+2025-04-21 18:48:10.222102 192.168.50.95 is not banned, continuing request.
+2025-04-21 18:48:10.237595 192.168.50.95 connection closed.
+2025-04-21 18:48:13.129306 192.168.50.95 accessing /deletequiz
+2025-04-21 18:48:13.129306 192.168.50.95 is not banned, continuing request.
+192.168.50.95  is confirming if they want to delete MCreator
+2025-04-21 18:48:13.145321 192.168.50.95 connection closed.
+2025-04-21 18:48:13.188882 192.168.50.95 accessing /static/css/style.css
+2025-04-21 18:48:13.188882 192.168.50.95 is not banned, continuing request.
+2025-04-21 18:48:13.191929 192.168.50.95 connection closed.
+2025-04-21 18:48:14.456799 192.168.50.95 accessing /
+2025-04-21 18:48:14.456799 192.168.50.95 is not banned, continuing request.
+DEBUG: 2025-04-21 18:48:14.472622 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.95 : ['MCreator']
+2025-04-21 18:48:14.472622 192.168.50.95 connection closed.
+2025-04-21 18:48:14.504960 192.168.50.95 accessing /static/css/style.css
+2025-04-21 18:48:14.504960 192.168.50.95 is not banned, continuing request.
+2025-04-21 18:48:14.504960 192.168.50.95 connection closed.
+2025-04-21 18:48:15.859547 192.168.50.95 accessing /logs
+2025-04-21 18:48:15.859547 192.168.50.95 request path /logs is allowed even if banned.
+Detected IP 192.168.50.95 on /logs
+2025-04-21 18:48:15.933909 192.168.50.95 connection closed.
+2025-04-21 18:48:15.978789 192.168.50.95 accessing /static/css/style.css
+2025-04-21 18:48:15.978789 192.168.50.95 is not banned, continuing request.
+2025-04-21 18:48:15.986239 192.168.50.95 connection closed.
