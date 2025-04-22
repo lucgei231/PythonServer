@@ -384,10 +384,15 @@ def quiz_validate(quiz_name):
 @app.route('/makequiz', methods=['GET', 'POST'])
 def makequiz():
     if request.method == 'POST':
-        # Retrieve form data.
+        # Retrieve form data
         filename = request.form.get("filename")
         quiz_content = request.form.get("quiz_content")
-        # Define the quiz file path.
+        
+        # Check for inappropriate words
+        if any(word in quiz_content.lower() for word in INAPPROPRIATE_WORDS):
+            return render_template("error.html", message="Inappropriate Quiz"), 400
+        
+        # Save the quiz if valid
         quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
         if not os.path.exists(quiz_dir):
             os.makedirs(quiz_dir)
@@ -399,6 +404,7 @@ def makequiz():
             return f"Error saving quiz: {str(e)}", 500
         message = "Quiz created successfully!"
         return render_template("makequiz.html", message=message)
+    
     return render_template("makequiz.html")
 
 @app.route('/logs')
