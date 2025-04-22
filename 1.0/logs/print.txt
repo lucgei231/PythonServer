@@ -373,3 +373,71 @@ Detected IP 192.168.50.95 on /logs
 2025-04-21 18:48:15.978789 192.168.50.95 accessing /static/css/style.css
 2025-04-21 18:48:15.978789 192.168.50.95 is not banned, continuing request.
 2025-04-21 18:48:15.986239 192.168.50.95 connection closed.
+2025-04-22 09:57:04.559257 192.168.50.95 accessing 2025-04-22 09:57:04.559257/apple-touch-icon-precomposed.png2025-04-22 09:57:04.570613 192.168.50.95  accessing
+ /apple-touch-icon.png2025-04-22 09:57:04.570613 192.168.50.95 is not banned, continuing request.192.168.50.95 accessing /favicon.ico
+2025-04-22 09:57:04.570613 192.168.50.95 is not banned, continuing request.
+2025-04-22 09:57:04.570613 192.168.50.95 connection closed.
+2025-04-22 09:57:04.570613 192.168.50.95 is not banned, continuing request.
+2025-04-22 09:57:04.570613 192.168.50.95 connection closed.
+
+
+2025-04-22 09:57:04.586625 192.168.50.95 connection closed.
+2025-04-22 09:57:04.650814 192.168.50.95 accessing /apple-touch-icon-precomposed.png
+2025-04-22 09:57:04.650814 192.168.50.95 is not banned, continuing request.
+2025-04-22 09:57:04.660264 192.168.50.95 connection closed.
+2025-04-22 09:57:04.660264 192.168.50.95 accessing /apple-touch-icon.png
+2025-04-22 09:57:04.666607 192.168.50.95 2025-04-22 09:57:04.666607 is not banned, continuing request.192.168.50.95 accessing /favicon.ico
+2025-04-22 09:57:04.666607 192.168.50.95 connection closed.
+2025-04-22 09:57:04.666607 192.168.50.95 is not banned, continuing request.
+
+2025-04-22 09:57:04.666607 192.168.50.95 connection closed.
+2025-04-22 09:57:04.921056 192.168.50.95 accessing /apple-touch-icon-precomposed.png
+2025-04-22 09:57:04.921056 192.168.50.95 accessing /apple-touch-icon.png2025-04-22 09:57:04.936877 192.168.50.95 is not banned, continuing request.
+
+2025-04-22 09:57:04.9368772025-04-22 09:57:04.936877  192.168.50.95192.168.50.95  accessingis not banned, continuing request. /favicon.ico2025-04-22 09:57:04.936877 192.168.50.95 connection closed.
+2025-04-22 09:57:04.936877 192.168.50.95 connection closed.
+2025-04-22 09:57:04.936877 192.168.50.95 is not banned, continuing request.
+
+
+2025-04-22 09:57:04.936877 192.168.50.95 connection closed.
+2025-04-22 09:57:05.528735 192.168.50.95 accessing2025-04-22 09:57:05.544633 192.168.50.95 accessing /logs2025-04-22 09:57:05.544633  /logs192.168.50.95 accessing /logs
+2025-04-22 09:57:05.544633 192.168.50.95 request path /logs is allowed even if banned.
+2025-04-22 09:57:05.544633 192.168.50.95 request path /logs is allowed even if banned.
+2025-04-22 09:57:05.544633 192.168.50.95 request path /logs is allowed even if banned.
+
+
+Detected IP 192.168.50.95 on /logsDetected IP 192.168.50.95
+ on /logsDetected IP 192.168.50.95 2025-04-22 09:57:06.339811on /logs
+ 192.168.50.95 2025-04-22 09:57:06.339811connection closed.
+ 192.168.50.95 connection closed.2025-04-22 09:57:06.355543 192.168.50.95 connection closed.
+
+
+2025-04-22 09:57:06.434989 192.168.50.95 accessing /logs
+2025-04-22 09:57:06.438112 192.168.50.95 request path /logs is allowed even if banned.
+2025-04-22 09:57:06.438112 192.168.50.95 accessing /logs2025-04-22 09:57:06.438112 192.168.50.95 accessing /logs
+2025-04-22 09:57:06.438112 192.168.50.95 request path
+ /logs is allowed even if banned.2025-04-22 09:57:06.451079 192.168.50.95 request path /logs is allowed even if banned.
+
+Detected IP 192.168.50.95 on /logs
+Detected IP 2025-04-22 09:57:06.561773 192.168.50.95192.168.50.95 on /logsDetected IP 192.168.50.95 on /logs 
+connection closed.
+2025-04-22 09:57:06.561773
+ 192.168.50.95 connection closed.2025-04-22 09:57:06.561773 192.168.50.95 connection closed.
+
+2025-04-22 09:57:06.593194 192.168.50.95 accessing /logs/favicon.ico
+2025-04-22 09:57:06.593194 192.168.50.95 is not banned, continuing request.
+2025-04-22 09:57:06.593194 192.168.50.95 connection closed.
+2025-04-22 09:57:06.593194 192.168.50.95 accessing /logs/favicon.ico
+2025-04-22 09:57:06.5931942025-04-22 09:57:06.609321  192.168.50.95192.168.50.95  is not banned, continuing request.accessing /logs/favicon.ico
+2025-04-22 09:57:06.609321 192.168.50.95 connection closed.
+2025-04-22 09:57:06.609321 192.168.50.95 is not banned, continuing request.
+
+2025-04-22 09:57:06.609321 192.168.50.95 connection closed.
+2025-04-22 10:13:51.453340 Starting Server with logger.
+2025-04-22 10:13:51.471232 Starting Server...
+2025-04-22 10:13:53.985479 Starting Server with logger.
+2025-04-22 10:13:54.007530 Starting Server...
+2025-04-22 10:14:12.166562 Starting Server with logger.
+2025-04-22 10:14:12.176913 Starting Server...
+2025-04-22 10:14:34.347734 Starting Server with logger.
+2025-04-22 10:14:34.356238 Starting Server...

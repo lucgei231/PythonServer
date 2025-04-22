@@ -225,12 +225,25 @@ def addquiz():
     print("Detected IP", get_client_ip(), "on /addquiz")
     if request.method == 'GET':
         return render_template("addquiz.html")
-    # For POST, process the addition (placeholder logic)
-    print("Adding quiz...", quiz_name, "from IP", get_client_ip())
-    # Here you would typically save the quiz data to a file or database.
-    quiz_name = request.form.get("quiz_name")
-    print("Adding quiz...", quiz_name, "from IP", get_client_ip())
-    return render_template("addquiz.html", message="Quiz uploaded successfully!")
+    
+    # For POST, process the uploaded file
+    uploaded_file = request.files.get("quiz_file")
+    if uploaded_file:
+        content = uploaded_file.read().decode("utf-8")
+        # Check for inappropriate words
+        if any(word in content.lower() for word in INAPPROPRIATE_WORDS):
+            return render_template("error.html", message="Inappropriate Quiz"), 400
+        
+        # Save the file if valid
+        quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
+        if not os.path.exists(quiz_dir):
+            os.makedirs(quiz_dir)
+        file_path = os.path.join(quiz_dir, uploaded_file.filename)
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(content)
+        return render_template("addquiz.html", message="Quiz uploaded successfully!")
+    
+    return render_template("error.html", message="No file uploaded"), 400
 
 @app.route('/quiz/<quiz_name>', methods=['GET'])
 def quiz_index(quiz_name):
@@ -434,6 +447,8 @@ def logs_content():
     else:
         logs_text = "No logs found."
     return logs_text
+
+INAPPROPRIATE_WORDS = ["badword1", "badword2", "inappropriate"]
 
 if __name__ == '__main__':
     print(datetime.datetime.now(), "Starting Server...")
