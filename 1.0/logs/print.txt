@@ -571,3 +571,1069 @@ Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\baf.txt
 2025-04-22 10:30:34.120974 Starting Server...
 2025-04-22 10:30:34.233511 Starting Server with logger.
 2025-04-22 10:30:34.249386 Starting Server...
+2025-04-22 11:00:17.720801 Starting Server with logger.
+2025-04-22 11:00:17.768550 Starting Server...
+ * Serving Flask app 'app'
+ * Debug mode: on
+2025-04-22 11:00:18.855826 Starting Server with logger.
+2025-04-22 11:00:18.855826 Starting Server...
+2025-04-22 11:00:24.377524 192.168.50.94 accessing /logs
+2025-04-22 11:00:24.378551 192.168.50.94 request path /logs is allowed even if banned.
+Detected IP 192.168.50.94 on /logs
+2025-04-22 11:00:25.195648 192.168.50.94 connection closed.
+2025-04-22 11:00:25.282662 192.168.50.94 accessing /static/css/style.css
+2025-04-22 11:00:25.282662 192.168.50.94 is not banned, continuing request.
+2025-04-22 11:00:25.575463 192.168.50.94 connection closed.
+2025-04-22 11:00:43.474636 104.28.232.7 accessing /
+2025-04-22 11:00:43.474636 104.28.232.7 is not banned, continuing request.
+DEBUG: 2025-04-22 11:00:43.477615 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 104.28.232.7 : []
+2025-04-22 11:00:43.515420 104.28.232.7 connection closed.
+2025-04-22 11:00:43.657908 104.28.232.7 accessing /static/css/style.css
+2025-04-22 11:00:43.657908 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:00:43.665323 104.28.232.7 connection closed.
+2025-04-22 11:00:43.953768 104.28.232.7 accessing /favicon.ico
+2025-04-22 11:00:43.955776 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:00:43.957787 104.28.232.7 connection closed.
+2025-04-22 11:00:47.074225 104.28.232.7 accessing /addquiz
+2025-04-22 11:00:47.075229 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:00:47.079455 104.28.232.7 connection closed.
+2025-04-22 11:00:47.176328 104.28.232.7 accessing /static/css/style.css
+2025-04-22 11:00:47.180242 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:00:47.182119 104.28.232.7 connection closed.
+2025-04-22 11:00:50.998449 104.28.232.7 accessing /makequiz
+2025-04-22 11:00:50.999446 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:00:51.025156 104.28.232.7 connection closed.
+2025-04-22 11:00:51.108830 104.28.232.7 accessing /static/css/style.css
+2025-04-22 11:00:51.108830 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:00:51.108830 104.28.232.7 connection closed.
+2025-04-22 11:00:56.645930 104.28.232.7 accessing /makequiz
+2025-04-22 11:00:56.645930 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:02:55.198590 Starting Server with logger.
+2025-04-22 11:02:55.227627 Starting Server...
+2025-04-22 11:03:00.282357 104.28.232.7 accessing /makequiz
+2025-04-22 11:03:00.283337 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:03:06.011707 104.28.232.7 connection closed.
+2025-04-22 11:03:06.147493 104.28.232.7 accessing /static/css/style.css
+2025-04-22 11:03:06.149509 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:03:06.552309 104.28.232.7 connection closed.
+2025-04-22 11:03:12.511586 104.28.232.7 accessing /makequiz
+2025-04-22 11:03:12.512536 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:03:12.572447 104.28.232.7 connection closed.
+2025-04-22 11:03:12.695242 104.28.232.7 accessing /static/css/style.css
+2025-04-22 11:03:12.695242 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:03:12.699203 104.28.232.7 connection closed.
+2025-04-22 11:03:14.383098 104.28.232.7 accessing /
+2025-04-22 11:03:14.383098 104.28.232.7 is not banned, continuing request.
+DEBUG: 2025-04-22 11:03:14.383098 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: f
+DEBUG: Found quiz: sss
+DEBUG: Uploaded quizzes for IP 104.28.232.7 : ['f', 'sss']
+2025-04-22 11:03:14.395877 104.28.232.7 connection closed.
+2025-04-22 11:03:14.505188 104.28.232.7 accessing /static/css/style.css
+2025-04-22 11:03:14.506193 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:03:14.509182 104.28.232.7 connection closed.
+2025-04-22 11:03:27.563891 104.28.232.7 accessing /quiz/secret
+2025-04-22 11:03:27.563891 104.28.232.7 is not banned, continuing request.
+104.28.232.7 is playing secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 11:03:27.579474 104.28.232.7 connection closed.
+2025-04-22 11:03:27.696835 104.28.232.7 accessing /static/css/style.css
+2025-04-22 11:03:27.696835 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:03:27.701283 104.28.232.7 connection closed.
+2025-04-22 11:03:31.484526 104.28.232.7 accessing /
+2025-04-22 11:03:31.485487 104.28.232.7 is not banned, continuing request.
+DEBUG: 2025-04-22 11:03:31.486524 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: f
+DEBUG: Found quiz: sss
+DEBUG: Uploaded quizzes for IP 104.28.232.7 : ['f', 'sss']
+2025-04-22 11:03:31.490491 104.28.232.7 connection closed.
+2025-04-22 11:03:31.586178 104.28.232.7 accessing /static/css/style.css
+2025-04-22 11:03:31.587181 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:03:31.590028 104.28.232.7 connection closed.
+2025-04-22 11:03:33.629087 104.28.232.7 accessing /deletequiz
+2025-04-22 11:03:33.629087 104.28.232.7 is not banned, continuing request.
+104.28.232.7  is confirming if they want to delete f
+2025-04-22 11:03:33.666752 104.28.232.7 connection closed.
+2025-04-22 11:03:33.774417 104.28.232.7 accessing /static/css/style.css
+2025-04-22 11:03:33.774417 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:03:33.778852 104.28.232.7 connection closed.
+2025-04-22 11:03:35.348013 104.28.232.7 accessing /deletequiz
+2025-04-22 11:03:35.348013 104.28.232.7 is not banned, continuing request.
+104.28.232.7  is deleting f
+104.28.232.7  is confirming if they want to delete f
+104.28.232.7  is deleting f
+104.28.232.7  is redirecting to home after deleting f
+2025-04-22 11:03:35.394944 104.28.232.7 connection closed.
+2025-04-22 11:03:35.446562 104.28.232.7 accessing /
+2025-04-22 11:03:35.446562 104.28.232.7 is not banned, continuing request.
+DEBUG: 2025-04-22 11:03:35.446562 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: sss
+DEBUG: Uploaded quizzes for IP 104.28.232.7 : ['sss']
+2025-04-22 11:03:35.461668 104.28.232.7 connection closed.
+2025-04-22 11:03:35.644024 104.28.232.7 accessing /static/css/style.css
+2025-04-22 11:03:35.644024 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:03:35.644024 104.28.232.7 connection closed.
+2025-04-22 11:03:37.450682 104.28.232.7 accessing /deletequiz
+2025-04-22 11:03:37.450682 104.28.232.7 is not banned, continuing request.
+104.28.232.7  is confirming if they want to delete sss
+2025-04-22 11:03:37.450682 104.28.232.7 connection closed.
+2025-04-22 11:03:37.583369 104.28.232.7 accessing /static/css/style.css
+2025-04-22 11:03:37.584363 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:03:37.588891 104.28.232.7 connection closed.
+2025-04-22 11:03:39.196176 104.28.232.7 accessing /deletequiz
+2025-04-22 11:03:39.196176 104.28.232.7 is not banned, continuing request.
+104.28.232.7  is deleting sss
+104.28.232.7  is confirming if they want to delete sss
+104.28.232.7  is deleting sss
+104.28.232.7  is redirecting to home after deleting sss
+2025-04-22 11:03:39.244737 104.28.232.7 connection closed.
+2025-04-22 11:03:39.296558 104.28.232.7 accessing /
+2025-04-22 11:03:39.309814 104.28.232.7 is not banned, continuing request.
+DEBUG: 2025-04-22 11:03:39.312233 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 104.28.232.7 : []
+2025-04-22 11:03:39.312233 104.28.232.7 connection closed.
+2025-04-22 11:03:39.512354 104.28.232.7 accessing /static/css/style.css
+2025-04-22 11:03:39.512354 104.28.232.7 is not banned, continuing request.
+2025-04-22 11:03:39.515381 104.28.232.7 connection closed.
+2025-04-22 11:04:25.154430 Starting Server with logger.
+2025-04-22 11:04:25.184279 Starting Server...
+2025-04-22 11:04:27.980106 104.28.232.7 accessing /
+DEBUG: 2025-04-22 11:04:27.980106 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 104.28.232.7 : []
+2025-04-22 11:04:28.001112 104.28.232.7 connection closed.
+2025-04-22 11:04:28.155363 104.28.232.7 accessing /static/css/style.css
+2025-04-22 11:04:28.433407 104.28.232.7 connection closed.
+2025-04-22 11:04:35.452416 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:04:35.454155 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:04:35.467265 127.0.0.1 connection closed.
+2025-04-22 11:04:35.561004 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:04:35.563020 127.0.0.1 connection closed.
+2025-04-22 11:04:51.055352 127.0.0.1 accessing /deletequiz
+127.0.0.1  is confirming if they want to delete Best Quiz
+2025-04-22 11:04:51.066841 127.0.0.1 connection closed.
+2025-04-22 11:04:51.125935 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:04:51.127613 127.0.0.1 connection closed.
+2025-04-22 11:05:01.275400 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:05:01.275400 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:05:01.284374 127.0.0.1 connection closed.
+2025-04-22 11:05:01.350009 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:05:01.353005 127.0.0.1 connection closed.
+2025-04-22 11:05:03.604067 127.0.0.1 accessing /logs
+2025-04-22 11:05:03.604067 127.0.0.1 request path /logs is allowed even if banned.
+Detected IP 127.0.0.1 on /logs
+2025-04-22 11:05:03.663283 127.0.0.1 connection closed.
+2025-04-22 11:05:03.735906 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:05:03.736922 127.0.0.1 connection closed.
+2025-04-22 11:05:09.133796 127.0.0.1 accessing /log-command
+2025-04-22 11:05:09.133796 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:05:09.133796 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:05:09.133796 127.0.0.1 data received in /log-command: {'command': 'LG12345'}
+2025-04-22 11:05:09.138993 127.0.0.1 logging command: > LG12345
+2025-04-22 11:05:09.138993 127.0.0.1 connection closed.
+2025-04-22 11:05:09.215102 127.0.0.1 accessing /log-command
+2025-04-22 11:05:09.216102 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:05:09.218098 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:05:09.218098 127.0.0.1 data received in /log-command: {'command': 'Passcode accepted. You can now enter your commands.'}
+2025-04-22 11:05:09.219098 127.0.0.1 logging command: > Passcode accepted. You can now enter your commands.
+2025-04-22 11:05:09.219098 127.0.0.1 connection closed.
+2025-04-22 11:05:09.234945 127.0.0.1 accessing /logs-content
+2025-04-22 11:05:09.235259 127.0.0.1 request path /logs-content is allowed even if banned.
+2025-04-22 11:05:09.277541 127.0.0.1 connection closed.
+2025-04-22 11:05:26.781993 127.0.0.1 accessing /log-command
+2025-04-22 11:05:26.787344 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:05:26.789355 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:05:26.789355 127.0.0.1 data received in /log-command: {'command': 'ban-ip 127.0.0.1 test'}
+2025-04-22 11:05:26.789355 127.0.0.1 logging command: > ban-ip 127.0.0.1 test
+2025-04-22 11:05:26.789355 127.0.0.1 connection closed.
+2025-04-22 11:05:26.803248 127.0.0.1 accessing /ban-ip2025-04-22 11:05:26.803248 127.0.0.1 
+accessing /logs-content2025-04-22 11:05:26.807672 127.0.0.1 entered /ban-ip route with method POST
+2025-04-22 11:05:26.807672 127.0.0.1 request path /logs-content is allowed even if banned.
+2025-04-22 11:05:26.809427 127.0.0.1 received data in ban-ip: {'ip': '127.0.0.1', 'reason': 'test'}
+
+2025-04-22 11:05:26.846166 127.0.0.1 banned IP 127.0.0.1 for reason: test
+2025-04-22 11:05:26.877732 127.0.0.1 connection closed.
+2025-04-22 11:05:26.889442 127.0.0.1 connection closed.
+2025-04-22 11:05:26.892582 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:05:26.893715 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:26.895021 127.0.0.1 connection closed.
+2025-04-22 11:05:28.171406 127.0.0.1 accessing /logs
+2025-04-22 11:05:28.171406 127.0.0.1 request path /logs is allowed even if banned.
+Detected IP 127.0.0.1 on /logs
+2025-04-22 11:05:28.223725 127.0.0.1 connection closed.
+2025-04-22 11:05:28.305532 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:05:28.305532 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:28.308960 127.0.0.1 connection closed.
+2025-04-22 11:05:33.770123 127.0.0.1 accessing /
+2025-04-22 11:05:33.770123 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:33.777559 127.0.0.1 connection closed.
+2025-04-22 11:05:33.844202 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:05:33.844202 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:33.848602 127.0.0.1 connection closed.
+2025-04-22 11:05:39.746802 192.168.50.94 accessing /logs
+2025-04-22 11:05:39.746802 192.168.50.94 request path /logs is allowed even if banned.
+Detected IP 192.168.50.94 on /logs
+2025-04-22 11:05:39.797798 192.168.50.94 connection closed.
+2025-04-22 11:05:39.865961 192.168.50.94 accessing /static/css/style.css
+2025-04-22 11:05:39.871023 192.168.50.94 connection closed.
+2025-04-22 11:05:52.108202 127.0.0.1 accessing /
+2025-04-22 11:05:52.108202 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:52.112193 127.0.0.1 connection closed.
+2025-04-22 11:05:52.182956 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:05:52.182956 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:52.188096 127.0.0.1 connection closed.
+2025-04-22 11:05:53.099162 127.0.0.1 accessing /
+2025-04-22 11:05:53.100155 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:53.103158 127.0.0.1 connection closed.
+2025-04-22 11:05:53.171017 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:05:53.171017 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:53.176058 127.0.0.1 connection closed.
+2025-04-22 11:05:53.520302 127.0.0.1 accessing /
+2025-04-22 11:05:53.521297 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:53.524314 127.0.0.1 connection closed.
+2025-04-22 11:05:53.592150 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:05:53.592150 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:53.598272 127.0.0.1 connection closed.
+2025-04-22 11:05:54.988237 127.0.0.1 accessing /
+2025-04-22 11:05:54.989239 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:54.992234 127.0.0.1 connection closed.
+2025-04-22 11:05:55.064101 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:05:55.064101 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:55.067770 127.0.0.1 connection closed.
+2025-04-22 11:05:55.214406 127.0.0.1 accessing /
+2025-04-22 11:05:55.215394 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:55.217389 127.0.0.1 connection closed.
+2025-04-22 11:05:55.276358 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:05:55.276358 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:55.280401 127.0.0.1 connection closed.
+2025-04-22 11:05:55.862334 127.0.0.1 accessing /
+2025-04-22 11:05:55.862334 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:55.866321 127.0.0.1 connection closed.
+2025-04-22 11:05:55.931332 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:05:55.931332 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:55.931332 127.0.0.1 connection closed.
+2025-04-22 11:05:56.057570 127.0.0.1 accessing /
+2025-04-22 11:05:56.058411 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:56.060424 127.0.0.1 connection closed.
+2025-04-22 11:05:56.126124 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:05:56.126124 127.0.0.1 is banned for reason: test
+2025-04-22 11:05:56.130987 127.0.0.1 connection closed.
+2025-04-22 11:06:33.949186 127.0.0.1 accessing /
+2025-04-22 11:06:33.949186 127.0.0.1 is banned for reason: test
+2025-04-22 11:06:33.953196 127.0.0.1 connection closed.
+2025-04-22 11:06:34.056656 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:06:34.056656 127.0.0.1 is banned for reason: test
+2025-04-22 11:06:34.061800 127.0.0.1 connection closed.
+2025-04-22 11:06:49.820587 127.0.0.1 accessing /logs
+2025-04-22 11:06:49.820587 127.0.0.1 request path /logs is allowed even if banned.
+Detected IP 127.0.0.1 on /logs
+2025-04-22 11:06:49.897294 127.0.0.1 connection closed.
+2025-04-22 11:06:50.036801 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:06:50.036801 127.0.0.1 is banned for reason: test
+2025-04-22 11:06:50.041858 127.0.0.1 connection closed.
+2025-04-22 11:06:55.791687 127.0.0.1 accessing /log-command
+2025-04-22 11:06:55.791687 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:06:55.795506 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:06:55.797023 127.0.0.1 data received in /log-command: {'command': 'LG12345'}
+2025-04-22 11:06:55.797023 127.0.0.1 logging command: > LG12345
+2025-04-22 11:06:55.797023 127.0.0.1 connection closed.
+2025-04-22 11:06:55.869017 127.0.0.1 accessing /log-command
+2025-04-22 11:06:55.869992 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:06:55.871984 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:06:55.871984 127.0.0.1 data received in /log-command: {'command': 'Passcode accepted. You can now enter your commands.'}
+2025-04-22 11:06:55.871984 127.0.0.1 logging command: > Passcode accepted. You can now enter your commands.
+2025-04-22 11:06:55.872983 127.0.0.1 connection closed.
+2025-04-22 11:06:55.889300 127.0.0.1 accessing /logs-content
+2025-04-22 11:06:55.889300 127.0.0.1 request path /logs-content is allowed even if banned.
+2025-04-22 11:06:55.932914 127.0.0.1 connection closed.
+2025-04-22 11:07:01.948828 127.0.0.1 accessing /log-command
+2025-04-22 11:07:01.953865 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:07:01.953865 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:07:01.953865 127.0.0.1 data received in /log-command: {'command': 'd'}
+2025-04-22 11:07:01.953865 127.0.0.1 logging command: > d
+2025-04-22 11:07:01.953865 127.0.0.1 connection closed.
+2025-04-22 11:07:01.972233 127.0.0.1 accessing /logs-content
+2025-04-22 11:07:01.977533 127.0.0.1 request path /logs-content is allowed even if banned.
+2025-04-22 11:07:02.016619 127.0.0.1 connection closed.
+2025-04-22 11:07:02.901433 127.0.0.1 accessing /log-command
+2025-04-22 11:07:02.901433 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:07:02.901433 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:07:02.901433 127.0.0.1 data received in /log-command: {'command': 'd'}
+2025-04-22 11:07:02.901433 127.0.0.1 logging command: > d
+2025-04-22 11:07:02.906781 127.0.0.1 connection closed.
+2025-04-22 11:07:02.917692 127.0.0.1 accessing /logs-content
+2025-04-22 11:07:02.917692 127.0.0.1 request path /logs-content is allowed even if banned.
+2025-04-22 11:07:02.981391 127.0.0.1 connection closed.
+2025-04-22 11:07:03.466996 127.0.0.1 accessing /log-command
+2025-04-22 11:07:03.466996 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:07:03.472384 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:07:03.472384 127.0.0.1 data received in /log-command: {'command': 'd'}
+2025-04-22 11:07:03.472384 127.0.0.1 logging command: > d
+2025-04-22 11:07:03.472384 127.0.0.1 connection closed.
+2025-04-22 11:07:03.496255 127.0.0.1 accessing /logs-content
+2025-04-22 11:07:03.497292 127.0.0.1 request path /logs-content is allowed even if banned.
+2025-04-22 11:07:03.553633 127.0.0.1 connection closed.
+2025-04-22 11:07:03.877872 127.0.0.1 accessing /log-command
+2025-04-22 11:07:03.881626 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:07:03.883355 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:07:03.883355 127.0.0.1 data received in /log-command: {'command': 'd'}
+2025-04-22 11:07:03.883355 127.0.0.1 logging command: > d
+2025-04-22 11:07:03.885371 127.0.0.1 connection closed.
+2025-04-22 11:07:03.905680 127.0.0.1 accessing /logs-content
+2025-04-22 11:07:03.908835 127.0.0.1 request path /logs-content is allowed even if banned.
+2025-04-22 11:07:03.955475 127.0.0.1 connection closed.
+2025-04-22 11:07:04.233528 127.0.0.1 accessing /log-command
+2025-04-22 11:07:04.233528 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:07:04.233528 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:07:04.233528 127.0.0.1 data received in /log-command: {'command': 'd'}
+2025-04-22 11:07:04.233528 127.0.0.1 logging command: > d
+2025-04-22 11:07:04.233528 127.0.0.1 connection closed.
+2025-04-22 11:07:04.251963 127.0.0.1 accessing /logs-content
+2025-04-22 11:07:04.251963 127.0.0.1 request path /logs-content is allowed even if banned.
+2025-04-22 11:07:04.291579 127.0.0.1 connection closed.
+2025-04-22 11:07:04.550564 127.0.0.1 accessing /log-command
+2025-04-22 11:07:04.555603 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:07:04.555603 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:07:04.555603 127.0.0.1 data received in /log-command: {'command': 'd'}
+2025-04-22 11:07:04.555603 127.0.0.1 logging command: > d
+2025-04-22 11:07:04.560767 127.0.0.1 connection closed.
+2025-04-22 11:07:04.578901 127.0.0.1 accessing /logs-content
+2025-04-22 11:07:04.579918 127.0.0.1 request path /logs-content is allowed even if banned.
+2025-04-22 11:07:04.621627 127.0.0.1 connection closed.
+2025-04-22 11:07:04.868822 127.0.0.1 accessing /log-command
+2025-04-22 11:07:04.870816 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:07:04.870816 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:07:04.874327 127.0.0.1 data received in /log-command: {'command': 'd'}
+2025-04-22 11:07:04.874327 127.0.0.1 logging command: > d
+2025-04-22 11:07:04.874327 127.0.0.1 connection closed.
+2025-04-22 11:07:04.885162 127.0.0.1 accessing /logs-content
+2025-04-22 11:07:04.885162 127.0.0.1 request path /logs-content is allowed even if banned.
+2025-04-22 11:07:04.927832 127.0.0.1 connection closed.
+2025-04-22 11:07:05.159646 127.0.0.1 accessing /log-command
+2025-04-22 11:07:05.159646 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:07:05.159646 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:07:05.159646 127.0.0.1 data received in /log-command: {'command': 'd'}
+2025-04-22 11:07:05.159646 127.0.0.1 logging command: > d
+2025-04-22 11:07:05.159646 127.0.0.1 connection closed.
+2025-04-22 11:07:05.181075 127.0.0.1 accessing /logs-content
+2025-04-22 11:07:05.182082 127.0.0.1 request path /logs-content is allowed even if banned.
+2025-04-22 11:07:05.232113 127.0.0.1 connection closed.
+2025-04-22 11:07:05.429304 127.0.0.1 accessing /log-command
+2025-04-22 11:07:05.431255 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:07:05.434362 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:07:05.434362 127.0.0.1 data received in /log-command: {'command': 'd'}
+2025-04-22 11:07:05.434362 127.0.0.1 logging command: > d
+2025-04-22 11:07:05.434362 127.0.0.1 connection closed.
+2025-04-22 11:07:05.446427 127.0.0.1 accessing /logs-content
+2025-04-22 11:07:05.446427 127.0.0.1 request path /logs-content is allowed even if banned.
+2025-04-22 11:07:05.488540 127.0.0.1 connection closed.
+2025-04-22 11:07:05.730331 127.0.0.1 accessing /log-command
+2025-04-22 11:07:05.730331 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:07:05.730331 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:07:05.730331 127.0.0.1 data received in /log-command: {'command': 'd'}
+2025-04-22 11:07:05.730331 127.0.0.1 logging command: > d
+2025-04-22 11:07:05.735681 127.0.0.1 connection closed.
+2025-04-22 11:07:05.754138 127.0.0.1 accessing /logs-content
+2025-04-22 11:07:05.754138 127.0.0.1 request path /logs-content is allowed even if banned.
+2025-04-22 11:07:05.810650 127.0.0.1 connection closed.
+2025-04-22 11:08:42.845305 Starting Server with logger.
+2025-04-22 11:08:42.870315 Starting Server...
+2025-04-22 11:10:06.729846 Starting Server with logger.
+2025-04-22 11:10:06.729846 Starting Server...
+2025-04-22 11:10:29.129788 127.0.0.1 accessing /log-command
+2025-04-22 11:10:29.129788 127.0.0.1 request path /log-command is allowed even if banned.
+2025-04-22 11:10:29.129788 127.0.0.1 entered /log-command with method POST
+2025-04-22 11:10:29.129788 127.0.0.1 data received in /log-command: {'command': 'unban-ip 127.0.0.1'}
+2025-04-22 11:10:29.129788 127.0.0.1 logging command: > unban-ip 127.0.0.1
+2025-04-22 11:10:29.135016 127.0.0.1 connection closed.
+2025-04-22 11:10:29.150428 127.0.0.1 accessing /unban-ip
+2025-04-22 11:10:29.150428 127.0.0.1 request path /unban-ip is allowed even if banned.
+2025-04-22 11:10:29.150428 127.0.0.1 entered /unban-ip route with method POST
+2025-04-22 11:10:29.150428 127.0.0.1 received data in unban-ip: {'ip': '127.0.0.1'}
+2025-04-22 11:10:29.150428 127.0.0.1 attempting to unban IP: '127.0.0.1'
+2025-04-22 11:10:29.150428 127.0.0.1 banned IPs currently: ['192.168.50.80', '127.0.0.1']
+2025-04-22 11:10:29.181579 127.0.0.1 unbanned IP: 127.0.0.1
+2025-04-22 11:10:29.182613 127.0.0.1 connection closed.
+2025-04-22 11:10:29.196732 127.0.0.1 accessing /logs-content
+2025-04-22 11:10:29.198266 127.0.0.1 request path /logs-content is allowed even if banned.
+2025-04-22 11:10:29.240861 127.0.0.1 connection closed.
+2025-04-22 11:10:31.731231 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:10:31.731231 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:10:31.750882 127.0.0.1 connection closed.
+2025-04-22 11:10:31.856231 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:10:32.122920 127.0.0.1 connection closed.
+2025-04-22 11:10:33.763129 127.0.0.1 accessing /addquiz
+2025-04-22 11:10:33.768152 127.0.0.1 connection closed.
+2025-04-22 11:10:33.832168 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:10:33.834215 127.0.0.1 connection closed.
+2025-04-22 11:10:35.495189 127.0.0.1 accessing /makequiz
+2025-04-22 11:10:35.502279 127.0.0.1 connection closed.
+2025-04-22 11:10:35.564625 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:10:35.564625 127.0.0.1 connection closed.
+2025-04-22 11:10:40.268434 127.0.0.1 accessing /makequiz
+2025-04-22 11:10:43.147683 127.0.0.1 connection closed.
+2025-04-22 11:10:43.247197 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:10:43.247197 127.0.0.1 connection closed.
+2025-04-22 11:10:47.387820 Starting Server with logger.
+2025-04-22 11:10:47.395834 Starting Server...
+2025-04-22 11:10:53.598919 127.0.0.1 accessing /makequiz
+2025-04-22 11:10:58.571569 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:10:58.571569 Entered home route.
+2025-04-22 11:10:58.825997 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:10:58.827007 Entered home route.
+2025-04-22 11:10:59.042912 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:10:59.043912 Entered home route.
+DEBUG: Found quiz: C++ Quiz2025-04-22 11:11:02.132949 127.0.0.1 accessing /
+DEBUG: Found quiz:DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: DEBUG: 
+2025-04-22 11:11:02.142947 Entered home route.2025-04-22 11:11:02.137999 127.0.0.1 accessingDEBUG: Found quiz: MCreator C++ QuizMCreator
+ /
+
+DEBUG: Found quiz: Minecraft Quiz
+
+DEBUG: Found quiz:DEBUG: Found quiz:
+DEBUG: Found quiz:  Grian Quiz MCreatorDEBUG:Minecraft Quiz 
+DEBUG: Found quiz:2025-04-22 11:11:02.145782 
+
+Entered home route.DEBUG: Found quiz:  DEBUG: Found quiz: Grian QuizMinecraft Quiz 2
+Minecraft Quiz
+DEBUG: Found quiz: 
+DEBUG: Found quiz: Minecraft Quiz 2Best Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: ddd
+DEBUG: Found quiz: 
+DEBUG: Found quiz: dddDEBUG: Found quiz: C++ QuizquizDEBUG: Found quiz: C++ Quiz2025-04-22 11:11:02.165121 127.0.0.1 connection closed.
+DEBUG: Found quiz: ss
+
+DEBUG: Found quiz: DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: MCreator
+
+
+
+
+DEBUG: Found quiz: secretMinecraft QuizDEBUG: Found quiz: ssDEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: ddd
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: ss
+
+
+DEBUG: Found quiz:
+ Minecraft Quiz 2DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: ddd
+DEBUG: Found quiz: ddd
+DEBUG: Found quiz: ss
+DEBUG: Found quiz: ss
+
+DEBUG: Uploaded quizzes for IP DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz', 'ddd', 'ss']DEBUG: Uploaded quizzes for IP DEBUG: Uploaded quizzes for IP DEBUG: Uploaded quizzes for IP 127.0.0.1127.0.0.1 :127.0.0.1 : ['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz', 'ddd', 'ss'] 127.0.0.1  : ['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz', 'ddd', 'ss']: 
+['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz', 'ddd', 'ss']['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz', 'ddd', 'ss']
+
+
+2025-04-22 11:11:02.210750 127.0.0.1 connection closed.2025-04-22 11:11:02.222226
+2025-04-22 11:11:02.231609 127.0.0.1 connection closed.
+2025-04-22 11:11:02.222226 127.0.0.1
+2025-04-22 11:11:02.231609 127.0.0.1 connection closed. connection closed. 127.0.0.1 connection closed.
+
+
+2025-04-22 11:11:02.330059 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:11:02.530915 127.0.0.1 connection closed.
+2025-04-22 11:11:05.478953 127.0.0.1 accessing /deletequiz
+127.0.0.1  is confirming if they want to delete ss
+2025-04-22 11:11:05.487998 127.0.0.1 connection closed.
+2025-04-22 11:11:05.553666 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:11:05.555669 127.0.0.1 connection closed.
+2025-04-22 11:11:07.477215 127.0.0.1 accessing /deletequiz
+127.0.0.1  is deleting ss
+127.0.0.1  is confirming if they want to delete ss
+127.0.0.1  is deleting ss
+127.0.0.1  is redirecting to home after deleting ss
+2025-04-22 11:11:07.531333 127.0.0.1 connection closed.
+2025-04-22 11:11:07.538998 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:11:07.538998 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: ddd
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz', 'ddd']
+2025-04-22 11:11:07.559396 127.0.0.1 connection closed.
+2025-04-22 11:11:07.628601 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:11:07.628601 127.0.0.1 connection closed.
+2025-04-22 11:11:12.797582 127.0.0.1 accessing /logs
+2025-04-22 11:11:12.798682 127.0.0.1 request path /logs is allowed even if banned.
+Detected IP 127.0.0.1 on /logs
+2025-04-22 11:11:12.848587 127.0.0.1 connection closed.
+2025-04-22 11:11:12.940871 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:11:12.941885 127.0.0.1 connection closed.
+2025-04-22 11:11:15.595978 127.0.0.1 accessing /deletequiz
+127.0.0.1  is confirming if they want to delete ddd
+2025-04-22 11:11:15.604081 127.0.0.1 connection closed.
+2025-04-22 11:11:15.669905 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:11:15.671903 127.0.0.1 connection closed.
+2025-04-22 11:11:17.254923 127.0.0.1 accessing /deletequiz
+127.0.0.1  is deleting ddd
+127.0.0.1  is confirming if they want to delete ddd
+127.0.0.1  is deleting ddd
+127.0.0.1  is redirecting to home after deleting ddd
+2025-04-22 11:11:17.310993 127.0.0.1 connection closed.
+2025-04-22 11:11:17.322472 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:11:17.322472 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:11:17.333078 127.0.0.1 connection closed.
+2025-04-22 11:11:17.403198 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:11:17.405186 127.0.0.1 connection closed.
+2025-04-22 11:11:23.335840 127.0.0.1 accessing /logs
+2025-04-22 11:11:23.341073 127.0.0.1 request path /logs is allowed even if banned.
+Detected IP 127.0.0.1 on /logs
+2025-04-22 11:11:23.379243 127.0.0.1 connection closed.
+2025-04-22 11:11:23.453123 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:11:23.456635 127.0.0.1 connection closed.
+2025-04-22 11:11:43.349138 127.0.0.1 accessing /quiz/C++ Quiz
+127.0.0.1 is playing C++ Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:11:43.378872 127.0.0.1 connection closed.
+2025-04-22 11:11:43.450080 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:11:43.452323 127.0.0.1 connection closed.
+2025-04-22 11:11:50.406317 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:11:50.406317 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:11:50.415949 127.0.0.1 connection closed.
+2025-04-22 11:11:50.481303 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:11:50.481303 127.0.0.1 connection closed.
+2025-04-22 11:11:50.975510 127.0.0.1 accessing /logs
+2025-04-22 11:11:50.976534 127.0.0.1 request path /logs is allowed even if banned.
+Detected IP 127.0.0.1 on /logs
+2025-04-22 11:11:51.025452 127.0.0.1 connection closed.
+2025-04-22 11:11:51.087228 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:11:51.096588 127.0.0.1 connection closed.
+2025-04-22 11:11:52.696597 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:11:52.696597 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:11:52.705584 127.0.0.1 connection closed.
+2025-04-22 11:11:52.771957 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:11:52.773958 127.0.0.1 connection closed.
+2025-04-22 11:13:59.981927 Starting Server with logger.
+2025-04-22 11:14:00.004303 Starting Server...
+2025-04-22 11:14:09.362635 127.0.0.1 accessing /editquiz/Best Quiz
+127.0.0.1 is currently editing Best Quiz
+2025-04-22 11:14:09.418522 127.0.0.1 connection closed.
+2025-04-22 11:14:19.665384 127.0.0.1 accessing /editquiz/Best Quiz
+127.0.0.1 is saving their edits to Best Quiz
+127.0.0.1 Saved edits to Best Quiz  successfully.
+2025-04-22 11:14:22.548553 127.0.0.1 connection closed.
+2025-04-22 11:14:23.682206 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:14:23.682206 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:14:23.696204 127.0.0.1 connection closed.
+2025-04-22 11:14:23.772865 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:14:23.965990 127.0.0.1 connection closed.
+2025-04-22 11:14:29.513011 127.0.0.1 accessing /quiz/Best Quiz
+127.0.0.1 is playing Best Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+2025-04-22 11:14:29.527997 127.0.0.1 connection closed.
+2025-04-22 11:14:29.605189 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:14:29.609630 127.0.0.1 connection closed.
+2025-04-22 11:14:41.062983 127.0.0.1 accessing /quiz/Best Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+2025-04-22 11:14:41.591405 127.0.0.1 accessing /quiz/Best Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+2025-04-22 11:14:41.925246 127.0.0.1 accessing /quiz/Best Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+2025-04-22 11:14:43.920228 127.0.0.1 accessing /quiz/Best Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+2025-04-22 11:14:44.424378 127.0.0.1 accessing /quiz/Best Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+2025-04-22 11:14:44.648712 127.0.0.1 accessing /quiz/Best Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+2025-04-22 11:14:46.763470 127.0.0.1 connection closed.
+2025-04-22 11:14:46.773569 127.0.0.1 accessing /quiz/Best Quiz
+127.0.0.1 is playing Best Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+2025-04-22 11:14:46.789274 127.0.0.1 connection closed.2025-04-22 11:14:46.790269 127.0.0.12025-04-22 11:14:46.790269 127.0.0.1 connection closed.
+2025-04-22 11:14:46.790269 127.0.0.12025-04-22 11:14:46.793293 
+2025-04-22 11:14:46.793293 127.0.0.1 connection closed. 127.0.0.1connection closed.  connection closed.connection closed.
+2025-04-22 11:14:46.802864 127.0.0.1 
+
+accessing 2025-04-22 11:14:46.809394 127.0.0.1 accessing2025-04-22 11:14:46.817548 127.0.0.1 accessing /quiz/Best Quiz/quiz/validate
+/quiz/Best Quiz/quiz/validate 
+/quiz/Best Quiz/quiz/validate
+Reading quiz file from: Reading quiz file from: 
+F:\PythonServer\1.0\non_static\quiz\Best Quiz.txtReading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txtF:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+
+
+2025-04-22 11:14:46.843676 127.0.0.1 connection closed.2025-04-22 11:14:46.843676 127.0.0.1 connection closed.
+2025-04-22 11:14:46.843676 127.0.0.1 connection closed.
+
+2025-04-22 11:14:46.905972 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:14:46.907978 127.0.0.1 connection closed.
+2025-04-22 11:14:55.497290 127.0.0.1 accessing /quiz/Best Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+2025-04-22 11:14:55.528661 127.0.0.1 connection closed.
+2025-04-22 11:14:57.587792 127.0.0.1 accessing /quiz/Best Quiz
+127.0.0.1 is playing Best Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+2025-04-22 11:14:57.617295 127.0.0.1 connection closed.
+2025-04-22 11:14:57.684615 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:14:57.684615 127.0.0.1 connection closed.
+2025-04-22 11:15:03.133784 127.0.0.1 accessing /quiz/Best Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+2025-04-22 11:15:03.156034 127.0.0.1 connection closed.
+2025-04-22 11:15:05.202126 127.0.0.1 accessing /quiz/Best Quiz
+127.0.0.1 is playing Best Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+2025-04-22 11:15:05.211120 127.0.0.1 connection closed.
+2025-04-22 11:15:05.299855 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:15:05.301846 127.0.0.1 connection closed.
+2025-04-22 11:15:18.592612 Starting Server with logger.
+2025-04-22 11:15:18.605319 Starting Server...
+2025-04-22 11:15:20.547834 127.0.0.1 accessing /quiz/Best Quiz
+127.0.0.1 is playing Best Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+2025-04-22 11:15:20.630379 127.0.0.1 connection closed.
+2025-04-22 11:15:20.715973 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:15:20.926142 127.0.0.1 connection closed.
+2025-04-22 11:15:23.832388 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:15:23.833405 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:15:23.844436 127.0.0.1 connection closed.
+2025-04-22 11:15:23.909852 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:15:23.912587 127.0.0.1 connection closed.
+2025-04-22 11:15:25.175918 127.0.0.1 accessing /quiz/C++ Quiz
+127.0.0.1 is playing C++ Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:15:25.181183 127.0.0.1 connection closed.
+2025-04-22 11:15:25.245882 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:15:25.248339 127.0.0.1 connection closed.
+2025-04-22 11:15:27.448544 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:15:27.448544 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Grian Quiz', 'Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:15:27.462376 127.0.0.1 connection closed.
+2025-04-22 11:15:27.534612 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:15:27.537094 127.0.0.1 connection closed.
+2025-04-22 11:15:29.381841 127.0.0.1 accessing /quiz/Grian Quiz
+127.0.0.1 is playing Grian Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Grian Quiz.txt
+2025-04-22 11:15:29.387317 127.0.0.1 connection closed.
+2025-04-22 11:15:31.922626 127.0.0.1 accessing /quiz/Grian Quiz
+127.0.0.1 is playing Grian Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Grian Quiz.txt
+2025-04-22 11:15:31.924809 127.0.0.1 connection closed.
+2025-04-22 11:15:32.694452 127.0.0.1 accessing /quiz/Grian Quiz
+127.0.0.1 is playing Grian Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Grian Quiz.txt
+2025-04-22 11:15:32.694452 127.0.0.1 connection closed.
+2025-04-22 11:15:39.544837 127.0.0.1 accessing /deletequiz
+127.0.0.1  is confirming if they want to delete Grian Quiz
+2025-04-22 11:15:39.554022 127.0.0.1 connection closed.
+2025-04-22 11:15:39.619647 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:15:39.620654 127.0.0.1 connection closed.
+2025-04-22 11:15:44.959346 127.0.0.1 accessing /deletequiz
+127.0.0.1  is deleting Grian Quiz
+127.0.0.1  is confirming if they want to delete Grian Quiz
+127.0.0.1  is deleting Grian Quiz
+127.0.0.1  is redirecting to home after deleting Grian Quiz
+2025-04-22 11:15:50.663856 127.0.0.1 connection closed.
+2025-04-22 11:15:50.700434 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:15:50.701436 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:15:50.730298 127.0.0.1 connection closed.
+2025-04-22 11:15:50.809314 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:15:50.812354 127.0.0.1 connection closed.
+2025-04-22 11:19:47.020737 127.0.0.1 accessing /quiz/Minecraft Quiz 2
+127.0.0.1 is playing Minecraft Quiz 2
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Minecraft Quiz 2.txt
+2025-04-22 11:19:47.099109 127.0.0.1 connection closed.
+2025-04-22 11:19:47.197895 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:19:47.204197 127.0.0.1 connection closed.
+2025-04-22 11:20:37.459071 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:20:37.460074 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:20:37.509134 127.0.0.1 connection closed.
+2025-04-22 11:20:37.691233 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:20:37.699083 127.0.0.1 connection closed.
+2025-04-22 11:20:41.496004 127.0.0.1 accessing /quiz/Minecraft Quiz 2
+127.0.0.1 is playing Minecraft Quiz 2
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Minecraft Quiz 2.txt
+2025-04-22 11:20:41.501749 127.0.0.1 connection closed.
+2025-04-22 11:20:41.564085 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:20:41.567801 127.0.0.1 connection closed.
+2025-04-22 11:20:44.522343 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:20:44.522343 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:20:44.529338 127.0.0.1 connection closed.
+2025-04-22 11:20:44.600225 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:20:44.601457 127.0.0.1 connection closed.
+2025-04-22 11:20:46.078715 127.0.0.1 accessing /editquiz/C++ Quiz
+127.0.0.1 is currently editing C++ Quiz
+2025-04-22 11:20:46.087738 127.0.0.1 connection closed.
+2025-04-22 11:20:48.055316 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:20:48.056342 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:20:48.065306 127.0.0.1 connection closed.
+2025-04-22 11:20:48.136742 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:20:48.137744 127.0.0.1 connection closed.
+2025-04-22 11:20:49.158205 127.0.0.1 accessing /quiz/Best Quiz
+127.0.0.1 is playing Best Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
+2025-04-22 11:20:49.162202 127.0.0.1 connection closed.
+2025-04-22 11:20:49.243366 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:20:49.245387 127.0.0.1 connection closed.
+2025-04-22 11:20:50.789837 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:20:50.790841 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:20:50.797832 127.0.0.1 connection closed.
+2025-04-22 11:20:50.875604 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:20:50.877613 127.0.0.1 connection closed.
+2025-04-22 11:22:24.554856 Starting Server with logger.
+2025-04-22 11:22:24.569123 Starting Server...
+2025-04-22 11:23:26.387276 Starting Server with logger.
+2025-04-22 11:23:26.401355 Starting Server...
+2025-04-22 11:23:27.339736 127.0.0.1 accessing /quiz/C++ Quiz
+127.0.0.1 is playing C++ Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:23:27.362737 127.0.0.1 connection closed.
+2025-04-22 11:23:27.463751 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:23:27.771562 127.0.0.1 connection closed.
+2025-04-22 11:23:32.149216 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:23:32.149216 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:23:32.176176 127.0.0.1 connection closed.
+2025-04-22 11:23:32.238458 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:23:32.240476 127.0.0.1 connection closed.
+2025-04-22 11:23:33.553791 127.0.0.1 accessing /quiz/MCreator
+127.0.0.1 is playing MCreator
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\MCreator.txt
+2025-04-22 11:23:33.579220 127.0.0.1 connection closed.
+2025-04-22 11:23:33.654541 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:23:33.658122 127.0.0.1 connection closed.
+2025-04-22 11:23:38.946573 127.0.0.1 accessing /quiz/MCreator/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\MCreator.txt
+2025-04-22 11:23:38.983489 127.0.0.1 connection closed.
+2025-04-22 11:23:41.038234 127.0.0.1 accessing /quiz/MCreator
+127.0.0.1 is playing MCreator
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\MCreator.txt
+2025-04-22 11:23:41.055468 127.0.0.1 connection closed.
+2025-04-22 11:23:41.114218 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:23:41.128080 127.0.0.1 connection closed.
+2025-04-22 11:23:54.456611 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:23:54.456611 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:23:54.468610 127.0.0.1 connection closed.
+2025-04-22 11:23:54.546690 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:23:54.550731 127.0.0.1 connection closed.
+2025-04-22 11:25:18.533174 Starting Server with logger.
+2025-04-22 11:25:18.556933 Starting Server...
+2025-04-22 11:26:21.319051 Starting Server with logger.
+2025-04-22 11:26:21.335470 Starting Server...
+2025-04-22 11:26:21.643967 127.0.0.1 accessing /quiz/C++ Quiz
+127.0.0.1 is playing C++ Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:27:47.560581 Starting Server with logger.
+2025-04-22 11:27:47.589896 Starting Server...
+2025-04-22 11:28:05.481729 127.0.0.1 accessing /quiz/C++ Quiz
+127.0.0.1 is playing C++ Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:28:05.514970 127.0.0.1 connection closed.
+2025-04-22 11:28:05.631826 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:28:05.962649 127.0.0.1 connection closed.
+2025-04-22 11:28:10.316019 127.0.0.1 accessing /quiz/C++ Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:28:10.319556 127.0.0.1 connection closed.
+2025-04-22 11:28:24.030079 127.0.0.1 accessing /quiz/C++ Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:28:24.034093 127.0.0.1 connection closed.
+2025-04-22 11:28:28.161105 127.0.0.1 accessing /quiz/C++ Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:28:28.170130 127.0.0.1 connection closed.
+2025-04-22 11:28:36.940759 127.0.0.1 accessing /quiz/C++ Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:28:36.944772 127.0.0.1 connection closed.
+2025-04-22 11:28:37.077686 127.0.0.1 accessing /quiz/C++ Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:28:37.077686 127.0.0.1 connection closed.
+2025-04-22 11:29:02.324283 127.0.0.1 accessing /quiz/C++ Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:29:04.920496 127.0.0.1 accessing /quiz/C++ Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:29:05.185198 127.0.0.1 connection closed.
+2025-04-22 11:29:05.211073 127.0.0.1 connection closed.
+2025-04-22 11:29:05.329774 127.0.0.1 accessing /quiz/C++ Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:29:05.332744 127.0.0.1 connection closed.
+2025-04-22 11:29:05.529985 127.0.0.1 accessing /quiz/C++ Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:29:05.531982 127.0.0.1 connection closed.
+2025-04-22 11:29:05.786247 127.0.0.1 accessing /quiz/C++ Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:29:05.786247 127.0.0.1 connection closed.
+2025-04-22 11:29:06.478814 127.0.0.1 accessing /quiz/C++ Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:29:06.486750 127.0.0.1 connection closed.
+2025-04-22 11:29:07.240199 127.0.0.1 accessing /quiz/C++ Quiz
+127.0.0.1 is playing C++ Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:29:07.247966 127.0.0.1 connection closed.
+2025-04-22 11:29:07.363055 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:29:07.364821 127.0.0.1 connection closed.
+2025-04-22 11:29:12.069442 127.0.0.1 accessing /quiz/C++ Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\C++ Quiz.txt
+2025-04-22 11:29:12.075481 127.0.0.1 connection closed.
+2025-04-22 11:29:14.966201 127.0.0.1 accessing /quiz/C++ Quiz/save_time
+2025-04-22 11:29:14.967201 127.0.0.1 Saving time for quiz 'C++ Quiz': What is the file extension for a C++ source file? 7.57 sec
+2025-04-22 11:29:16.251603 127.0.0.1 accessing /quiz/C++ Quiz/save_time
+2025-04-22 11:29:16.252722 127.0.0.1 Saving time for quiz 'C++ Quiz': What is the file extension for a C++ source file? 8.86 sec
+2025-04-22 11:29:16.795834 127.0.0.1 accessing /quiz/C++ Quiz/save_time
+2025-04-22 11:29:16.798810 127.0.0.1 Saving time for quiz 'C++ Quiz': What is the file extension for a C++ source file? 9.40 sec
+2025-04-22 11:29:17.764587 127.0.0.1 accessing /quiz/C++ Quiz/save_time
+2025-04-22 11:29:17.765587 127.0.0.1 Saving time for quiz 'C++ Quiz': What is the file extension for a C++ source file? 10.37 sec2025-04-22 11:29:17.768597 127.0.0.1 connection closed.
+
+2025-04-22 11:29:17.786686 127.0.0.1 2025-04-22 11:29:17.788187 127.0.0.1connection closed. connection closed.
+
+2025-04-22 11:29:17.796141 127.0.0.1 connection closed.
+2025-04-22 11:29:17.901474 127.0.0.1 accessing /
+DEBUG: 2025-04-22 11:29:17.901474 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 11:29:17.918229 127.0.0.1 connection closed.
+2025-04-22 11:29:17.989654 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:29:17.991648 127.0.0.1 connection closed.
+2025-04-22 11:30:02.741447 127.0.0.1 accessing /quiz/secret
+127.0.0.1 is playing secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 11:30:02.748443 127.0.0.1 connection closed.
+2025-04-22 11:30:02.849272 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:30:02.853772 127.0.0.1 connection closed.
+2025-04-22 11:30:08.522317 127.0.0.1 accessing /quiz/secret/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 11:30:09.083624 127.0.0.1 accessing /quiz/secret/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 11:30:09.324021 127.0.0.1 accessing /quiz/secret/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 11:30:09.568870 127.0.0.1 accessing /quiz/secret/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 11:30:11.221543 127.0.0.1 accessing /quiz/secret/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 11:30:14.203106 127.0.0.1 connection closed.
+2025-04-22 11:30:14.212745 127.0.0.1 connection closed.2025-04-22 11:30:14.214163 2025-04-22 11:30:14.218046 2025-04-22 11:30:14.214163 127.0.0.1 connection closed.127.0.0.1 connection closed.127.0.0.1 connection closed.
+
+
+
+2025-04-22 11:30:15.160025 127.0.0.1 accessing /quiz/secret/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 11:30:15.164027 127.0.0.1 connection closed.
+2025-04-22 11:30:16.253084 127.0.0.1 accessing /quiz/secret
+127.0.0.1 is playing secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 11:30:16.258070 127.0.0.1 connection closed.
+2025-04-22 11:30:16.338062 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:30:16.340061 127.0.0.1 connection closed.
+2025-04-22 11:30:23.566304 127.0.0.1 accessing /quiz/secret/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 11:30:23.602737 127.0.0.1 connection closed.
+2025-04-22 11:30:25.649835 127.0.0.1 accessing /quiz/secret
+127.0.0.1 is playing secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 11:30:25.677649 127.0.0.1 connection closed.
+2025-04-22 11:30:25.747407 127.0.0.1 accessing /static/css/style.css
+2025-04-22 11:30:25.748419 127.0.0.1 connection closed.
+2025-04-22 11:31:19.429433 Starting Server with logger.
+2025-04-22 11:31:19.439104 Starting Server...
+ * Serving Flask app 'app'
+ * Debug mode: on
+2025-04-22 11:31:20.437933 Starting Server with logger.
+2025-04-22 11:31:20.437933 Starting Server...

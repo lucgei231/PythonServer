@@ -24,15 +24,60 @@
       text-decoration: none;
       border-radius: 5px;
     }
+    .timer {
+      font-size: 16px;
+      color: #333;
+    }
   </style>
+  <script>
+    let startTime = Date.now();
+    function updateTimer() {
+      let elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+      document.getElementById("timer-display").textContent = "Time: " + elapsed + " sec";
+    }
+    // Update timer every 100ms.
+    setInterval(updateTimer, 100);
+    // On form submit, insert elapsed time into hidden input.
+    function attachTime(event) {
+      let elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+      document.getElementById("time_elapsed").value = elapsed;
+    }
+    // Save time and go home function
+    function saveTimeAndGoHome() {
+      let elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+      // Send the elapsed time to our new endpoint.
+      fetch("{{ url_for('save_time', quiz_name=quiz_name) }}", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ time_elapsed: elapsed })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.status === 'ok'){
+          // After saving, redirect to home.
+          window.location.href = "{{ url_for('home') }}";
+        } else {
+          alert("Error saving time, please try again.");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Error saving time, please try again.");
+      });
+    }
+  </script>
 </head>
 <body>
   <div class="header-container">
     <div class="question-number">
-      Question: {{ question_index|default(1) }}
+      Question: {{ question_index|default(1) }} / {{ quiz_total|default(1) }}
     </div>
+    <!-- Change the Home link to call our function -->
     <div class="home-button">
-      <a href="{{ url_for('home') }}">Home</a>
+      <a href="#" onclick="saveTimeAndGoHome()">Home</a>
+    </div>
+    <div class="timer" id="timer-display">
+      Time: 0 sec
     </div>
   </div>
   <div class="question-container">
@@ -45,7 +90,8 @@
       </ul>
     {% endif %}
     <!-- Answer form -->
-    <form id="answer-form">
+    <form id="answer-form" action="{{ url_for('submit_answer', quiz_name=quiz_name) }}" method="post" onsubmit="attachTime(event)">
+      <input type="hidden" name="time_elapsed" id="time_elapsed" value="0">
       <input type="text" name="answer" placeholder="Your Answer" required>
       <button type="submit">Submit Answer</button>
     </form>

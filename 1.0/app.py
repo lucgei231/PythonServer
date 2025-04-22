@@ -24,7 +24,7 @@ print(datetime.datetime.now(), "Logs directory set up at", logs_dir)
 log_filename = os.path.join(os.path.dirname(__file__), "logs", "print.txt")
 
 class Logger(object):
-    def __init__(self):
+    def __init__(self, logfile):
         self.terminal = sys.stdout
         self.log = open(logfile, "a", encoding="utf-8")
     def write(self, message):
@@ -93,7 +93,7 @@ def check_banned_ip():
         reason = banned_ips[ip]
         print(datetime.datetime.now(), ip, "is banned for reason:", reason)
         return render_template("error.html", message=f"IP {ip} banned: {reason}"), 403
-    print(datetime.datetime.now(), ip, "is not banned, continuing request.")
+
 
 @app.route('/ban-ip', methods=['GET', 'POST'])
 def ban_ip():
@@ -285,7 +285,9 @@ def quiz_index(quiz_name):
     # Pass the current question and its one-based index to the template.
     question = questions[current_index]
     display_index = current_index + 1
-    return render_template("quiz.html", quiz_name=quiz_name, question=question, question_index=display_index)
+    quiz_total = len(questions)
+    session['current_question_name'] = question.get('question', 'Unknown Question')
+    return render_template("quiz.html", quiz_name=quiz_name, question=question, question_index=display_index, quiz_total=quiz_total)
 
 @app.route('/editquiz/<quiz_name>', methods=['GET', 'POST'])
 def edit_quiz(quiz_name):
@@ -457,7 +459,141 @@ def logs_content():
         logs_text = "No logs found."
     return logs_text
 
-INAPPROPRIATE_WORDS = ["badword1", "badword2", "inappropriate"]
+@app.route('/quiz/<quiz_name>/answer', methods=['POST'])
+def submit_answer(quiz_name):
+    client_ip = get_client_ip()
+    # Retrieve the elapsed time from the hidden field.
+    time_taken = request.form.get('time_elapsed', '0')
+    print(datetime.datetime.now(), client_ip, f"submitted answer for quiz '{quiz_name}' in {time_taken} sec")
+    
+    # Get the current question name from session (make sure you store it earlier)
+    question_name = session.get('current_question_name', "Unknown Question")
+    
+    # Record the result to data/time.txt with the format:
+    # <client_ip>
+    # <quiz_name>
+    #     <question name> <time_taken>
+    time_file = os.path.join(os.path.dirname(__file__), "data", "time.txt")
+    with open(time_file, "a", encoding="utf-8") as f:
+        f.write(f"{client_ip}\n")
+        f.write(f"{quiz_name}\n")
+        f.write(f"    {question_name} {time_taken}\n")
+    
+    # Process the answer (update current question index, etc.) and redirect to results or next question.
+    return redirect(url_for('quiz_results', quiz_name=quiz_name))
+
+@app.route('/quiz/<quiz_name>/results')
+def quiz_results(quiz_name):
+    client_ip = get_client_ip()
+    time_file = os.path.join(os.path.dirname(__file__), "data", "time.txt")
+    # Parse the time.txt file for the current client's entries for this quiz.
+    results = []
+    current_ip = None
+    current_quiz = None
+    if os.path.exists(time_file):
+        with open(time_file, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.rstrip("\n")
+                # If this line does not start with four spaces, it is either an IP or a quiz name.
+                if not line.startswith("    "):
+                    # If line is an IP, update current_ip.
+                    if re.match(r'\d+\.\d+\.\d+\.\d+', line):
+                        current_ip = line
+                    else:
+                        # Otherwise, it's assumed to be a quiz name.
+                        current_quiz = line
+                else:
+                    # Question line.
+                    if current_ip == client_ip and current_quiz == quiz_name:
+                        # Remove leading spaces.
+                        q_line = line.strip()
+                        # Expect the format: "<question text> <time_taken>"
+                        results.append(q_line)
+    return render_template("results.html", quiz_name=quiz_name, results=results)
+
+@app.route('/quiz/<quiz_name>/save_time', methods=['POST'])
+def save_time(quiz_name):
+    client_ip = get_client_ip()
+    time_taken = request.json.get('time_elapsed', '0')
+    question_name = session.get('current_question_name', "Unknown Question")
+    print(datetime.datetime.now(), client_ip, f"Saving time for quiz '{quiz_name}': {question_name} {time_taken} sec")
+    
+    time_file = os.path.join(os.path.dirname(__file__), "data", "time.txt")
+    data = {}  # structure: {client_ip: {quiz_name: {question_name: time_taken}}}
+    
+    # Read existing file and parse into dictionary.
+    if os.path.exists(time_file):
+        with open(time_file, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        current_ip = None
+        current_quiz = None
+        for line in lines:
+            line = line.rstrip("\n")
+            if not line.startswith("    "):
+                # If the line is not indented:
+                # If we haven't set current_ip yet, it's a client header.
+                if current_ip is None or (current_ip and current_quiz):
+                    current_ip = line
+                    data.setdefault(current_ip, {})
+                    current_quiz = None
+                else:
+                    # Otherwise, it's the quiz name.
+                    current_quiz = line
+                    data[current_ip].setdefault(current_quiz, {})
+            else:
+                # This line is indented: expected format "    <question_name> <time_taken>"
+                if current_ip is not None and current_quiz is not None:
+                    entry = line.strip()
+                    parts = entry.rsplit(" ", 1)
+                    if len(parts) == 2:
+                        q_name, q_time = parts
+                        data[current_ip][current_quiz][q_name] = q_time
+                        
+    # Update (or create) record for this client and quiz.
+    data.setdefault(client_ip, {})
+    data[client_ip].setdefault(quiz_name, {})
+    data[client_ip][quiz_name][question_name] = time_taken
+    
+    # Write out the updated data back to time.txt using the same format.
+    with open(time_file, "w", encoding="utf-8") as f:
+        for ip, quizzes in data.items():
+            f.write(f"{ip}\n")
+            for quiz, questions in quizzes.items():
+                f.write(f"{quiz}\n")
+                for q, t in questions.items():
+                    f.write(f"    {q} {t}\n")
+                    
+    return jsonify({'status': 'ok'})
+
+{
+  "INAPPROPRIATE_WORDS": [
+    "badword1",
+    "badword2",
+    "inappropriate",
+    "poop",
+    "pee",
+    "stupid",
+    "dumb",
+    "idiot",
+    "ugly",
+    "hate",
+    "loser",
+    "fool",
+    "nonsense",
+    "trash",
+    "garbage",
+    "moron",
+    "jerk",
+    "creep",
+    "weirdo",
+    "lame",
+    "gross",
+    "pathetic",
+    "annoying",
+    "lazy",
+    "worthless"
+  ]
+}  # Add more words as needed
 
 if __name__ == '__main__':
     print(datetime.datetime.now(), "Starting Server...")

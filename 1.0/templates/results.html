@@ -1,0 +1,43 @@
+<!-- filepath: f:\PythonServer\1.0\templates\results.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Results</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Results for "{{ quiz_name }}"</h1>
+  <table>
+    <tr>
+      <th>Question</th>
+      <th>Time (seconds)</th>
+    </tr>
+    {% for entry in results %}
+      {# Assume we can split the entry to get question and time (last word is time) #}
+      {% set parts = entry.rsplit(' ', 1) %}
+      <tr>
+        <td>{{ parts[0] }}</td>
+        <td>{{ parts[1] }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+  <div>
+    <a href="{{ url_for('home') }}">Home</a>
+  </div>
+</body>
+</html>

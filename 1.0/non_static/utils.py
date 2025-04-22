@@ -1,15 +1,15 @@
 import json
 import os
 
-# Filepath for uploaded.json
-UPLOADED_JSON_PATH = os.path.join(os.path.dirname(__file__), "data", "uploaded.json")
+# New path: Go one directory up from non_static, then into the data folder.
+UPLOADED_JSON_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "uploaded.json")
 
 def read_uploaded_json():
     """Read the uploaded.json file and return its content as a dictionary."""
-    if not os.path.exists(UPLOADED_JSON_PATH):
-        return {}
-    with open(UPLOADED_JSON_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    if os.path.exists(UPLOADED_JSON_PATH):
+        with open(UPLOADED_JSON_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
 
 def write_uploaded_json(data):
     """Write the given dictionary to the uploaded.json file."""
