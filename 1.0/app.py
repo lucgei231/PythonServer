@@ -373,11 +373,13 @@ def edit_quiz(quiz_name):
 def quiz_validate(quiz_name):
     answer = request.json.get('answer', '')
     try:
+        print(f"Reading quiz {quiz_name}")
         questions = read_quiz(quiz_name)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     if not questions:
         return jsonify({'error': 'No questions found.'}), 404
+    print(f"Loading question file for {quiz_name}")
     question_file = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{quiz_name}.json")
     try:
         with open(question_file, "r", encoding="utf-8") as f:
@@ -385,6 +387,7 @@ def quiz_validate(quiz_name):
     except Exception as e:
         question_data = {}
     client_ip = get_client_ip()
+    print(f"Got ip of {client_ip}")
     current_index = question_data.get(client_ip, 0)
     if current_index >= len(questions):
         current_index = 0
@@ -398,8 +401,10 @@ def quiz_validate(quiz_name):
         else:
             question_data[client_ip] = new_index
             try:
+                print(f"dumping question file")
                 with open(question_file, "w", encoding="utf-8") as f:
                     json.dump(question_data, f)
+                    print("done dumping question file")
             except Exception as e:
                 return jsonify({'error': 'Failed to update question index.'}), 500
             return jsonify({'is_correct': True})
@@ -434,47 +439,47 @@ def makequiz():
 def view_logs():
     logs_dir = os.path.join(os.path.dirname(__file__), "logs")
     logs_content = ""
-    if os.path.exists(logs_dir):
-        # Get files sorted by name.
-        files = sorted(os.listdir(logs_dir))
-        for filename in files:
-            file_path = os.path.join(logs_dir, filename)
-            try:
-                with open(file_path, "r", encoding="utf-8") as f:
-                    file_content = f.read()
-                if filename == "print.txt":
-                    logs_content += file_content + "\n\n"
-                else:
-                    # Only show nonempty files.
-                    if file_content.strip() != "":
-                        logs_content += f"--- {filename} ---\n{file_content}\n\n"
-            except Exception as e:
-                logs_content += f"--- {filename} ---\nError reading file: {str(e)}\n\n"
-    else:
-        logs_content = "No logs found."
-    print("Detected IP", get_client_ip(), "on /logs")
+    # if os.path.exists(logs_dir):
+    #     # Get files sorted by name.
+    #     files = sorted(os.listdir(logs_dir))
+    #     for filename in files:
+    #         file_path = os.path.join(logs_dir, filename)
+    #         try:
+    #             with open(file_path, "r", encoding="utf-8") as f:
+    #                 file_content = f.read()
+    #             if filename == "print.txt":
+    #                 logs_content += file_content + "\n\n"
+    #             else:
+    #                 # Only show nonempty files.
+    #                 if file_content.strip() != "":
+    #                     logs_content += f"--- {filename} ---\n{file_content}\n\n"
+    #         except Exception as e:
+    #             logs_content += f"--- {filename} ---\nError reading file: {str(e)}\n\n"
+    # else:
+    #     logs_content = "No logs found."
+    # print("Detected IP", get_client_ip(), "on /logs")
     return render_template("logs.html", logs_content=logs_content)
 
 @app.route('/logs-content')
 def logs_content():
     logs_dir = os.path.join(os.path.dirname(__file__), "logs")
     logs_text = ""
-    if os.path.exists(logs_dir):
-        files = sorted(os.listdir(logs_dir))
-        for filename in files:
-            file_path = os.path.join(logs_dir, filename)
-            try:
-                with open(file_path, "r", encoding="utf-8") as f:
-                    file_content = f.read()
-                if filename == "print.txt":
-                    logs_text += file_content + "\n\n"
-                else:
-                    if file_content.strip() != "":
-                        logs_text += f"--- {filename} ---\n{file_content}\n\n"
-            except Exception as e:
-                logs_text += f"--- {filename} ---\nError reading file: {str(e)}\n\n"
-    else:
-        logs_text = "No logs found."
+    # if os.path.exists(logs_dir):
+    #     files = sorted(os.listdir(logs_dir))
+    #     for filename in files:
+    #         file_path = os.path.join(logs_dir, filename)
+    #         try:
+    #             with open(file_path, "r", encoding="utf-8") as f:
+    #                 file_content = f.read()
+    #             if filename == "print.txt":
+    #                 logs_text += file_content + "\n\n"
+    #             else:
+    #                 if file_content.strip() != "":
+    #                     logs_text += f"--- {filename} ---\n{file_content}\n\n"
+    #         except Exception as e:
+    #             logs_text += f"--- {filename} ---\nError reading file: {str(e)}\n\n"
+    # else:
+    #     logs_text = "No logs found."
     return logs_text
 
 @app.route('/quiz/<quiz_name>/answer', methods=['POST'])
@@ -550,7 +555,10 @@ def save_time(quiz_name):
     if not quiz_name or quiz_name.strip() == "":
         print(datetime.datetime.now(), "Error: Quiz name is missing in the URL.")
         return jsonify({'error': 'Quiz name is required in the URL.'}), 400
+    print("Save time")
     client_ip = get_client_ip()
+    print(f"IP: {client_ip}")
+    print("request.json")
     if request.is_json:
         time_taken = request.json.get('time_elapsed', '0')
     else:

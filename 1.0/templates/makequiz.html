@@ -36,7 +36,7 @@
         {% endif %}
         <form method="POST" action="{{ url_for('makequiz') }}">
             <textarea name="quiz_content" placeholder="Enter your quiz text here..."></textarea>
-            <label for="filename">Enter file name (without extension):</label>
+            <label for="filename">Enter quiz name:</label>
             <input type="text" name="filename" id="filename" required>
             <br>
             <button type="submit" class="done-button">Done</button>
@@ -44,7 +44,12 @@
         <br>
         <a href="{{ url_for('home') }}">Back to Home</a>
         <!-- If you have a link to view a newly created quiz, update its URL -->
-<a href="{{ url_for('quiz_index', quiz_name=quiz_name) }}">Go to Quiz Home</a>
+    
+        <!-- Ensure that filename is defined in the context when rendering this template -->
+        <!-- This link will only work if the filename is set correctly in the form submission -->
+        <!-- If you want to ensure that the quiz name is passed correctly, you might need to handle it in your Flask route -->
+        <!-- For example, in your Flask route, you can set the filename variable in the context before rendering this template -->
+
 <!-- Ensure that url_for('quiz_index', quiz_name=quiz_name) now generates "/quiz/<quiz_name>" -->
     </div>
 </body>
