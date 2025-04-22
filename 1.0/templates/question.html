@@ -60,24 +60,21 @@
     document.getElementById("answer-form").addEventListener("submit", function(e){
       e.preventDefault();
       const answerValue = document.querySelector('input[name="answer"]').value;
-      console.log("Submitting answer:", answerValue);
-      fetch("{{ url_for('routes.quiz_validate', quiz_name=quiz_name) }}", {
+      fetch("{{ url_for('quiz_validate', quiz_name=quiz_name) }}", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ answer: answerValue })
       })
       .then(response => response.json())
       .then(data => {
-        console.log("Validation response:", data);
         const feedbackDiv = document.getElementById("feedback");
-        if(data.is_correct) {
+        if(data.redirect) {
+          window.location.href = data.redirect;
+        } else if(data.is_correct) {
           feedbackDiv.innerHTML = "<span style='color:green;'>Correct!</span>";
-          // Wait 2 seconds then reload for next question
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
+          setTimeout(() => { window.location.reload(); }, 2000);
         } else {
-          feedbackDiv.innerHTML = "<span style='color:red;'>Incorrect, try again!</span>";
+          feedbackDiv.innerHTML = "<span style='color:red;'>Incorrect! Try Again!</span>";
         }
       })
       .catch(error => {
@@ -87,4 +84,3 @@
   </script>
 </body>
 </html>
-``` 

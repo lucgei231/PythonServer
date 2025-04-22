@@ -4,8 +4,9 @@ import random
 import datetime
 import re
 import sys
+import threading
 
-from flask import Flask, render_template, jsonify, request, session, redirect, url_for
+from flask import Flask, render_template, jsonify, request, session, redirect, url_for, send_file
 
 from non_static.quiz import read_quiz, get_random_question, validate_answer  # adjust imports as needed
 
@@ -157,6 +158,28 @@ def log_command():
         sys.stdout.flush()
     return jsonify({'status': 'logged'})
 
+@app.route('/kick', methods=['POST'])
+def kick():
+    data = request.get_json() or {}
+    target_ip = data.get("ip", "").strip()
+    if not target_ip:
+        return jsonify({'error': 'Target IP must be provided.'}), 400
+    reason = data.get('reason', 'Kicked for 5 seconds.')
+    banned_ips[target_ip] = reason
+    save_banned_ips(banned_ips)
+    print(datetime.datetime.now(), target_ip, f"Kicked for 5 seconds: {reason}")
+    
+    # Schedule to unban the target IP after 5 seconds.
+    def unban_after_kick():
+        if target_ip in banned_ips and banned_ips[target_ip] == reason:
+            del banned_ips[target_ip]
+            save_banned_ips(banned_ips)
+            print(datetime.datetime.now(), target_ip, "automatically unbanned after kick.")
+    timer = threading.Timer(5.0, unban_after_kick)
+    timer.start()
+    
+    return jsonify({'status': f'IP {target_ip} kicked for 5 seconds.'})
+
 @app.route('/')
 def home():
     print("DEBUG:", datetime.datetime.now(), "Entered home route.")
@@ -251,6 +274,7 @@ def addquiz():
 
 @app.route('/quiz/<quiz_name>', methods=['GET'])
 def quiz_index(quiz_name):
+    # quiz_name is defined from the URL.
     session['quiz_name'] = quiz_name
     client_ip = get_client_ip()
     print(client_ip, "is playing", quiz_name)
@@ -523,8 +547,14 @@ def quiz_results(quiz_name):
 
 @app.route('/quiz/<quiz_name>/save_time', methods=['POST'])
 def save_time(quiz_name):
+    if not quiz_name or quiz_name.strip() == "":
+        print(datetime.datetime.now(), "Error: Quiz name is missing in the URL.")
+        return jsonify({'error': 'Quiz name is required in the URL.'}), 400
     client_ip = get_client_ip()
-    time_taken = request.json.get('time_elapsed', '0')
+    if request.is_json:
+        time_taken = request.json.get('time_elapsed', '0')
+    else:
+        time_taken = request.form.get('time_elapsed', '0')
     question_name = session.get('current_question_name', "Unknown Question")
     print(datetime.datetime.now(), client_ip, f"Saving time for quiz '{quiz_name}': {question_name} {time_taken} sec")
     
@@ -540,31 +570,26 @@ def save_time(quiz_name):
         for line in lines:
             line = line.rstrip("\n")
             if not line.startswith("    "):
-                # If the line is not indented:
-                # If we haven't set current_ip yet, it's a client header.
                 if current_ip is None or (current_ip and current_quiz):
                     current_ip = line
                     data.setdefault(current_ip, {})
                     current_quiz = None
                 else:
-                    # Otherwise, it's the quiz name.
                     current_quiz = line
                     data[current_ip].setdefault(current_quiz, {})
             else:
-                # This line is indented: expected format "    <question_name> <time_taken>"
                 if current_ip is not None and current_quiz is not None:
                     entry = line.strip()
                     parts = entry.rsplit(" ", 1)
                     if len(parts) == 2:
                         q_name, q_time = parts
                         data[current_ip][current_quiz][q_name] = q_time
-                        
-    # Update (or create) record for this client and quiz.
+
     data.setdefault(client_ip, {})
     data[client_ip].setdefault(quiz_name, {})
     data[client_ip][quiz_name][question_name] = time_taken
-    
-    # Write out the updated data back to time.txt using the same format.
+    print(datetime.datetime.now(), client_ip, f"Updated time for {question_name} in quiz '{quiz_name}' to {time_taken} sec")
+
     with open(time_file, "w", encoding="utf-8") as f:
         for ip, quizzes in data.items():
             f.write(f"{ip}\n")
@@ -572,32 +597,49 @@ def save_time(quiz_name):
                 f.write(f"{quiz}\n")
                 for q, t in questions.items():
                     f.write(f"    {q} {t}\n")
-                    
-    return jsonify({'status': 'ok'})
+    return jsonify({'status': 'ok', 'quiz_name': quiz_name})
 
 @app.route('/quiz/<quiz_name>/finish')
 def finish_quiz(quiz_name):
     # Optionally perform any finalization tasks here.
+    print(datetime.datetime.now(), get_client_ip(), f"Finished quiz '{quiz_name}'")
     return render_template("finish.html", quiz_name=quiz_name)
+    print(datetime.datetime.now(), get_client_ip(), f"Successfully rendered finish.html for quiz '{quiz_name}'")
 
 @app.route('/quiz/<quiz_name>/reset')
 def reset_quiz(quiz_name):
     client_ip = get_client_ip()
+    print(datetime.datetime.now(), client_ip, f"Resetting quiz '{quiz_name}'")
     question_file = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{quiz_name}.json")
     try:
+        print(datetime.datetime.now(), client_ip, "attempting to read question file:", question_file)
         with open(question_file, "r", encoding="utf-8") as f:
             question_data = json.load(f)
     except Exception as e:
         question_data = {}
+        print(datetime.datetime.now(), client_ip, "failed to read question file:", str(e))
     # Reset the current index to 0 for this client.
     question_data[client_ip] = 0
+    print(datetime.datetime.now(), client_ip, "resetting question index to 0")
+    # Write the updated question data back to the file.
     try:
         with open(question_file, "w", encoding="utf-8") as f:
             json.dump(question_data, f)
+        print(datetime.datetime.now(), client_ip, "successfully reset question index to 0")
     except Exception as e:
         print(datetime.datetime.now(), client_ip, "failed to reset question index:", str(e))
         return jsonify({'error': 'Failed to reset question index.'}), 500
     return redirect(url_for("quiz_index", quiz_name=quiz_name))
+
+@app.route('/view_times')
+def view_times():
+    time_file = os.path.join(os.path.dirname(__file__), "data", "time.txt")
+    return send_file(time_file, mimetype="text/plain")
+
+@app.route('/view_times_file')
+def view_times_file():
+    time_file = os.path.join(os.path.dirname(__file__), "data", "time.txt")
+    return send_file(time_file, mimetype="text/plain")
 
 {
   "INAPPROPRIATE_WORDS": [
@@ -630,6 +672,12 @@ def reset_quiz(quiz_name):
 }  # Add more words as needed
 
 if __name__ == '__main__':
-    print(datetime.datetime.now(), "Starting Server...")
+    print(datetime.datetime.now(), "Server is not running. Starting Server...")
     app.run(debug=True, host="0.0.0.0", port=5702)
-    print("Server started.")
+    print(datetime.datetime.now(), "Server Error. Stopping Server...")
+    # Optional: Add any cleanup code here if needed.
+    print(datetime.datetime.now(), "Server stopped.")
+else:
+    print(datetime.datetime.now(), "There was an errror while starting the server:", __name__)
+    # Optional: Add any cleanup code here if needed.
+    print(datetime.datetime.now(), "Server stopped.")

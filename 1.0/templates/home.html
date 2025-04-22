@@ -13,6 +13,22 @@
       border-radius: 5px;
       margin-left: 10px;
     }
+    .header-buttons a.view-times-button {
+      background-color: red;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-left: 10px;
+    }
+    .header-buttons a.github-btn {
+      background-color: black;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-left: 10px;
+    }
   </style>
 </head>
 <body>
@@ -23,6 +39,9 @@
       <div class="header-buttons">
         <a href="{{ url_for('addquiz') }}" class="upload-btn">Add Quiz</a>
         <a href="{{ url_for('view_logs') }}" class="view-logs-button">View Logs</a>
+        <a href="{{ url_for('view_times') }}" class="view-times-button">View Times [BETA]</a>
+        <a href="https://github.com/lucgei231/PythonServer" class="github-btn" target="_blank">View on GitHub</a>
+  
         <!-- No admin panel button means you must manually type /adminpanel in URL -->
       </div>
     </header>

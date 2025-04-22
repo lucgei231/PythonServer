@@ -2,29 +2,22 @@
 Best Quiz
     Who toots the most? 3.55
     Who owns the window couch? 2
-quiz
-secret
-C++ Quiz
-secret
-MCreator
 Minecraft Quiz 2
+    What biome do Polar Bears spawn in? 27.48
+Minecraft Quiz 2
+Minecraft Quiz 2
+quiz
+AIS
+AIS
+C++ Quiz
+Minecraft Quiz
 
 192.168.50.94
-Best Quiz
+secret
 C++ Quiz
     What is the file extension for a C++ source file? 7.57
-192.168.50.1
+    What is C++? 2.93
 MCreator
-    What is MCreator primarily used for? 1.84
-secret
-    bum bum 5.45
 Bacon the Dog Quiz
-    does he have a big brown spot 0.71
-    can he see 3.11
-AIS
-    AIS 13.12
-Minecraft Quiz
-    What is the name of the default Minecraft character with brown hair? 0
+Best Quiz
 192.168.50.1
-Minecraft Quiz
-    What is the name of the default Minecraft character with brown hair? 15.46

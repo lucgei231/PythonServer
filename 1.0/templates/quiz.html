@@ -101,59 +101,57 @@
       <input type="hidden" id="timeElapsed" value="0">
       <input type="text" name="answer" placeholder="Your Answer" required>
       <!-- Replace existing submit answer button with one that calls submitAnswerWithTime() -->
-      <input type="button" id="submitAnswerButton" value="Submit Answer" onclick="submitAnswerWithTime()">
+      <input type="submit" id="submitAnswerButton" value="Submit Answer">
     </form>
     <!-- Feedback message under the answer form -->
     <div id="feedback" style="margin-top:10px; font-weight:bold;"></div>
   </div>
   <script>
-    // Remove old submitAnswer() and submitAnswerWithTime() functions.
-    // New function combining answer submission and time saving.
-    function submitAnswerWithTime() {
-      var submitButton = document.getElementById("submitAnswerButton");
-      var answer = document.querySelector('input[name="answer"]').value;
-      fetch("{{ url_for('quiz_validate', quiz_name=quiz_name) }}", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ answer: answer })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if(data.redirect) {
-          // If the quiz is finished, redirect immediately.
-          window.location.href = data.redirect;
-        } else if(data.is_correct) {
-          // Correct answer received. Change button text then save time.
-          submitButton.value = "Saving...";
-          var timeElapsed = document.getElementById("timeElapsed").value || "0";
-          fetch("{{ url_for('save_time', quiz_name=quiz_name) }}", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ time_elapsed: timeElapsed })
-          })
-          .then(response => response.json())
-          .then(timeData => {
-            submitButton.value = "Saved.";
-            // Immediately load next question after a brief pause.
-            setTimeout(function(){
-              window.location.reload();
-            }, 500);
-          })
-          .catch(err => {
-            console.error("Error saving time:", err);
-            submitButton.value = "Submit Answer";
-          });
-        } else {
-          // Incorrect answer – show feedback.
-          document.getElementById("feedback").innerHTML = "<span style='color:red;'>Incorrect, try again!</span>";
+  document.getElementById("answer-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    const answerInput = document.querySelector('input[name="answer"]');
+    const answerValue = answerInput.value;
+    const feedbackDiv = document.getElementById("feedback");
+    const submitButton = document.getElementById("submitAnswerButton");
+    fetch("{{ url_for('quiz_validate', quiz_name=quiz_name) }}", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ answer: answerValue })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(data.redirect) {
+        window.location.href = data.redirect;
+      } else if(data.is_correct) {
+        feedbackDiv.innerHTML = "<span style='color:green;'>Correct!</span>";
+        submitButton.value = "Saving...";
+        var timeElapsed = document.getElementById("timeElapsed").value || "0";
+        // Save elapsed time
+        fetch("{{ url_for('save_time', quiz_name=quiz_name) }}", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ time_elapsed: timeElapsed })
+        })
+        .then(resp => resp.json())
+        .then(timeData => {
+          submitButton.value = "Saved.";
+          setTimeout(() => { window.location.reload(); }, 500);
+        })
+        .catch(err => {
+          console.error("Error saving time:", err);
           submitButton.value = "Submit Answer";
-        }
-      })
-      .catch(error => {
-        console.error("Error submitting answer:", error);
+        });
+      } else {
+        // Incorrect answer: show red feedback and do not advance.
+        feedbackDiv.innerHTML = "<span style='color:red;'>Incorrect! Try Again!</span>";
         submitButton.value = "Submit Answer";
-      });
-    }
+      }
+    })
+    .catch(error => {
+      console.error("Error submitting answer:", error);
+      submitButton.value = "Submit Answer";
+    });
+  });
   </script>
 </body>
 </html>
