@@ -4904,3 +4904,16 @@ DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Minecraft Quiz 2', 'Minecraft Quiz'
 2025-04-22 15:06:28.756169 127.0.0.1 connection closed.
 2025-04-22 15:06:38.111022 127.0.0.1 accessing /view_times
 2025-04-22 15:06:38.113152 127.0.0.1 connection closed.
+2025-04-22 15:09:08.840022 127.0.0.1 accessing /
+DEBUG: 2025-04-22 15:09:08.840022 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Found quiz: AIS
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 15:09:08.848255 127.0.0.1 connection closed.
+2025-04-22 15:09:08.928133 127.0.0.1 accessing /static/css/style.css
+2025-04-22 15:09:08.930155 127.0.0.1 connection closed.
