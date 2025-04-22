@@ -6,10 +6,10 @@ import re
 import sys
 
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for
-from utils import read_uploaded_json
+
 from non_static.quiz import read_quiz, get_random_question, validate_answer  # adjust imports as needed
-import utils
-from non_static import utils
+
+from non_static.utils import read_uploaded_json, write_uploaded_json
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = "your_random_secret_key_here"
@@ -24,7 +24,7 @@ print(datetime.datetime.now(), "Logs directory set up at", logs_dir)
 log_filename = os.path.join(os.path.dirname(__file__), "logs", "print.txt")
 
 class Logger(object):
-    def __init__(self, logfile):
+    def __init__(self):
         self.terminal = sys.stdout
         self.log = open(logfile, "a", encoding="utf-8")
     def write(self, message):
