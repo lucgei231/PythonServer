@@ -2354,3 +2354,716 @@ Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Best Quiz.txt
 2025-04-22 11:57:09.843322 127.0.0.1 connection closed.
 2025-04-22 11:59:04.110158 Starting Server with logger.
 2025-04-22 11:59:04.126196 Starting Server...
+2025-04-22 12:17:07.746936 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:17:07.746936 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Best Quiz', 'quiz']
+2025-04-22 12:17:07.778726 192.168.50.1 connection closed.
+2025-04-22 12:17:08.145657 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:17:08.321400 192.168.50.1 connection closed.
+2025-04-22 12:17:17.175082 192.168.50.1 accessing /editquiz/quiz
+192.168.50.1 is currently editing quiz
+2025-04-22 12:17:17.189496 192.168.50.1 connection closed.
+2025-04-22 12:17:35.113220 192.168.50.1 accessing /editquiz/quiz
+192.168.50.1 is saving their edits to quiz
+192.168.50.1 Saved edits to quiz  successfully.
+2025-04-22 12:17:40.817694 192.168.50.1 connection closed.
+2025-04-22 12:17:41.118026 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:17:41.118026 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Best Quiz', 'quiz']
+2025-04-22 12:17:41.129144 192.168.50.1 connection closed.
+2025-04-22 12:17:41.537504 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:17:41.537504 192.168.50.1 connection closed.
+2025-04-22 12:17:46.352706 192.168.50.1 accessing /deletequiz
+192.168.50.1  is confirming if they want to delete quiz
+2025-04-22 12:17:46.368406 192.168.50.1 connection closed.
+2025-04-22 12:17:46.526769 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:17:46.526769 192.168.50.1 connection closed.
+2025-04-22 12:17:49.859403 192.168.50.1 accessing /deletequiz
+192.168.50.1  is deleting quiz
+192.168.50.1  is confirming if they want to delete quiz
+192.168.50.1  is deleting quiz
+2025-04-22 12:17:50.059792 192.168.50.1 accessing /deletequiz
+192.168.50.1  is deleting quiz
+192.168.50.1  is redirecting to home after deleting quiz
+2025-04-22 12:17:52.757985 192.168.50.1 connection closed.
+192.168.50.1  is confirming if they want to delete quiz
+192.168.50.1  is redirecting to home after deleting quiz
+2025-04-22 12:17:52.794899 192.168.50.1 connection closed.
+2025-04-22 12:17:53.850965 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:17:53.852309 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Best Quiz']
+2025-04-22 12:17:53.865906 192.168.50.1 connection closed.
+2025-04-22 12:17:54.075402 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:17:54.077410 192.168.50.1 connection closed.
+2025-04-22 12:18:01.484758 192.168.50.1 accessing /editquiz/Best Quiz
+192.168.50.1 is currently editing Best Quiz
+2025-04-22 12:18:01.493316 192.168.50.1 connection closed.
+2025-04-22 12:18:09.886938 192.168.50.1 accessing /editquiz/Best Quiz
+192.168.50.1 is saving their edits to Best Quiz
+192.168.50.1 Saved edits to Best Quiz  successfully.
+2025-04-22 12:18:10.786869 192.168.50.1 accessing /editquiz/Best Quiz
+192.168.50.1 is saving their edits to Best Quiz
+192.168.50.1 Saved edits to Best Quiz  successfully.
+2025-04-22 12:18:15.595950 192.168.50.1 connection closed.
+2025-04-22 12:18:15.643478 192.168.50.1 connection closed.
+2025-04-22 12:18:16.072538 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:18:16.072538 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Best Quiz']
+2025-04-22 12:18:16.072538 192.168.50.1 connection closed.
+2025-04-22 12:18:16.460052 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:18:16.460052 192.168.50.1 connection closed.
+2025-04-22 12:18:27.748043 192.168.50.1 accessing /quiz/MCreator
+192.168.50.1 is playing MCreator
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\MCreator.txt
+2025-04-22 12:18:27.771712 192.168.50.1 connection closed.
+2025-04-22 12:18:28.063705 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:18:28.078219 192.168.50.1 connection closed.
+2025-04-22 12:18:44.260858 192.168.50.1 accessing /quiz/MCreator/save_time
+2025-04-22 12:18:44.260858 192.168.50.1 Saving time for quiz 'MCreator': What is MCreator primarily used for? 16.03 sec
+2025-04-22 12:18:44.532232 192.168.50.1 accessing /quiz/MCreator
+192.168.50.1 is playing MCreator
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\MCreator.txt
+2025-04-22 12:18:46.587614 192.168.50.1 accessing /quiz/MCreator
+192.168.50.1 is playing MCreator
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\MCreator.txt
+2025-04-22 12:18:49.919737 192.168.50.1 connection closed.
+2025-04-22 12:18:49.942109 192.168.50.1 connection closed.2025-04-22 12:18:49.942109 192.168.50.1 connection closed.
+
+2025-04-22 12:18:50.317763 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:18:50.317763 192.168.50.1 connection closed.
+2025-04-22 12:18:52.308293 192.168.50.1 accessing /quiz/MCreator/save_time
+2025-04-22 12:18:52.308293 192.168.50.1 Saving time for quiz 'MCreator': What is MCreator primarily used for? 1.84 sec
+2025-04-22 12:18:52.355666 192.168.50.1 connection closed.
+2025-04-22 12:18:52.403512 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:18:52.419483 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Best Quiz']
+2025-04-22 12:18:52.428196 192.168.50.1 connection closed.
+2025-04-22 12:18:52.531210 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:18:52.536722 192.168.50.1 connection closed.
+2025-04-22 12:19:09.620974 192.168.50.1 accessing /quiz/secret
+192.168.50.1 is playing secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 12:19:09.620974 192.168.50.1 connection closed.
+2025-04-22 12:19:10.067267 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:19:10.083021 192.168.50.1 connection closed.
+2025-04-22 12:19:15.659977 192.168.50.1 accessing /quiz/secret/save_time
+2025-04-22 12:19:15.659977 192.168.50.1 Saving time for quiz 'secret': bum bum 5.45 sec
+2025-04-22 12:19:15.692065 192.168.50.1 connection closed.
+2025-04-22 12:19:15.930026 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:19:15.930026 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Best Quiz']
+2025-04-22 12:19:15.945964 192.168.50.1 connection closed.
+2025-04-22 12:19:16.120725 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:19:16.120725 192.168.50.1 connection closed.
+2025-04-22 12:19:31.164397 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:19:31.164397 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Best Quiz']
+2025-04-22 12:19:31.180146 192.168.50.1 connection closed.
+2025-04-22 12:19:31.292927 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:19:31.292927 192.168.50.1 connection closed.
+2025-04-22 12:20:19.977984 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:20:19.977984 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Best Quiz']
+2025-04-22 12:20:19.996639 192.168.50.1 connection closed.
+2025-04-22 12:20:20.217614 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:20:20.233320 192.168.50.1 connection closed.
+2025-04-22 12:20:22.528197 192.168.50.1 accessing /logs
+2025-04-22 12:20:22.528197 192.168.50.1 request path /logs is allowed even if banned.
+Detected IP 192.168.50.1 on /logs
+2025-04-22 12:20:22.600619 192.168.50.1 connection closed.
+2025-04-22 12:20:22.681731 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:20:22.681731 192.168.50.1 connection closed.
+2025-04-22 12:21:39.150362 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:21:39.150362 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Best Quiz']
+2025-04-22 12:21:39.164750 192.168.50.1 connection closed.
+2025-04-22 12:21:39.340417 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:21:39.340417 192.168.50.1 connection closed.
+2025-04-22 12:21:43.431874 192.168.50.1 accessing /deletequiz
+192.168.50.1  is confirming if they want to delete Best Quiz
+2025-04-22 12:21:43.431874 192.168.50.1 connection closed.
+2025-04-22 12:21:43.482398 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:21:43.482398 192.168.50.1 connection closed.
+2025-04-22 12:21:48.304482 192.168.50.1 accessing /deletequiz
+192.168.50.1  is deleting Best Quiz
+192.168.50.1  is confirming if they want to delete Best Quiz
+192.168.50.1  is deleting Best Quiz
+192.168.50.1  is redirecting to home after deleting Best Quiz
+2025-04-22 12:21:51.202676 192.168.50.1 connection closed.
+2025-04-22 12:21:51.411908 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:21:51.411908 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : []
+2025-04-22 12:21:51.423853 192.168.50.1 connection closed.
+2025-04-22 12:21:51.588763 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:21:51.595849 192.168.50.1 connection closed.
+2025-04-22 12:22:08.827735 192.168.50.1 accessing /addquiz
+2025-04-22 12:22:08.843781 192.168.50.1 connection closed.
+2025-04-22 12:22:08.891239 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:22:08.891239 192.168.50.1 connection closed.
+2025-04-22 12:22:13.940884 192.168.50.1 accessing /makequiz
+2025-04-22 12:22:13.956823 192.168.50.1 connection closed.
+2025-04-22 12:22:13.988597 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:22:13.988597 192.168.50.1 connection closed.
+2025-04-22 12:23:33.639008 192.168.50.1 accessing /makequiz
+2025-04-22 12:23:42.232745 192.168.50.1 connection closed.
+2025-04-22 12:23:42.377545 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:23:42.378547 192.168.50.1 connection closed.
+2025-04-22 12:23:44.308587 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:23:44.308587 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Bacon the Dog Quiz']
+2025-04-22 12:23:44.324699 192.168.50.1 connection closed.
+2025-04-22 12:23:44.356702 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:23:44.366063 192.168.50.1 connection closed.
+2025-04-22 12:23:47.525713 192.168.50.1 accessing /quiz/Bacon the Dog Quiz
+192.168.50.1 is playing Bacon the Dog Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:23:47.541825 192.168.50.1 connection closed.
+2025-04-22 12:23:47.573798 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:23:47.573798 192.168.50.1 connection closed.
+2025-04-22 12:23:54.833674 192.168.50.1 accessing /quiz/Bacon the Dog Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:23:54.865338 192.168.50.1 connection closed.
+2025-04-22 12:23:56.922448 192.168.50.1 accessing /quiz/Bacon the Dog Quiz
+192.168.50.1 is playing Bacon the Dog Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:23:56.922448 192.168.50.1 connection closed.
+2025-04-22 12:23:56.969908 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:23:56.969908 192.168.50.1 connection closed.
+2025-04-22 12:23:59.886855 192.168.50.1 accessing /quiz/Bacon the Dog Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:24:01.098609 192.168.50.1 accessing /quiz/Bacon the Dog Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:24:02.690884 192.168.50.1 connection closed.
+2025-04-22 12:24:02.716950 192.168.50.1 connection closed.
+2025-04-22 12:24:02.772457 192.168.50.1 accessing /quiz/Bacon the Dog Quiz/save_time
+2025-04-22 12:24:02.772457 192.168.50.1 Saving time for quiz 'Bacon the Dog Quiz': does he have a big brown spot 5.77 sec
+2025-04-22 12:24:04.684592 192.168.50.1 accessing /quiz/Bacon the Dog Quiz/save_time
+2025-04-22 12:24:04.684592 192.168.50.1 Saving time for quiz 'Bacon the Dog Quiz': does he have a big brown spot 7.69 sec
+2025-04-22 12:24:04.796171 192.168.50.1 accessing /quiz/Bacon the Dog Quiz
+192.168.50.1 is playing Bacon the Dog Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:24:05.610739 192.168.50.1 connection closed.
+2025-04-22 12:24:05.628727 192.168.50.1 connection closed.
+2025-04-22 12:24:05.674332 192.168.50.1 connection closed.
+2025-04-22 12:24:05.745844 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:24:05.745844 192.168.50.1 connection closed.
+2025-04-22 12:24:08.893739 192.168.50.1 accessing /quiz/Bacon the Dog Quiz/save_time
+2025-04-22 12:24:08.893739 192.168.50.1 Saving time for quiz 'Bacon the Dog Quiz': can he see 3.11 sec
+2025-04-22 12:24:08.925623 192.168.50.1 connection closed.
+2025-04-22 12:24:08.957758 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:24:08.957758 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Bacon the Dog Quiz']
+2025-04-22 12:24:08.957758 192.168.50.1 connection closed.
+2025-04-22 12:24:08.989302 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:24:08.989302 192.168.50.1 connection closed.
+2025-04-22 12:24:10.611584 192.168.50.1 accessing /quiz/Bacon the Dog Quiz
+192.168.50.1 is playing Bacon the Dog Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:24:10.611584 192.168.50.1 connection closed.
+2025-04-22 12:24:10.629334 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:24:10.629334 192.168.50.1 connection closed.
+2025-04-22 12:24:13.226575 192.168.50.1 accessing /quiz/Bacon the Dog Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:24:13.263789 192.168.50.1 connection closed.
+2025-04-22 12:24:13.369730 192.168.50.1 accessing /quiz/Bacon the Dog Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:24:13.406755 192.168.50.1 connection closed.
+2025-04-22 12:24:15.314156 192.168.50.1 accessing /quiz/Bacon the Dog Quiz
+192.168.50.1 is playing Bacon the Dog Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:24:15.330260 192.168.50.1 connection closed.
+2025-04-22 12:24:15.377648 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:24:15.377648 192.168.50.1 connection closed.
+2025-04-22 12:24:19.218645 192.168.50.1 accessing /quiz/Bacon the Dog Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:24:19.250504 192.168.50.1 connection closed.
+2025-04-22 12:24:21.295984 192.168.50.1 accessing /quiz/Bacon the Dog Quiz
+192.168.50.1 is playing Bacon the Dog Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:24:21.303545 192.168.50.1 connection closed.
+2025-04-22 12:24:21.335476 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:24:21.335476 192.168.50.1 connection closed.
+2025-04-22 12:24:28.601043 192.168.50.1 accessing /quiz/Bacon the Dog Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:24:28.636769 192.168.50.1 connection closed.
+2025-04-22 12:24:30.686546 192.168.50.1 accessing /quiz/Bacon the Dog Quiz
+192.168.50.1 is playing Bacon the Dog Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:24:30.702675 192.168.50.1 connection closed.
+2025-04-22 12:24:30.734685 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:24:30.734685 192.168.50.1 connection closed.
+2025-04-22 12:24:34.348254 192.168.50.1 accessing /quiz/Bacon the Dog Quiz/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:24:34.380067 192.168.50.1 connection closed.
+2025-04-22 12:24:36.422307 192.168.50.1 accessing /quiz/Bacon the Dog Quiz
+192.168.50.1 is playing Bacon the Dog Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:24:36.422307 192.168.50.1 connection closed.
+2025-04-22 12:24:36.454153 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:24:36.454153 192.168.50.1 connection closed.
+2025-04-22 12:24:39.038938 192.168.50.1 accessing /quiz/Bacon the Dog Quiz/save_time
+2025-04-22 12:24:39.038938 192.168.50.1 Saving time for quiz 'Bacon the Dog Quiz': does he have a big brown spot 2.55 sec
+2025-04-22 12:24:41.903341 192.168.50.1 connection closed.
+2025-04-22 12:24:41.980930 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:24:41.980930 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Bacon the Dog Quiz']
+2025-04-22 12:24:41.994721 192.168.50.1 connection closed.
+2025-04-22 12:24:42.010632 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:24:42.010632 192.168.50.1 connection closed.
+2025-04-22 12:24:55.173720 192.168.50.1 accessing /addquiz
+2025-04-22 12:24:55.173720 192.168.50.1 connection closed.
+2025-04-22 12:24:55.205482 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:24:55.209047 192.168.50.1 connection closed.
+2025-04-22 12:24:56.781626 192.168.50.1 accessing /makequiz
+2025-04-22 12:24:56.781626 192.168.50.1 connection closed.
+2025-04-22 12:24:56.813167 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:24:56.813167 192.168.50.1 connection closed.
+2025-04-22 12:25:04.557850 192.168.50.1 accessing /makequiz
+2025-04-22 12:25:15.845400 192.168.50.1 connection closed.
+2025-04-22 12:25:16.000112 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:25:16.001123 192.168.50.1 connection closed.
+2025-04-22 12:25:17.921972 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:25:17.921972 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Found quiz: badword1
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Bacon the Dog Quiz', 'badword1']
+2025-04-22 12:25:17.933737 192.168.50.1 connection closed.
+2025-04-22 12:25:17.981992 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:25:17.981992 192.168.50.1 connection closed.
+2025-04-22 12:25:19.753346 192.168.50.1 accessing /deletequiz
+192.168.50.1  is confirming if they want to delete badword1
+2025-04-22 12:25:19.753346 192.168.50.1 connection closed.
+2025-04-22 12:25:19.785246 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:25:19.785246 192.168.50.1 connection closed.
+2025-04-22 12:25:21.617374 192.168.50.1 accessing /deletequiz
+192.168.50.1  is deleting badword1
+192.168.50.1  is confirming if they want to delete badword1
+192.168.50.1  is deleting badword1
+192.168.50.1  is redirecting to home after deleting badword1
+2025-04-22 12:25:21.685967 192.168.50.1 connection closed.
+2025-04-22 12:25:21.729336 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:25:21.729336 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Bacon the Dog Quiz']
+2025-04-22 12:25:21.777584 192.168.50.1 connection closed.
+2025-04-22 12:25:21.809641 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:25:21.809641 192.168.50.1 connection closed.
+2025-04-22 12:25:25.310891 192.168.50.1 accessing /addquiz
+2025-04-22 12:25:25.310891 192.168.50.1 connection closed.
+2025-04-22 12:25:25.345187 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:25:25.345187 192.168.50.1 connection closed.
+2025-04-22 12:25:52.662654 192.168.50.1 accessing /addquiz
+2025-04-22 12:26:01.139788 192.168.50.1 connection closed.
+2025-04-22 12:26:01.389043 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:26:01.391077 192.168.50.1 connection closed.
+2025-04-22 12:26:03.893644 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:26:03.893644 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Found quiz: AIS
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Bacon the Dog Quiz', 'AIS.txt']
+2025-04-22 12:26:03.893644 192.168.50.1 connection closed.
+2025-04-22 12:26:03.946321 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:26:03.947978 192.168.50.1 connection closed.
+2025-04-22 12:26:08.639775 192.168.50.1 accessing /quiz/AIS
+192.168.50.1 is playing AIS
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:08.643493 192.168.50.1 connection closed.
+2025-04-22 12:26:08.675983 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:26:08.675983 192.168.50.1 connection closed.
+2025-04-22 12:26:11.765446 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:11.797221 192.168.50.1 connection closed.
+2025-04-22 12:26:12.795112 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:12.808999 192.168.50.1 connection closed.
+2025-04-22 12:26:13.175876 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:13.183904 192.168.50.1 connection closed.
+2025-04-22 12:26:13.844364 192.168.50.1 accessing /quiz/AIS
+192.168.50.1 is playing AIS
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:13.856854 192.168.50.1 connection closed.
+2025-04-22 12:26:13.908588 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:26:13.908588 192.168.50.1 connection closed.
+2025-04-22 12:26:16.574058 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:16.583840 192.168.50.1 connection closed.
+2025-04-22 12:26:17.308187 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:17.315674 192.168.50.1 connection closed.
+2025-04-22 12:26:17.871071 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:17.871071 192.168.50.1 connection closed.
+2025-04-22 12:26:19.512103 192.168.50.1 accessing2025-04-22 12:26:20.672166  2025-04-22 12:26:20.3686142025-04-22 12:26:20.195000/quiz/AIS/quiz/validate2025-04-22 12:26:21.293066 192.168.50.1 accessing /quiz/AIS/quiz/validate
+ 192.168.50.1 accessing  192.168.50.1 accessing /quiz/AIS/quiz/validateReading quiz file from:/quiz/AIS/quiz/validate192.168.50.1 F:\PythonServer\1.0\non_static\quiz\AIS.txt accessing /quiz/AIS/quiz/validate
+
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txtReading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+
+
+
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:21.693217 192.168.50.1 connection closed.
+2025-04-22 12:26:21.722592 192.168.50.1 connection closed.
+2025-04-22 12:26:21.754436 192.168.50.1 connection closed.
+2025-04-22 12:26:21.754436 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:21.773929 192.168.50.1 connection closed.2025-04-22 12:26:21.773929 192.168.50.1 connection closed.
+
+2025-04-22 12:26:21.802026 192.168.50.1 connection closed.
+2025-04-22 12:26:22.202874 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:22.232515 192.168.50.1 connection closed.
+2025-04-22 12:26:22.633026 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:22.678610 192.168.50.1 connection closed.
+2025-04-22 12:26:23.047142 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:23.096225 192.168.50.1 connection closed.
+2025-04-22 12:26:23.681215 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:23.714889 192.168.50.1 connection closed.
+2025-04-22 12:26:23.737066 192.168.50.1 accessing /quiz/AIS
+192.168.50.1 is playing AIS
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:23.747054 192.168.50.1 connection closed.
+2025-04-22 12:26:23.799156 192.168.50.1 accessing /quiz/AIS
+192.168.50.1 is playing AIS
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:23.810825 192.168.50.1 connection closed.
+2025-04-22 12:26:23.826774 192.168.50.1 accessing /quiz/AIS
+192.168.50.1 is playing AIS
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:26:23.842774 192.168.50.1 connection closed.
+2025-04-22 12:26:23.858715 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:26:23.874639 192.168.50.1 connection closed.
+2025-04-22 12:26:26.486912 192.168.50.1 accessing /quiz/AIS/save_time
+2025-04-22 12:26:26.486912 192.168.50.1 Saving time for quiz 'AIS': AIS 2.59 sec
+2025-04-22 12:26:29.334468 192.168.50.1 connection closed.
+2025-04-22 12:26:29.381915 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:26:29.381915 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Found quiz: AIS
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Bacon the Dog Quiz', 'AIS.txt']
+2025-04-22 12:26:29.398041 192.168.50.1 connection closed.
+2025-04-22 12:26:29.413802 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:26:29.413802 192.168.50.1 connection closed.
+2025-04-22 12:41:00.653110 Starting Server with logger.
+2025-04-22 12:41:00.670151 Starting Server...
+2025-04-22 12:41:16.569973 Starting Server with logger.
+2025-04-22 12:41:16.582982 Starting Server...
+2025-04-22 12:41:20.856291 Starting Server with logger.
+2025-04-22 12:41:20.873299 Starting Server...
+2025-04-22 12:41:23.633064 Starting Server with logger.
+2025-04-22 12:41:23.676060 Starting Server...
+2025-04-22 12:41:26.827676 Starting Server with logger.
+2025-04-22 12:41:26.845668 Starting Server...
+ * Serving Flask app 'app'
+ * Debug mode: on
+2025-04-22 12:41:27.713592 Starting Server with logger.
+2025-04-22 12:41:27.735487 Starting Server...
+2025-04-22 12:41:52.855701 192.168.50.1 accessing /quiz/AIS
+192.168.50.1 is playing AIS
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:41:52.887620 192.168.50.1 connection closed.
+2025-04-22 12:41:53.017112 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:41:53.190361 192.168.50.1 connection closed.
+2025-04-22 12:41:57.526165 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:41:57.531882 192.168.50.1 connection closed.
+2025-04-22 12:41:59.572484 192.168.50.1 accessing /quiz/AIS
+192.168.50.1 is playing AIS
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:41:59.578497 192.168.50.1 connection closed.
+2025-04-22 12:41:59.629343 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:41:59.629343 192.168.50.1 connection closed.
+2025-04-22 12:42:01.408596 192.168.50.1 accessing /quiz/AIS/save_time
+2025-04-22 12:42:01.408596 192.168.50.1 Saving time for quiz 'AIS': AIS 1.75 sec
+2025-04-22 12:42:01.456659 192.168.50.1 connection closed.
+2025-04-22 12:42:01.488323 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:42:01.488323 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Found quiz: AIS
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Bacon the Dog Quiz', 'AIS.txt']
+2025-04-22 12:42:01.504422 192.168.50.1 connection closed.
+2025-04-22 12:42:01.524664 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:42:01.524664 192.168.50.1 connection closed.
+2025-04-22 12:44:15.892641 Starting Server with logger.
+2025-04-22 12:44:15.940635 Starting Server...
+2025-04-22 12:44:19.339426 Starting Server with logger.
+2025-04-22 12:44:19.360418 Starting Server...
+2025-04-22 12:44:27.777147 Starting Server with logger.
+2025-04-22 12:44:27.789147 Starting Server...
+2025-04-22 12:44:31.923920 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:44:31.923920 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Found quiz: AIS
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Bacon the Dog Quiz', 'AIS.txt']
+2025-04-22 12:44:31.950882 192.168.50.1 connection closed.
+2025-04-22 12:44:31.998879 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:44:32.196447 192.168.50.1 connection closed.
+2025-04-22 12:44:33.200701 192.168.50.1 accessing /quiz/Bacon the Dog Quiz
+192.168.50.1 is playing Bacon the Dog Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:44:33.220724 192.168.50.1 connection closed.
+2025-04-22 12:44:33.248465 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:44:33.248465 192.168.50.1 connection closed.
+2025-04-22 12:44:34.990884 192.168.50.1 accessing /quiz/Bacon the Dog Quiz/save_time
+2025-04-22 12:44:35.008792 192.168.50.1 Saving time for quiz 'Bacon the Dog Quiz': does he have a big brown spot 1.71 sec
+2025-04-22 12:44:35.068287 192.168.50.1 connection closed.
+2025-04-22 12:44:35.109893 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:44:35.135875 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Found quiz: AIS
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Bacon the Dog Quiz', 'AIS.txt']
+2025-04-22 12:44:35.241048 192.168.50.1 connection closed.
+2025-04-22 12:44:35.336331 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:44:35.342385 192.168.50.1 connection closed.
+2025-04-22 12:44:35.957088 192.168.50.1 accessing /quiz/AIS
+192.168.50.1 is playing AIS
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:44:35.964939 192.168.50.1 connection closed.
+2025-04-22 12:44:35.982116 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:44:35.991879 192.168.50.1 connection closed.
+2025-04-22 12:44:38.558178 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:44:38.562191 192.168.50.1 connection closed.
+2025-04-22 12:44:43.275144 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:44:43.291232 192.168.50.1 connection closed.
+2025-04-22 12:44:47.277582 192.168.50.1 accessing /quiz/AIS/quiz/validate
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\AIS.txt
+2025-04-22 12:44:47.283607 192.168.50.1 connection closed.
+2025-04-22 12:44:49.126400 192.168.50.1 accessing /quiz/AIS/save_time
+2025-04-22 12:44:49.142580 192.168.50.1 Saving time for quiz 'AIS': AIS 13.12 sec
+2025-04-22 12:44:49.174072 192.168.50.1 connection closed.
+2025-04-22 12:44:49.206041 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:44:49.206041 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Found quiz: AIS
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Bacon the Dog Quiz', 'AIS.txt']
+2025-04-22 12:44:49.206041 192.168.50.1 connection closed.
+2025-04-22 12:44:49.237985 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:44:49.237985 192.168.50.1 connection closed.
+2025-04-22 12:45:14.780458 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:45:14.780458 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Found quiz: AIS
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Bacon the Dog Quiz', 'AIS.txt']
+2025-04-22 12:45:14.796447 192.168.50.1 connection closed.
+2025-04-22 12:45:14.854623 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:45:14.856642 192.168.50.1 connection closed.
+2025-04-22 12:45:17.960791 192.168.50.1 accessing /quiz/secret
+192.168.50.1 is playing secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 12:45:17.985793 192.168.50.1 connection closed.
+2025-04-22 12:45:18.040793 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:45:18.043805 192.168.50.1 connection closed.
+2025-04-22 12:45:22.131750 192.168.50.1 accessing /quiz/secret/answer
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 12:45:22.147651 192.168.50.1 Quiz 'secret': current_index=0, new_index=1, total_questions=2
+2025-04-22 12:45:25.028967 192.168.50.1 connection closed.
+2025-04-22 12:45:25.160472 192.168.50.1 accessing /quiz/secret
+192.168.50.1 is playing secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 12:45:25.175634 192.168.50.1 connection closed.
+2025-04-22 12:45:25.203950 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:45:25.203950 192.168.50.1 connection closed.
+2025-04-22 12:45:29.027629 192.168.50.1 accessing /quiz/secret/answer
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 12:45:29.043369 192.168.50.1 Quiz 'secret': current_index=1, new_index=2, total_questions=2
+2025-04-22 12:45:29.043369 192.168.50.1 Finished quiz 'secret'
+2025-04-22 12:45:29.043369 192.168.50.1 connection closed.
+2025-04-22 12:45:29.079021 192.168.50.1 accessing /quiz/secret/finish
+2025-04-22 12:45:29.085048 192.168.50.1 connection closed.
+2025-04-22 12:45:29.106967 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:45:29.106967 192.168.50.1 connection closed.
+2025-04-22 12:45:44.045075 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:45:44.045075 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Found quiz: AIS
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Bacon the Dog Quiz', 'AIS.txt']
+2025-04-22 12:45:44.060802 192.168.50.1 connection closed.
+2025-04-22 12:45:44.092290 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:45:44.092290 192.168.50.1 connection closed.
+2025-04-22 12:45:46.606288 192.168.50.1 accessing /quiz/Bacon the Dog Quiz
+192.168.50.1 is playing Bacon the Dog Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Bacon the Dog Quiz.txt
+2025-04-22 12:45:46.622078 192.168.50.1 connection closed.
+2025-04-22 12:45:46.653910 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:45:46.653910 192.168.50.1 connection closed.
+2025-04-22 12:45:47.407122 192.168.50.1 accessing /quiz/Bacon the Dog Quiz/save_time
+2025-04-22 12:45:47.407122 192.168.50.1 Saving time for quiz 'Bacon the Dog Quiz': does he have a big brown spot 0.71 sec
+2025-04-22 12:45:53.141495 192.168.50.1 connection closed.
+2025-04-22 12:45:53.315805 192.168.50.1 accessing /
+DEBUG: 2025-04-22 12:45:53.315805 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Found quiz: AIS
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Bacon the Dog Quiz', 'AIS.txt']
+2025-04-22 12:45:53.315805 192.168.50.1 connection closed.
+2025-04-22 12:45:53.555039 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:45:53.570971 192.168.50.1 connection closed.
+2025-04-22 12:47:02.474282 192.168.50.1 accessing /quiz/Minecraft Quiz
+192.168.50.1 is playing Minecraft Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Minecraft Quiz.txt
+2025-04-22 12:47:02.517823 192.168.50.1 connection closed.
+2025-04-22 12:47:02.590825 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:47:02.594826 192.168.50.1 connection closed.
+2025-04-22 12:48:06.744287 Starting Server with logger.
+2025-04-22 12:48:06.782289 Starting Server...
+2025-04-22 12:48:17.666207 192.168.50.1 accessing /quiz/Minecraft Quiz
+192.168.50.1 is playing Minecraft Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Minecraft Quiz.txt
+2025-04-22 12:48:18.315813 192.168.50.1 connection closed.
+2025-04-22 12:48:18.473869 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:48:21.376392 192.168.50.1 connection closed.
+2025-04-22 12:48:28.137158 192.168.50.1 accessing /quiz/Minecraft Quiz/save_time
+2025-04-22 12:48:28.137158 192.168.50.1 Saving time for quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair? 0 sec
+2025-04-22 12:48:36.873531 192.168.50.1 accessing /quiz/Minecraft Quiz/save_time
+2025-04-22 12:48:36.873531 192.168.50.1 Saving time for quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair? 15.46 sec
+2025-04-22 12:48:37.065327 192.168.50.1 accessing /quiz/Minecraft Quiz/save_time
+2025-04-22 12:48:37.081035 192.168.50.1 Saving time for quiz 'Minecraft Quiz': What is the name of the default Minecraft character with brown hair? 15.67 sec
+2025-04-22 12:48:38.163009 192.168.50.1 connection closed.
+2025-04-22 12:48:41.002511 192.168.50.1 accessing /quiz/Minecraft Quiz
+192.168.50.1 is playing Minecraft Quiz
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\Minecraft Quiz.txt
+2025-04-22 12:48:43.938632 192.168.50.1 connection closed.
+2025-04-22 12:48:43.953961 192.168.50.1 connection closed.
+2025-04-22 12:48:43.983982 192.168.50.1 connection closed.
+2025-04-22 12:48:44.495061 192.168.50.1 accessing /static/css/style.css
+2025-04-22 12:48:46.789636 192.168.50.1 connection closed.

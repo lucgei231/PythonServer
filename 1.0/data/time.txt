@@ -3,16 +3,28 @@ Best Quiz
     Who toots the most? 3.55
     Who owns the window couch? 2
 quiz
-    Type Poo 1.78
 secret
 C++ Quiz
 secret
 MCreator
 Minecraft Quiz 2
-quiz
-quiz
 
 192.168.50.94
 Best Quiz
 C++ Quiz
     What is the file extension for a C++ source file? 7.57
+192.168.50.1
+MCreator
+    What is MCreator primarily used for? 1.84
+secret
+    bum bum 5.45
+Bacon the Dog Quiz
+    does he have a big brown spot 0.71
+    can he see 3.11
+AIS
+    AIS 13.12
+Minecraft Quiz
+    What is the name of the default Minecraft character with brown hair? 0
+192.168.50.1
+Minecraft Quiz
+    What is the name of the default Minecraft character with brown hair? 15.46

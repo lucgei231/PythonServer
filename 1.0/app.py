@@ -348,45 +348,37 @@ def edit_quiz(quiz_name):
 @app.route('/quiz/<quiz_name>/quiz/validate', methods=['POST'])
 def quiz_validate(quiz_name):
     answer = request.json.get('answer', '')
-    # Load quiz questions.
     try:
         questions = read_quiz(quiz_name)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
     if not questions:
         return jsonify({'error': 'No questions found.'}), 404
-
-    # Load the current question index for the client.
     question_file = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{quiz_name}.json")
     try:
         with open(question_file, "r", encoding="utf-8") as f:
             question_data = json.load(f)
     except Exception as e:
         question_data = {}
-
     client_ip = get_client_ip()
     current_index = question_data.get(client_ip, 0)
-    # Make sure the index is valid.
     if current_index >= len(questions):
         current_index = 0
-
-    # Get correct answer from the current question.
     correct_answer = questions[current_index].get('answer', '')
     is_correct = answer.strip().lower() == correct_answer.strip().lower()
-
     if is_correct:
-        # Increment the index (or reset when finished).
         new_index = current_index + 1
         if new_index >= len(questions):
-            new_index = 0  # or you could return a finish page instead
-        question_data[client_ip] = new_index
-        try:
-            with open(question_file, "w", encoding="utf-8") as f:
-                json.dump(question_data, f)
-        except Exception as e:
-            return jsonify({'error': 'Failed to update question index.'}), 500
-
+            # Signal finish; client-side JS should redirect accordingly.
+            return jsonify({'redirect': url_for('finish_quiz', quiz_name=quiz_name)})
+        else:
+            question_data[client_ip] = new_index
+            try:
+                with open(question_file, "w", encoding="utf-8") as f:
+                    json.dump(question_data, f)
+            except Exception as e:
+                return jsonify({'error': 'Failed to update question index.'}), 500
+            return jsonify({'is_correct': True})
     return jsonify({'is_correct': is_correct})
 
 @app.route('/makequiz', methods=['GET', 'POST'])
