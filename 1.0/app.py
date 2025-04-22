@@ -252,19 +252,19 @@ def addquiz():
 @app.route('/quiz/<quiz_name>', methods=['GET'])
 def quiz_index(quiz_name):
     session['quiz_name'] = quiz_name
-    print(get_client_ip(), "is playing " + quiz_name)
-    # Read the quiz questions.
+    client_ip = get_client_ip()
+    print(client_ip, "is playing", quiz_name)
+    
     try:
         questions = read_quiz(quiz_name)
     except Exception as e:
-        print(get_client_ip(), "Got an errror while reading a quiz: ", str(e))
+        print(client_ip, "error reading quiz:", str(e))
         return f"Error reading quiz: {str(e)}", 500
-
 
     if not questions:
         return "No questions available.", 404
 
-    # Load the current question index for this client from the JSON file.
+    # Load current index for this client.
     question_file = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{quiz_name}.json")
     try:
         with open(question_file, "r", encoding="utf-8") as f:
@@ -272,22 +272,24 @@ def quiz_index(quiz_name):
     except Exception as e:
         question_data = {}
 
-    client_ip = get_client_ip()
     current_index = question_data.get(client_ip, 0)
-
-    # Ensure the index is within range.
+    
+    # If the current question index is out-of-range, render finish.html
     if current_index >= len(questions):
-        current_index = 0
-        question_data[client_ip] = 0
-        with open(question_file, "w", encoding="utf-8") as f:
-            json.dump(question_data, f)
-
-    # Pass the current question and its one-based index to the template.
+        print(client_ip, f"Quiz '{quiz_name}' finished for client {client_ip}. Rendering finish.html.")
+        return render_template("finish.html", quiz_name=quiz_name)
+    
+    # Otherwise, show the current question.
     question = questions[current_index]
     display_index = current_index + 1
     quiz_total = len(questions)
     session['current_question_name'] = question.get('question', 'Unknown Question')
-    return render_template("quiz.html", quiz_name=quiz_name, question=question, question_index=display_index, quiz_total=quiz_total)
+    
+    return render_template("quiz.html",
+                           quiz_name=quiz_name,
+                           question=question,
+                           question_index=display_index,
+                           quiz_total=quiz_total)
 
 @app.route('/editquiz/<quiz_name>', methods=['GET', 'POST'])
 def edit_quiz(quiz_name):
@@ -462,25 +464,41 @@ def logs_content():
 @app.route('/quiz/<quiz_name>/answer', methods=['POST'])
 def submit_answer(quiz_name):
     client_ip = get_client_ip()
-    # Retrieve the elapsed time from the hidden field.
     time_taken = request.form.get('time_elapsed', '0')
-    print(datetime.datetime.now(), client_ip, f"submitted answer for quiz '{quiz_name}' in {time_taken} sec")
-    
-    # Get the current question name from session (make sure you store it earlier)
     question_name = session.get('current_question_name', "Unknown Question")
     
-    # Record the result to data/time.txt with the format:
-    # <client_ip>
-    # <quiz_name>
-    #     <question name> <time_taken>
-    time_file = os.path.join(os.path.dirname(__file__), "data", "time.txt")
-    with open(time_file, "a", encoding="utf-8") as f:
-        f.write(f"{client_ip}\n")
-        f.write(f"{quiz_name}\n")
-        f.write(f"    {question_name} {time_taken}\n")
+    # (Your code to update the time.txt file goes here)
+    # ...
+
+    # Load quiz questions and the JSON tracking file.
+    questions = read_quiz(quiz_name)
+    question_file = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{quiz_name}.json")
+    try:
+        with open(question_file, "r", encoding="utf-8") as f:
+            question_data = json.load(f)
+    except Exception as e:
+        question_data = {}
+
+    current_index = question_data.get(client_ip, 0)
+    new_index = current_index + 1
+
+    print(datetime.datetime.now(), client_ip, f"Quiz '{quiz_name}': current_index={current_index}, new_index={new_index}, total_questions={len(questions)}")
     
-    # Process the answer (update current question index, etc.) and redirect to results or next question.
-    return redirect(url_for('quiz_results', quiz_name=quiz_name))
+    # When the new_index is equal to or exceeds the total questions,
+    # redirect to the finish quiz page instead of updating the current index.
+    if new_index >= len(questions):
+        print(datetime.datetime.now(), client_ip, f"Finished quiz '{quiz_name}'")
+        return redirect(url_for('finish_quiz', quiz_name=quiz_name))
+    else:
+        # Update the question index normally.
+        question_data[client_ip] = new_index
+        try:
+            with open(question_file, "w", encoding="utf-8") as f:
+                json.dump(question_data, f)
+        except Exception as e:
+            print(datetime.datetime.now(), client_ip, "failed to update question index:", str(e))
+            return jsonify({'error': 'Failed to update question index.'}), 500
+        return redirect(url_for('quiz_index', quiz_name=quiz_name))
 
 @app.route('/quiz/<quiz_name>/results')
 def quiz_results(quiz_name):
@@ -564,6 +582,30 @@ def save_time(quiz_name):
                     f.write(f"    {q} {t}\n")
                     
     return jsonify({'status': 'ok'})
+
+@app.route('/quiz/<quiz_name>/finish')
+def finish_quiz(quiz_name):
+    # Optionally perform any finalization tasks here.
+    return render_template("finish.html", quiz_name=quiz_name)
+
+@app.route('/quiz/<quiz_name>/reset')
+def reset_quiz(quiz_name):
+    client_ip = get_client_ip()
+    question_file = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{quiz_name}.json")
+    try:
+        with open(question_file, "r", encoding="utf-8") as f:
+            question_data = json.load(f)
+    except Exception as e:
+        question_data = {}
+    # Reset the current index to 0 for this client.
+    question_data[client_ip] = 0
+    try:
+        with open(question_file, "w", encoding="utf-8") as f:
+            json.dump(question_data, f)
+    except Exception as e:
+        print(datetime.datetime.now(), client_ip, "failed to reset question index:", str(e))
+        return jsonify({'error': 'Failed to reset question index.'}), 500
+    return redirect(url_for("quiz_index", quiz_name=quiz_name))
 
 {
   "INAPPROPRIATE_WORDS": [

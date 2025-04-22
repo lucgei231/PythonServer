@@ -44,6 +44,9 @@
     }
     // Save time and go home function
     function saveTimeAndGoHome() {
+      // Get the Home button element.
+      const homeButton = document.querySelector(".home-button a");
+      homeButton.textContent = "Saving...";
       let elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
       // Send the elapsed time to our new endpoint.
       fetch("{{ url_for('save_time', quiz_name=quiz_name) }}", {
@@ -54,15 +57,18 @@
       .then(response => response.json())
       .then(data => {
         if(data.status === 'ok'){
-          // After saving, redirect to home.
+          homeButton.textContent = "Saved.";
+          // Redirect to home immediately.
           window.location.href = "{{ url_for('home') }}";
         } else {
           alert("Error saving time, please try again.");
+          homeButton.textContent = "Home";
         }
       })
       .catch(err => {
         console.error(err);
         alert("Error saving time, please try again.");
+        homeButton.textContent = "Home";
       });
     }
   </script>

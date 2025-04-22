@@ -1,22 +1,18 @@
 127.0.0.1
 Best Quiz
-    Who toots the most? 5
+    Who toots the most? 3.55
     Who owns the window couch? 2
+quiz
+    Type Poo 1.78
+secret
+C++ Quiz
+secret
+MCreator
 Minecraft Quiz 2
-    What do you need to mine Diamonds? 1
+quiz
+quiz
 
 192.168.50.94
 Best Quiz
-    Who toots the most? 5
-    Who owns the window couch? 2127.0.0.1
 C++ Quiz
     What is the file extension for a C++ source file? 7.57
-127.0.0.1
-C++ Quiz
-    What is the file extension for a C++ source file? 9.40
-127.0.0.1
-C++ Quiz
-    What is the file extension for a C++ source file? 8.86
-127.0.0.1
-C++ Quiz
-    What is the file extension for a C++ source file? 10.37
