@@ -6,7 +6,10 @@ import re
 import sys
 
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for
+from utils import read_uploaded_json
 from non_static.quiz import read_quiz, get_random_question, validate_answer  # adjust imports as needed
+import utils
+from non_static import utils
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = "your_random_secret_key_here"
@@ -222,28 +225,29 @@ def deletequiz():
 
 @app.route('/addquiz', methods=['GET', 'POST'])
 def addquiz():
-    print("Detected IP", get_client_ip(), "on /addquiz")
-    if request.method == 'GET':
-        return render_template("addquiz.html")
-    
-    # For POST, process the uploaded file
-    uploaded_file = request.files.get("quiz_file")
-    if uploaded_file:
-        content = uploaded_file.read().decode("utf-8")
-        # Check for inappropriate words
-        if any(word in content.lower() for word in INAPPROPRIATE_WORDS):
-            return render_template("error.html", message="Inappropriate Quiz"), 400
-        
-        # Save the file if valid
-        quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
-        if not os.path.exists(quiz_dir):
-            os.makedirs(quiz_dir)
-        file_path = os.path.join(quiz_dir, uploaded_file.filename)
-        with open(file_path, "w", encoding="utf-8") as f:
-            f.write(content)
-        return render_template("addquiz.html", message="Quiz uploaded successfully!")
-    
-    return render_template("error.html", message="No file uploaded"), 400
+    client_ip = get_client_ip()
+    if request.method == 'POST':
+        uploaded_file = request.files.get("quiz_file")
+        if uploaded_file:
+            content = uploaded_file.read().decode("utf-8")
+            # Validate and save the file
+            quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
+            if not os.path.exists(quiz_dir):
+                os.makedirs(quiz_dir)
+            file_path = os.path.join(quiz_dir, uploaded_file.filename)
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(content)
+            
+            # Update uploaded.json
+            uploaded_data = read_uploaded_json()
+            if client_ip not in uploaded_data:
+                uploaded_data[client_ip] = []
+            if uploaded_file.filename not in uploaded_data[client_ip]:
+                uploaded_data[client_ip].append(uploaded_file.filename)
+            write_uploaded_json(uploaded_data)
+            
+            return render_template("addquiz.html", message="Quiz uploaded successfully!")
+    return render_template("addquiz.html")
 
 @app.route('/quiz/<quiz_name>', methods=['GET'])
 def quiz_index(quiz_name):
@@ -383,28 +387,27 @@ def quiz_validate(quiz_name):
 
 @app.route('/makequiz', methods=['GET', 'POST'])
 def makequiz():
+    client_ip = get_client_ip()
     if request.method == 'POST':
-        # Retrieve form data
         filename = request.form.get("filename")
         quiz_content = request.form.get("quiz_content")
-        
-        # Check for inappropriate words
-        if any(word in quiz_content.lower() for word in INAPPROPRIATE_WORDS):
-            return render_template("error.html", message="Inappropriate Quiz"), 400
-        
-        # Save the quiz if valid
+        # Save the quiz
         quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
         if not os.path.exists(quiz_dir):
             os.makedirs(quiz_dir)
         quiz_file = os.path.join(quiz_dir, f"{filename}.txt")
-        try:
-            with open(quiz_file, "w", encoding="utf-8") as f:
-                f.write(quiz_content)
-        except Exception as e:
-            return f"Error saving quiz: {str(e)}", 500
-        message = "Quiz created successfully!"
-        return render_template("makequiz.html", message=message)
-    
+        with open(quiz_file, "w", encoding="utf-8") as f:
+            f.write(quiz_content)
+        
+        # Update uploaded.json
+        uploaded_data = read_uploaded_json()
+        if client_ip not in uploaded_data:
+            uploaded_data[client_ip] = []
+        if filename not in uploaded_data[client_ip]:
+            uploaded_data[client_ip].append(filename)
+        write_uploaded_json(uploaded_data)
+        
+        return render_template("makequiz.html", message="Quiz created successfully!")
     return render_template("makequiz.html")
 
 @app.route('/logs')

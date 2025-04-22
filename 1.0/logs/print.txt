@@ -447,3 +447,111 @@ connection closed.
 2025-04-22 10:15:07.172483 Starting Server...
 2025-04-22 10:15:11.174607 Starting Server with logger.
 2025-04-22 10:15:11.179358 Starting Server...
+2025-04-22 10:15:37.621238 192.168.50.1 accessing /
+2025-04-22 10:15:37.621238 192.168.50.1 is not banned, continuing request.
+DEBUG: 2025-04-22 10:15:37.637426 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Best Quiz', 'quiz']
+2025-04-22 10:15:37.669468 192.168.50.1 connection closed.
+2025-04-22 10:15:37.973283 192.168.50.1 accessing /static/css/style.css
+2025-04-22 10:15:37.973283 192.168.50.1 is not banned, continuing request.
+2025-04-22 10:15:38.164038 192.168.50.1 connection closed.
+2025-04-22 10:15:41.206134 192.168.50.1 accessing /addquiz
+2025-04-22 10:15:41.206134 192.168.50.1 is not banned, continuing request.
+Detected IP 192.168.50.1 on /addquiz
+2025-04-22 10:15:41.224830 192.168.50.1 connection closed.
+2025-04-22 10:15:41.246440 192.168.50.1 accessing /static/css/style.css
+2025-04-22 10:15:41.248454 192.168.50.1 is not banned, continuing request.
+2025-04-22 10:15:41.250622 192.168.50.1 connection closed.
+2025-04-22 10:15:44.809752 192.168.50.1 accessing /makequiz
+2025-04-22 10:15:44.825553 192.168.50.1 is not banned, continuing request.
+2025-04-22 10:15:44.839331 192.168.50.1 connection closed.
+2025-04-22 10:15:44.873016 192.168.50.1 accessing /static/css/style.css
+2025-04-22 10:15:44.881875 192.168.50.1 is not banned, continuing request.
+2025-04-22 10:15:44.889094 192.168.50.1 connection closed.
+2025-04-22 10:15:52.576574 192.168.50.1 accessing /makequiz
+2025-04-22 10:15:52.582661 192.168.50.1 is not banned, continuing request.
+2025-04-22 10:15:52.602814 192.168.50.1 connection closed.
+2025-04-22 10:15:52.630721 192.168.50.1 accessing /static/css/style.css
+2025-04-22 10:15:52.630721 192.168.50.1 is not banned, continuing request.
+2025-04-22 10:15:52.630721 192.168.50.1 connection closed.
+2025-04-22 10:16:02.876667 192.168.50.1 accessing /makequiz
+2025-04-22 10:16:02.876667 192.168.50.1 is not banned, continuing request.
+2025-04-22 10:16:02.876667 192.168.50.1 connection closed.
+2025-04-22 10:16:02.914651 192.168.50.1 accessing /static/css/style.css
+2025-04-22 10:16:02.914651 192.168.50.1 is not banned, continuing request.
+2025-04-22 10:16:02.917608 192.168.50.1 connection closed.
+2025-04-22 10:16:11.237502 192.168.50.1 accessing /makequiz
+2025-04-22 10:16:11.246858 192.168.50.1 is not banned, continuing request.
+2025-04-22 10:16:14.045366 192.168.50.1 connection closed.
+2025-04-22 10:16:14.172218 192.168.50.1 accessing /static/css/style.css
+2025-04-22 10:16:14.177706 192.168.50.1 is not banned, continuing request.
+2025-04-22 10:16:14.185209 192.168.50.1 connection closed.
+2025-04-22 10:16:17.228553 192.168.50.1 accessing /quiz/
+2025-04-22 10:16:17.240687 192.168.50.1 is not banned, continuing request.
+2025-04-22 10:16:17.244637 192.168.50.1 connection closed.
+2025-04-22 10:16:20.771258 192.168.50.1 accessing /
+2025-04-22 10:16:20.773059 192.168.50.1 is not banned, continuing request.
+DEBUG: 2025-04-22 10:16:20.773059 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: baf
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Best Quiz', 'quiz']
+2025-04-22 10:16:20.784179 192.168.50.1 connection closed.
+2025-04-22 10:16:20.800161 192.168.50.1 accessing /static/css/style.css
+2025-04-22 10:16:20.800161 192.168.50.1 is not banned, continuing request.
+2025-04-22 10:16:20.816029 192.168.50.1 connection closed.
+2025-04-22 10:16:29.774794 192.168.50.1 accessing /
+2025-04-22 10:16:29.774794 192.168.50.1 is not banned, continuing request.
+DEBUG: 2025-04-22 10:16:29.774794 Entered home route.
+DEBUG: Found quiz: C++ Quiz
+DEBUG: Found quiz: MCreator
+DEBUG: Found quiz: Minecraft Quiz
+DEBUG: Found quiz: Grian Quiz
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: Best Quiz
+DEBUG: Found quiz: quiz
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: baf
+DEBUG: Uploaded quizzes for IP 192.168.50.1 : ['Best Quiz', 'quiz']
+2025-04-22 10:16:29.786654 192.168.50.1 connection closed.
+2025-04-22 10:16:29.834428 192.168.50.1 accessing /static/css/style.css
+2025-04-22 10:16:29.834428 192.168.50.1 is not banned, continuing request.
+2025-04-22 10:16:29.834428 192.168.50.1 connection closed.
+2025-04-22 10:16:31.083888 192.168.50.1 accessing /quiz/baf
+2025-04-22 10:16:31.083888 192.168.50.1 is not banned, continuing request.
+192.168.50.1 is playing baf
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\baf.txt
+2025-04-22 10:16:31.119881 192.168.50.1 connection closed.
+2025-04-22 10:16:31.147225 192.168.50.1 accessing /static/css/style.css
+2025-04-22 10:16:31.147225 192.168.50.1 is not banned, continuing request.
+2025-04-22 10:16:31.147225 192.168.50.1 connection closed.
+2025-04-22 10:18:26.825860 Starting Server with logger.
+2025-04-22 10:18:26.825860 Starting Server...
+2025-04-22 10:18:28.738187 Starting Server with logger.
+2025-04-22 10:18:28.751928 Starting Server...
+2025-04-22 10:18:52.975848 Starting Server with logger.
+2025-04-22 10:18:52.986248 Starting Server...
+2025-04-22 10:18:54.999161 Starting Server with logger.
+2025-04-22 10:18:54.999161 Starting Server...
+2025-04-22 10:19:05.765043 Starting Server with logger.
+2025-04-22 10:19:05.775545 Starting Server...
+2025-04-22 10:19:07.682434 Starting Server with logger.
+2025-04-22 10:19:07.698252 Starting Server...
+2025-04-22 10:19:50.533216 Starting Server with logger.
+2025-04-22 10:19:50.545210 Starting Server...
+2025-04-22 10:19:52.744402 Starting Server with logger.
+2025-04-22 10:19:52.755802 Starting Server...
