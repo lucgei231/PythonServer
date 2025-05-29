@@ -22,7 +22,7 @@ if not os.path.exists(logs_dir):
 print(datetime.datetime.now(), "Logs directory set up at", logs_dir)
 
 # Use a fixed filename for all print() output.
-log_filename = os.path.join(os.path.dirname(__file__), "logs", "print.txt")
+# log_filename = os.path.join(os.path.dirname(__file__), "logs", "print.txt")
 
 class Logger(object):
     def __init__(self, logfile):
@@ -36,7 +36,7 @@ class Logger(object):
         self.terminal.flush()
         self.log.flush()
 
-sys.stdout = Logger(log_filename)
+# sys.stdout = Logger(log_filename)
 print(datetime.datetime.now(), "Starting Server with logger.")
 
 def get_client_ip():

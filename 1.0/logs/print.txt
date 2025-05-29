@@ -7093,3 +7093,90 @@ Got ip of 192.168.50.80
 2025-04-22 19:04:51.694165 192.168.50.80 Resetting quiz 'secret'
 2025-04-22 19:04:51.697159 192.168.50.80 attempting to read question file: F:\PythonServer\1.0\non_static\question\secret.json
 2025-04-22 19:04:51.698161 192.168.50.80 resetting question index to 0
+2025-04-22 19:04:54.539605 192.168.50.80 successfully reset question index to 0
+2025-04-22 19:04:54.547043 192.168.50.80 connection closed.
+2025-04-22 19:04:54.658106 192.168.50.80 accessing /quiz/secret
+192.168.50.80 is playing secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 19:04:54.669614 192.168.50.80 connection closed.
+2025-04-22 19:04:54.720937 192.168.50.80 accessing /static/css/style.css
+2025-04-22 19:04:54.725301 192.168.50.80 connection closed.
+2025-04-22 19:05:00.872239 192.168.50.80 accessing /quiz/secret/quiz/validate
+Reading quiz secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+Loading question file for secret
+Got ip of 192.168.50.80
+dumping question file
+done dumping question file
+2025-04-22 19:05:15.012436 192.168.50.80 connection closed.2025-04-22 19:07:14.480939 Starting Server with logger.
+2025-04-22 19:07:14.501155 Server is not running. Starting Server...
+ * Serving Flask app 'app'
+ * Debug mode: on
+2025-04-22 19:07:15.814491 Starting Server with logger.
+2025-04-22 19:07:15.859823 Server is not running. Starting Server...
+2025-04-22 19:07:19.552212 192.168.50.80 accessing /quiz/secret/quiz/validate
+Reading quiz secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+Loading question file for secret
+Got ip of 192.168.50.80
+2025-04-22 19:07:19.558639 192.168.50.80 connection closed.
+2025-04-22 19:07:23.600181 192.168.50.80 accessing /quiz/secret
+192.168.50.80 is playing secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 19:07:23.629410 192.168.50.80 connection closed.
+2025-04-22 19:07:23.653520 192.168.50.80 accessing /static/css/style.css
+2025-04-22 19:07:23.918783 192.168.50.80 connection closed.
+2025-04-22 19:07:27.265561 192.168.50.80 accessing /quiz/secret/quiz/validate
+Reading quiz secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+Loading question file for secret
+Got ip of 192.168.50.80
+2025-04-22 19:07:27.268817 192.168.50.80 connection closed.
+2025-04-22 19:07:27.294402 192.168.50.80 accessing /quiz/secret/finish
+2025-04-22 19:07:27.296420 192.168.50.80 Finished quiz 'secret'
+2025-04-22 19:07:27.316053 192.168.50.80 connection closed.
+2025-04-22 19:07:27.363837 192.168.50.80 accessing /static/css/style.css
+2025-04-22 19:07:27.363837 192.168.50.80 connection closed.
+2025-04-22 19:07:28.577974 192.168.50.80 accessing /quiz/secret/reset
+2025-04-22 19:07:28.579111 192.168.50.80 Resetting quiz 'secret'
+2025-04-22 19:07:28.579111 192.168.50.80 attempting to read question file: F:\PythonServer\1.0\non_static\question\secret.json
+2025-04-22 19:07:28.581126 192.168.50.80 resetting question index to 0
+2025-04-22 19:07:29.889891 127.0.0.1 accessing /
+DEBUG: 2025-04-22 19:07:29.890889 Entered home route.
+2025-04-22 19:07:34.247802 DEBUG: Found quiz: C++ Quiz192.168.50.80 successfully reset question index to 0
+DEBUG: Found quiz: MCreator
+2025-04-22 19:07:34.254481 192.168.50.80 connection closed.
+DEBUG: Found quiz: Minecraft Quiz
+
+DEBUG: Found quiz: Minecraft Quiz 2
+DEBUG: Found quiz: secret
+DEBUG: Found quiz: Bacon the Dog Quiz
+DEBUG: Uploaded quizzes for IP 127.0.0.1 : ['Minecraft Quiz 2', 'Minecraft Quiz', 'C++ Quiz', 'MCreator', 'Best Quiz']
+2025-04-22 19:07:34.277336 127.0.0.1 connection closed.2025-04-22 19:07:34.282921 192.168.50.80 accessing
+ /quiz/secret
+192.168.50.80 is playing secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 19:07:34.309100 192.168.50.80 connection closed.
+2025-04-22 19:07:34.602430 192.168.50.80 accessing /static/css/style.css
+2025-04-22 19:07:34.602430 192.168.50.80 connection closed.
+2025-04-22 19:07:40.839477 192.168.50.80 accessing /quiz/secret/quiz/validate
+Reading quiz secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+Loading question file for secret
+Got ip of 192.168.50.80
+dumping question file
+done dumping question file
+2025-04-22 19:07:40.878788 192.168.50.80 connection closed.
+2025-04-22 19:07:40.900855 192.168.50.80 accessing /quiz/secret/save_time
+Save time
+IP: 192.168.50.80
+request.json
+2025-04-22 19:07:40.903717 192.168.50.80 Saving time for quiz 'secret': bum bum 0 sec
+2025-04-22 19:07:40.905779 192.168.50.80 Updated time for bum bum in quiz 'secret' to 0 sec
+2025-04-22 19:07:46.533269 192.168.50.80 connection closed.
+2025-04-22 19:07:47.100269 192.168.50.80 accessing /quiz/secret
+192.168.50.80 is playing secret
+Reading quiz file from: F:\PythonServer\1.0\non_static\quiz\secret.txt
+2025-04-22 19:07:47.103998 192.168.50.80 connection closed.
+2025-04-22 19:07:47.129633 192.168.50.80 accessing /static/css/style.css
+2025-04-22 19:07:47.142785 192.168.50.80 connection closed.

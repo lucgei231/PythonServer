@@ -2,11 +2,13 @@
 Best Quiz
     Who toots the most? 3.55
     Who owns the window couch? 2
+Example Quiz
+    1: Type Example 0
+secret
 C++ Quiz
+Minecraft Quiz
 C++ Quiz
 Minecraft Quiz 2
-secret
-Minecraft Quiz
 
 192.168.50.94
 quiz
@@ -16,7 +18,5 @@ MCreator
 Best Quiz
 192.168.50.1
 192.168.50.80
-192.168.50.80
 secret
     bum bum 0
-secret
