@@ -83,6 +83,7 @@
             </div>
 
             <div id="legacy-editor">
+                <button type="button" class="legacy-btn" onclick="showModernEditor()">Use New Editor</button>
                 <textarea name="quiz_content_legacy" placeholder="Enter your quiz text here..." style="width:100%;height:300px;padding:10px;font-size:14px;"></textarea>
                 <br>
                 <button type="submit" class="done-button">Done</button>
@@ -127,6 +128,11 @@
         function showLegacyEditor() {
             document.getElementById('modern-editor').style.display = 'none';
             document.getElementById('legacy-editor').style.display = 'block';
+        }
+
+        function showModernEditor() {
+            document.getElementById('legacy-editor').style.display = 'none';
+            document.getElementById('modern-editor').style.display = 'block';
         }
     </script>
 </body>
