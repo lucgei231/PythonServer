@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .upload-container {
+            margin: 20px;
+        }
+        .example-format {
+            background-color: #f4f4f4;
+            padding: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .action-buttons a, .action-buttons button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        .upload-quiz-button {
+            background-color: red;
+            color: white;
+        }
+        .make-quiz-button {
+            background-color: blue;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <h1>Upload Quiz File</h1>
+        {% if message %}
+        <p style="color: green;">{{ message }}</p>
+        {% endif %}s
+        <div class="example-format">
+            <h3>Example Quiz Format (quiz.txt):</h3>
+            <p>Question 1?</p>
+            <p>Answer 1</p>
+            <p>---------------</p>
+            <p>Question 2?</p>
+            <p>Answer 2</p>
+            <!-- Add additional example lines as needed -->
+        </div>
+        <form method="POST" action="{{ url_for('addquiz') }}" enctype="multipart/form-data">
+            <input type="file" name="quiz_file" accept=".txt, text/plain" required>
+            <button type="submit" class="upload-quiz-button">Upload Quiz</button>
+        </form>
+        <div class="action-buttons">
+            <!-- New Make in Web button -->
+            <a class="make-quiz-button" href="{{ url_for('makequiz') }}">Make in Web</a>
+        </div>
+        <br>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
+</body>
+</html>

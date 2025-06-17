@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Quiz - {{ quiz_name }}</title>
+    <script>
+      document.addEventListener("DOMContentLoaded", function(){
+        const form = document.getElementById("edit-form");
+        const saveButton = document.getElementById("save-button");
+
+        form.addEventListener("submit", function(e){
+          e.preventDefault();
+          saveButton.textContent = "Saving...";
+          const formData = new FormData(form);
+
+          fetch(window.location.href, {
+            method: "POST",
+            body: formData
+          })
+          .then(response => response.text())
+          .then(html => {
+            saveButton.textContent = "Saved.";
+            // Redirect to home immediately after showing "Saved."
+            window.location.href = "{{ url_for('home') }}";
+          })
+          .catch(err => {
+            console.error(err);
+            alert("Error saving quiz, please try again.");
+            saveButton.textContent = "Save";
+          });
+        });
+      });
+    </script>
+</head>
+<body>
+    <h2>Edit Quiz: {{ quiz_name }}</h2>
+    {% if message %}
+      <p style="color: green;">{{ message }}</p>
+    {% endif %}
+    <form id="edit-form" method="post">
+        <textarea name="quiz_content" rows="20" cols="80">{{ quiz_content }}</textarea><br>
+        <button type="submit" id="save-button">Save</button>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </form>
+</body>
+</html>

@@ -186,11 +186,6 @@
     window.addEventListener('online', hideOfflineBar);
     window.addEventListener('offline', showOfflineBar);
 
-    // Refresh page when connection is restored
-    window.addEventListener('online', function() {
-      location.reload();
-    });
-
     // On page load, show offline bar if offline and download quiz if needed
     window.addEventListener('DOMContentLoaded', async function() {
       if (!navigator.onLine) showOfflineBar();

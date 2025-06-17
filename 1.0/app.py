@@ -681,7 +681,7 @@ def view_times_file():
 
 if __name__ == '__main__':
     print(datetime.datetime.now(), "Server is not running. Starting Server...")
-    app.run(debug=True, host="0.0.0.0", port=5702)
+    app.run(debug=True, host="0.0.0.0", port=5710)
     print(datetime.datetime.now(), "Server Error. Stopping Server...")
     # Optional: Add any cleanup code here if needed.
     print(datetime.datetime.now(), "Server stopped.")

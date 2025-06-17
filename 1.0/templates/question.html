@@ -81,6 +81,10 @@
         console.error("Error submitting answer:", error);
       });
     });
+    // Refresh page when connection is restored
+    window.addEventListener('online', function() {
+      location.reload();
+    });
   </script>
 </body>
 </html>

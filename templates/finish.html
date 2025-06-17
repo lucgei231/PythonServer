@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Finished</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .finish-container {
+            margin: 20px;
+            text-align: center;
+        }
+        .finish-button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px;
+            background-color: #007bff;
+            color: white;
+        }
+        .view-times-button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px;
+            background-color: grey;
+            color: white;
+        }
+        .retry-button {
+            background-color: green;
+        }
+        .dropdown-container {
+            margin: 20px auto;
+            width: 50%;
+            text-align: left;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="finish-container">
+        <h1>You finished the Quiz!</h1>
+        <div class="dropdown-container">
+            <label for="questionTimes">Question Times:</label>
+            <select id="questionTimes">
+                {% if results %}
+                    {% for entry in results %}
+                        <option value="{{ entry.time }}">{{ entry.question }}: {{ entry.time }} seconds</option>
+                    {% endfor %}
+                {% else %}
+                    <option>No results available.</option>
+                {% endif %}
+            </select>
+        </div>
+        <a href="{{ url_for('reset_quiz', quiz_name=quiz_name) }}" class="finish-button retry-button">Retry</a>
+        <a href="{{ url_for('home') }}" class="finish-button">Home</a>
+        <a href="{{ url_for('view_times') }}" class="view-times-button">View Times [BETA]</a>
+    </div>
+</body>
+</html>
