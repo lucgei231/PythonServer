@@ -57,7 +57,7 @@
     <ul class="quiz-list">
       {% for quiz in quizzes %}
       <li>
-        <a href="{{ url_for('quiz_index', quiz_name=quiz) }}" class="quiz-btn">{{ quiz }}</a>
+        <a href="{{ url_for('get_quiz_json', quiz_name=quiz) }}" class="quiz-btn">{{ quiz }}</a>
         {% if user_uploaded and quiz in user_uploaded %}
           <a href="{{ url_for('edit_quiz', quiz_name=quiz) }}" class="edit-btn">Edit Quiz</a>
           <a href="{{ url_for('deletequiz') }}?quiz={{ quiz }}" class="delete-btn">Delete Quiz</a>

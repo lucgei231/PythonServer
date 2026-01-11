@@ -273,7 +273,7 @@ def addquiz():
     return render_template("addquiz.html")
 
 @app.route('/quiz/<quiz_name>', methods=['GET'])
-def quiz_index(quiz_name):
+def get_quiz_json(quiz_name):
     # quiz_name is defined from the URL.
     session['quiz_name'] = quiz_name
     client_ip = get_client_ip()
@@ -519,7 +519,7 @@ def submit_answer(quiz_name):
         except Exception as e:
             print(datetime.datetime.now(), client_ip, "failed to update question index:", str(e))
             return jsonify({'error': 'Failed to update question index.'}), 500
-        return redirect(url_for('quiz_index', quiz_name=quiz_name))
+        return redirect(url_for('get_quiz_json', quiz_name=quiz_name))
 
 @app.route('/quiz/<quiz_name>/results')
 def quiz_results(quiz_name):
@@ -637,7 +637,7 @@ def reset_quiz(quiz_name):
     except Exception as e:
         print(datetime.datetime.now(), client_ip, "failed to reset question index:", str(e))
         return jsonify({'error': 'Failed to reset question index.'}), 500
-    return redirect(url_for("quiz_index", quiz_name=quiz_name))
+    return redirect(url_for("get_quiz_json", quiz_name=quiz_name))
 
 @app.route('/view_times')
 def view_times():

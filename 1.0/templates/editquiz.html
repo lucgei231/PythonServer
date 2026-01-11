@@ -1,45 +1,170 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Edit Quiz - {{ quiz_name }}</title>
-    <script>
-      document.addEventListener("DOMContentLoaded", function(){
-        const form = document.getElementById("edit-form");
-        const saveButton = document.getElementById("save-button");
-
-        form.addEventListener("submit", function(e){
-          e.preventDefault();
-          saveButton.textContent = "Saving...";
-          const formData = new FormData(form);
-
-          fetch(window.location.href, {
-            method: "POST",
-            body: formData
-          })
-          .then(response => response.text())
-          .then(html => {
-            saveButton.textContent = "Saved.";
-            // Redirect to home immediately after showing "Saved."
-            window.location.href = "{{ url_for('home') }}";
-          })
-          .catch(err => {
-            console.error(err);
-            alert("Error saving quiz, please try again.");
-            saveButton.textContent = "Save";
-          });
-        });
-      });
-    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .editquiz-container {
+            margin: 20px;
+        }
+        .question-list {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: #f9f9f9;
+        }
+        .question-item {
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .done-button {
+            background-color: green;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .legacy-btn {
+            background: #888;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        label, input {
+            display: block;
+            margin-top: 10px;
+        }
+        #legacy-editor {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Edit Quiz: {{ quiz_name }}</h2>
-    {% if message %}
-      <p style="color: green;">{{ message }}</p>
-    {% endif %}
-    <form id="edit-form" method="post">
-        <textarea name="quiz_content" rows="20" cols="80">{{ quiz_content }}</textarea><br>
-        <button type="submit" id="save-button">Save</button>
+    <div class="editquiz-container">
+        <h1>Edit Quiz: {{ quiz_name }}</h1>
+        {% if message %}
+        <p style="color: green;">{{ message }}</p>
+        {% endif %}
+
+        <button type="button" class="legacy-btn" onclick="showLegacyEditor()">Use Legacy Editor</button>
+
+        <form id="edit-form" method="POST" action="{{ url_for('edit_quiz', quiz_name=quiz_name) }}">
+            <div id="modern-editor">
+                <div id="question-section">
+                    <label for="question">Question:</label>
+                    <input type="text" id="question" placeholder="Enter question">
+
+                    <label for="answer">Answer:</label>
+                    <input type="text" id="answer" placeholder="Enter answer">
+
+                    <button type="button" onclick="addQuestion()">Add Question</button>
+                </div>
+
+                <div class="question-list" id="question-list">
+                    <strong>Questions:</strong>
+                    <div id="questions-container"></div>
+                </div>
+
+                <!-- Hidden input to store questions as text -->
+                <input type="hidden" name="quiz_content" id="quiz_content">
+
+                <br>
+                <button type="submit" class="done-button" id="save-button">Save</button>
+            </div>
+
+            <div id="legacy-editor">
+                <button type="button" class="legacy-btn" onclick="showModernEditor()">Use New Editor</button>
+                <textarea name="quiz_content" id="legacy-textarea" placeholder="Enter your quiz text here..." style="width:100%;height:300px;padding:10px;font-size:14px;">{{ quiz_content }}</textarea>
+                <br>
+                <button type="submit" class="done-button" id="save-button-legacy">Save</button>
+            </div>
+        </form>
+        <br>
         <a href="{{ url_for('home') }}">Back to Home</a>
-    </form>
+    </div>
+
+    <script>
+        let questions = [];
+
+        // Parse initial quiz_content into questions
+        function parseQuizContent(content) {
+            const lines = content.split('\n').map(line => line.trim()).filter(line => line);
+            questions = [];
+            for (let i = 0; i < lines.length; i += 2) {
+                const question = lines[i];
+                const answer = lines[i + 1] || '';
+                questions.push({ question, answer });
+            }
+            updateQuestionsList();
+        }
+
+        // Load initial content
+        document.addEventListener("DOMContentLoaded", function() {
+            const initialContent = `{{ quiz_content | replace('\\', '\\\\') | replace('`', '\\`') | replace('${', '\\${') }}`;
+            parseQuizContent(initialContent);
+
+            const form = document.getElementById("edit-form");
+            const saveButton = document.getElementById("save-button");
+            const saveButtonLegacy = document.getElementById("save-button-legacy");
+
+            form.addEventListener("submit", function(e) {
+                if (document.getElementById('modern-editor').style.display !== 'none') {
+                    // For modern editor, generate text from questions
+                    const text = questions.map(q => q.question + '\n' + q.answer).join('\n');
+                    document.getElementById('quiz_content').value = text;
+                }
+                // For legacy, it's already in the textarea
+                saveButton.textContent = "Saving...";
+                saveButtonLegacy.textContent = "Saving...";
+            });
+        });
+
+        function addQuestion() {
+            const question = document.getElementById('question').value.trim();
+            const answer = document.getElementById('answer').value.trim();
+            if (question && answer) {
+                questions.push({ question, answer });
+                updateQuestionsList();
+                document.getElementById('question').value = '';
+                document.getElementById('answer').value = '';
+            }
+        }
+
+        function updateQuestionsList() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            questions.forEach((q, idx) => {
+                const div = document.createElement('div');
+                div.className = 'question-item';
+                div.innerHTML = `<strong>Q${idx+1}:</strong> ${q.question}<br><strong>A:</strong> ${q.answer} <button type="button" onclick="removeQuestion(${idx})">Remove</button>`;
+                container.appendChild(div);
+            });
+        }
+
+        function removeQuestion(idx) {
+            questions.splice(idx, 1);
+            updateQuestionsList();
+        }
+
+        function showLegacyEditor() {
+            document.getElementById('modern-editor').style.display = 'none';
+            document.getElementById('legacy-editor').style.display = 'block';
+        }
+
+        function showModernEditor() {
+            document.getElementById('legacy-editor').style.display = 'none';
+            document.getElementById('modern-editor').style.display = 'block';
+            // Update questions from legacy textarea if needed
+            const legacyText = document.getElementById('legacy-textarea').value;
+            parseQuizContent(legacyText);
+        }
+    </script>
 </body>
 </html>

@@ -74,7 +74,6 @@
       line-height: 40px;
     }
   </style>
-  </head>
   <script>
     // --- Quiz Download and Offline Logic ---
     const QUIZ_KEY = "quiz_{{ quiz_name }}";
@@ -186,11 +185,6 @@
     }
     window.addEventListener('online', hideOfflineBar);
     window.addEventListener('offline', showOfflineBar);
-
-    // Refresh page when connection is restored
-    window.addEventListener('online', function() {
-      location.reload();
-    });
 
     // On page load, show offline bar if offline and download quiz if needed
     window.addEventListener('DOMContentLoaded', async function() {
@@ -366,14 +360,7 @@
       }
     });
 
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/static/service-worker.js');
-      navigator.serviceWorker.addEventListener('message', function(event) {
-        if (event.data && event.data.offline) {
-          showNoServerBar();
-        }
-      });
-    }
+
 
     function showNoServerBar() {
       if (!document.getElementById('no-server-bar')) {
@@ -396,7 +383,7 @@
       }
     }
   </script>
-
+</head>
 <body>
   <div class="header-container">
     <div class="question-number">
