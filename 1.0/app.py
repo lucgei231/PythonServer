@@ -700,7 +700,7 @@ def host_quiz(quiz_name):
     code = str(random.randint(1000, 9999))  # 4-digit code
     while code in sessions:
         code = str(random.randint(1000, 9999))
-    sessions[code] = {'host_sid': None, 'players': [], 'quiz_name': quiz_name, 'questions': read_quiz(quiz_name), 'current_q': 0, 'scores': {}, 'answers': [], 'last_correct': {}}
+    sessions[code] = {'host_sid': None, 'players': [], 'quiz_name': quiz_name, 'questions': read_quiz(quiz_name), 'current_q': 0, 'scores': {}, 'answers': [], 'last_correct': {}, 'state': 'lobby'}
     return render_template('host.html', code=code, quiz_name=quiz_name)
 
 @app.route('/join')
@@ -718,6 +718,22 @@ def handle_join_game(data):
         sessions[code]['last_correct'][player_name] = None
         emit('player_joined', {'name': player_name}, room=code, skip_sid=request.sid)
         emit('joined', {'code': code, 'quiz_name': sessions[code]['quiz_name']})
+        # Send current state to late joiner
+        state = sessions[code]['state']
+        if state == 'question':
+            q_index = sessions[code]['current_q'] - 1
+            if q_index >= 0:
+                question = sessions[code]['questions'][q_index]['question']
+                emit('new_question', {'question': question})
+        elif state == 'leaderboard':
+            leaderboard = []
+            for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
+                last_correct = sessions[code]['last_correct'].get(name)
+                leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
+            emit('leaderboard', {'leaderboard': leaderboard})
+        elif state == 'finished':
+            leaderboard = [{'name': name, 'score': score} for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True)]
+            emit('final_leaderboard', {'leaderboard': leaderboard})
     else:
         emit('error', {'message': 'Invalid code'})
 
@@ -736,9 +752,11 @@ def handle_start_round(data):
         if q_index < len(sessions[code]['questions']):
             question = sessions[code]['questions'][q_index]
             sessions[code]['answers'] = []
+            sessions[code]['state'] = 'question'
             emit('new_question', {'question': question['question']}, room=code)
             sessions[code]['current_q'] += 1
         else:
+            sessions[code]['state'] = 'finished'
             leaderboard = [{'name': name, 'score': score} for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True)]
             emit('final_leaderboard', {'leaderboard': leaderboard}, room=code)
 
@@ -781,6 +799,7 @@ def handle_reveal_answers(data):
             for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
                 last_correct = sessions[code]['last_correct'].get(name)
                 leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
+            sessions[code]['state'] = 'leaderboard'
             emit('leaderboard', {'leaderboard': leaderboard}, room=code)
 
 if __name__ == '__main__':
