@@ -8,12 +8,16 @@ import threading
 
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for, send_file
 
+from flask_socketio import SocketIO, emit, join_room, leave_room
+
 from non_static.quiz import read_quiz, get_random_question, validate_answer  # adjust imports as needed
 
 from non_static.utils import read_uploaded_json, write_uploaded_json
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = "your_random_secret_key_here"
+
+socketio = SocketIO(app)
 
 # Ensure the logs directory exists.
 logs_dir = os.path.join(os.path.dirname(__file__), "logs")
@@ -80,6 +84,9 @@ def save_banned_ips(banned):
 
 # Global dictionary to track banned IPs.
 banned_ips = load_banned_ips()
+
+# Global dictionary for Kahoot-style sessions: code -> {'host_sid': sid, 'players': [sids], 'quiz_name': name, 'questions': [], 'current_q': 0}
+sessions = {}
 
 @app.before_request
 def check_banned_ip():
@@ -314,6 +321,14 @@ def get_quiz_json(quiz_name):
                            question=question,
                            question_index=display_index,
                            quiz_total=quiz_total)
+
+@app.route('/api/quiz/<quiz_name>', methods=['GET'])
+def get_quiz_data(quiz_name):
+    try:
+        questions = read_quiz(quiz_name)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    return jsonify(questions)
 
 @app.route('/editquiz/<quiz_name>', methods=['GET', 'POST'])
 def edit_quiz(quiz_name):
@@ -679,9 +694,98 @@ def view_times_file():
   ]
 }  # Add more words as needed
 
+@app.route('/host/<quiz_name>')
+def host_quiz(quiz_name):
+    import random
+    code = str(random.randint(1000, 9999))  # 4-digit code
+    while code in sessions:
+        code = str(random.randint(1000, 9999))
+    sessions[code] = {'host_sid': None, 'players': [], 'quiz_name': quiz_name, 'questions': read_quiz(quiz_name), 'current_q': 0, 'scores': {}, 'answers': [], 'last_correct': {}}
+    return render_template('host.html', code=code, quiz_name=quiz_name)
+
+@app.route('/join')
+def join_game():
+    return render_template('join.html')
+
+@socketio.on('join_game')
+def handle_join_game(data):
+    code = data['code']
+    player_name = data.get('name', 'Anonymous')
+    if code in sessions:
+        join_room(code)
+        sessions[code]['players'].append({'sid': request.sid, 'name': player_name})
+        sessions[code]['scores'][player_name] = 0
+        sessions[code]['last_correct'][player_name] = None
+        emit('player_joined', {'name': player_name}, room=code, skip_sid=request.sid)
+        emit('joined', {'code': code, 'quiz_name': sessions[code]['quiz_name']})
+    else:
+        emit('error', {'message': 'Invalid code'})
+
+@socketio.on('host_join')
+def handle_host_join(data):
+    code = data['code']
+    if code in sessions:
+        sessions[code]['host_sid'] = request.sid
+        join_room(code)
+
+@socketio.on('start_round')
+def handle_start_round(data):
+    code = data['code']
+    if code in sessions and sessions[code]['host_sid'] == request.sid:
+        q_index = sessions[code]['current_q']
+        if q_index < len(sessions[code]['questions']):
+            question = sessions[code]['questions'][q_index]
+            sessions[code]['answers'] = []
+            emit('new_question', {'question': question['question']}, room=code)
+            sessions[code]['current_q'] += 1
+        else:
+            leaderboard = [{'name': name, 'score': score} for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True)]
+            emit('final_leaderboard', {'leaderboard': leaderboard}, room=code)
+
+@socketio.on('submit_answer')
+def handle_submit_answer(data):
+    code = data['code']
+    answer = data['answer']
+    time_taken = data.get('time_taken', 0)
+    if code in sessions:
+        # Find player
+        for player in sessions[code]['players']:
+            if player['sid'] == request.sid:
+                sessions[code]['answers'].append({'name': player['name'], 'answer': answer, 'time_taken': time_taken})
+                emit('answer_received', {'name': player['name'], 'answer': answer}, room=code, skip_sid=request.sid)
+                break
+
+@socketio.on('reveal_answers')
+def handle_reveal_answers(data):
+    code = data['code']
+    answers = data['answers']
+    if code in sessions:
+        q_index = sessions[code]['current_q'] - 1
+        if q_index >= 0 and q_index < len(sessions[code]['questions']):
+            correct_answer = sessions[code]['questions'][q_index]['answer']
+            for ans in sessions[code]['answers']:
+                name = ans['name']
+                time_taken = ans['time_taken']
+                correct = ans['answer'].strip().lower() == correct_answer.strip().lower()
+                sessions[code]['last_correct'][name] = correct
+                if correct:
+                    points = max(0, 1000 - time_taken * 50)  # 50 points per second deducted
+                    sessions[code]['scores'][name] += points
+                # Emit to specific player
+                for player in sessions[code]['players']:
+                    if player['name'] == ans['name']:
+                        emit('answer_revealed', {'correct': correct, 'correct_answer': correct_answer}, room=player['sid'])
+                        break
+            # Emit leaderboard
+            leaderboard = []
+            for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
+                last_correct = sessions[code]['last_correct'].get(name)
+                leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
+            emit('leaderboard', {'leaderboard': leaderboard}, room=code)
+
 if __name__ == '__main__':
     print(datetime.datetime.now(), "Server is not running. Starting Server...")
-    app.run(debug=True, host="0.0.0.0", port=5710)
+    socketio.run(app, debug=True, host="0.0.0.0", port=5710)
     print(datetime.datetime.now(), "Server Error. Stopping Server...")
     # Optional: Add any cleanup code here if needed.
     print(datetime.datetime.now(), "Server stopped.")

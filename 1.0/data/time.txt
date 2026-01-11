@@ -3,18 +3,17 @@ Best Quiz
     Who toots the most? 3.55
     Who owns the window couch? 2
 Bacon the Dog Quiz
-    is he smelly? 12.76
-Minecraft Quiz
+    is he smelly? 5.00
 Bacon the Dog Quiz
-Bacon the Dog Quiz
-Example Quiz
-C++ Quiz
-MCreator
-Minecraft Quiz
 secret
-Minecraft Quiz 2
+Example Quiz
+MCreator
 
 192.168.50.94
+Minecraft Quiz 2
+Minecraft Quiz
+C++ Quiz
+MCreator
 quiz
 AIS
 Best Quiz

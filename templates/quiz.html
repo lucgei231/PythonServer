@@ -116,7 +116,7 @@
         showLoadingBar(10);
         try {
           // Download quiz data from server
-          let resp = await fetch("{{ url_for('get_quiz_json', quiz_name=quiz_name) }}");
+          let resp = await fetch("{{ url_for('get_quiz_data', quiz_name=quiz_name) }}");
           showLoadingBar(60);
           let data = await resp.json();
           showLoadingBar(90);

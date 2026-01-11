@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Join Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>Join Quiz</h2>
+        <div id="join-form">
+            <label for="code">Game Code:</label>
+            <input type="text" id="code" placeholder="Enter Game Code" required style="padding: 8px; margin: 5px; width: 100%;">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" placeholder="Your Name" required style="padding: 8px; margin: 5px; width: 100%;">
+            <button id="join-btn" class="quiz-btn" style="width: 100%;">Join Game</button>
+        </div>
+        <div id="lobby" style="display:none; text-align: center;">
+            <p>Waiting for host to start the game...</p>
+        </div>
+        <div id="question-area" style="display:none;">
+            <div class="question" id="question"></div>
+            <form id="answer-form">
+                <input type="text" id="answer" name="answer" placeholder="Your Answer" required style="padding: 8px; margin: 5px; width: 100%;">
+                <button type="submit" id="submit-answer" class="quiz-btn" style="width: 100%;">Submit Answer</button>
+            </form>
+            <div id="answer-feedback" class="answer-feedback" style="display:none;"></div>
+        </div>
+        <div id="leaderboard" style="display:none;">
+            <h3>Leaderboard</h3>
+            <ol id="leaderboard-list" style="font-size: 1.5em;"></ol>
+        </div>
+        <div id="final-leaderboard" style="display:none;">
+            <h3>Final Leaderboard</h3>
+            <ol id="final-leaderboard-list" style="font-size: 1.5em;"></ol>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+        let code;
+        let start_time;
+
+        // Auto-fill code from URL params
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlCode = urlParams.get('code');
+        if (urlCode) {
+            document.getElementById('code').value = urlCode;
+        }
+
+        document.getElementById('join-btn').addEventListener('click', () => {
+            code = document.getElementById('code').value;
+            const name = document.getElementById('name').value;
+            socket.emit('join_game', {code: code, name: name});
+        });
+
+        socket.on('joined', (data) => {
+            document.getElementById('join-form').style.display = 'none';
+            document.getElementById('lobby').style.display = 'block';
+            // Display quiz name
+            const quizName = data.quiz_name;
+            document.querySelector('h2').textContent = `Playing quiz ${quizName}`;
+            document.getElementById('lobby').innerHTML = `<p>Joined quiz: <strong>${quizName}</strong></p><p>Waiting for host to start the game...</p>`;
+        });
+
+        socket.on('error', (data) => {
+            alert(data.message);
+        });
+
+        socket.on('new_question', (data) => {
+            start_time = Date.now();
+            document.getElementById('lobby').style.display = 'none';
+            document.getElementById('leaderboard').style.display = 'none';
+            document.getElementById('final-leaderboard').style.display = 'none';
+            document.getElementById('question-area').style.display = 'block';
+            document.getElementById('question').textContent = data.question;
+            document.getElementById('answer').value = '';
+            document.getElementById('answer-feedback').style.display = 'none';
+            document.getElementById('submit-answer').disabled = false;
+            document.getElementById('submit-answer').textContent = 'Submit Answer';
+            document.getElementById('submit-answer').style.backgroundColor = '';
+        });
+
+        document.getElementById('answer-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const answer = document.getElementById('answer').value;
+            const time_taken = (Date.now() - start_time) / 1000;
+            socket.emit('submit_answer', {code: code, answer: answer, time_taken: time_taken});
+            document.getElementById('submit-answer').disabled = true;
+            document.getElementById('submit-answer').textContent = 'Submitted';
+            document.getElementById('submit-answer').style.backgroundColor = 'grey';
+        });
+
+        socket.on('answer_revealed', (data) => {
+            const feedback = document.getElementById('answer-feedback');
+            if (data.correct) {
+                feedback.textContent = 'Correct!';
+                feedback.className = 'answer-feedback correct';
+            } else {
+                feedback.textContent = `Incorrect. Correct answer: ${data.correct_answer}`;
+                feedback.className = 'answer-feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        });
+
+        socket.on('leaderboard', (data) => {
+            document.getElementById('question-area').style.display = 'none';
+            document.getElementById('leaderboard').style.display = 'block';
+            const ol = document.getElementById('leaderboard-list');
+            ol.innerHTML = '';
+            data.leaderboard.forEach((item, index) => {
+                const li = document.createElement('li');
+                const status = item.last_correct === null ? 'No answer' : item.last_correct ? 'Correct' : 'Incorrect';
+                li.textContent = `${index + 1}. ${item.name}: ${item.score} points (${status})`;
+                ol.appendChild(li);
+            });
+        });
+
+        socket.on('final_leaderboard', (data) => {
+            document.getElementById('leaderboard').style.display = 'none';
+            document.getElementById('final-leaderboard').style.display = 'block';
+            const ol = document.getElementById('final-leaderboard-list');
+            ol.innerHTML = '';
+            data.leaderboard.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${index + 1}. ${name}: ${score} points`;
+                ol.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Host Quiz: {{ quiz_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <style>
+        .host-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .game-code {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .player-list {
+            margin: 20px 0;
+        }
+        .answers-list {
+            margin: 20px 0;
+        }
+        .btn-container {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="host-container">
+        <h1>Hosting Quiz: {{ quiz_name }}</h1>
+        <p>Game Code: <span class="game-code">{{ code }}</span></p>
+        <p>Players Joined: <span id="player-count">0</span></p>
+        <div id="qr-code" style="margin: 20px 0;">
+            <h3></h3>
+            <div id="qrcode"></div>
+        </div>
+        <div class="player-list">
+            <h3>Players:</h3>
+            <ul id="player-list"></ul>
+        </div>
+        <div id="question-display" style="display:none;">
+            <h3>Current Question:</h3>
+            <p id="question"></p>
+            <div class="btn-container">
+                <button id="start-round" class="quiz-btn">Next Question</button>
+                <button id="reveal-answers" class="quiz-btn" style="background-color: #28a745; display:none;">Reveal Answers</button>
+            </div>
+        </div>
+        <div id="leaderboard" style="display:none;">
+            <h3>Leaderboard</h3>
+            <ol id="leaderboard-list" style="font-size: 1.5em;"></ol>
+            <div class="btn-container">
+                <button id="next-question" class="quiz-btn">Next Question</button>
+            </div>
+        </div>
+        <div id="final-leaderboard" style="display:none;">
+            <h3>Final Leaderboard</h3>
+            <ol id="final-leaderboard-list" style="font-size: 1.5em;"></ol>
+        </div>
+        <div class="answers-list">
+            <h3>Submitted Answers:</h3>
+            <ul id="answer-list"></ul>
+        </div>
+        <div class="btn-container">
+            <button id="start-game" class="quiz-btn">Start Game</button>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+        const code = '{{ code }}';
+        let players = [];
+        let answers = [];
+        let gameStarted = false;
+
+        socket.on('connect', () => {
+            socket.emit('host_join', {code: code});
+            // Generate QR code
+            const joinUrl = window.location.origin + '/join?code=' + code;
+            QRCode.toCanvas(document.getElementById('qrcode'), joinUrl, function (error) {
+                if (error) console.error(error);
+            });
+        });
+
+        socket.on('player_joined', (data) => {
+            players.push(data.name);
+            document.getElementById('player-count').textContent = players.length;
+            updatePlayerList();
+        });
+
+        document.getElementById('start-game').addEventListener('click', () => {
+            gameStarted = true;
+            document.getElementById('start-game').style.display = 'none';
+            socket.emit('start_round', {code: code});
+        });
+
+        document.getElementById('start-round').addEventListener('click', () => {
+            answers = [];
+            updateAnswerList();
+            document.getElementById('reveal-answers').style.display = 'none';
+            socket.emit('start_round', {code: code});
+        });
+
+        document.getElementById('reveal-answers').addEventListener('click', () => {
+            socket.emit('reveal_answers', {code: code, answers: answers});
+        });
+
+        socket.on('answer_received', (data) => {
+            answers.push(data);
+            updateAnswerList();
+            document.getElementById('reveal-answers').style.display = 'inline-block';
+        });
+
+        socket.on('new_question', (data) => {
+            document.getElementById('question-display').style.display = 'block';
+            document.getElementById('question').textContent = data.question;
+            answers = [];
+            updateAnswerList();
+            document.getElementById('reveal-answers').style.display = 'none';
+        });
+
+        socket.on('leaderboard', (data) => {
+            document.getElementById('question-display').style.display = 'none';
+            document.getElementById('leaderboard').style.display = 'block';
+            const ul = document.getElementById('leaderboard-list');
+            ul.innerHTML = '';
+            data.leaderboard.forEach((item, index) => {
+                const li = document.createElement('li');
+                const status = item.last_correct === null ? 'No answer' : item.last_correct ? 'Correct' : 'Incorrect';
+                li.textContent = `${index + 1}. ${item.name}: ${item.score} points (${status})`;
+                ul.appendChild(li);
+            });
+        });
+
+        socket.on('final_leaderboard', (data) => {
+            document.getElementById('leaderboard').style.display = 'none';
+            document.getElementById('final-leaderboard').style.display = 'block';
+            const ul = document.getElementById('final-leaderboard-list');
+            ul.innerHTML = '';
+            data.leaderboard.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${index + 1}. ${item.name}: ${item.score} points`;
+                ul.appendChild(li);
+            });
+        });
+
+        document.getElementById('next-question').addEventListener('click', () => {
+            document.getElementById('leaderboard').style.display = 'none';
+            socket.emit('start_round', {code: code});
+        });
+
+        function updatePlayerList() {
+            const ul = document.getElementById('player-list');
+            ul.innerHTML = '';
+            players.forEach(name => {
+                const li = document.createElement('li');
+                li.textContent = name;
+                ul.appendChild(li);
+            });
+        }
+
+        function updateAnswerList() {
+            const ul = document.getElementById('answer-list');
+            ul.innerHTML = '';
+            answers.forEach(ans => {
+                const li = document.createElement('li');
+                li.textContent = `${ans.name}: ${ans.answer}`;
+                ul.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>

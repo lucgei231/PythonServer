@@ -64,7 +64,7 @@
                     <label for="answer">Answer:</label>
                     <input type="text" id="answer" placeholder="Enter answer">
 
-                    <button type="button" onclick="addQuestion()">Add Question</button>
+                    <button type="button" id="add-btn" onclick="addQuestion()">Add Question</button>
                 </div>
 
                 <div class="question-list" id="question-list">
@@ -92,6 +92,7 @@
 
     <script>
         let questions = [];
+        let editingIndex = -1;
 
         // Parse initial quiz_content into questions
         function parseQuizContent(content) {
@@ -127,13 +128,23 @@
         });
 
         function addQuestion() {
-            const question = document.getElementById('question').value.trim();
-            const answer = document.getElementById('answer').value.trim();
+            const questionInput = document.getElementById('question');
+            const answerInput = document.getElementById('answer');
+            const question = questionInput.value.trim();
+            const answer = answerInput.value.trim();
             if (question && answer) {
-                questions.push({ question, answer });
+                if (editingIndex >= 0) {
+                    // Update existing
+                    questions[editingIndex] = { question, answer };
+                    editingIndex = -1;
+                    document.getElementById('add-btn').textContent = 'Add Question';
+                } else {
+                    // Add new
+                    questions.push({ question, answer });
+                }
                 updateQuestionsList();
-                document.getElementById('question').value = '';
-                document.getElementById('answer').value = '';
+                questionInput.value = '';
+                answerInput.value = '';
             }
         }
 
@@ -143,14 +154,32 @@
             questions.forEach((q, idx) => {
                 const div = document.createElement('div');
                 div.className = 'question-item';
-                div.innerHTML = `<strong>Q${idx+1}:</strong> ${q.question}<br><strong>A:</strong> ${q.answer} <button type="button" onclick="removeQuestion(${idx})">Remove</button>`;
+                div.innerHTML = `<strong>Q${idx+1}:</strong> ${q.question}<br><strong>A:</strong> ${q.answer} 
+                    <button type="button" onclick="editQuestion(${idx})">Edit</button>
+                    <button type="button" onclick="removeQuestion(${idx})">Remove</button>`;
                 container.appendChild(div);
             });
+        }
+
+        function editQuestion(idx) {
+            const q = questions[idx];
+            document.getElementById('question').value = q.question;
+            document.getElementById('answer').value = q.answer;
+            editingIndex = idx;
+            document.getElementById('add-btn').textContent = 'Update Question';
         }
 
         function removeQuestion(idx) {
             questions.splice(idx, 1);
             updateQuestionsList();
+            if (editingIndex === idx) {
+                editingIndex = -1;
+                document.getElementById('add-btn').textContent = 'Add Question';
+                document.getElementById('question').value = '';
+                document.getElementById('answer').value = '';
+            } else if (editingIndex > idx) {
+                editingIndex--;
+            }
         }
 
         function showLegacyEditor() {
