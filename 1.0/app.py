@@ -87,6 +87,7 @@ banned_ips = load_banned_ips()
 
 # Global dictionary for Kahoot-style sessions: code -> {'host_sid': sid, 'players': [sids], 'quiz_name': name, 'questions': [], 'current_q': 0}
 sessions = {}
+control_to_game = {}
 
 @app.before_request
 def check_banned_ip():
@@ -700,8 +701,20 @@ def host_quiz(quiz_name):
     code = str(random.randint(1000, 9999))  # 4-digit code
     while code in sessions:
         code = str(random.randint(1000, 9999))
-    sessions[code] = {'host_sid': None, 'players': [], 'quiz_name': quiz_name, 'questions': read_quiz(quiz_name), 'current_q': 0, 'scores': {}, 'answers': [], 'last_correct': {}, 'state': 'lobby'}
-    return render_template('host.html', code=code, quiz_name=quiz_name)
+    control_code = str(random.randint(1000, 9999))
+    while control_code in sessions or control_code == code:
+        control_code = str(random.randint(1000, 9999))
+    sessions[code] = {'host_sid': None, 'control_sids': [], 'players': [], 'quiz_name': quiz_name, 'questions': read_quiz(quiz_name), 'current_q': 0, 'scores': {}, 'answers': [], 'last_correct': {}, 'state': 'lobby', 'control_code': control_code}
+    control_to_game[control_code] = code
+    return render_template('host.html', code=code, quiz_name=quiz_name, control_code=control_code)
+
+@app.route('/control/<code>')
+def control_quiz(code):
+    if code in control_to_game:
+        game_code = control_to_game[code]
+        return render_template('control.html', code=game_code, quiz_name=sessions[game_code]['quiz_name'])
+    else:
+        return "Invalid control code", 404
 
 @app.route('/join')
 def join_game():
@@ -744,10 +757,31 @@ def handle_host_join(data):
         sessions[code]['host_sid'] = request.sid
         join_room(code)
 
+@socketio.on('control_join')
+def handle_control_join(data):
+    code = data['code']
+    if code in sessions:
+        join_room(code)
+        sessions[code]['control_sids'].append(request.sid)
+        # Sync current state
+        state = sessions[code]['state']
+        if state == 'question':
+            q_index = sessions[code]['current_q'] - 1
+            if q_index >= 0 and q_index < len(sessions[code]['questions']):
+                question = sessions[code]['questions'][q_index]
+                emit('new_question', {'question': question['question']})
+        elif state == 'leaderboard':
+            leaderboard = sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True)
+            leaderboard = [{'name': name, 'score': score, 'last_correct': sessions[code]['last_correct'].get(name)} for name, score in leaderboard]
+            emit('leaderboard', {'leaderboard': leaderboard})
+        elif state == 'finished':
+            leaderboard = sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True)
+            emit('final_leaderboard', {'leaderboard': leaderboard})
+
 @socketio.on('start_round')
 def handle_start_round(data):
     code = data['code']
-    if code in sessions and sessions[code]['host_sid'] == request.sid:
+    if code in sessions and (sessions[code]['host_sid'] == request.sid or request.sid in sessions[code]['control_sids']):
         q_index = sessions[code]['current_q']
         if q_index < len(sessions[code]['questions']):
             question = sessions[code]['questions'][q_index]
@@ -777,7 +811,7 @@ def handle_submit_answer(data):
 def handle_reveal_answers(data):
     code = data['code']
     answers = data['answers']
-    if code in sessions:
+    if code in sessions and (sessions[code]['host_sid'] == request.sid or request.sid in sessions[code]['control_sids']):
         q_index = sessions[code]['current_q'] - 1
         if q_index >= 0 and q_index < len(sessions[code]['questions']):
             correct_answer = sessions[code]['questions'][q_index]['answer']

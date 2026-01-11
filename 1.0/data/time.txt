@@ -2,8 +2,10 @@
 Best Quiz
     Who toots the most? 3.55
     Who owns the window couch? 2
+Cooking Quiz
+    What utensil is used to measure dry ingredients? 5.93
+Cooking Quiz
 Bacon the Dog Quiz
-    is he smelly? 5.00
 Bacon the Dog Quiz
 secret
 Example Quiz
@@ -20,4 +22,5 @@ Best Quiz
 192.168.50.1
 192.168.50.80
 secret
-    bum bum 0
+    bum bum 1.92
+192.168.50.6
