@@ -360,14 +360,7 @@
       }
     });
 
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/static/service-worker.js');
-      navigator.serviceWorker.addEventListener('message', function(event) {
-        if (event.data && event.data.offline) {
-          showNoServerBar();
-        }
-      });
-    }
+
 
     function showNoServerBar() {
       if (!document.getElementById('no-server-bar')) {
