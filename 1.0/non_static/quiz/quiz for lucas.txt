@@ -1,0 +1,267 @@
+Which Minecraft file type is used to define custom item models?
+
+JSON
+*JSON with model definitions
+NBT
+YAML
+
+
+
+What is the core design philosophy behind Command Maker?
+
+One-click automation
+*Modular logic blocks
+Server-only scripting
+Randomized command generation
+
+
+
+Which tool is commonly used to test API endpoints during dashboard development?
+
+Git
+*Postman
+Docker
+Redis
+
+
+
+What Windows command is used to map a network drive?
+
+mount
+*net use
+smbmap
+connect-drive
+
+
+
+Which Minecraft folder stores resource pack sounds?
+
+/assets/textures
+/assets/models
+*/assets/sounds
+/assets/scripts
+
+
+
+What is the main advantage of a local-first workflow?
+
+Cloud syncing
+*Privacy and control
+Faster DNS
+Automatic backups
+
+
+
+Which DNS record type points a domain to an IPv4 address?
+
+CNAME
+TXT
+*A
+MX
+
+
+
+What is the purpose of a Vercel deployment preview?
+
+Logging errors
+*Testing changes before production
+Managing DNS
+Creating backups
+
+
+
+Which Minecraft command is used to run logic repeatedly?
+
+/trigger
+/say
+*/function
+/loop
+
+
+
+What PowerShell cmdlet lists running processes?
+
+run
+*Get-Process
+pslist
+procview
+
+
+
+Which UI pattern is ideal for modular dashboards?
+
+Infinite scroll
+*Card-based layout
+Single-column feed
+Carousel
+
+
+
+What file defines a Minecraft datapack?
+
+manifest.json
+*pack.mcmeta
+datapack.yml
+info.txt
+
+
+
+Which protocol does SMB rely on?
+
+FTP
+HTTP
+*CIFS
+SSH
+
+
+
+What is the purpose of environment variables in development?
+
+Store images
+*Store secrets and config
+Render UI
+Compile code
+
+
+
+Which Minecraft sound format is used in resource packs?
+
+WAV
+*OGG
+MP3
+FLAC
+
+
+
+What is the main benefit of modular code architecture?
+
+Faster animations
+*Reusability
+Larger files
+More dependencies
+
+
+
+Which Vercel feature handles backend logic?
+
+Pages
+*Serverless functions
+DNS panel
+Logs
+
+
+
+What Windows tool manages credentials for SMB shares?
+
+Task Manager
+*Credential Manager
+Registry Editor
+Event Viewer
+
+
+
+Which Minecraft command block mode runs every tick?
+
+Impulse
+Chain
+*Repeat
+Execute
+
+
+
+What is the purpose of a reverse proxy?
+
+Store cookies
+*Forward requests to backend services
+Render HTML
+Compress images
+
+
+
+Which JavaScript library is commonly used for reactive dashboards?
+
+jQuery
+*React
+Bootstrap
+Lodash
+
+
+
+What is the advantage of using NBT data in Minecraft?
+
+Faster rendering
+*Storing structured entity/item data
+Better textures
+More FPS
+
+
+
+Which PowerShell cmdlet changes directories?
+
+cd
+*Set-Location
+goto
+move-dir
+
+
+
+What is the purpose of a build pipeline?
+
+Host images
+*Automate testing and deployment
+Create DNS records
+Manage SMB shares
+
+
+
+Which Minecraft folder contains functions in a datapack?
+
+/assets/functions
+/scripts
+*/data/<namespace>/functions
+/logic
+
+
+
+What is the benefit of using a custom dashboard for uploads?
+
+More ads
+*Control over workflow and privacy
+Slower processing
+Harder debugging
+
+
+
+Which DNS record is used for subdomain redirection?
+
+MX
+*CNAME
+A
+PTR
+
+
+
+What is the purpose of a Minecraft namespace?
+
+Store textures
+*Avoid naming conflicts
+Increase FPS
+Load shaders
+
+
+
+Which PowerShell cmdlet displays network configuration?
+
+netinfo
+*Get-NetIPConfiguration
+show-network
+ipconfig-ps
+
+
+
+What is the main advantage of reusable logic packs in Command Maker?
+
+Random output
+*Shareable, maintainable logic
+Faster rendering
+Automatic datapack export
