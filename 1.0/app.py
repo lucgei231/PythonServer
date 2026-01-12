@@ -765,7 +765,16 @@ def handle_join_game(data):
             for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
                 last_correct = sessions[code]['last_correct'].get(name)
                 leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
-            emit('leaderboard', {'leaderboard': leaderboard})
+            submitted_answers = {ans['name']: ans['answer_text'] for ans in sessions[code]['answers']} if sessions[code]['answers'] else {}
+            correct_answer_text = ''
+            q_index = sessions[code]['current_q'] - 1
+            q = sessions[code]['questions'][q_index] if q_index >= 0 and q_index < len(sessions[code]['questions']) else None
+            if q:
+                if q['type'] == 'mc':
+                    correct_answer_text = ', '.join(q['answers'][i] for i in q['correct_indices'])
+                else:
+                    correct_answer_text = q['answer']
+            emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer_text, 'submitted_answers': submitted_answers})
         elif state == 'finished':
             leaderboard = [{'name': name, 'score': score} for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True)]
             emit('final_leaderboard', {'leaderboard': leaderboard})
@@ -861,9 +870,10 @@ def handle_submit_answer(data):
                         for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
                             last_correct = sessions[code]['last_correct'].get(name)
                             leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
+                        submitted_answers = {ans['name']: ans['answer_text'] for ans in sessions[code]['answers']}
                         emit('answers_revealed', {'correct_answer': correct_answer_text}, room=code)
                         sessions[code]['state'] = 'leaderboard'
-                        emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer_text}, room=code)
+                        emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer_text, 'submitted_answers': submitted_answers}, room=code)
                 break
 
 @socketio.on('reveal_answers')
@@ -896,9 +906,10 @@ def handle_reveal_answers(data):
         for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
             last_correct = sessions[code]['last_correct'].get(name)
             leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
+        submitted_answers = {ans['name']: ans['answer_text'] for ans in sessions[code]['answers']}
         emit('answers_revealed', {'correct_answer': correct_answer_text}, room=code)
         sessions[code]['state'] = 'leaderboard'
-        emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer_text}, room=code)
+        emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer_text, 'submitted_answers': submitted_answers}, room=code)
 
 if __name__ == '__main__':
     print(datetime.datetime.now(), "Server is not running. Starting Server...")

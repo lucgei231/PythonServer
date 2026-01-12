@@ -46,6 +46,7 @@
         </div>
         <div id="leaderboard" style="display:none;">
             <h3>Leaderboard</h3>
+            <p id="leaderboard-correct-answer" style="display:none;">Correct answer was: <span id="leaderboard-correct-answer-text"></span></p>
             <ol id="leaderboard-list" style="font-size: 1.5em;"></ol>
         </div>
         <div id="final-leaderboard" style="display:none;">
@@ -148,9 +149,14 @@
             data.leaderboard.forEach((item, index) => {
                 const li = document.createElement('li');
                 const status = item.last_correct === null ? 'No answer' : item.last_correct ? 'Correct' : 'Incorrect';
-                li.textContent = `${index + 1}. ${item.name}: ${item.score} points (${status})`;
+                const submitted = data.submitted_answers ? data.submitted_answers[item.name] || 'N/A' : 'N/A';
+                li.textContent = `${index + 1}. ${item.name}: ${item.score} points (${status}) - Answered: ${submitted}`;
                 ol.appendChild(li);
             });
+            if (data.correct_answer) {
+                document.getElementById('leaderboard-correct-answer-text').textContent = data.correct_answer;
+                document.getElementById('leaderboard-correct-answer').style.display = 'block';
+            }
         });
 
         socket.on('final_leaderboard', (data) => {

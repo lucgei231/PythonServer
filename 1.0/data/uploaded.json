@@ -1,1 +1,28 @@
-{"127.0.0.1": ["Minecraft Quiz 2", "Minecraft Quiz", "C++ Quiz", "MCreator", "Best Quiz", "Example Quiz"], "192.168.50.1": ["Bacon the Dog Quiz"], "104.28.232.7": [], "92.239.84.83": [], "192.168.50.95": ["MCreator"], "192.168.50.80": ["secret"], "104.28.200.6": ["Minecraft Quiz 2"], "192.168.50.158": ["Dad quiz"]}
+{
+    "127.0.0.1": [
+        "Minecraft Quiz 2",
+        "Minecraft Quiz",
+        "C++ Quiz",
+        "MCreator",
+        "Best Quiz",
+        "Example Quiz"
+    ],
+    "192.168.50.1": [
+        "Bacon the Dog Quiz",
+        "secret.txt"
+    ],
+    "104.28.232.7": [],
+    "92.239.84.83": [],
+    "192.168.50.95": [
+        "MCreator"
+    ],
+    "192.168.50.80": [
+        "secret"
+    ],
+    "104.28.200.6": [
+        "Minecraft Quiz 2"
+    ],
+    "192.168.50.158": [
+        "Dad quiz"
+    ]
+}

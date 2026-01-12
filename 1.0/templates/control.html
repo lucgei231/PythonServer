@@ -66,6 +66,9 @@
             <h3>Players:</h3>
             <ul id="player-list"></ul>
         </div>
+        <div class="settings">
+            <label><input type="checkbox" id="autoplay"> Autoplay (auto-advance leaderboard in 5s)</label>
+        </div>
         <div id="question-display" style="display:none;">
             <h3>Question:</h3>
             <p id="question"></p>
@@ -78,6 +81,7 @@
         <div id="leaderboard" style="display:none;">
             <h3>Leaderboard</h3>
             <p id="leaderboard-correct-answer" style="display:none;">Correct answer was: <span id="leaderboard-correct-answer-text"></span></p>
+            <p id="countdown" style="display:none;">Next question in: <span id="countdown-number">5</span></p>
             <ol id="leaderboard-list" style="font-size: 1.5em;"></ol>
             <div class="btn-container">
                 <button id="next-question" class="quiz-btn">Next Question</button>
@@ -158,11 +162,28 @@
             data.leaderboard.forEach((item, index) => {
                 const li = document.createElement('li');
                 const status = item.last_correct === null ? 'No answer' : item.last_correct ? 'Correct' : 'Incorrect';
-                li.textContent = `${index + 1}. ${item.name}: ${item.score} points (${status})`;
+                const submitted = data.submitted_answers ? data.submitted_answers[item.name] || 'N/A' : 'N/A';
+                li.textContent = `${index + 1}. ${item.name}: ${item.score} points (${status}) - Answered: ${submitted}`;
                 ul.appendChild(li);
             });
             document.getElementById('leaderboard-correct-answer-text').textContent = data.correct_answer;
             document.getElementById('leaderboard-correct-answer').style.display = 'block';
+            // Autoplay countdown
+            if (document.getElementById('autoplay').checked) {
+                let count = 5;
+                const countdownEl = document.getElementById('countdown-number');
+                document.getElementById('countdown').style.display = 'block';
+                const interval = setInterval(() => {
+                    countdownEl.textContent = count;
+                    count--;
+                    if (count < 0) {
+                        clearInterval(interval);
+                        document.getElementById('next-question').click();
+                    }
+                }, 1000);
+            } else {
+                document.getElementById('countdown').style.display = 'none';
+            }
         });
 
         socket.on('final_leaderboard', (data) => {

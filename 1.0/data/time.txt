@@ -22,7 +22,7 @@ Best Quiz
 192.168.50.1
 192.168.50.80
 secret
-    bum bum 1.92
+    bum bum 5.02
     spaghetti 1.99
 192.168.50.6
 62.64.192.134
@@ -38,6 +38,19 @@ Cooking Quiz
 Cooking Quiz 3
     What cooking method involves submerging food in hot oil? 5.92
     What utensil is used to measure dry ingredients? 7.58
-192.168.50.1
-Cooking Quiz 3
     What is the term for cooking food slowly in liquid? 214.97
+quiz for lucas
+    Which Minecraft file type is used to define custom item models? 9.35
+    What is the core design philosophy behind Command Maker? 11.22
+    Which tool is commonly used to test API endpoints during dashboard development? 10.95
+    What Windows command is used to map a network drive? 4.86
+    Which Minecraft folder stores resource pack sounds? 3.30
+    What is the main advantage of a local-first workflow? 4.88
+    Which DNS record type points a domain to an IPv4 address? 6.65
+    What is the purpose of a Vercel deployment preview? 3.02
+    Which Minecraft command is used to run logic repeatedly? 8.25
+    What PowerShell cmdlet lists running processes? 10.63
+    Which UI pattern is ideal for modular dashboards? 1.67
+192.168.50.1
+Minecraft Quiz
+    What are you looking for when using a map to locate a Woodland Mansion? 3.66
