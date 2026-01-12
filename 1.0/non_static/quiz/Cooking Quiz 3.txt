@@ -1,32 +1,356 @@
 
-What cooking method involves submerging food in hot oil?
+What is the main flavoring agent in traditional Worcestershire sauce?
 
-Boiling
-*Frying
+Vinegar
+*Anchovies
+Garlic
+Molasses
+
+
+
+Which herb is commonly paired with lamb in Mediterranean cuisine?
+
+Oregano
+*Rosemary
+Thyme
+Sage
+
+
+
+What is the process of removing the outer layer of grains called?
+
+Hulling
+*Polishing
+Milling
+Grinding
+
+
+
+Which cooking method is used to make confit?
+
+Frying
+*Poaching in fat
+Grilling
 Baking
+
+
+
+What utensil is essential for making whipped cream?
+
+Whisk
+*Mixer
+Spatula
+Bowl
+
+
+
+Which spice is the key ingredient in garam masala?
+
+Cumin
+*Coriander
+Cardamom
+Cloves
+
+
+
+What is the term for cooking meat until it falls off the bone?
+
+Tenderizing
+*Slow cooking
+Marinating
+Seasoning
+
+
+
+Which vegetable is the base of mirepoix?
+
+Carrot
+Onion
+*Celery
+Leek
+
+
+
+What is the main ingredient in traditional Japanese miso soup?
+
+Tofu
+Seaweed
+*Dashi
+Rice
+
+
+
+Which tool is used to remove the skin from fruits and vegetables?
+
+Peeler
+*Zester
+Knife
+Grater
+
+
+
+What cooking technique involves cooking food in a hot pan with a small amount of fat?
+
+Frying
+*Sauteing
+Roasting
+Baking
+
+
+
+Which herb is used in the classic French herb blend fines herbes?
+
+Chives
+*Tarragon
+Parsley
+Chervil
+
+
+
+What is the primary ingredient in traditional Greek tzatziki?
+
+Yogurt
+*Cucumber
+Garlic
+Dill
+
+
+
+Which cooking method uses infrared heat to cook food?
+
+Microwaving
+*Broiling
+Toasting
 Grilling
 
 
 
-What utensil is used to measure dry ingredients?
+What utensil is used to measure small amounts of liquid?
 
 Spoon
-Knife
-*Cup
-Fork
+*Dropper
+Cup
+Bottle
 
 
 
-What is the term for cooking food slowly in liquid?
+Which spice is known as the "queen of spices"?
 
+Cinnamon
+*Cardamom
+Saffron
+Vanilla
+
+
+
+What is the term for cooking food in a mixture of oil and water?
+
+Emulsifying
+*Frying
 Boiling
-Frying
-*Simmering
+Steaming
+
+
+
+Which vegetable is essential in traditional Irish colcannon?
+
+Potato
+*Cabbage
+Carrot
+Onion
+
+
+
+What is the main flavor in traditional Indian chai tea?
+
+Ginger
+*Cardamom
+Cinnamon
+Cloves
+
+
+
+Which tool is used to crush garlic?
+
+Press
+*Mortar and pestle
+Knife
+Grinder
+
+
+
+What cooking method involves cooking food in a clay pot?
+
+Tagine
+*Casserole
+Wok
+Skillet
+
+
+
+Which herb is the key ingredient in traditional pesto sauce?
+
+Parsley
+*Basil
+Cilantro
+Mint
+
+
+
+What is the process of cooking food at a low temperature for a long time?
+
+Slow cooking
+*Sous vide
+Pressure cooking
+Steaming
+
+
+
+Which spice is used in traditional Mexican mole sauce?
+
+Cumin
+*Chile
+Cinnamon
+Cocoa
+
+
+
+What utensil is used to strain liquids?
+
+Sieve
+*Strainer
+Colander
+Mesh
+
+
+
+Which cooking technique is used to make tempura?
+
+Deep frying
+*Batter frying
+Shallow frying
+Pan frying
+
+
+
+What is the main ingredient in traditional French bouillabaisse?
+
+Fish
+*Seafood
+Vegetables
+Rice
+
+
+
+Which tool is used to sharpen knives?
+
+Steel
+*Whetstone
+Grinder
+File
+
+
+
+What is the term for cooking food in a vacuum-sealed bag?
+
+Sous vide
+*Vacuum cooking
+Pressure cooking
+Steaming
+
+
+
+Which herb is used in traditional English mint sauce?
+
+Parsley
+*Mint
+Sage
+Thyme
+
+
+
+What is the primary ingredient in traditional Spanish paella?
+
+Rice
+*Saffron
+Chicken
+Seafood
+
+
+
+Which cooking method uses a rotisserie?
+
+Roasting
+*Rotisserie cooking
+Grilling
 Baking
 
 
 
-What herb is commonly used in Italian cooking?
+What utensil is used to make dough?
+
+Rolling pin
+*Mixer
+Spatula
+Bowl
+
+
+
+Which spice is the key in traditional Cajun seasoning?
+
+Paprika
+*Cayenne
+Cumin
+Oregano
+
+
+
+What is the process of cooking food in a smoker?
+
+Smoking
+*Curing
+Drying
+Aging
+
+
+
+Which vegetable is the base of traditional French onion soup?
+
+Leek
+*Onion
+Garlic
+Shallot
+
+
+
+What is the main flavor in traditional Thai green curry?
+
+Lemongrass
+*Galangal
+Coconut
+Chili
+
+
+
+Which tool is used to grate nutmeg?
+
+Grater
+*Rasp
+Zester
+Knife
+
+
+
+What cooking technique involves cooking food in a parchment paper packet?
+
+En papillote
+*Baking en papillote
+Steaming
+Roasting
+
+
+
+Which herb is used in traditional Italian marinara sauce?
 
 Oregano
 *Basil
@@ -35,387 +359,90 @@ Rosemary
 
 
 
-What is the main ingredient in hummus?
+What is the primary ingredient in traditional German sauerkraut?
 
-Lentils
-Beans
-*Chickpeas
-Peas
-
-
-
-What tool is used to grate cheese?
-
-Knife
-*Grater
-Spoon
-Fork
+Cabbage
+*Sauerkraut
+Carrot
+Onion
 
 
 
-What is the process of cooking food on a grill called?
+Which cooking method uses a Dutch oven?
 
-Boiling
-Frying
 Baking
-*Grilling
+*Braiding
+Roasting
+Frying
 
 
 
-What spice is known for its heat in Indian cuisine?
+What utensil is used to serve ice cream?
+
+Scoop
+*Ice cream scoop
+Spoon
+Ladle
+
+
+
+Which spice is used in traditional Swedish glogg?
 
 Cinnamon
-Nutmeg
-*Chili
-Ginger
-
-
-
-What is the name of the dough used for pizza?
-
-Flour
-Bread
-*Dough
-Pastry
-
-
-
-What utensil is used to whisk eggs?
-
-Spoon
-Knife
-*Whisk
-Fork
-
-
-
-What is the term for cooking food in an oven?
-
-Boiling
-*Frying
-Baking
-Grilling
-
-
-
-What vegetable is the base of most soups?
-
-Carrot
-Potato
-*Onion
-Celery
-
-
-
-What is the main ingredient in pesto?
-
-Parsley
-Cilantro
-*Basil
-Mint
-
-
-
-What tool is used to chop vegetables?
-
-Spoon
-Fork
-*Knife
-Whisk
-
-
-
-What cooking method uses steam to cook food?
-
-Boiling
-Frying
-*Steaming
-Baking
-
-
-
-What is the name of the Japanese cooking technique using raw fish?
-
-Sushi
-Tempura
-Teriyaki
-*Sashimi
-
-
-
-What utensil is used to serve soup?
-
-Spoon
-Fork
-*Ladle
-Knife
-
-
-
-What is the term for cooking food quickly at high heat?
-
-Boiling
-*Searing
-Frying
-Baking
-
-
-
-What fruit is used to make salsa?
-
-Apple
-Banana
-*Tomato
+*Cardamom
+Cloves
 Orange
 
 
 
-What is the main ingredient in risotto?
+What is the term for cooking food in a hot liquid just below boiling?
 
-Pasta
-Bread
-Potatoes
-*Rice
-
-
-
-What tool is used to peel potatoes?
-
-Knife
-Spoon
-*Peeler
-Fork
+Poaching
+*Simmering
+Stewing
+Boiling
 
 
 
-What cooking method involves boiling water to cook pasta?
-
-Frying
-Baking
-*Boiling
-Grilling
-
-
-
-What spice is essential in curry?
-
-Cinnamon
-Nutmeg
-*Curry
-Ginger
-
-
-
-What is the name of the French cooking technique for slow-cooked meat?
-
-Roasting
-Frying
-*Braising
-Baking
-
-
-
-What utensil is used to strain pasta?
-
-Spoon
-Fork
-*Colander
-Knife
-
-
-
-What is the main ingredient in guacamole?
+Which vegetable is essential in traditional Mexican guacamole?
 
 Tomato
-Onion
 *Avocado
-Lime
+Onion
+Cilantro
 
 
 
-What tool is used to mix batter?
+What is the main ingredient in traditional Japanese sushi?
+
+Rice
+*Vinegar
+Fish
+Seaweed
+
+
+
+Which tool is used to open oysters?
 
 Knife
-Fork
-*Spoon
-Whisk
+*Oyster knife
+Hammer
+Pliers
 
 
 
-What cooking method uses a wok?
+What cooking method involves cooking food in a cast-iron skillet?
 
-Boiling
-Baking
-*Stir-frying
-Grilling
-
-
-
-What is the term for cooking food in a microwave?
-
-Boiling
 Frying
-*Microwaving
+*Skillet cooking
 Baking
+Roasting
 
 
 
-What vegetable is used in coleslaw?
+Which herb is used in traditional French bouquet garni?
 
-Lettuce
-Spinach
-*Cabbage
-Kale
-
-
-
-What is the main ingredient in mayonnaise?
-
-Oil
-Vinegar
-*Egg
-Salt
-
-
-
-What utensil is used to flip burgers?
-
-Spoon
-Fork
-*Spatula
-Knife
-
-
-
-What cooking method involves smoking food?
-
-Boiling
-Frying
-*Smoking
-Baking
-
-
-
-What spice is used in cinnamon rolls?
-
-Nutmeg
-Ginger
-*Cinnamon
-Cloves
-
-
-
-What is the name of the Italian cooking technique for grilling?
-
-Frittata
-Risotto
-*Grigliata
-Pesto
-
-
-
-What utensil is used to measure liquids?
-
-Spoon
-Knife
-*Measuring cup
-Fork
-
-
-
-What is the main ingredient in chocolate?
-
-Sugar
-Milk
-*Cacao
-Vanilla
-
-
-
-What tool is used to open cans?
-
-Knife
-Spoon
-*Can opener
-Fork
-
-
-
-What cooking method uses a pressure cooker?
-
-Boiling
-Frying
-*Pressure cooking
-Baking
-
-
-
-What herb is used in mint tea?
-
-Basil
-Oregano
-*Mint
 Thyme
-
-
-
-What is the term for cooking food without water?
-
-Boiling
-Frying
-*Roasting
-Steaming
-
-
-
-What utensil is used to serve salad?
-
-Spoon
-Fork
-*Tongs
-Knife
-
-
-
-What is the main ingredient in butter?
-
-*Cream
-Milk
-Water
-Salt
-
-
-
-What tool is used to sharpen knives?
-
-*Sharpener
-Knife
-Spoon
-Fork
-
-
-
-What cooking method involves frying in shallow oil?
-
-*Sauteing
-Boiling
-Baking
-Grilling
-
-
-
-What spice is used in pumpkin pie?
-
-*Nutmeg
-Cinnamon
-Ginger
-Cloves
-
-
-
-What is the name of the Korean cooking technique for fermented vegetables?
-
-*Kimchi
-Kimchi
-Bibimbap
-Bulgogi
+*Bay leaf
+Rosemary
+Sage

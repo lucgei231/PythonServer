@@ -37,6 +37,7 @@ Cooking Quiz
     What utensil is used to measure dry ingredients? 1.72
 Cooking Quiz 3
     What cooking method involves submerging food in hot oil? 5.92
+    What utensil is used to measure dry ingredients? 7.58
 192.168.50.1
 Cooking Quiz 3
-    What utensil is used to measure dry ingredients? 7.58
+    What is the term for cooking food slowly in liquid? 214.97
