@@ -47,6 +47,11 @@ def get_client_ip():
     forwarded_for = request.headers.get('X-Forwarded-For')
     return forwarded_for.split(",")[0].strip() if forwarded_for else request.remote_addr
 
+def is_mobile():
+    user_agent = request.headers.get('User-Agent', '').lower()
+    mobile_keywords = ['mobile', 'android', 'iphone', 'ipad', 'ipod', 'blackberry', 'windows phone']
+    return any(keyword in user_agent for keyword in mobile_keywords)
+
 @app.before_request
 def log_connection():
     ip = get_client_ip()
@@ -706,19 +711,19 @@ def host_quiz(quiz_name):
         control_code = str(random.randint(1000, 9999))
     sessions[code] = {'host_sid': None, 'control_sids': [], 'players': [], 'quiz_name': quiz_name, 'questions': read_quiz(quiz_name), 'current_q': 0, 'scores': {}, 'answers': [], 'last_correct': {}, 'state': 'lobby', 'control_code': control_code}
     control_to_game[control_code] = code
-    return render_template('host.html', code=code, quiz_name=quiz_name, control_code=control_code)
+    return render_template('host.html', code=code, quiz_name=quiz_name, control_code=control_code, is_mobile=is_mobile())
 
 @app.route('/control/<code>')
 def control_quiz(code):
     if code in control_to_game:
         game_code = control_to_game[code]
-        return render_template('control.html', code=game_code, quiz_name=sessions[game_code]['quiz_name'])
+        return render_template('control.html', code=game_code, quiz_name=sessions[game_code]['quiz_name'], is_mobile=is_mobile())
     else:
         return "Invalid control code", 404
 
 @app.route('/join')
 def join_game():
-    return render_template('join.html')
+    return render_template('join.html', is_mobile=is_mobile())
 
 @socketio.on('join_game')
 def handle_join_game(data):
@@ -805,12 +810,38 @@ def handle_submit_answer(data):
             if player['sid'] == request.sid:
                 sessions[code]['answers'].append({'name': player['name'], 'answer': answer, 'time_taken': time_taken})
                 emit('answer_received', {'name': player['name'], 'answer': answer}, room=code, skip_sid=request.sid)
+                # Check if all players have submitted
+                if len(sessions[code]['answers']) == len(sessions[code]['players']):
+                    # Auto-reveal answers
+                    q_index = sessions[code]['current_q'] - 1
+                    if q_index >= 0 and q_index < len(sessions[code]['questions']):
+                        correct_answer = sessions[code]['questions'][q_index]['answer']
+                        for ans in sessions[code]['answers']:
+                            name = ans['name']
+                            time_taken = ans['time_taken']
+                            correct = ans['answer'].strip().lower() == correct_answer.strip().lower()
+                            sessions[code]['last_correct'][name] = correct
+                            if correct:
+                                points = max(0, 1000 - time_taken * 50)
+                                sessions[code]['scores'][name] += points
+                            # Emit to specific player
+                            for player in sessions[code]['players']:
+                                if player['name'] == ans['name']:
+                                    emit('answer_revealed', {'correct': correct, 'correct_answer': correct_answer}, room=player['sid'])
+                                    break
+                        # Emit leaderboard
+                        leaderboard = []
+                        for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
+                            last_correct = sessions[code]['last_correct'].get(name)
+                            leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
+                        emit('answers_revealed', {'correct_answer': correct_answer}, room=code)
+                        sessions[code]['state'] = 'leaderboard'
+                        emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer}, room=code)
                 break
 
 @socketio.on('reveal_answers')
 def handle_reveal_answers(data):
     code = data['code']
-    answers = data['answers']
     if code in sessions and (sessions[code]['host_sid'] == request.sid or request.sid in sessions[code]['control_sids']):
         q_index = sessions[code]['current_q'] - 1
         if q_index >= 0 and q_index < len(sessions[code]['questions']):
@@ -833,8 +864,9 @@ def handle_reveal_answers(data):
             for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
                 last_correct = sessions[code]['last_correct'].get(name)
                 leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
+            emit('answers_revealed', {'correct_answer': correct_answer}, room=code)
             sessions[code]['state'] = 'leaderboard'
-            emit('leaderboard', {'leaderboard': leaderboard}, room=code)
+            emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer}, room=code)
 
 if __name__ == '__main__':
     print(datetime.datetime.now(), "Server is not running. Starting Server...")

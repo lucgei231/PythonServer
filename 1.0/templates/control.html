@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control Quiz: {{ quiz_name }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
@@ -30,6 +31,31 @@
             margin: 20px 0;
         }
     </style>
+    {% if is_mobile %}
+    <style>
+        .host-container {
+            padding: 10px;
+            max-width: 100%;
+        }
+        .quiz-btn {
+            font-size: 18px;
+            padding: 12px 15px;
+            min-width: 100px;
+        }
+        .game-code {
+            font-size: 20px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        .player-list li {
+            font-size: 16px;
+        }
+        #question {
+            font-size: 18px;
+        }
+    </style>
+    {% endif %}
 </head>
 <body>
     <div class="host-container">
@@ -41,15 +67,17 @@
             <ul id="player-list"></ul>
         </div>
         <div id="question-display" style="display:none;">
-            <h3>Current Question:</h3>
+            <h3>Question:</h3>
             <p id="question"></p>
+            <p id="correct-answer" style="display:none;">Correct Answer: <span id="correct-answer-text"></span></p>
             <div class="btn-container">
                 <button id="start-round" class="quiz-btn">Next Question</button>
-                <button id="reveal-answers" class="quiz-btn" style="background-color: #28a745; display:none;">Reveal Answers</button>
+                <button id="reveal-answers" class="quiz-btn" style="background-color: #28a745; display:none;">Skip</button>
             </div>
         </div>
         <div id="leaderboard" style="display:none;">
             <h3>Leaderboard</h3>
+            <p id="leaderboard-correct-answer" style="display:none;">Correct answer was: <span id="leaderboard-correct-answer-text"></span></p>
             <ol id="leaderboard-list" style="font-size: 1.5em;"></ol>
             <div class="btn-container">
                 <button id="next-question" class="quiz-btn">Next Question</button>
@@ -99,7 +127,7 @@
         });
 
         document.getElementById('reveal-answers').addEventListener('click', () => {
-            socket.emit('reveal_answers', {code: code, answers: answers});
+            socket.emit('reveal_answers', {code: code});
         });
 
         socket.on('answer_received', (data) => {
@@ -111,9 +139,15 @@
         socket.on('new_question', (data) => {
             document.getElementById('question-display').style.display = 'block';
             document.getElementById('question').textContent = data.question;
+            document.getElementById('correct-answer').style.display = 'none';
             answers = [];
             updateAnswerList();
             document.getElementById('reveal-answers').style.display = 'none';
+        });
+
+        socket.on('answers_revealed', (data) => {
+            document.getElementById('correct-answer-text').textContent = data.correct_answer;
+            document.getElementById('correct-answer').style.display = 'block';
         });
 
         socket.on('leaderboard', (data) => {
@@ -127,6 +161,8 @@
                 li.textContent = `${index + 1}. ${item.name}: ${item.score} points (${status})`;
                 ul.appendChild(li);
             });
+            document.getElementById('leaderboard-correct-answer-text').textContent = data.correct_answer;
+            document.getElementById('leaderboard-correct-answer').style.display = 'block';
         });
 
         socket.on('final_leaderboard', (data) => {

@@ -3,7 +3,6 @@ Best Quiz
     Who toots the most? 3.55
     Who owns the window couch? 2
 Cooking Quiz
-    What utensil is used to measure dry ingredients? 5.93
 Cooking Quiz
 Bacon the Dog Quiz
 Bacon the Dog Quiz
@@ -24,3 +23,13 @@ Best Quiz
 secret
     bum bum 1.92
 192.168.50.6
+62.64.192.134
+Example Quiz
+192.168.50.1
+192.168.50.1
+secret
+    spaghetti 1.99
+Minecraft Quiz 2
+    What do Creepers drop when killed? 6.17
+Minecraft Quiz
+Minecraft Quiz
