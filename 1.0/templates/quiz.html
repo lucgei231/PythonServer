@@ -212,16 +212,18 @@
       const q = quizData.questions[currentQuestionIndex];
       document.querySelector("h1").innerHTML = q.question + 
         ' <button type="button" onclick="speakText(`'+q.question.replace(/`/g,"\\`")+'`)" style="margin-left:10px;">🔊 Speak</button>';
-      const optionsList = document.querySelector(".question-container ul");
-      if (optionsList) {
-        optionsList.innerHTML = "";
-        if (q.options) {
-          q.options.forEach(opt => {
-            const li = document.createElement("li");
-            li.textContent = opt;
-            optionsList.appendChild(li);
-          });
-        }
+      const optionsList = document.querySelector("#options-list");
+      if (q.type === 'mc') {
+        optionsList.innerHTML = '';
+        q.answers.forEach((ans, i) => {
+          const li = document.createElement('li');
+          li.innerHTML = `<label><input type="radio" name="answer" value="${i}"> ${ans}</label>`;
+          optionsList.appendChild(li);
+        });
+        document.querySelector('input[name="answer"]').style.display = 'none';
+      } else {
+        optionsList.innerHTML = '';
+        document.querySelector('input[name="answer"]').style.display = 'block';
       }
       document.querySelector('input[name="answer"]').value = "";
       document.getElementById("feedback").innerHTML = "";
@@ -234,12 +236,16 @@
         e.preventDefault();
         if (!navigator.onLine) {
           // Offline: check answer locally
-          const answerInput = document.querySelector('input[name="answer"]');
-          const answerValue = answerInput.value.trim();
+          let answerValue;
+          if (q.type === 'mc') {
+            const checked = document.querySelector('input[name="answer"]:checked');
+            answerValue = checked ? parseInt(checked.value) : null;
+          } else {
+            answerValue = document.querySelector('input[name="answer"]').value.trim();
+          }
           const feedbackDiv = document.getElementById("feedback");
           const submitButton = document.getElementById("submitAnswerButton");
-          const q = quizData.questions[currentQuestionIndex];
-          if (answerValue.toLowerCase() === q.answer.toLowerCase()) {
+          if (validateAnswer(q, answerValue)) {
             feedbackDiv.innerHTML = "<span style='color:green;'>Correct!</span>";
             submitButton.value = "Next";
             // Save progress
@@ -262,8 +268,13 @@
           return;
         }
         // Online: normal logic
-        const answerInput = document.querySelector('input[name="answer"]');
-        const answerValue = answerInput.value;
+        let answerValue;
+        if ('{{ question.type }}' === 'mc') {
+          const checked = document.querySelector('input[name="answer"]:checked');
+          answerValue = checked ? parseInt(checked.value) : '';
+        } else {
+          answerValue = document.querySelector('input[name="answer"]').value;
+        }
         const feedbackDiv = document.getElementById("feedback");
         const submitButton = document.getElementById("submitAnswerButton");
         fetch("{{ url_for('quiz_validate', quiz_name=quiz_name) }}", {
@@ -311,6 +322,14 @@
         });
       });
     });
+
+    function validateAnswer(q, answer) {
+      if (q.type === 'mc') {
+        return q.correct_indices.includes(answer);
+      } else {
+        return answer.toLowerCase() === q.answer.toLowerCase();
+      }
+    }
 
     function speakText(text) {
       if ('speechSynthesis' in window) {
@@ -423,16 +442,16 @@
       {{ question.question }}
       <button type="button" onclick="speakText(`{{ question.question|e }}`)" style="margin-left:10px;">🔊 Speak</button>
     </h1>
-    {% if question.options %}
-      <ul>
-        {% for option in question.options %}
-          <li>{{ option }}</li>
+    {% if question.type == 'mc' %}
+      <ul id="options-list">
+        {% for ans in question.answers %}
+          <li><label><input type="radio" name="answer" value="{{ loop.index0 }}"> {{ ans }}</label></li>
         {% endfor %}
       </ul>
     {% endif %}
     <form id="answer-form" action="{{ url_for('submit_answer', quiz_name=quiz_name) }}" method="post" onsubmit="attachTime(event)">
       <input type="hidden" id="timeElapsed" value="0">
-      <input type="text" name="answer" placeholder="Your Answer" required>
+      <input type="text" name="answer" placeholder="Your Answer" {% if question.type == 'mc' %}style="display:none;"{% endif %}>
       <input type="submit" id="submitAnswerButton" value="Submit Answer">
     </form>
     <div id="feedback" style="margin-top:10px; font-weight:bold;"></div>

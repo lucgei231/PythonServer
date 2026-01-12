@@ -38,7 +38,8 @@
         <div id="question-area" style="display:none;">
             <div class="question" id="question"></div>
             <form id="answer-form">
-                <input type="text" id="answer" name="answer" placeholder="Your Answer" required style="padding: 8px; margin: 5px; width: 100%;">
+                <div id="answer-container"></div>
+                <input type="text" id="answer" name="answer" placeholder="Your Answer" style="padding: 8px; margin: 5px; width: 100%; display: block;">
                 <button type="submit" id="submit-answer" class="quiz-btn" style="width: 100%;">Submit Answer</button>
             </form>
             <div id="answer-feedback" class="answer-feedback" style="display:none;"></div>
@@ -91,16 +92,35 @@
             document.getElementById('final-leaderboard').style.display = 'none';
             document.getElementById('question-area').style.display = 'block';
             document.getElementById('question').textContent = data.question;
-            document.getElementById('answer').value = '';
             document.getElementById('answer-feedback').style.display = 'none';
             document.getElementById('submit-answer').disabled = false;
             document.getElementById('submit-answer').textContent = 'Submit Answer';
             document.getElementById('submit-answer').style.backgroundColor = '';
+            if (data.type === 'mc') {
+                const container = document.getElementById('answer-container');
+                container.innerHTML = '';
+                data.answers.forEach((ans, i) => {
+                    const label = document.createElement('label');
+                    label.innerHTML = `<input type="radio" name="answer" value="${i}" required> ${ans}<br>`;
+                    container.appendChild(label);
+                });
+                document.getElementById('answer').style.display = 'none';
+            } else {
+                document.getElementById('answer-container').innerHTML = '';
+                document.getElementById('answer').style.display = 'block';
+                document.getElementById('answer').value = '';
+            }
         });
 
         document.getElementById('answer-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const answer = document.getElementById('answer').value;
+            let answer;
+            const checked = document.querySelector('input[name="answer"]:checked');
+            if (checked) {
+                answer = parseInt(checked.value);
+            } else {
+                answer = document.getElementById('answer').value;
+            }
             const time_taken = (Date.now() - start_time) / 1000;
             socket.emit('submit_answer', {code: code, answer: answer, time_taken: time_taken});
             document.getElementById('submit-answer').disabled = true;

@@ -6,6 +6,7 @@ Cooking Quiz
 Cooking Quiz
 Bacon the Dog Quiz
 Bacon the Dog Quiz
+cool poo
 secret
 Example Quiz
 MCreator
@@ -22,14 +23,20 @@ Best Quiz
 192.168.50.80
 secret
     bum bum 1.92
+    spaghetti 1.99
 192.168.50.6
 62.64.192.134
 Example Quiz
+cool poo
+    cool poo 4.11
+Bacon the Dog Quiz
+    is he smelly? 3.48
+    does he have a big brown spot 3.00
+Cooking Quiz
+    What cooking method involves submerging food in hot oil? 3.18
+    What utensil is used to measure dry ingredients? 1.72
+Cooking Quiz 3
+    What cooking method involves submerging food in hot oil? 5.92
 192.168.50.1
-192.168.50.1
-secret
-    spaghetti 1.99
-Minecraft Quiz 2
-    What do Creepers drop when killed? 6.17
-Minecraft Quiz
-Minecraft Quiz
+Cooking Quiz 3
+    What utensil is used to measure dry ingredients? 7.58

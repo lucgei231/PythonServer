@@ -412,8 +412,8 @@ def quiz_validate(quiz_name):
     current_index = question_data.get(client_ip, 0)
     if current_index >= len(questions):
         current_index = 0
-    correct_answer = questions[current_index].get('answer', '')
-    is_correct = answer.strip().lower() == correct_answer.strip().lower()
+    q = questions[current_index]
+    is_correct = validate_answer(q, answer)
     if is_correct:
         new_index = current_index + 1
         if new_index >= len(questions):
@@ -437,6 +437,23 @@ def makequiz():
     if request.method == 'POST':
         filename = request.form.get("filename")
         quiz_content = request.form.get("quiz_content")
+        # Check if it's JSON from modern editor
+        try:
+            questions = json.loads(quiz_content)
+            # Convert to text format
+            text_content = ""
+            for q in questions:
+                text_content += q['question'] + "\n\n"
+                for i, ans in enumerate(q['answers']):
+                    if i in q['correctIndices']:
+                        text_content += "*" + ans + "\n"
+                    else:
+                        text_content += ans + "\n"
+                text_content += "\n"
+            quiz_content = text_content.strip()
+        except json.JSONDecodeError:
+            # It's legacy text
+            pass
         # Save the quiz
         quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
         if not os.path.exists(quiz_dir):
@@ -792,7 +809,7 @@ def handle_start_round(data):
             question = sessions[code]['questions'][q_index]
             sessions[code]['answers'] = []
             sessions[code]['state'] = 'question'
-            emit('new_question', {'question': question['question']}, room=code)
+            emit('new_question', {'question': question['question'], 'answers': question['answers'], 'type': question['type']}, room=code)
             sessions[code]['current_q'] += 1
         else:
             sessions[code]['state'] = 'finished'
@@ -805,38 +822,48 @@ def handle_submit_answer(data):
     answer = data['answer']
     time_taken = data.get('time_taken', 0)
     if code in sessions:
+        q_index = sessions[code]['current_q'] - 1
+        q = sessions[code]['questions'][q_index] if q_index >= 0 and q_index < len(sessions[code]['questions']) else None
+        # Convert answer to text for display
+        answer_text = answer
+        if q and q['type'] == 'mc' and isinstance(answer, int):
+            answer_text = q['answers'][answer] if answer < len(q['answers']) else str(answer)
         # Find player
         for player in sessions[code]['players']:
             if player['sid'] == request.sid:
-                sessions[code]['answers'].append({'name': player['name'], 'answer': answer, 'time_taken': time_taken})
-                emit('answer_received', {'name': player['name'], 'answer': answer}, room=code, skip_sid=request.sid)
+                sessions[code]['answers'].append({'name': player['name'], 'answer': answer, 'answer_text': answer_text, 'time_taken': time_taken})
+                emit('answer_received', {'name': player['name'], 'answer': answer_text}, room=code, skip_sid=request.sid)
                 # Check if all players have submitted
                 if len(sessions[code]['answers']) == len(sessions[code]['players']):
                     # Auto-reveal answers
-                    q_index = sessions[code]['current_q'] - 1
-                    if q_index >= 0 and q_index < len(sessions[code]['questions']):
-                        correct_answer = sessions[code]['questions'][q_index]['answer']
-                        for ans in sessions[code]['answers']:
-                            name = ans['name']
-                            time_taken = ans['time_taken']
-                            correct = ans['answer'].strip().lower() == correct_answer.strip().lower()
-                            sessions[code]['last_correct'][name] = correct
-                            if correct:
-                                points = max(0, 1000 - time_taken * 50)
-                                sessions[code]['scores'][name] += points
-                            # Emit to specific player
-                            for player in sessions[code]['players']:
-                                if player['name'] == ans['name']:
-                                    emit('answer_revealed', {'correct': correct, 'correct_answer': correct_answer}, room=player['sid'])
-                                    break
+                    for ans in sessions[code]['answers']:
+                        name = ans['name']
+                        time_taken = ans['time_taken']
+                        correct = validate_answer(q, ans['answer']) if q else False
+                        sessions[code]['last_correct'][name] = correct
+                        if correct:
+                            points = max(0, 1000 - time_taken * 50)
+                            sessions[code]['scores'][name] += points
+                        # Emit to specific player
+                        correct_answer_text = ''
+                        if q:
+                            if q['type'] == 'mc':
+                                correct_answer_text = ', '.join(q['answers'][i] for i in q['correct_indices'])
+                            else:
+                                correct_answer_text = q['answer']
+                        for player in sessions[code]['players']:
+                            if player['name'] == ans['name']:
+                                emit('answer_revealed', {'correct': correct, 'correct_answer': correct_answer_text}, room=player['sid'])
+                                break
+                    # Emit leaderboard
                         # Emit leaderboard
                         leaderboard = []
                         for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
                             last_correct = sessions[code]['last_correct'].get(name)
                             leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
-                        emit('answers_revealed', {'correct_answer': correct_answer}, room=code)
+                        emit('answers_revealed', {'correct_answer': correct_answer_text}, room=code)
                         sessions[code]['state'] = 'leaderboard'
-                        emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer}, room=code)
+                        emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer_text}, room=code)
                 break
 
 @socketio.on('reveal_answers')
@@ -844,29 +871,34 @@ def handle_reveal_answers(data):
     code = data['code']
     if code in sessions and (sessions[code]['host_sid'] == request.sid or request.sid in sessions[code]['control_sids']):
         q_index = sessions[code]['current_q'] - 1
-        if q_index >= 0 and q_index < len(sessions[code]['questions']):
-            correct_answer = sessions[code]['questions'][q_index]['answer']
-            for ans in sessions[code]['answers']:
-                name = ans['name']
-                time_taken = ans['time_taken']
-                correct = ans['answer'].strip().lower() == correct_answer.strip().lower()
-                sessions[code]['last_correct'][name] = correct
-                if correct:
-                    points = max(0, 1000 - time_taken * 50)  # 50 points per second deducted
-                    sessions[code]['scores'][name] += points
-                # Emit to specific player
-                for player in sessions[code]['players']:
-                    if player['name'] == ans['name']:
-                        emit('answer_revealed', {'correct': correct, 'correct_answer': correct_answer}, room=player['sid'])
-                        break
-            # Emit leaderboard
-            leaderboard = []
-            for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
-                last_correct = sessions[code]['last_correct'].get(name)
-                leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
-            emit('answers_revealed', {'correct_answer': correct_answer}, room=code)
-            sessions[code]['state'] = 'leaderboard'
-            emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer}, room=code)
+        q = sessions[code]['questions'][q_index] if q_index >= 0 and q_index < len(sessions[code]['questions']) else None
+        correct_answer_text = ''
+        if q:
+            if q['type'] == 'mc':
+                correct_answer_text = ', '.join(q['answers'][i] for i in q['correct_indices'])
+            else:
+                correct_answer_text = q['answer']
+        for ans in sessions[code]['answers']:
+            name = ans['name']
+            time_taken = ans['time_taken']
+            correct = validate_answer(q, ans['answer']) if q else False
+            sessions[code]['last_correct'][name] = correct
+            if correct:
+                points = max(0, 1000 - time_taken * 50)  # 50 points per second deducted
+                sessions[code]['scores'][name] += points
+            # Emit to specific player
+            for player in sessions[code]['players']:
+                if player['name'] == ans['name']:
+                    emit('answer_revealed', {'correct': correct, 'correct_answer': correct_answer_text}, room=player['sid'])
+                    break
+        # Emit leaderboard
+        leaderboard = []
+        for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
+            last_correct = sessions[code]['last_correct'].get(name)
+            leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
+        emit('answers_revealed', {'correct_answer': correct_answer_text}, room=code)
+        sessions[code]['state'] = 'leaderboard'
+        emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer_text}, room=code)
 
 if __name__ == '__main__':
     print(datetime.datetime.now(), "Server is not running. Starting Server...")

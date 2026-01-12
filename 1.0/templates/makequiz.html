@@ -64,8 +64,25 @@
                     <label for="question">Question:</label>
                     <input type="text" id="question" placeholder="Enter question">
 
-                    <label for="answer">Answer:</label>
-                    <input type="text" id="answer" placeholder="Enter answer">
+                    <label>Answers:</label>
+                    <div id="answers-section">
+                        <div class="answer-input">
+                            <input type="text" class="answer" placeholder="Answer 1">
+                            <input type="checkbox" name="correct" value="0"> Correct
+                        </div>
+                        <div class="answer-input">
+                            <input type="text" class="answer" placeholder="Answer 2">
+                            <input type="checkbox" name="correct" value="1"> Correct
+                        </div>
+                        <div class="answer-input">
+                            <input type="checkbox" name="correct" value="2"> Correct
+                            <input type="text" class="answer" placeholder="Answer 3">
+                        </div>
+                        <div class="answer-input">
+                            <input type="checkbox" name="correct" value="3"> Correct
+                            <input type="text" class="answer" placeholder="Answer 4">
+                        </div>
+                    </div>
 
                     <button type="button" onclick="addQuestion()">Add Question</button>
                 </div>
@@ -98,13 +115,17 @@
 
         function addQuestion() {
             const question = document.getElementById('question').value.trim();
-            const answer = document.getElementById('answer').value.trim();
-            if (question && answer) {
-                questions.push({question, answer});
+            const answers = Array.from(document.querySelectorAll('.answer')).map(input => input.value.trim()).filter(val => val);
+            const correctIndices = Array.from(document.querySelectorAll('input[name="correct"]:checked')).map(cb => parseInt(cb.value));
+            if (question && answers.length > 0 && correctIndices.length > 0 && correctIndices.every(i => i < answers.length)) {
+                questions.push({question, answers, correctIndices});
                 updateQuestionsList();
                 document.getElementById('question').value = '';
-                document.getElementById('answer').value = '';
+                document.querySelectorAll('.answer').forEach(input => input.value = '');
+                document.querySelectorAll('input[name="correct"]').forEach(cb => cb.checked = false);
                 document.getElementById('quiz_content').value = JSON.stringify(questions);
+            } else {
+                alert('Please enter a question and at least one answer, and select at least one correct answer.');
             }
         }
 
@@ -114,7 +135,8 @@
             questions.forEach((q, idx) => {
                 const div = document.createElement('div');
                 div.className = 'question-item';
-                div.innerHTML = `<strong>Q${idx+1}:</strong> ${q.question}<br><strong>A:</strong> ${q.answer} <button type="button" onclick="removeQuestion(${idx})">Remove</button>`;
+                const answersText = q.answers.map((a, i) => q.correctIndices.includes(i) ? `*${a}` : a).join(', ');
+                div.innerHTML = `<strong>Q${idx+1}:</strong> ${q.question}<br><strong>A:</strong> ${answersText} <button type="button" onclick="removeQuestion(${idx})">Remove</button>`;
                 container.appendChild(div);
             });
             document.getElementById('quiz_content').value = JSON.stringify(questions);
