@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Question</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+    .question-number {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .home-button a {
+      background-color: green;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header-container">
+    <div class="question-number">
+      Question: {{ question_index|default(1) }}
+    </div>
+    <div class="home-button">
+      <a href="{{ url_for('home') }}">Home</a>
+    </div>
+  </div>
+  <div class="question-container">
+    {% if question %}
+      <h1>{{ question.question }}</h1>
+      {% if question.options %}
+        <ul>
+          {% for option in question.options %}
+            <li>{{ option }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <!-- Answer form -->
+      <form id="answer-form">
+        <input type="text" name="answer" placeholder="Your Answer" required>
+        <button type="submit">Submit Answer</button>
+      </form>
+      <!-- Feedback message under the answer form -->
+      <div id="feedback" style="margin-top:10px; font-weight:bold;"></div>
+    {% else %}
+      <h1>No question provided.</h1>
+    {% endif %}
+  </div>
+  <script>
+    document.getElementById("answer-form").addEventListener("submit", function(e){
+      e.preventDefault();
+      const answerValue = document.querySelector('input[name="answer"]').value;
+      fetch("{{ url_for('quiz_validate', quiz_name=quiz_name) }}", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ answer: answerValue })
+      })
+      .then(response => response.json())
+      .then(data => {
+        const feedbackDiv = document.getElementById("feedback");
+        if(data.redirect) {
+          window.location.href = data.redirect;
+        } else if(data.is_correct) {
+          feedbackDiv.innerHTML = "<span style='color:green;'>Correct!</span>";
+          setTimeout(() => { window.location.reload(); }, 2000);
+        } else {
+          feedbackDiv.innerHTML = "<span style='color:red;'>Incorrect! Try Again!</span>";
+        }
+      })
+      .catch(error => {
+        console.error("Error submitting answer:", error);
+      });
+    });
+    // Refresh page when connection is restored
+    window.addEventListener('online', function() {
+      location.reload();
+    });
+  </script>
+</body>
+</html>

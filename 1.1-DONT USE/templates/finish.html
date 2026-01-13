@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Finished</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .finish-container {
+            margin: 20px;
+            text-align: center;
+        }
+        .finish-button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px;
+            background-color: #007bff;
+            color: white;
+        }
+        .view-times-button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px;
+            background-color: grey;
+            color: white;
+        }
+        .retry-button {
+            background-color: green;
+        }
+        .dropdown-container {
+            margin: 20px auto;
+            width: 50%;
+            text-align: left;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="finish-container">
+        <h1>You finished the Quiz!</h1>
+        <table id="timesTable" border="1" style="margin: 20px auto; width: 50%;">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Time (seconds)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if results %}
+                    {% for entry in results %}
+                        <tr>
+                            <td>{{ entry.question }}</td>
+                            <td>{{ entry.time }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="2">No results available.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('reset_quiz', quiz_name=quiz_name) }}" class="finish-button retry-button">Retry</a>
+        <a href="{{ url_for('home') }}" class="finish-button">Home</a>
+        <a href="{{ url_for('view_times') }}" class="view-times-button">View Times [BETA]</a>
+    </div>
+    <script>
+        // If no results from backend, populate from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            let tbody = document.querySelector('#timesTable tbody');
+            if (tbody.children.length === 1 && tbody.children[0].textContent.includes('No results')) {
+                let times = JSON.parse(localStorage.getItem('questionTimes') || '[]');
+                tbody.innerHTML = '';
+                if (times.length > 0) {
+                    times.forEach(entry => {
+                        let tr = document.createElement('tr');
+                        tr.innerHTML = `<td>${entry.question}</td><td>${entry.time}</td>`;
+                        tbody.appendChild(tr);
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="2">No results available.</td></tr>';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

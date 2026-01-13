@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host Quiz: {{ quiz_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        .host-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .game-code {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .player-list {
+            margin: 20px 0;
+        }
+        .btn-container {
+            margin: 20px 0;
+        }
+    </style>
+    {% if is_mobile %}
+    <style>
+        .host-container {
+            padding: 10px;
+            max-width: 100%;
+        }
+        .quiz-btn {
+            font-size: 18px;
+            padding: 12px 15px;
+            min-width: 100px;
+        }
+        .game-code {
+            font-size: 20px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        .player-list li {
+            font-size: 16px;
+        }
+        #question {
+            font-size: 18px;
+        }
+    </style>
+    {% endif %}
+    <style>
+        @media (max-width: 768px) {
+            .host-container {
+                padding: 15px;
+                max-width: 100%;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            .game-code {
+                font-size: 18px;
+            }
+            .player-list li {
+                font-size: 16px;
+            }
+            .question-display {
+                padding: 15px;
+            }
+            .question-text {
+                font-size: 18px;
+            }
+            .btn-container {
+                flex-direction: column;
+            }
+            .quiz-btn {
+                margin: 5px 0;
+                font-size: 16px;
+                padding: 12px;
+            }
+            .leaderboard ol {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('home') }}" style="position: absolute; top: 10px; right: 10px; background: green; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; z-index: 1000;">Home</a>
+    <div class="host-container">
+        <h1>Hosting Quiz: {{ quiz_name }}</h1>
+        <p>Game Code: <span class="game-code">{{ code }}</span></p>
+        <p>Control Code: <button id="toggle-control-code">Show Control Code</button></p>
+        <div id="control-code-display" style="display:none;">Control Code: <span id="control-code">{{ control_code }}</span></div>
+        <p>Players Joined: <span id="player-count">0</span></p>
+        <div id="qr-code" style="margin: 20px 0;">
+            <h3>QR Code</h3>
+            <img src="https://lucgei231.github.io/PythonServer/1.0/data/qr.png" alt="QR Code" style="max-width: 200px;">
+        </div>
+        <div class="player-list">
+            <h3>Players:</h3>
+            <ul id="player-list"></ul>
+        </div>
+        <div class="settings">
+            <label><input type="checkbox" id="autoplay"> Autoplay (auto-advance leaderboard in 5s)</label>
+        </div>
+        <div id="question-display" style="display:none;">
+            <h3>Question:</h3>
+            <p id="question"></p>
+            <p id="correct-answer" style="display:none;">Correct Answer: <span id="correct-answer-text"></span></p>
+            <div class="btn-container">
+                <button id="start-round" class="quiz-btn">Next Question</button>
+                <button id="reveal-answers" class="quiz-btn" style="background-color: #28a745; display:none;">Skip</button>
+            </div>
+        </div>
+        <div id="leaderboard" style="display:none;">
+            <h3>Leaderboard</h3>
+            <p id="leaderboard-correct-answer" style="display:none;">Correct answer was: <span id="leaderboard-correct-answer-text"></span></p>
+            <p id="countdown" style="display:none;">Next question in: <span id="countdown-number">5</span></p>
+            <ol id="leaderboard-list" style="font-size: 1.5em;"></ol>
+            <div class="btn-container">
+                <button id="next-question" class="quiz-btn">Next Question</button>
+            </div>
+        </div>
+        <div id="final-leaderboard" style="display:none;">
+            <h3>Final Leaderboard</h3>
+            <ol id="final-leaderboard-list" style="font-size: 1.5em;"></ol>
+        </div>
+        <div class="btn-container">
+            <button id="start-game" class="quiz-btn">Start Game</button>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+        const code = '{{ code }}';
+        let players = [];
+        let gameStarted = false;
+
+        socket.on('connect', () => {
+            socket.emit('host_join', {code: code});
+        });
+
+        socket.on('player_joined', (data) => {
+            players.push(data.name);
+            document.getElementById('player-count').textContent = players.length;
+            updatePlayerList();
+        });
+
+        document.getElementById('start-game').addEventListener('click', () => {
+            gameStarted = true;
+            document.getElementById('start-game').style.display = 'none';
+            document.getElementById('qr-code').style.display = 'none';
+            socket.emit('start_round', {code: code});
+        });
+
+        document.getElementById('toggle-control-code').addEventListener('click', () => {
+            const display = document.getElementById('control-code-display');
+            const button = document.getElementById('toggle-control-code');
+            if (display.style.display === 'none') {
+                display.style.display = 'block';
+                button.textContent = 'Hide Control Code';
+            } else {
+                display.style.display = 'none';
+                button.textContent = 'Show Control Code';
+            }
+        });
+
+        document.getElementById('start-round').addEventListener('click', () => {
+            document.getElementById('reveal-answers').style.display = 'none';
+            socket.emit('start_round', {code: code});
+        });
+
+        document.getElementById('reveal-answers').addEventListener('click', () => {
+            socket.emit('reveal_answers', {code: code});
+        });
+
+        socket.on('new_question', (data) => {
+            document.getElementById('question-display').style.display = 'block';
+            document.getElementById('question').textContent = data.question;
+            document.getElementById('correct-answer').style.display = 'none';
+            document.getElementById('reveal-answers').style.display = 'none';
+        });
+
+        socket.on('answer_received', (data) => {
+            document.getElementById('reveal-answers').style.display = 'inline-block';
+        });
+
+        socket.on('answers_revealed', (data) => {
+            document.getElementById('correct-answer-text').textContent = data.correct_answer;
+            document.getElementById('correct-answer').style.display = 'block';
+        });
+
+        socket.on('leaderboard', (data) => {
+            document.getElementById('question-display').style.display = 'none';
+            document.getElementById('leaderboard').style.display = 'block';
+            const ul = document.getElementById('leaderboard-list');
+            ul.innerHTML = '';
+            data.leaderboard.forEach((item, index) => {
+                const li = document.createElement('li');
+                const status = item.last_correct === null ? 'No answer' : item.last_correct ? 'Correct' : 'Incorrect';
+                const submitted = data.submitted_answers ? data.submitted_answers[item.name] || 'N/A' : 'N/A';
+                li.textContent = `${index + 1}. ${item.name}: ${item.score} points (${status}) - Answered: ${submitted}`;
+                ul.appendChild(li);
+            });
+            document.getElementById('leaderboard-correct-answer-text').textContent = data.correct_answer;
+            document.getElementById('leaderboard-correct-answer').style.display = 'block';
+            // Autoplay countdown
+            if (document.getElementById('autoplay').checked) {
+                let count = 5;
+                const countdownEl = document.getElementById('countdown-number');
+                document.getElementById('countdown').style.display = 'block';
+                const interval = setInterval(() => {
+                    countdownEl.textContent = count;
+                    count--;
+                    if (count < 0) {
+                        clearInterval(interval);
+                        document.getElementById('next-question').click();
+                    }
+                }, 1000);
+            } else {
+                document.getElementById('countdown').style.display = 'none';
+            }
+        });
+
+        socket.on('final_leaderboard', (data) => {
+            document.getElementById('leaderboard').style.display = 'none';
+            document.getElementById('final-leaderboard').style.display = 'block';
+            const ul = document.getElementById('final-leaderboard-list');
+            ul.innerHTML = '';
+            data.leaderboard.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${index + 1}. ${item.name}: ${item.score} points`;
+                ul.appendChild(li);
+            });
+        });
+
+        document.getElementById('next-question').addEventListener('click', () => {
+            document.getElementById('leaderboard').style.display = 'none';
+            socket.emit('start_round', {code: code});
+        });
+
+        function updatePlayerList() {
+            const ul = document.getElementById('player-list');
+            ul.innerHTML = '';
+            players.forEach(name => {
+                const li = document.createElement('li');
+                li.textContent = name;
+                ul.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>

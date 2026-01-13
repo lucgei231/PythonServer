@@ -311,6 +311,8 @@ def get_quiz_json(quiz_name):
             question_data = json.load(f)
     except Exception as e:
         question_data = {}
+    if not isinstance(question_data, dict):
+        question_data = {}
 
     current_index = question_data.get(client_ip, 0)
     
@@ -361,7 +363,7 @@ def edit_quiz(quiz_name):
                 question_data = json.load(f)
         except Exception as e:
             question_data = {}
-        return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=quiz_content, question_data=question_data)
+        return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=quiz_content)
     else:
         # POST: update the quiz text.
         print(get_client_ip(), "is saving their edits to", quiz_name)
@@ -375,8 +377,7 @@ def edit_quiz(quiz_name):
         except Exception as e:
             return f"Error updating quiz text: {str(e)}", 500
 
-        message = "Quiz updated successfully!"
-        return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=new_content, question_data=question_data, message=message)
+        return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=quiz_content, message=message)
 
 @app.route('/quiz/<quiz_name>/quiz/validate', methods=['POST'])
 def quiz_validate(quiz_name):
@@ -394,6 +395,8 @@ def quiz_validate(quiz_name):
         with open(question_file, "r", encoding="utf-8") as f:
             question_data = json.load(f)
     except Exception as e:
+        question_data = {}
+    if not isinstance(question_data, dict):
         question_data = {}
     client_ip = get_client_ip()
     print(f"Got ip of {client_ip}")
@@ -528,6 +531,8 @@ def submit_answer(quiz_name):
             question_data = json.load(f)
     except Exception as e:
         question_data = {}
+    if not isinstance(question_data, dict):
+        question_data = {}
 
     current_index = question_data.get(client_ip, 0)
     new_index = current_index + 1
@@ -655,6 +660,8 @@ def reset_quiz(quiz_name):
     except Exception as e:
         question_data = {}
         print(datetime.datetime.now(), client_ip, "failed to read question file:", str(e))
+    if not isinstance(question_data, dict):
+        question_data = {}
     # Reset the current index to 0 for this client.
     question_data[client_ip] = 0
     print(datetime.datetime.now(), client_ip, "resetting question index to 0")

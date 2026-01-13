@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {% if not session.admin %}
+            <h1>Admin Login</h1>
+            {% if error %}
+                <p style="color:red;">{{ error }}</p>
+            {% endif %}
+            <form method="POST" action="{{ url_for('admin_panel') }}">
+                <input type="password" name="password" placeholder="Enter admin password" required>
+                <button type="submit">Login</button>
+            </form>
+        {% else %}
+            <h1>Admin Panel</h1>
+            <p>Welcome, Admin!</p>
+            <a href="{{ url_for('admin_logout') }}">Logout</a>
+            <!-- Additional admin functionality can be added here -->
+        {% endif %}
+        <br>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Question</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+    .question-number {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+    .home-button a {
+      background-color: green;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .timer {
+      font-size: 16px;
+      color: #333;
+    }
+    .offline-bar {
+      display: none;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #d32f2f;
+      color: #fff;
+      text-align: center;
+      padding: 16px 0;
+      font-size: 18px;
+      z-index: 9999;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .loading-bar-container {
+      display: none;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      color: #000;
+      text-align: center;
+      z-index: 10000;
+      height: 40px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .loading-bar {
+      height: 100%;
+      background: #2196f3;
+      width: 0%;
+      transition: width 0.2s;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 10001;
+    }
+    .loading-bar-text {
+      position: relative;
+      z-index: 10002;
+      line-height: 40px;
+    }
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .question-number {
+        font-size: 16px;
+      }
+      .timer {
+        font-size: 14px;
+        margin-top: 5px;
+      }
+      .home-button a {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+      .quiz-container {
+        padding: 15px;
+      }
+      .question-text {
+        font-size: 18px;
+      }
+      .answer-container {
+        padding: 10px;
+      }
+      .answer-option {
+        font-size: 16px;
+        padding: 12px;
+      }
+      .submit-btn {
+        font-size: 16px;
+        padding: 12px;
+      }
+    }
+  </style>
+  </head>
+  <script>
+    // --- Quiz Download and Offline Logic ---
+    const QUIZ_KEY = "quiz_{{ quiz_name }}";
+    const QUIZ_DOWNLOADED_KEY = "quiz_downloaded_{{ quiz_name }}";
+    let quizData = null;
+    let currentQuestionIndex = parseInt(localStorage.getItem(QUIZ_KEY + "_index") || "{{ question_index|default(1)|int - 1 }}");
+    let startTime = Date.now();
+
+    // Show/hide loading bar
+    function showLoadingBar(percent) {
+      const bar = document.getElementById('loading-bar');
+      const container = document.getElementById('loading-bar-container');
+      bar.style.width = percent + "%";
+      container.style.display = "block";
+    }
+    function hideLoadingBar() {
+      document.getElementById('loading-bar-container').style.display = "none";
+    }
+
+    // Save restart image to localStorage for offline use
+    async function cacheRestartImage() {
+      if (!localStorage.getItem("restart_img")) {
+        try {
+          const resp = await fetch("/data/restart.jpg");
+          const blob = await resp.blob();
+          const reader = new FileReader();
+          reader.onloadend = function() {
+            localStorage.setItem("restart_img", reader.result);
+          };
+          reader.readAsDataURL(blob);
+        } catch (e) {
+          console.warn("Could not cache restart image for offline use.", e);
+        }
+      }
+    }
+
+    // Download quiz if not already downloaded
+    async function ensureQuizDownloaded() {
+      if (!localStorage.getItem(QUIZ_DOWNLOADED_KEY)) {
+        showLoadingBar(10);
+        try {
+          // Download quiz data from server
+          let resp = await fetch("{{ url_for('get_quiz_data', quiz_name=quiz_name) }}");
+          showLoadingBar(60);
+          let data = await resp.json();
+          showLoadingBar(90);
+          localStorage.setItem(QUIZ_KEY, JSON.stringify(data));
+          quizData = data;
+          showLoadingBar(100);
+          setTimeout(hideLoadingBar, 500);
+        } catch (e) {
+          hideLoadingBar();
+          alert("Failed to download quiz for offline use.");
+        }
+        localStorage.setItem(QUIZ_DOWNLOADED_KEY, "1");
+      }
+      // Always cache the restart image if not present
+      await cacheRestartImage();
+    }
+
+    // Timer logic
+    function updateTimer() {
+      let elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+      document.getElementById("timer-seconds").textContent = elapsed + " sec";
+    }
+    setInterval(updateTimer, 100);
+
+    function attachTime(event) {
+      let elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+      document.getElementById("timeElapsed").value = elapsed;
+    }
+
+    function saveTimeAndGoHome() {
+      if (!navigator.onLine) {
+        showOfflineBar();
+        return;
+      }
+      const homeButton = document.querySelector(".home-button a");
+      homeButton.textContent = "Saving...";
+      let elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+      fetch("{{ url_for('save_time', quiz_name=quiz_name) }}", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ time_elapsed: elapsed })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.status === 'ok'){
+          homeButton.textContent = "Saved.";
+          window.location.href = "{{ url_for('home') }}";
+        } else {
+          alert("Error saving time, please try again.");
+          homeButton.textContent = "Home";
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Error saving time, please try again.");
+        homeButton.textContent = "Home";
+      });
+    }
+
+    // Offline bar logic
+    function showOfflineBar() {
+      document.getElementById('offline-bar').style.display = 'block';
+    }
+    function hideOfflineBar() {
+      document.getElementById('offline-bar').style.display = 'none';
+    }
+    window.addEventListener('online', hideOfflineBar);
+    window.addEventListener('offline', showOfflineBar);
+
+    // Refresh page when connection is restored
+    window.addEventListener('online', function() {
+      location.reload();
+    });
+
+    // On page load, show offline bar if offline and download quiz if needed
+    window.addEventListener('DOMContentLoaded', async function() {
+      if (!navigator.onLine) showOfflineBar();
+      await ensureQuizDownloaded();
+      // If offline, load question from localStorage
+      if (!navigator.onLine) {
+        quizData = JSON.parse(localStorage.getItem(QUIZ_KEY));
+        if (quizData && quizData.questions && quizData.questions.length > 0) {
+          // Render question from local data
+          renderOfflineQuestion();
+        }
+      }
+      speakText(`{{ question.question|e }}`);
+    });
+
+    // Render question from localStorage when offline
+    function renderOfflineQuestion() {
+      const q = quizData.questions[currentQuestionIndex];
+      document.querySelector("h1").innerHTML = q.question + 
+        ' <button type="button" onclick="speakText(`'+q.question.replace(/`/g,"\\`")+'`)" style="margin-left:10px;">🔊 Speak</button>';
+      const optionsList = document.querySelector("#options-list");
+      if (q.type === 'mc') {
+        optionsList.innerHTML = '';
+        q.answers.forEach((ans, i) => {
+          const li = document.createElement('li');
+          li.innerHTML = `<label><input type="radio" name="answer" value="${i}"> ${ans}</label>`;
+          optionsList.appendChild(li);
+        });
+        document.querySelector('input[name="answer"]').style.display = 'none';
+      } else {
+        optionsList.innerHTML = '';
+        document.querySelector('input[name="answer"]').style.display = 'block';
+      }
+      document.querySelector('input[name="answer"]').value = "";
+      document.getElementById("feedback").innerHTML = "";
+      document.querySelector(".question-number").textContent = "Question: " + (currentQuestionIndex+1) + " / " + quizData.questions.length;
+    }
+
+    // Answer form logic (works offline and online)
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("answer-form").addEventListener("submit", function(e){
+        e.preventDefault();
+        if (!navigator.onLine) {
+          // Offline: check answer locally
+          let answerValue;
+          if (q.type === 'mc') {
+            const checked = document.querySelector('input[name="answer"]:checked');
+            answerValue = checked ? parseInt(checked.value) : null;
+          } else {
+            answerValue = document.querySelector('input[name="answer"]').value.trim();
+          }
+          const feedbackDiv = document.getElementById("feedback");
+          const submitButton = document.getElementById("submitAnswerButton");
+          if (validateAnswer(q, answerValue)) {
+            feedbackDiv.innerHTML = "<span style='color:green;'>Correct!</span>";
+            submitButton.value = "Next";
+            // Save progress
+            localStorage.setItem(QUIZ_KEY + "_index", currentQuestionIndex + 1);
+            setTimeout(() => {
+              // Go to next question or finish
+              if (currentQuestionIndex + 1 < quizData.questions.length) {
+                currentQuestionIndex++;
+                renderOfflineQuestion();
+                submitButton.value = "Submit Answer";
+              } else {
+                feedbackDiv.innerHTML = "<span style='color:blue;'>Quiz Complete (Offline Mode)</span>";
+                submitButton.disabled = true;
+              }
+            }, 700);
+          } else {
+            feedbackDiv.innerHTML = "<span style='color:red;'>Incorrect! Try Again!</span>";
+            submitButton.value = "Submit Answer";
+          }
+          return;
+        }
+        // Online: normal logic
+        let answerValue;
+        if ('{{ question.type }}' === 'mc') {
+          const checked = document.querySelector('input[name="answer"]:checked');
+          answerValue = checked ? parseInt(checked.value) : '';
+        } else {
+          answerValue = document.querySelector('input[name="answer"]').value;
+        }
+        const feedbackDiv = document.getElementById("feedback");
+        const submitButton = document.getElementById("submitAnswerButton");
+        fetch("{{ url_for('quiz_validate', quiz_name=quiz_name) }}", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ answer: answerValue })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if(data.redirect) {
+            window.location.href = data.redirect;
+          } else if(data.is_correct) {
+            feedbackDiv.innerHTML = "<span style='color:green;'>Correct!</span>";
+            submitButton.value = "Saving...";
+            var timeElapsed = document.getElementById("timeElapsed").value || "0";
+            // Save elapsed time
+            if (navigator.onLine) {
+              fetch("{{ url_for('save_time', quiz_name=quiz_name) }}", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ time_elapsed: timeElapsed })
+              })
+              .then(resp => resp.json())
+              .then(timeData => {
+                submitButton.value = "Saved.";
+                setTimeout(() => { window.location.reload(); }, 500);
+              })
+              .catch(err => {
+                console.error("Error saving time:", err);
+                submitButton.value = "Submit Answer";
+              });
+            } else {
+              showOfflineBar();
+              feedbackDiv.innerHTML = "<span style='color:white;background:#d32f2f;padding:4px 8px;border-radius:4px;'>No Internet Connection</span>";
+              submitButton.value = "Submit Answer";
+            }
+          } else {
+            feedbackDiv.innerHTML = "<span style='color:red;'>Incorrect! Try Again!</span>";
+            submitButton.value = "Submit Answer";
+          }
+        })
+        .catch(error => {
+          console.error("Error submitting answer:", error);
+          submitButton.value = "Submit Answer";
+        });
+      });
+    });
+
+    function validateAnswer(q, answer) {
+      if (q.type === 'mc') {
+        return q.correct_indices.includes(answer);
+      } else {
+        return answer.toLowerCase() === q.answer.toLowerCase();
+      }
+    }
+
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert('Sorry, your browser does not support text-to-speech.');
+      }
+    }
+
+    async function restartQuiz(event) {
+      event.preventDefault();
+      const QUIZ_KEY = "quiz_{{ quiz_name }}";
+      const QUIZ_DOWNLOADED_KEY = "quiz_downloaded_{{ quiz_name }}";
+      // Reset progress
+      localStorage.setItem(QUIZ_KEY + "_index", "0");
+
+      if (navigator.onLine) {
+        showLoadingBar(5);
+        // Remove all related localStorage keys for this quiz
+        localStorage.removeItem(QUIZ_KEY);
+        showLoadingBar(10);
+        localStorage.removeItem(QUIZ_DOWNLOADED_KEY);
+        showLoadingBar(15);
+        localStorage.removeItem(QUIZ_KEY + "_index");
+        showLoadingBar(20);
+        localStorage.removeItem("restart_img");
+        showLoadingBar(25);
+        // Redownload quiz and image, then reload page
+        showLoadingBar(40);
+        await ensureQuizDownloaded();
+        hideLoadingBar();
+        window.location.href = "{{ url_for('reset_quiz', quiz_name=quiz_name) }}";
+      } else {
+        // Offline: just reload page and use cached data
+        location.reload();
+      }
+    }
+
+    // Helper to get restart image src (offline/online)
+    function getRestartImgSrc() {
+      if (!navigator.onLine && localStorage.getItem("restart_img")) {
+        return localStorage.getItem("restart_img");
+      }
+      return "{{ url_for('static', filename='data/restart.jpg') }}";
+    }
+
+    // On DOMContentLoaded, update the restart button image if offline
+    document.addEventListener("DOMContentLoaded", function() {
+      const restartImg = document.getElementById("restart-img");
+      if (restartImg) {
+        restartImg.src = getRestartImgSrc();
+      }
+    });
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/static/service-worker.js');
+      navigator.serviceWorker.addEventListener('message', function(event) {
+        if (event.data && event.data.offline) {
+          showNoServerBar();
+        }
+      });
+    }
+
+    function showNoServerBar() {
+      if (!document.getElementById('no-server-bar')) {
+        const bar = document.createElement('div');
+        bar.id = 'no-server-bar';
+        bar.style.position = 'fixed';
+        bar.style.left = 0;
+        bar.style.right = 0;
+        bar.style.bottom = 0;
+        bar.style.background = '#d32f2f';
+        bar.style.color = '#fff';
+        bar.style.textAlign = 'center';
+        bar.style.padding = '16px 0';
+        bar.style.fontSize = '18px';
+        bar.style.zIndex = 10000;
+        bar.style.fontWeight = 'bold';
+        bar.style.letterSpacing = '1px';
+        bar.textContent = 'No Server Connection';
+        document.body.appendChild(bar);
+      }
+    }
+  </script>
+
+<body>
+  <div class="header-container">
+    <div class="question-number">
+      Question: {{ question_index|default(1) }} / {{ quiz_total|default(1) }}
+    </div>
+    <div class="home-button">
+      <a href="#" onclick="saveTimeAndGoHome()">Home</a>
+    </div>
+    <div class="timer" id="timer-display" style="display: flex; align-items: center; gap: 8px;">
+      <span>Time: <span id="timer-seconds">0 sec</span></span>
+      <button
+        id="restart-quiz-btn"
+        title="Restart Quiz"
+        style="background:none;border:none;padding:0;margin-left:8px;vertical-align:middle;cursor:pointer;"
+        onclick="restartQuiz(event)"
+        aria-label="Restart Quiz"
+      >
+        <img id="restart-img" src="{{ url_for('static', filename='/data/restart.jpg') }}" alt="Restart" style="height:28px;width:28px;vertical-align:middle;">
+      </button>
+    </div>
+  </div>
+  <div class="question-container">
+    <h1>
+      {{ question.question }}
+      <button type="button" onclick="speakText(`{{ question.question|e }}`)" style="margin-left:10px;">🔊 Speak</button>
+    </h1>
+    {% if question.type == 'mc' %}
+      <ul id="options-list">
+        {% for ans in question.answers %}
+          <li><label><input type="radio" name="answer" value="{{ loop.index0 }}"> {{ ans }}</label></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <form id="answer-form" action="{{ url_for('submit_answer', quiz_name=quiz_name) }}" method="post" onsubmit="attachTime(event)">
+      <input type="hidden" id="timeElapsed" value="0">
+      <input type="text" name="answer" placeholder="Your Answer" {% if question.type == 'mc' %}style="display:none;"{% endif %}>
+      <input type="submit" id="submitAnswerButton" value="Submit Answer">
+    </form>
+    <div id="feedback" style="margin-top:10px; font-weight:bold;"></div>
+  </div>
+  <div id="offline-bar" class="offline-bar">No Internet Connection</div>
+  <div id="loading-bar-container" class="loading-bar-container">
+    <div class="loading-bar" id="loading-bar"></div>
+    <div class="loading-bar-text">Loading</div>
+  </div>
+</body>
+</html>

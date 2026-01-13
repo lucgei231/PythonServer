@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Home</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .header-buttons a.view-logs-button {
+      background-color: grey;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-left: 10px;
+    }
+    .header-buttons a.view-times-button {
+      background-color: red;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-left: 10px;
+    }
+    
+    .header-buttons a.github-btn {
+      background-color: black;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-left: 10px;
+    }
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-buttons {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .header-buttons a {
+        margin-left: 0;
+      }
+      .quiz-list li {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .quiz-list .quiz-btn, .quiz-list .edit-btn, .quiz-list .delete-btn {
+        margin: 5px 0;
+      }
+    }
+  </style>
+  <script>
+    // Refresh page when connection is restored
+    window.addEventListener('online', function() {
+      location.reload();
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <!-- Header with title and Add Quiz button -->
+    <header style="display: flex; justify-content: space-between; align-items: center;">
+      <h1>Select a Quiz</h1>
+      <div class="header-buttons">
+        <a href="{{ url_for('addquiz') }}" class="upload-btn">Upload Quiz</a>
+        <a href="{{ url_for('makequiz') }}" class="upload-btn">Make Quiz</a>
+        <a href="{{ url_for('join_game') }}" class="upload-btn">Join Game</a>
+        <!--<a href="{{ url_for('view_logs') }}" class="view-logs-button">View Logs</a>-->
+        <a href="{{ url_for('view_times') }}" class="view-times-button">View Times [BETA]</a>
+        <a href="https://github.com/lucgei231/PythonServer" class="github-btn" target="_blank">View on GitHub</a>
+  
+        <!-- No admin panel button means you must manually type /adminpanel in URL -->
+      </div>
+    </header>
+    <!-- Quiz list -->
+    <ul class="quiz-list">
+      {% for quiz in quizzes %}
+      <li>
+        <a href="{{ url_for('get_quiz_json', quiz_name=quiz) }}" class="quiz-btn">{{ quiz }}</a>
+        <a href="{{ url_for('host_quiz', quiz_name=quiz) }}" class="quiz-btn">Host Quiz</a>
+        {% if user_uploaded and quiz in user_uploaded %}
+          <a href="{{ url_for('edit_quiz', quiz_name=quiz) }}" class="edit-btn">Edit Quiz</a>
+          <a href="{{ url_for('deletequiz') }}?quiz={{ quiz }}" class="delete-btn">Delete Quiz</a>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>

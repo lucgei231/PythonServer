@@ -1,0 +1,46 @@
+<!-- filepath: f:\PythonServer\1.0\templates\deletequiz_confirm.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Delete Quiz Confirmation</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .confirm-container {
+      margin: 20px;
+      text-align: center;
+    }
+    .confirm-button, .cancel-button {
+      padding: 10px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      margin: 10px;
+      border: none;
+      cursor: pointer;
+    }
+    .confirm-button {
+      background-color: red;
+      color: white;
+    }
+    .cancel-button {
+      background-color: green;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="confirm-container">
+    {% if message %}
+      <h2>{{ message }}</h2>
+      <a href="{{ url_for('routes.home') }}" class="cancel-button">Back to Home</a>
+    {% else %}
+      <h2>Are you sure you want to delete the quiz "{{ quiz }}"?</h2>
+      <form method="POST" action="{{ url_for('deletequiz') }}">
+        <input type="hidden" name="quiz" value="{{ quiz }}">
+        <button type="submit" class="confirm-button">Yes, Delete Quiz</button>
+        <a href="{{ url_for('home') }}" class="cancel-button">No, Cancel</a>
+      </form>
+    {% endif %}
+  </div>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .makequiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .question-type {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .question-type label {
+            display: inline;
+            font-weight: normal;
+        }
+        .answers-section {
+            margin-left: 20px;
+        }
+        .answer-input {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .answer-input input[type="text"] {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .btn-success {
+            background-color: #28a745;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .question-list {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+        .question-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .question-item:last-child {
+            border-bottom: none;
+        }
+        .legacy-btn {
+            background: #6c757d;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+        #legacy-editor {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .makequiz-container {
+                margin: 10px;
+                padding: 15px;
+            }
+            .question-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .question-item div {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="makequiz-container">
+        <h1>Create Your Quiz</h1>
+        {% if message %}
+        <p style="color: green; text-align: center;">{{ message }}</p>
+        {% endif %}
+
+        <button type="button" class="legacy-btn" onclick="toggleEditor()">Toggle Legacy Editor</button>
+
+        <form id="quiz-form" method="POST" action="{{ url_for('makequiz') }}">
+            <div id="modern-editor">
+                <div class="form-group">
+                    <label for="filename">Quiz Name:</label>
+                    <input type="text" name="filename" id="filename" required placeholder="Enter quiz name">
+                </div>
+
+                <div id="question-section">
+                    <h3>Add Question</h3>
+                    <div class="form-group">
+                        <label for="question">Question:</label>
+                        <input type="text" id="question" placeholder="Enter your question">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Question Type:</label>
+                        <div class="question-type">
+                            <label><input type="radio" name="qtype" value="mc" checked> Multiple Choice</label>
+                            <label><input type="radio" name="qtype" value="typein"> Type-in Answer</label>
+                        </div>
+                    </div>
+
+                    <div id="mc-options" class="form-group">
+                        <label>Answers (check the correct one):</label>
+                        <div class="answers-section">
+                            <div class="answer-input">
+                                <input type="text" class="answer" placeholder="Answer 1">
+                                <input type="radio" name="correct" value="0">
+                            </div>
+                            <div class="answer-input">
+                                <input type="text" class="answer" placeholder="Answer 2">
+                                <input type="radio" name="correct" value="1">
+                            </div>
+                            <div class="answer-input">
+                                <input type="text" class="answer" placeholder="Answer 3">
+                                <input type="radio" name="correct" value="2">
+                            </div>
+                            <div class="answer-input">
+                                <input type="text" class="answer" placeholder="Answer 4">
+                                <input type="radio" name="correct" value="3">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="typein-option" class="form-group" style="display: none;">
+                        <label for="typein-answer">Correct Answer:</label>
+                        <input type="text" id="typein-answer" placeholder="Enter the correct answer">
+                    </div>
+
+                    <button type="button" class="btn" onclick="addQuestion()">Add Question</button>
+                </div>
+
+                <div class="question-list">
+                    <h3>Questions:</h3>
+                    <div id="questions-container"></div>
+                </div>
+
+                <input type="hidden" name="quiz_content" id="quiz_content">
+
+                <br>
+                <button type="submit" class="btn btn-success">Create Quiz</button>
+            </div>
+
+            <div id="legacy-editor">
+                <h3>Legacy Editor</h3>
+                <textarea name="quiz_content_legacy" placeholder="Enter your quiz in text format (Question\nAnswer options with * for correct)..." style="width:100%;height:300px;padding:10px;font-size:14px;"></textarea>
+                <br>
+                <button type="submit" class="btn btn-success">Create Quiz</button>
+            </div>
+        </form>
+        <br>
+        <a href="{{ url_for('home') }}" class="btn">Back to Home</a>
+    </div>
+
+    <script>
+        let questions = [];
+
+        document.querySelectorAll('input[name="qtype"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'mc') {
+                    document.getElementById('mc-options').style.display = 'block';
+                    document.getElementById('typein-option').style.display = 'none';
+                } else {
+                    document.getElementById('mc-options').style.display = 'none';
+                    document.getElementById('typein-option').style.display = 'block';
+                }
+            });
+        });
+
+        function addQuestion() {
+            const question = document.getElementById('question').value.trim();
+            const qtype = document.querySelector('input[name="qtype"]:checked').value;
+            let answers = [];
+            let correctIndex = -1;
+
+            if (qtype === 'mc') {
+                answers = Array.from(document.querySelectorAll('.answer')).map(input => input.value.trim()).filter(val => val);
+                const correctRadio = document.querySelector('input[name="correct"]:checked');
+                if (correctRadio) correctIndex = parseInt(correctRadio.value);
+                if (answers.length < 2 || correctIndex === -1 || correctIndex >= answers.length) {
+                    alert('Please enter at least 2 answers and select the correct one.');
+                    return;
+                }
+            } else {
+                const answer = document.getElementById('typein-answer').value.trim();
+                if (!answer) {
+                    alert('Please enter the correct answer.');
+                    return;
+                }
+                answers = [answer];
+                correctIndex = 0;
+            }
+
+            if (!question) {
+                alert('Please enter a question.');
+                return;
+            }
+
+            questions.push({question, answers, correctIndex, type: qtype});
+            updateQuestionsList();
+            resetForm();
+        }
+
+        function resetForm() {
+            document.getElementById('question').value = '';
+            document.querySelectorAll('.answer').forEach(input => input.value = '');
+            document.querySelectorAll('input[name="correct"]').forEach(radio => radio.checked = false);
+            document.getElementById('typein-answer').value = '';
+        }
+
+        function updateQuestionsList() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            questions.forEach((q, idx) => {
+                const div = document.createElement('div');
+                div.className = 'question-item';
+                let answersText;
+                if (q.type === 'mc') {
+                    answersText = q.answers.map((a, i) => i === q.correctIndex ? `*${a}` : a).join(', ');
+                } else {
+                    answersText = q.answers[0];
+                }
+                div.innerHTML = `
+                    <div>
+                        <strong>Q${idx+1} (${q.type}):</strong> ${q.question}<br>
+                        <strong>A:</strong> ${answersText}
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-danger" onclick="removeQuestion(${idx})">Remove</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+            document.getElementById('quiz_content').value = JSON.stringify(questions);
+        }
+
+        function removeQuestion(idx) {
+            questions.splice(idx, 1);
+            updateQuestionsList();
+        }
+
+        function toggleEditor() {
+            const modern = document.getElementById('modern-editor');
+            const legacy = document.getElementById('legacy-editor');
+            if (modern.style.display === 'none') {
+                modern.style.display = 'block';
+                legacy.style.display = 'none';
+            } else {
+                modern.style.display = 'none';
+                legacy.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
