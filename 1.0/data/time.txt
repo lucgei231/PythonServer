@@ -2,6 +2,7 @@
 Best Quiz
     Who toots the most? 3.55
     Who owns the window couch? 2
+MCreator
 Bacon the Dog Quiz
 Cooking Quiz 3
 Test Quiz
@@ -20,8 +21,10 @@ MCreator
 Minecraft Quiz 2
 Minecraft Quiz
     What are you looking for when using a map to locate a Woodland Mansion? 3.66
-    What is the name of the default Minecraft character with brown hair? 0.88
+    What is the name of the default Minecraft character with brown hair? 432.86
+    What item is needed to craft a crafting table? 7.48
 C++ Quiz
+    Who invented C++? 5.67
 MCreator
     What is MCreator primarily used for? 7.68
     Which programming language is commonly used with MCreator? 4.28
@@ -43,32 +46,74 @@ cool poo
     cool poo 4.11
 Cooking Quiz 3
 quiz for lucas
-    Which Minecraft file type is used to define custom item models? 9.35
-    What is the core design philosophy behind Command Maker? 11.22
+    Which Minecraft file type is used to define custom item models? 1.39
+    What is the core design philosophy behind Command Maker? 7.04
     Which tool is commonly used to test API endpoints during dashboard development? 10.95
-    What Windows command is used to map a network drive? 4.86
-    Which Minecraft folder stores resource pack sounds? 3.30
-    What is the main advantage of a local-first workflow? 4.88
-    Which DNS record type points a domain to an IPv4 address? 6.65
-    What is the purpose of a Vercel deployment preview? 3.02
-    Which Minecraft command is used to run logic repeatedly? 8.25
-    What PowerShell cmdlet lists running processes? 10.63
-    Which UI pattern is ideal for modular dashboards? 12.73
-    Which protocol does SMB rely on? 9.15
-    What is the purpose of environment variables in development? 7.53
-    Which Minecraft sound format is used in resource packs? 3.06
-    What is the main benefit of modular code architecture? 1.75
-    Which Vercel feature handles backend logic? 3.93
-    What Windows tool manages credentials for SMB shares? 9.77
-    Which Minecraft command block mode runs every tick? 8.19
-    What is the purpose of a reverse proxy? 2.88
-    Which JavaScript library is commonly used for reactive dashboards? 4.01
+    What Windows command is used to map a network drive? 4.07
+    Which Minecraft folder stores resource pack sounds? 3.15
+    What is the main advantage of a local-first workflow? 4.37
+    Which DNS record type points a domain to an IPv4 address? 1.66
+    What is the purpose of a Vercel deployment preview? 2.18
+    Which Minecraft command is used to run logic repeatedly? 1.75
+    What PowerShell cmdlet lists running processes? 3.41
+    Which UI pattern is ideal for modular dashboards? 20.08
+    Which protocol does SMB rely on? 3.05
+    What is the purpose of environment variables in development? 3.85
+    Which Minecraft sound format is used in resource packs? 1.49
+    What is the main benefit of modular code architecture? 15.10
+    Which Vercel feature handles backend logic? 1.93
+    What Windows tool manages credentials for SMB shares? 22.00
+    Which Minecraft command block mode runs every tick? 1.89
+    What is the purpose of a reverse proxy? 1.82
+    Which JavaScript library is commonly used for reactive dashboards? 12.17
     What is the advantage of using NBT data in Minecraft? 0.68
+    What file defines a Minecraft datapack? 10.08
+    Which PowerShell cmdlet changes directories? 7.40
+    What is the purpose of a build pipeline? 8.25
+    Which Minecraft folder contains functions in a datapack? 8.98
+    What is the benefit of using a custom dashboard for uploads? 5.65
+    Which DNS record is used for subdomain redirection? 5.42
+    What is the purpose of a Minecraft namespace? 4.95
+    Which PowerShell cmdlet displays network configuration? 6.24
 Common Knowledge Quiz
+    What is the largest planet in our solar system? 16.80
+    What color is the sky on a clear day? 3.57
+    How many continents are there? 24.20
+    What is the chemical symbol for water? 11.71
+    Who painted the Mona Lisa? 14.68
+    What is the longest river in the world? 5.69
+    What animal is known as the King of the Jungle? 5.01
+    What is the square root of 16? 5.09
 Bacon the Dog Quiz
     does he have a big brown spot 7.75
+Cooking Quiz
+    What utensil is used to measure dry ingredients? 2.72
+MC Quiz 3
+    Which gas do plants absorb from the atmosphere? 6.57
+    What is the boiling point of water in Celsius? 2.41
+    Which element has the atomic number 1? 9.75
+    Which sport is played with a shuttlecock? 5.37
+    What is the largest mammal in the world? 3.38
+    Which continent is the Sahara Desert located in? 5.65
+    What is the main ingredient in guacamole? 9.43
+    Which planet is closest to the Sun? 3.71
+    What is the hardest natural substance on Earth? 2.72
+    Which language is spoken in Brazil? 3.70
+    What is the capital of Australia? 9.59
+    Which gas makes up the majority of Earth's atmosphere? 21.98
+    What is the study of stars and planets called? 27.53
+    Which animal can change its color? 2.59
+    What is the largest bone in the human body? 2.37
+    Which country invented pizza? 2.48
+    What is the chemical symbol for gold? 5.02
+    Which ocean is the Bermuda Triangle located in? 7.83
+    What is the process by which plants make their own food? 3.37
+    Which famous scientist developed the theory of relativity? 6.15
+    Which element is essential for human bones? 10.04
+Gettery quiz
+    Does daddy like spagetti 2.56
+    Who owns the window couch (yes I took this from Best Quiz) 3.66
+    What's the window couch's name 5.59
 192.168.50.1
-C++ Quiz
-    Who invented C++? 5.67
-MCreator
-    What is MCreator primarily used for? 36.47
+Gettery quiz
+    Did daddy use to play Zelda with julie 1.20
