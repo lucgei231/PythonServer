@@ -363,16 +363,9 @@ def edit_quiz(quiz_name):
             question_data = {}
         return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=quiz_content, question_data=question_data)
     else:
-        # POST: update both the quiz text and the question data.
+        # POST: update the quiz text.
         print(get_client_ip(), "is saving their edits to", quiz_name)
         new_content = request.form.get("quiz_content")
-        # This assumes the form passes the question data as a JSON string.
-        question_data_str = request.form.get("question_data")
-        try:
-            new_question_data = json.loads(question_data_str) if question_data_str else {}
-        except Exception as e:
-            new_question_data = {}
-            print(get_client_ip(), " Got an error while parsing question data: ", str(e))
 
         # Write updated quiz text.
         try:
@@ -382,16 +375,8 @@ def edit_quiz(quiz_name):
         except Exception as e:
             return f"Error updating quiz text: {str(e)}", 500
 
-        # Write updated question JSON.
-        try:
-            with open(question_file, "w", encoding="utf-8") as f:
-                json.dump(new_question_data, f)
-        except Exception as e:
-            print(get_client_ip(), " Got an error while parsing question data: ", str(e))
-            return f"Error updating question data: {str(e)}", 500
-
-        message = "Quiz and question updated successfully!"
-        return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=new_content, question_data=new_question_data, message=message)
+        message = "Quiz updated successfully!"
+        return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=new_content, question_data=question_data, message=message)
 
 @app.route('/quiz/<quiz_name>/quiz/validate', methods=['POST'])
 def quiz_validate(quiz_name):

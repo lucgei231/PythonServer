@@ -197,7 +197,6 @@
                 </div>
 
                 <input type="hidden" name="quiz_content" id="quiz_content">
-                <input type="hidden" name="question_data" id="question_data">
 
                 <br>
                 <button type="submit" class="btn btn-success" id="save-btn">Save Quiz</button>
@@ -217,7 +216,6 @@
     <script>
         let questions = [];
         let editingIndex = -1;
-        let initialQuestionData = {{ question_data | tojson | safe }};
 
         // Parse initial quiz_content
         function parseQuizContent(content) {
@@ -252,12 +250,7 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             const initialContent = `{{ quiz_content | replace('\\', '\\\\') | replace('`', '\\`') | replace('${', '\\${') }}`;
-            if (initialQuestionData.length > 0) {
-                questions = initialQuestionData;
-                updateQuestionsList();
-            } else {
-                parseQuizContent(initialContent);
-            }
+            parseQuizContent(initialContent);
 
             document.querySelectorAll('input[name="qtype"]').forEach(radio => {
                 radio.addEventListener('change', function() {
@@ -357,7 +350,6 @@
                 text += '\n';
             });
             document.getElementById('quiz_content').value = text.trim();
-            document.getElementById('question_data').value = JSON.stringify(questions);
         }
 
         function editQuestion(idx) {
