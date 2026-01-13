@@ -2,47 +2,136 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Quiz - {{ quiz_name }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
         .editquiz-container {
-            margin: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .question-type {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .question-type label {
+            display: inline;
+            font-weight: normal;
+        }
+        .answers-section {
+            margin-left: 20px;
+        }
+        .answer-input {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .answer-input input[type="text"] {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .btn-success {
+            background-color: #28a745;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .btn-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .btn-warning:hover {
+            background-color: #e0a800;
         }
         .question-list {
             margin-top: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             padding: 10px;
             background: #f9f9f9;
+            border-radius: 4px;
         }
         .question-item {
-            margin-bottom: 10px;
-            padding-bottom: 5px;
+            padding: 10px;
             border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .done-button {
-            background-color: green;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        .question-item:last-child {
+            border-bottom: none;
         }
         .legacy-btn {
-            background: #888;
+            background: #6c757d;
             color: #fff;
             border: none;
             padding: 8px 12px;
-            border-radius: 5px;
-            margin-bottom: 15px;
+            border-radius: 4px;
             cursor: pointer;
-        }
-        label, input {
-            display: block;
-            margin-top: 10px;
+            margin-bottom: 15px;
         }
         #legacy-editor {
             display: none;
-            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            .editquiz-container {
+                margin: 10px;
+                padding: 15px;
+            }
+            .question-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .question-item div {
+                margin-bottom: 5px;
+            }
         }
     </style>
 </head>
@@ -50,102 +139,178 @@
     <div class="editquiz-container">
         <h1>Edit Quiz: {{ quiz_name }}</h1>
         {% if message %}
-        <p style="color: green;">{{ message }}</p>
+        <p style="color: green; text-align: center;">{{ message }}</p>
         {% endif %}
 
-        <button type="button" class="legacy-btn" onclick="showLegacyEditor()">Use Legacy Editor</button>
+        <button type="button" class="legacy-btn" onclick="toggleEditor()">Toggle Legacy Editor</button>
 
         <form id="edit-form" method="POST" action="{{ url_for('edit_quiz', quiz_name=quiz_name) }}">
             <div id="modern-editor">
                 <div id="question-section">
-                    <label for="question">Question:</label>
-                    <input type="text" id="question" placeholder="Enter question">
+                    <h3>Add/Edit Question</h3>
+                    <div class="form-group">
+                        <label for="question">Question:</label>
+                        <input type="text" id="question" placeholder="Enter your question">
+                    </div>
 
-                    <label for="answer">Answer:</label>
-                    <input type="text" id="answer" placeholder="Enter answer">
+                    <div class="form-group">
+                        <label>Question Type:</label>
+                        <div class="question-type">
+                            <label><input type="radio" name="qtype" value="mc" checked> Multiple Choice</label>
+                            <label><input type="radio" name="qtype" value="typein"> Type-in Answer</label>
+                        </div>
+                    </div>
 
-                    <button type="button" id="add-btn" onclick="addQuestion()">Add Question</button>
+                    <div id="mc-options" class="form-group">
+                        <label>Answers (select the correct one):</label>
+                        <div class="answers-section">
+                            <div class="answer-input">
+                                <input type="text" class="answer" placeholder="Answer 1">
+                                <input type="radio" name="correct" value="0">
+                            </div>
+                            <div class="answer-input">
+                                <input type="text" class="answer" placeholder="Answer 2">
+                                <input type="radio" name="correct" value="1">
+                            </div>
+                            <div class="answer-input">
+                                <input type="text" class="answer" placeholder="Answer 3">
+                                <input type="radio" name="correct" value="2">
+                            </div>
+                            <div class="answer-input">
+                                <input type="text" class="answer" placeholder="Answer 4">
+                                <input type="radio" name="correct" value="3">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="typein-option" class="form-group" style="display: none;">
+                        <label for="typein-answer">Correct Answer:</label>
+                        <input type="text" id="typein-answer" placeholder="Enter the correct answer">
+                    </div>
+
+                    <button type="button" class="btn" id="add-btn" onclick="addQuestion()">Add Question</button>
                 </div>
 
-                <div class="question-list" id="question-list">
-                    <strong>Questions:</strong>
+                <div class="question-list">
+                    <h3>Questions:</h3>
                     <div id="questions-container"></div>
                 </div>
 
-                <!-- Hidden input to store questions as text -->
                 <input type="hidden" name="quiz_content" id="quiz_content">
+                <input type="hidden" name="question_data" id="question_data">
 
                 <br>
-                <button type="submit" class="done-button" id="save-button">Save</button>
+                <button type="submit" class="btn btn-success" id="save-btn">Save Quiz</button>
             </div>
 
             <div id="legacy-editor">
-                <button type="button" class="legacy-btn" onclick="showModernEditor()">Use New Editor</button>
-                <textarea name="quiz_content" id="legacy-textarea" placeholder="Enter your quiz text here..." style="width:100%;height:300px;padding:10px;font-size:14px;">{{ quiz_content }}</textarea>
+                <h3>Legacy Editor</h3>
+                <textarea name="quiz_content" id="legacy-textarea" placeholder="Enter your quiz in text format..." style="width:100%;height:300px;padding:10px;font-size:14px;">{{ quiz_content }}</textarea>
                 <br>
-                <button type="submit" class="done-button" id="save-button-legacy">Save</button>
+                <button type="submit" class="btn btn-success" id="save-btn-legacy">Save Quiz</button>
             </div>
         </form>
         <br>
-        <a href="{{ url_for('home') }}">Back to Home</a>
+        <a href="{{ url_for('home') }}" class="btn">Back to Home</a>
     </div>
 
     <script>
         let questions = [];
         let editingIndex = -1;
 
-        // Parse initial quiz_content into questions
+        // Parse initial quiz_content
         function parseQuizContent(content) {
             const lines = content.split('\n').map(line => line.trim()).filter(line => line);
             questions = [];
-            for (let i = 0; i < lines.length; i += 2) {
+            let i = 0;
+            while (i < lines.length) {
                 const question = lines[i];
-                const answer = lines[i + 1] || '';
-                questions.push({ question, answer });
+                i += 2; // Skip blank line
+                const answers = [];
+                let correctIndex = -1;
+                let type = 'typein';
+                while (i < lines.length && lines[i] !== '') {
+                    let ans = lines[i];
+                    if (ans.startsWith('*')) {
+                        ans = ans.substring(1);
+                        correctIndex = answers.length;
+                        type = 'mc';
+                    }
+                    answers.push(ans);
+                    i++;
+                }
+                if (type === 'mc' && answers.length > 1) {
+                    questions.push({question, answers, correctIndex, type});
+                } else if (type === 'typein' && answers.length === 1) {
+                    questions.push({question, answers, correctIndex: 0, type});
+                }
+                i++; // Skip blank line
             }
             updateQuestionsList();
         }
 
-        // Load initial content
         document.addEventListener("DOMContentLoaded", function() {
             const initialContent = `{{ quiz_content | replace('\\', '\\\\') | replace('`', '\\`') | replace('${', '\\${') }}`;
             parseQuizContent(initialContent);
 
-            const form = document.getElementById("edit-form");
-            const saveButton = document.getElementById("save-button");
-            const saveButtonLegacy = document.getElementById("save-button-legacy");
-
-            form.addEventListener("submit", function(e) {
-                if (document.getElementById('modern-editor').style.display !== 'none') {
-                    // For modern editor, generate text from questions
-                    const text = questions.map(q => q.question + '\n' + q.answer).join('\n');
-                    document.getElementById('quiz_content').value = text;
-                }
-                // For legacy, it's already in the textarea
-                saveButton.textContent = "Saving...";
-                saveButtonLegacy.textContent = "Saving...";
+            document.querySelectorAll('input[name="qtype"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'mc') {
+                        document.getElementById('mc-options').style.display = 'block';
+                        document.getElementById('typein-option').style.display = 'none';
+                    } else {
+                        document.getElementById('mc-options').style.display = 'none';
+                        document.getElementById('typein-option').style.display = 'block';
+                    }
+                });
             });
         });
 
         function addQuestion() {
-            const questionInput = document.getElementById('question');
-            const answerInput = document.getElementById('answer');
-            const question = questionInput.value.trim();
-            const answer = answerInput.value.trim();
-            if (question && answer) {
-                if (editingIndex >= 0) {
-                    // Update existing
-                    questions[editingIndex] = { question, answer };
-                    editingIndex = -1;
-                    document.getElementById('add-btn').textContent = 'Add Question';
-                } else {
-                    // Add new
-                    questions.push({ question, answer });
+            const question = document.getElementById('question').value.trim();
+            const qtype = document.querySelector('input[name="qtype"]:checked').value;
+            let answers = [];
+            let correctIndex = -1;
+
+            if (qtype === 'mc') {
+                answers = Array.from(document.querySelectorAll('.answer')).map(input => input.value.trim()).filter(val => val);
+                const correctRadio = document.querySelector('input[name="correct"]:checked');
+                if (correctRadio) correctIndex = parseInt(correctRadio.value);
+                if (answers.length < 2 || correctIndex === -1 || correctIndex >= answers.length) {
+                    alert('Please enter at least 2 answers and select the correct one.');
+                    return;
                 }
-                updateQuestionsList();
-                questionInput.value = '';
-                answerInput.value = '';
+            } else {
+                const answer = document.getElementById('typein-answer').value.trim();
+                if (!answer) {
+                    alert('Please enter the correct answer.');
+                    return;
+                }
+                answers = [answer];
+                correctIndex = 0;
             }
+
+            if (!question) {
+                alert('Please enter a question.');
+                return;
+            }
+
+            if (editingIndex >= 0) {
+                questions[editingIndex] = {question, answers, correctIndex, type: qtype};
+                editingIndex = -1;
+                document.getElementById('add-btn').textContent = 'Add Question';
+            } else {
+                questions.push({question, answers, correctIndex, type: qtype});
+            }
+            updateQuestionsList();
+            resetForm();
+        }
+
+        function resetForm() {
+            document.getElementById('question').value = '';
+            document.querySelectorAll('.answer').forEach(input => input.value = '');
+            document.querySelectorAll('input[name="correct"]').forEach(radio => radio.checked = false);
+            document.getElementById('typein-answer').value = '';
         }
 
         function updateQuestionsList() {
@@ -154,17 +319,58 @@
             questions.forEach((q, idx) => {
                 const div = document.createElement('div');
                 div.className = 'question-item';
-                div.innerHTML = `<strong>Q${idx+1}:</strong> ${q.question}<br><strong>A:</strong> ${q.answer} 
-                    <button type="button" onclick="editQuestion(${idx})">Edit</button>
-                    <button type="button" onclick="removeQuestion(${idx})">Remove</button>`;
+                let answersText;
+                if (q.type === 'mc') {
+                    answersText = q.answers.map((a, i) => i === q.correctIndex ? `*${a}` : a).join(', ');
+                } else {
+                    answersText = q.answers[0];
+                }
+                div.innerHTML = `
+                    <div>
+                        <strong>Q${idx+1} (${q.type}):</strong> ${q.question}<br>
+                        <strong>A:</strong> ${answersText}
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-warning" onclick="editQuestion(${idx})">Edit</button>
+                        <button type="button" class="btn btn-danger" onclick="removeQuestion(${idx})">Remove</button>
+                    </div>
+                `;
                 container.appendChild(div);
             });
+            // Convert to text format
+            let text = '';
+            questions.forEach(q => {
+                text += q.question + '\n\n';
+                if (q.type === 'mc') {
+                    q.answers.forEach((ans, i) => {
+                        text += (i === q.correctIndex ? '*' : '') + ans + '\n';
+                    });
+                } else {
+                    text += q.answers[0] + '\n';
+                }
+                text += '\n';
+            });
+            document.getElementById('quiz_content').value = text.trim();
+            document.getElementById('question_data').value = JSON.stringify(questions);
         }
 
         function editQuestion(idx) {
             const q = questions[idx];
             document.getElementById('question').value = q.question;
-            document.getElementById('answer').value = q.answer;
+            if (q.type === 'mc') {
+                document.querySelector('input[name="qtype"][value="mc"]').checked = true;
+                document.getElementById('mc-options').style.display = 'block';
+                document.getElementById('typein-option').style.display = 'none';
+                document.querySelectorAll('.answer').forEach((input, i) => {
+                    input.value = q.answers[i] || '';
+                });
+                document.querySelector(`input[name="correct"][value="${q.correctIndex}"]`).checked = true;
+            } else {
+                document.querySelector('input[name="qtype"][value="typein"]').checked = true;
+                document.getElementById('mc-options').style.display = 'none';
+                document.getElementById('typein-option').style.display = 'block';
+                document.getElementById('typein-answer').value = q.answers[0];
+            }
             editingIndex = idx;
             document.getElementById('add-btn').textContent = 'Update Question';
         }
@@ -175,24 +381,26 @@
             if (editingIndex === idx) {
                 editingIndex = -1;
                 document.getElementById('add-btn').textContent = 'Add Question';
-                document.getElementById('question').value = '';
-                document.getElementById('answer').value = '';
+                resetForm();
             } else if (editingIndex > idx) {
                 editingIndex--;
             }
         }
 
-        function showLegacyEditor() {
-            document.getElementById('modern-editor').style.display = 'none';
-            document.getElementById('legacy-editor').style.display = 'block';
-        }
-
-        function showModernEditor() {
-            document.getElementById('legacy-editor').style.display = 'none';
-            document.getElementById('modern-editor').style.display = 'block';
-            // Update questions from legacy textarea if needed
-            const legacyText = document.getElementById('legacy-textarea').value;
-            parseQuizContent(legacyText);
+        function toggleEditor() {
+            const modern = document.getElementById('modern-editor');
+            const legacy = document.getElementById('legacy-editor');
+            if (modern.style.display === 'none') {
+                modern.style.display = 'block';
+                legacy.style.display = 'none';
+                // Sync legacy to modern
+                parseQuizContent(document.getElementById('legacy-textarea').value);
+            } else {
+                modern.style.display = 'none';
+                legacy.style.display = 'block';
+                // Sync modern to legacy
+                document.getElementById('legacy-textarea').value = document.getElementById('quiz_content').value;
+            }
         }
     </script>
 </body>

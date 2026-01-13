@@ -214,6 +214,9 @@ def home():
                 uploaded_data = json.load(f)
             user_uploaded = uploaded_data.get(ip, [])
             print("DEBUG: Uploaded quizzes for IP", ip, ":", user_uploaded)
+        # Special case: 127.0.0.1 has full access to all quizzes
+        if ip == "127.0.0.1":
+            user_uploaded = quizzes
         return render_template('home.html', quizzes=quizzes, user_uploaded=user_uploaded), 200
     except Exception as e:
         print("DEBUG: Error in home route:", str(e))
@@ -444,11 +447,14 @@ def makequiz():
             text_content = ""
             for q in questions:
                 text_content += q['question'] + "\n\n"
-                for i, ans in enumerate(q['answers']):
-                    if i in q['correctIndices']:
-                        text_content += "*" + ans + "\n"
-                    else:
-                        text_content += ans + "\n"
+                if q['type'] == 'mc':
+                    for i, ans in enumerate(q['answers']):
+                        if i == q['correctIndex']:
+                            text_content += "*" + ans + "\n"
+                        else:
+                            text_content += ans + "\n"
+                else:  # typein
+                    text_content += q['answers'][0] + "\n"
                 text_content += "\n"
             quiz_content = text_content.strip()
         except json.JSONDecodeError:

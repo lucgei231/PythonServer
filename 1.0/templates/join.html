@@ -21,8 +21,46 @@
         }
     </style>
     {% endif %}
+    <style>
+        @media (max-width: 768px) {
+            .join-container {
+                padding: 15px;
+                max-width: 100%;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            .game-code {
+                font-size: 18px;
+            }
+            .player-list li {
+                font-size: 16px;
+            }
+            .question-area {
+                padding: 15px;
+            }
+            .question-text {
+                font-size: 18px;
+            }
+            .answer-container {
+                padding: 10px;
+            }
+            .answer-option {
+                font-size: 16px;
+                padding: 12px;
+            }
+            .submit-answer {
+                font-size: 16px;
+                padding: 12px;
+            }
+            .leaderboard ol {
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <a href="{{ url_for('home') }}" style="position: absolute; top: 10px; right: 10px; background: green; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; z-index: 1000;">Home</a>
     <div class="quiz-container">
         <h2>Join Quiz</h2>
         <div id="join-form">

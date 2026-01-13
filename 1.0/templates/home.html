@@ -30,6 +30,32 @@
       border-radius: 5px;
       margin-left: 10px;
     }
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-buttons {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .header-buttons a {
+        margin-left: 0;
+      }
+      .quiz-list li {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .quiz-list .quiz-btn, .quiz-list .edit-btn, .quiz-list .delete-btn {
+        margin: 5px 0;
+      }
+    }
   </style>
   <script>
     // Refresh page when connection is restored

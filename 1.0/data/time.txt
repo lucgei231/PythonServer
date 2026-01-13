@@ -2,43 +2,45 @@
 Best Quiz
     Who toots the most? 3.55
     Who owns the window couch? 2
+MC Quiz 3
+    Who painted the Mona Lisa? 1.76
+MC Quiz 3
+MC Quiz 3
 Cooking Quiz
-Cooking Quiz
+Cooking Quiz 2
 Bacon the Dog Quiz
+secret
 Bacon the Dog Quiz
 cool poo
-secret
 Example Quiz
 MCreator
 
 192.168.50.94
 Minecraft Quiz 2
 Minecraft Quiz
+    What are you looking for when using a map to locate a Woodland Mansion? 3.66
+    What is the name of the default Minecraft character with brown hair? 0.88
 C++ Quiz
 MCreator
+    What is MCreator primarily used for? 7.68
+    Which programming language is commonly used with MCreator? 4.28
+    What is the name of the graphical interface in MCreator for creating mod elements? 4.79
+    Can MCreator generate code automatically for mod elements? 2.76
+    What is the default file format for MCreator workspaces? 24.16
 quiz
 AIS
 Best Quiz
 192.168.50.1
 192.168.50.80
 secret
-    bum bum 5.02
+    bum bum 5.01
     spaghetti 1.99
 192.168.50.6
 62.64.192.134
 Example Quiz
 cool poo
     cool poo 4.11
-Bacon the Dog Quiz
-    is he smelly? 3.48
-    does he have a big brown spot 3.00
-Cooking Quiz
-    What cooking method involves submerging food in hot oil? 3.18
-    What utensil is used to measure dry ingredients? 1.72
 Cooking Quiz 3
-    What cooking method involves submerging food in hot oil? 5.92
-    What utensil is used to measure dry ingredients? 7.58
-    What is the term for cooking food slowly in liquid? 214.97
 quiz for lucas
     Which Minecraft file type is used to define custom item models? 9.35
     What is the core design philosophy behind Command Maker? 11.22
@@ -50,7 +52,15 @@ quiz for lucas
     What is the purpose of a Vercel deployment preview? 3.02
     Which Minecraft command is used to run logic repeatedly? 8.25
     What PowerShell cmdlet lists running processes? 10.63
-    Which UI pattern is ideal for modular dashboards? 1.67
-192.168.50.1
-Minecraft Quiz
-    What are you looking for when using a map to locate a Woodland Mansion? 3.66
+    Which UI pattern is ideal for modular dashboards? 12.73
+    Which protocol does SMB rely on? 9.15
+    What is the purpose of environment variables in development? 7.53
+    Which Minecraft sound format is used in resource packs? 3.06
+    What is the main benefit of modular code architecture? 1.75
+    Which Vercel feature handles backend logic? 3.93
+    What Windows tool manages credentials for SMB shares? 9.77
+    Which Minecraft command block mode runs every tick? 8.19
+    What is the purpose of a reverse proxy? 2.88
+    Which JavaScript library is commonly used for reactive dashboards? 4.01
+    What is the advantage of using NBT data in Minecraft? 0.68
+Common Knowledge Quiz

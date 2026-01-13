@@ -1,5 +1,0 @@
-1: Type Example
-example
-
-2: Type Example
-example
