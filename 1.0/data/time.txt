@@ -2,11 +2,10 @@
 Best Quiz
     Who toots the most? 3.55
     Who owns the window couch? 2
-Test Quiz
-    hayy 1.82
-Test Quiz
 Bacon the Dog Quiz
-Bacon the Dog Quiz
+Cooking Quiz 3
+Test Quiz
+Test Quiz
 quiz for lucas
 secret
 cool poo
@@ -66,3 +65,10 @@ quiz for lucas
     Which JavaScript library is commonly used for reactive dashboards? 4.01
     What is the advantage of using NBT data in Minecraft? 0.68
 Common Knowledge Quiz
+Bacon the Dog Quiz
+    does he have a big brown spot 7.75
+192.168.50.1
+C++ Quiz
+    Who invented C++? 5.67
+MCreator
+    What is MCreator primarily used for? 36.47

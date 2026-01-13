@@ -5,63 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make Quiz</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <div class="card">
-            <h1>✏️ Create New Quiz</h1>
-            <form id="quiz-form" method="POST">
-                <div class="form-group">
-                    <label for="quiz-name">Quiz Name:</label>
-                    <input type="text" id="quiz-name" name="quiz_name" placeholder="Enter quiz name" required>
-                </div>
-
-                <div id="questions-container"></div>
-
-                <div id="question-editor" class="card" style="margin-top: 2rem;">
-                    <h3>Add Question</h3>
-                    <div class="form-group">
-                        <label for="question">Question:</label>
-                        <input type="text" id="question" placeholder="Enter your question">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Question Type:</label>
-                        <div class="question-type">
-                            <label><input type="radio" name="qtype" value="mc" checked> Multiple Choice</label>
-                            <label><input type="radio" name="qtype" value="typein"> Type-in Answer</label>
-                        </div>
-                    </div>
-
-                    <div id="mc-options" class="form-group">
-                        <label>Answers (select the correct one):</label>
-                        <div id="answers-container">
-                            <div class="answer-input" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                                <input type="text" class="answer" placeholder="Answer 1">
-                                <input type="radio" name="correct" value="0" checked>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-secondary" onclick="addAnswer()">➕ Add Answer</button>
-                    </div>
-
-                    <div id="typein-option" class="form-group" style="display: none;">
-                        <label for="typein-answer">Correct Answer:</label>
-                        <input type="text" id="typein-answer" placeholder="Enter the correct answer">
-                    </div>
-
-                    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                        <button type="button" class="btn btn-primary" onclick="addQuestion()">➕ Add Question</button>
-                        <button type="button" class="btn btn-success" onclick="generateQuiz()">🎯 Generate Quiz</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        <div class="card" id="preview-section" style="display: none;">
-            <h2>Quiz Preview</h2>
-            <div id="preview-content"></div>
-        </div>
-    </div>
+    <style>
         .answers-section {
             margin-left: 20px;
         }
@@ -73,30 +17,6 @@
         .answer-input input[type="text"] {
             flex: 1;
             margin-right: 10px;
-        }
-        .btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-        .btn:hover {
-            background-color: #0056b3;
-        }
-        .btn-danger {
-            background-color: #dc3545;
-        }
-        .btn-danger:hover {
-            background-color: #c82333;
-        }
-        .btn-success {
-            background-color: #28a745;
-        }
-        .btn-success:hover {
-            background-color: #218838;
         }
         .question-list {
             margin-top: 20px;
@@ -115,18 +35,6 @@
         .question-item:last-child {
             border-bottom: none;
         }
-        .legacy-btn {
-            background: #6c757d;
-            color: #fff;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-bottom: 15px;
-        }
-        #legacy-editor {
-            display: none;
-        }
         @media (max-width: 768px) {
             .makequiz-container {
                 margin: 10px;
@@ -143,16 +51,14 @@
     </style>
 </head>
 <body>
-    <div class="makequiz-container">
-        <h1>Create Your Quiz</h1>
-        {% if message %}
-        <p style="color: green; text-align: center;">{{ message }}</p>
-        {% endif %}
+    <div class="container">
+        <div class="card">
+            <h1>✏️ Create New Quiz</h1>
+            {% if message %}
+            <p style="color: green; text-align: center;">{{ message }}</p>
+            {% endif %}
 
-        <button type="button" class="legacy-btn" onclick="toggleEditor()">Toggle Legacy Editor</button>
-
-        <form id="quiz-form" method="POST" action="{{ url_for('makequiz') }}">
-            <div id="modern-editor">
+            <form id="quiz-form" method="POST" action="{{ url_for('makequiz') }}">
                 <div class="form-group">
                     <label for="filename">Quiz Name:</label>
                     <input type="text" name="filename" id="filename" required placeholder="Enter quiz name">
@@ -200,7 +106,7 @@
                         <input type="text" id="typein-answer" placeholder="Enter the correct answer">
                     </div>
 
-                    <button type="button" class="btn" onclick="addQuestion()">Add Question</button>
+                    <button type="button" class="btn btn-primary" onclick="addQuestion()">➕ Add Question</button>
                 </div>
 
                 <div class="question-list">
@@ -212,17 +118,11 @@
 
                 <br>
                 <button type="submit" class="btn btn-success">Create Quiz</button>
-            </div>
+            </form>
 
-            <div id="legacy-editor">
-                <h3>Legacy Editor</h3>
-                <textarea name="quiz_content_legacy" placeholder="Enter your quiz in text format (Question\nAnswer options with * for correct)..." style="width:100%;height:300px;padding:10px;font-size:14px;"></textarea>
-                <br>
-                <button type="submit" class="btn btn-success">Create Quiz</button>
-            </div>
-        </form>
-        <br>
-        <a href="{{ url_for('home') }}" class="btn">Back to Home</a>
+            <br>
+            <a href="{{ url_for('home') }}" class="btn">Back to Home</a>
+        </div>
     </div>
 
     <script>
@@ -298,9 +198,9 @@
                         <strong>Q${idx+1} (${q.type}):</strong> ${q.question}<br>
                         <strong>A:</strong> ${answersText}
                     </div>
-                <div>
-                    <button type="button" class="btn btn-danger" onclick="removeQuestion(${idx})">🗑️ Remove</button>
-                </div>
+                    <div>
+                        <button type="button" class="btn btn-danger" onclick="removeQuestion(${idx})">🗑️ Remove</button>
+                    </div>
                 `;
                 container.appendChild(div);
             });
@@ -310,18 +210,6 @@
         function removeQuestion(idx) {
             questions.splice(idx, 1);
             updateQuestionsList();
-        }
-
-        function toggleEditor() {
-            const modern = document.getElementById('modern-editor');
-            const legacy = document.getElementById('legacy-editor');
-            if (modern.style.display === 'none') {
-                modern.style.display = 'block';
-                legacy.style.display = 'none';
-            } else {
-                modern.style.display = 'none';
-                legacy.style.display = 'block';
-            }
         }
     </script>
 </body>

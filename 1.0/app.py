@@ -6,6 +6,9 @@ import re
 import sys
 import threading
 
+import gevent.monkey
+gevent.monkey.patch_all()
+
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for, send_file
 
 from flask_socketio import SocketIO, emit, join_room, leave_room
@@ -17,7 +20,7 @@ from non_static.utils import read_uploaded_json, write_uploaded_json
 app = Flask(__name__, template_folder="templates")
 app.secret_key = "your_random_secret_key_here"
 
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode='gevent')
 
 # Ensure the logs directory exists.
 logs_dir = os.path.join(os.path.dirname(__file__), "logs")
@@ -374,6 +377,7 @@ def edit_quiz(quiz_name):
             with open(quiz_file, "w", encoding="utf-8") as f:
                 f.write(new_content)
                 print(get_client_ip(), "Saved edits to", quiz_name, " successfully.")
+            message = "Quiz updated successfully."
         except Exception as e:
             return f"Error updating quiz text: {str(e)}", 500
 
@@ -404,6 +408,12 @@ def quiz_validate(quiz_name):
     if current_index >= len(questions):
         current_index = 0
     q = questions[current_index]
+    # Convert answer to int for MC questions
+    if q['type'] == 'mc':
+        try:
+            answer = int(answer)
+        except ValueError:
+            answer = None
     is_correct = validate_answer(q, answer)
     if is_correct:
         new_index = current_index + 1
@@ -535,6 +545,17 @@ def submit_answer(quiz_name):
         question_data = {}
 
     current_index = question_data.get(client_ip, 0)
+    question = questions[current_index]
+    answer = request.form.get('answer')
+    if question.type == 'mc':
+        try:
+            answer = int(answer)
+        except:
+            answer = None
+    is_correct = validate_answer(question, answer)
+    if not is_correct:
+        return redirect(url_for('get_quiz_json', quiz_name=quiz_name) + '?error=incorrect')
+    
     new_index = current_index + 1
 
     print(datetime.datetime.now(), client_ip, f"Quiz '{quiz_name}': current_index={current_index}, new_index={new_index}, total_questions={len(questions)}")
@@ -910,7 +931,8 @@ def handle_reveal_answers(data):
         emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer_text, 'submitted_answers': submitted_answers}, room=code)
 
 if __name__ == '__main__':
-    print(datetime.datetime.now(), "Server is not running. Starting Server...")
+    print(datetime.datetime.now(), "Server is not running. St
+          arting Server...")
     socketio.run(app, debug=True, host="0.0.0.0", port=5710)
     print(datetime.datetime.now(), "Server Error. Stopping Server...")
     # Optional: Add any cleanup code here if needed.

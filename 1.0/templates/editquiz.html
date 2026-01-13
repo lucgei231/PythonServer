@@ -117,9 +117,6 @@
             cursor: pointer;
             margin-bottom: 15px;
         }
-        #legacy-editor {
-            display: none;
-        }
         @media (max-width: 768px) {
             .editquiz-container {
                 margin: 10px;
@@ -142,8 +139,6 @@
         <p style="color: green; text-align: center;">{{ message }}</p>
         {% endif %}
 
-        <button type="button" class="legacy-btn" onclick="toggleEditor()">Toggle Legacy Editor</button>
-
         <form id="edit-form" method="POST" action="{{ url_for('edit_quiz', quiz_name=quiz_name) }}">
             <div id="modern-editor">
                 <div id="question-section">
@@ -163,7 +158,7 @@
 
                     <div id="mc-options" class="form-group">
                         <label>Answers (select the correct one):</label>
-                        <div class="answers-section">
+                        <div class="answers-section" id="answers-container">
                             <div class="answer-input">
                                 <input type="text" class="answer" placeholder="Answer 1">
                                 <input type="radio" name="correct" value="0">
@@ -181,6 +176,7 @@
                                 <input type="radio" name="correct" value="3">
                             </div>
                         </div>
+                        <button type="button" class="btn btn-secondary" onclick="addAnswer()">➕ Add Answer</button>
                     </div>
 
                     <div id="typein-option" class="form-group" style="display: none;">
@@ -202,13 +198,6 @@
                 <button type="submit" class="btn btn-success" id="save-btn">Save Quiz</button>
             </div>
 
-            <div id="legacy-editor">
-                <h3>Legacy Editor</h3>
-                <textarea name="quiz_content" id="legacy-textarea" placeholder="Enter your quiz in text format..." style="width:100%;height:300px;padding:10px;font-size:14px;">{{ quiz_content }}</textarea>
-                <br>
-                <button type="submit" class="btn btn-success" id="save-btn-legacy">Save Quiz</button>
-            </div>
-        </form>
         <br>
         <a href="{{ url_for('home') }}" class="btn">Back to Home</a>
     </div>
@@ -359,10 +348,17 @@
                 document.querySelector('input[name="qtype"][value="mc"]').checked = true;
                 document.getElementById('mc-options').style.display = 'block';
                 document.getElementById('typein-option').style.display = 'none';
-                document.querySelectorAll('.answer').forEach((input, i) => {
-                    input.value = q.answers[i] || '';
+                const container = document.getElementById('answers-container');
+                container.innerHTML = '';
+                q.answers.forEach((ans, i) => {
+                    const div = document.createElement('div');
+                    div.className = 'answer-input';
+                    div.innerHTML = `
+                        <input type="text" class="answer" placeholder="Answer ${i + 1}" value="${ans}">
+                        <input type="radio" name="correct" value="${i}" ${i === q.correctIndex ? 'checked' : ''}>
+                    `;
+                    container.appendChild(div);
                 });
-                document.querySelector(`input[name="correct"][value="${q.correctIndex}"]`).checked = true;
             } else {
                 document.querySelector('input[name="qtype"][value="typein"]').checked = true;
                 document.getElementById('mc-options').style.display = 'none';
@@ -385,20 +381,16 @@
             }
         }
 
-        function toggleEditor() {
-            const modern = document.getElementById('modern-editor');
-            const legacy = document.getElementById('legacy-editor');
-            if (modern.style.display === 'none') {
-                modern.style.display = 'block';
-                legacy.style.display = 'none';
-                // Sync legacy to modern
-                parseQuizContent(document.getElementById('legacy-textarea').value);
-            } else {
-                modern.style.display = 'none';
-                legacy.style.display = 'block';
-                // Sync modern to legacy
-                document.getElementById('legacy-textarea').value = document.getElementById('quiz_content').value;
-            }
+        function addAnswer() {
+            const container = document.getElementById('answers-container');
+            const answerCount = container.querySelectorAll('.answer-input').length;
+            const div = document.createElement('div');
+            div.className = 'answer-input';
+            div.innerHTML = `
+                <input type="text" class="answer" placeholder="Answer ${answerCount + 1}">
+                <input type="radio" name="correct" value="${answerCount}">
+            `;
+            container.appendChild(div);
         }
     </script>
 </body>

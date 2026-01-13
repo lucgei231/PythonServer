@@ -411,6 +411,9 @@
 <body>
   <div class="container">
     <div class="card">
+      {% if request.args.get('error') == 'incorrect' %}
+      <div class="alert alert-error">❌ Incorrect answer! Please try again.</div>
+      {% endif %}
       <div class="header-container">
         <div class="question-number">
           📋 Question {{ question_index|default(1) }} of {{ quiz_total|default(1) }}
@@ -429,8 +432,11 @@
         <button type="button" onclick="speakText(`{{ question.question|e }}`)" class="btn btn-secondary" style="margin-left: 1rem;">🔊 Speak</button>
       </div>
       
+      <div id="feedback" style="margin: 1rem 0; font-weight: bold;"></div>
+      
       {% if question.type == 'mc' %}
-        <form id="answer-form">
+        <form id="answer-form" action="{{ url_for('submit_answer', quiz_name=quiz_name) }}" method="post" onsubmit="attachTime(event)">
+          <input type="hidden" id="timeElapsed" name="time_elapsed" value="0">
           {% for ans in question.answers %}
           <div class="answer">
             <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border: 2px solid rgba(0,0,0,0.1); border-radius: var(--border-radius); cursor: pointer; transition: all 0.2s;">
@@ -439,15 +445,16 @@
             </label>
           </div>
           {% endfor %}
-          <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Submit Answer</button>
+          <button type="submit" class="btn btn-primary" id="submitAnswerButton" style="margin-top: 1rem;">Submit Answer</button>
         </form>
       {% else %}
-        <form id="answer-form">
+        <form id="answer-form" action="{{ url_for('submit_answer', quiz_name=quiz_name) }}" method="post" onsubmit="attachTime(event)">
+          <input type="hidden" id="timeElapsed" name="time_elapsed" value="0">
           <div class="form-group">
             <label for="answer-input">Your Answer:</label>
             <input type="text" id="answer-input" name="answer" autocomplete="off" style="font-size: 1.2rem; padding: 1rem;">
           </div>
-          <button type="submit" class="btn btn-primary">Submit Answer</button>
+          <button type="submit" class="btn btn-primary" id="submitAnswerButton">Submit Answer</button>
         </form>
       {% endif %}
     </div>
