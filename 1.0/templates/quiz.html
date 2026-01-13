@@ -2,32 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Question</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz - {{ quiz_name }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <style>
     .header-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
-      border-bottom: 1px solid #ccc;
-      margin-bottom: 20px;
+      margin-bottom: 2rem;
     }
     .question-number {
-      font-size: 18px;
-      font-weight: bold;
-    }
-    
-    .home-button a {
-      background-color: green;
-      color: white;
-      padding: 10px 15px;
-      text-decoration: none;
-      border-radius: 5px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary-color);
     }
     .timer {
-      font-size: 16px;
-      color: #333;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      font-weight: 500;
     }
     .offline-bar {
       display: none;
@@ -35,14 +28,11 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: #d32f2f;
-      color: #fff;
+      background: var(--danger-color);
+      color: white;
       text-align: center;
-      padding: 16px 0;
-      font-size: 18px;
-      z-index: 9999;
-      font-weight: bold;
-      letter-spacing: 1px;
+      padding: 1rem;
+      font-weight: 600;
     }
     .loading-bar-container {
       display: none;
@@ -50,54 +40,32 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: #fff;
-      color: #000;
+      background: white;
       text-align: center;
-      z-index: 10000;
-      height: 40px;
-      font-size: 18px;
-      font-weight: bold;
+      height: 3rem;
+      font-weight: 600;
+      border-top: 3px solid var(--primary-color);
     }
     .loading-bar {
       height: 100%;
-      background: #2196f3;
+      background: var(--primary-color);
       width: 0%;
       transition: width 0.2s;
-      position: absolute;
-      left: 0;
-      top: 0;
-      z-index: 10001;
     }
     .loading-bar-text {
-      position: relative;
-      z-index: 10002;
-      line-height: 40px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
     @media (max-width: 768px) {
       .header-container {
-        padding: 10px;
         flex-direction: column;
         align-items: flex-start;
+        gap: 1rem;
       }
-      .question-number {
-        font-size: 16px;
-      }
-      .timer {
-        font-size: 14px;
-        margin-top: 5px;
-      }
-      .home-button a {
-        padding: 8px 12px;
-        font-size: 14px;
-      }
-      .quiz-container {
-        padding: 15px;
-      }
-      .question-text {
-        font-size: 18px;
-      }
-      .answer-container {
-        padding: 10px;
+    }
+  </style>
       }
       .answer-option {
         font-size: 16px;
@@ -452,49 +420,53 @@
   </script>
 
 <body>
-  <div class="header-container">
-    <div class="question-number">
-      Question: {{ question_index|default(1) }} / {{ quiz_total|default(1) }}
-    </div>
-    <div class="home-button">
-      <a href="#" onclick="saveTimeAndGoHome()">Home</a>
-    </div>
-    <div class="timer" id="timer-display" style="display: flex; align-items: center; gap: 8px;">
-      <span>Time: <span id="timer-seconds">0 sec</span></span>
-      <button
-        id="restart-quiz-btn"
-        title="Restart Quiz"
-        style="background:none;border:none;padding:0;margin-left:8px;vertical-align:middle;cursor:pointer;"
-        onclick="restartQuiz(event)"
-        aria-label="Restart Quiz"
-      >
-        <img id="restart-img" src="{{ url_for('static', filename='/data/restart.jpg') }}" alt="Restart" style="height:28px;width:28px;vertical-align:middle;">
-      </button>
+  <div class="container">
+    <div class="card">
+      <div class="header-container">
+        <div class="question-number">
+          📋 Question {{ question_index|default(1) }} of {{ quiz_total|default(1) }}
+        </div>
+        <div class="timer" id="timer-display">
+          ⏱️ Time: <span id="timer-seconds">0 sec</span>
+          <button id="restart-quiz-btn" class="btn btn-secondary" onclick="restartQuiz(event)" title="Restart Quiz" style="padding: 0.5rem; margin-left: 0.5rem;">
+            🔄
+          </button>
+        </div>
+        <a href="#" onclick="saveTimeAndGoHome()" class="btn btn-success">🏠 Home</a>
+      </div>
+      
+      <div class="question">
+        {{ question.question }}
+        <button type="button" onclick="speakText(`{{ question.question|e }}`)" class="btn btn-secondary" style="margin-left: 1rem;">🔊 Speak</button>
+      </div>
+      
+      {% if question.type == 'mc' %}
+        <form id="answer-form">
+          {% for ans in question.answers %}
+          <div class="answer">
+            <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border: 2px solid rgba(0,0,0,0.1); border-radius: var(--border-radius); cursor: pointer; transition: all 0.2s;">
+              <input type="radio" name="answer" value="{{ loop.index0 }}" style="margin: 0;">
+              <span>{{ ans }}</span>
+            </label>
+          </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Submit Answer</button>
+        </form>
+      {% else %}
+        <form id="answer-form">
+          <div class="form-group">
+            <label for="answer-input">Your Answer:</label>
+            <input type="text" id="answer-input" name="answer" autocomplete="off" style="font-size: 1.2rem; padding: 1rem;">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Answer</button>
+        </form>
+      {% endif %}
     </div>
   </div>
-  <div class="question-container">
-    <h1>
-      {{ question.question }}
-      <button type="button" onclick="speakText(`{{ question.question|e }}`)" style="margin-left:10px;">🔊 Speak</button>
-    </h1>
-    {% if question.type == 'mc' %}
-      <ul id="options-list">
-        {% for ans in question.answers %}
-          <li><label><input type="radio" name="answer" value="{{ loop.index0 }}"> {{ ans }}</label></li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-    <form id="answer-form" action="{{ url_for('submit_answer', quiz_name=quiz_name) }}" method="post" onsubmit="attachTime(event)">
-      <input type="hidden" id="timeElapsed" value="0">
-      <input type="text" name="answer" placeholder="Your Answer" {% if question.type == 'mc' %}style="display:none;"{% endif %}>
-      <input type="submit" id="submitAnswerButton" value="Submit Answer">
-    </form>
-    <div id="feedback" style="margin-top:10px; font-weight:bold;"></div>
-  </div>
-  <div id="offline-bar" class="offline-bar">No Internet Connection</div>
+  <div id="offline-bar" class="offline-bar">📶 No Internet Connection</div>
   <div id="loading-bar-container" class="loading-bar-container">
     <div class="loading-bar" id="loading-bar"></div>
-    <div class="loading-bar-text">Loading</div>
+    <div class="loading-bar-text">Loading...</div>
   </div>
 </body>
 </html>

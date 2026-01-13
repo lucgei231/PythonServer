@@ -5,49 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make Quiz</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .makequiz-container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"], textarea, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .question-type {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        .question-type label {
-            display: inline;
-            font-weight: normal;
-        }
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>✏️ Create New Quiz</h1>
+            <form id="quiz-form" method="POST">
+                <div class="form-group">
+                    <label for="quiz-name">Quiz Name:</label>
+                    <input type="text" id="quiz-name" name="quiz_name" placeholder="Enter quiz name" required>
+                </div>
+
+                <div id="questions-container"></div>
+
+                <div id="question-editor" class="card" style="margin-top: 2rem;">
+                    <h3>Add Question</h3>
+                    <div class="form-group">
+                        <label for="question">Question:</label>
+                        <input type="text" id="question" placeholder="Enter your question">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Question Type:</label>
+                        <div class="question-type">
+                            <label><input type="radio" name="qtype" value="mc" checked> Multiple Choice</label>
+                            <label><input type="radio" name="qtype" value="typein"> Type-in Answer</label>
+                        </div>
+                    </div>
+
+                    <div id="mc-options" class="form-group">
+                        <label>Answers (select the correct one):</label>
+                        <div id="answers-container">
+                            <div class="answer-input" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <input type="text" class="answer" placeholder="Answer 1">
+                                <input type="radio" name="correct" value="0" checked>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="addAnswer()">➕ Add Answer</button>
+                    </div>
+
+                    <div id="typein-option" class="form-group" style="display: none;">
+                        <label for="typein-answer">Correct Answer:</label>
+                        <input type="text" id="typein-answer" placeholder="Enter the correct answer">
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                        <button type="button" class="btn btn-primary" onclick="addQuestion()">➕ Add Question</button>
+                        <button type="button" class="btn btn-success" onclick="generateQuiz()">🎯 Generate Quiz</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="card" id="preview-section" style="display: none;">
+            <h2>Quiz Preview</h2>
+            <div id="preview-content"></div>
+        </div>
+    </div>
         .answers-section {
             margin-left: 20px;
         }
@@ -284,9 +298,9 @@
                         <strong>Q${idx+1} (${q.type}):</strong> ${q.question}<br>
                         <strong>A:</strong> ${answersText}
                     </div>
-                    <div>
-                        <button type="button" class="btn btn-danger" onclick="removeQuestion(${idx})">Remove</button>
-                    </div>
+                <div>
+                    <button type="button" class="btn btn-danger" onclick="removeQuestion(${idx})">🗑️ Remove</button>
+                </div>
                 `;
                 container.appendChild(div);
             });
