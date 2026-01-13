@@ -217,6 +217,7 @@
     <script>
         let questions = [];
         let editingIndex = -1;
+        let initialQuestionData = {{ question_data | tojson | safe }};
 
         // Parse initial quiz_content
         function parseQuizContent(content) {
@@ -251,7 +252,12 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             const initialContent = `{{ quiz_content | replace('\\', '\\\\') | replace('`', '\\`') | replace('${', '\\${') }}`;
-            parseQuizContent(initialContent);
+            if (initialQuestionData.length > 0) {
+                questions = initialQuestionData;
+                updateQuestionsList();
+            } else {
+                parseQuizContent(initialContent);
+            }
 
             document.querySelectorAll('input[name="qtype"]').forEach(radio => {
                 radio.addEventListener('change', function() {
