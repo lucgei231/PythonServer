@@ -6,9 +6,6 @@ import re
 import sys
 import threading
 
-import gevent.monkey
-gevent.monkey.patch_all()
-
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for, send_file
 
 from flask_socketio import SocketIO, emit, join_room, leave_room
@@ -932,11 +929,8 @@ def handle_reveal_answers(data):
 
 if __name__ == '__main__':
     print(datetime.datetime.now(), "Server is not running. Starting Server...")
-    socketio.run(app, debug=True, host="0.0.0.0", port=5710)
+    # Production: Use debug=False and recommend gunicorn with socketio
+    socketio.run(app, debug=False, host="0.0.0.0", port=5710)
     print(datetime.datetime.now(), "Server Error. Stopping Server...")
-    # Optional: Add any cleanup code here if needed.
-    print(datetime.datetime.now(), "Server stopped.")
-else:
-    print(datetime.datetime.now(), "There was an errror while starting the server:", __name__)
     # Optional: Add any cleanup code here if needed.
     print(datetime.datetime.now(), "Server stopped.")

@@ -24,12 +24,13 @@ Minecraft Quiz
     What is the name of the default Minecraft character with brown hair? 432.86
     What item is needed to craft a crafting table? 7.48
 C++ Quiz
-    Who invented C++? 5.67
+    Who invented C++? 3.27
+    What does daddy want? 227.91
 MCreator
-    What is MCreator primarily used for? 7.68
-    Which programming language is commonly used with MCreator? 4.28
-    What is the name of the graphical interface in MCreator for creating mod elements? 4.79
-    Can MCreator generate code automatically for mod elements? 2.76
+    What is MCreator primarily used for? 9.76
+    Which programming language is commonly used with MCreator? 3.13
+    What is the name of the graphical interface in MCreator for creating mod elements? 3.87
+    Can MCreator generate code automatically for mod elements? 2.96
     What is the default file format for MCreator workspaces? 24.16
 quiz
 AIS
@@ -37,7 +38,7 @@ Best Quiz
 192.168.50.1
 192.168.50.80
 secret
-    bum bum 5.01
+    bum bum 6.76
     spaghetti 1.99
 192.168.50.6
 62.64.192.134
@@ -46,8 +47,8 @@ cool poo
     cool poo 4.11
 Cooking Quiz 3
 quiz for lucas
-    Which Minecraft file type is used to define custom item models? 1.39
-    What is the core design philosophy behind Command Maker? 7.04
+    Which Minecraft file type is used to define custom item models? 13.79
+    What is the core design philosophy behind Command Maker? 13.09
     Which tool is commonly used to test API endpoints during dashboard development? 10.95
     What Windows command is used to map a network drive? 4.07
     Which Minecraft folder stores resource pack sounds? 3.15
@@ -114,6 +115,15 @@ Gettery quiz
     Does daddy like spagetti 2.56
     Who owns the window couch (yes I took this from Best Quiz) 3.66
     What's the window couch's name 5.59
+    Did daddy use to play Zelda with julie 4.51
+    Daddy likes sausyges 6.71
+    Does mama like Instagram or reddit more 5.49
+    What does mama not like 6.71
+    Who likes La Sausyges 6.60
+    What does daddy want? 33.84
+192.168.50.211
+Cooking Quiz 2
+    What cooking technique involves cooking food in a small amount of fat over moderate heat? 8.37
 192.168.50.1
-Gettery quiz
-    Did daddy use to play Zelda with julie 1.20
+MCreator
+    What is MCreator primarily used for? 1.22
