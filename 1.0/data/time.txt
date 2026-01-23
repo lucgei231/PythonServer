@@ -27,10 +27,10 @@ C++ Quiz
     Who invented C++? 3.27
     What does daddy want? 227.91
 MCreator
-    What is MCreator primarily used for? 9.76
-    Which programming language is commonly used with MCreator? 3.13
-    What is the name of the graphical interface in MCreator for creating mod elements? 3.87
-    Can MCreator generate code automatically for mod elements? 2.96
+    What is MCreator primarily used for? 10.45
+    Which programming language is commonly used with MCreator? 22.40
+    What is the name of the graphical interface in MCreator for creating mod elements? 6.54
+    Can MCreator generate code automatically for mod elements? 0.82
     What is the default file format for MCreator workspaces? 24.16
 quiz
 AIS
@@ -111,6 +111,7 @@ MC Quiz 3
     What is the process by which plants make their own food? 3.37
     Which famous scientist developed the theory of relativity? 6.15
     Which element is essential for human bones? 10.04
+    What is the capital of France? 3.13
 Gettery quiz
     Does daddy like spagetti 2.56
     Who owns the window couch (yes I took this from Best Quiz) 3.66
@@ -124,6 +125,7 @@ Gettery quiz
 192.168.50.211
 Cooking Quiz 2
     What cooking technique involves cooking food in a small amount of fat over moderate heat? 8.37
-192.168.50.1
-MCreator
-    What is MCreator primarily used for? 1.22
+31.94.16.126
+62.64.192.134
+MC Quiz 3
+    Which planet is known as the Red Planet? 11.21

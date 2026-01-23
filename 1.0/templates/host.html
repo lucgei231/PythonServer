@@ -26,6 +26,9 @@
         .btn-container {
             margin: 20px 0;
         }
+        #player-list-container.hidden {
+            display: none !important;
+        }
     </style>
     {% if is_mobile %}
     <style>
@@ -99,7 +102,7 @@
             <h3>QR Code</h3>
             <img src="https://lucgei231.github.io/PythonServer/1.0/data/qr.png" alt="QR Code" style="max-width: 200px;">
         </div>
-        <div class="player-list">
+        <div id="player-list-container" class="player-list">
             <h3>Players:</h3>
             <ul id="player-list"></ul>
         </div>
@@ -149,10 +152,20 @@
             updatePlayerList();
         });
 
+        socket.on('player_left', (data) => {
+            const playerName = data.name;
+            players = players.filter(name => name !== playerName);
+            document.getElementById('player-count').textContent = players.length;
+            updatePlayerList();
+        });
+
         document.getElementById('start-game').addEventListener('click', () => {
             gameStarted = true;
             document.getElementById('start-game').style.display = 'none';
             document.getElementById('qr-code').style.display = 'none';
+            const playerListContainer = document.getElementById('player-list-container');
+            playerListContainer.style.display = 'none';
+            playerListContainer.classList.add('hidden');
             socket.emit('start_round', {code: code});
         });
 
@@ -243,13 +256,15 @@
         });
 
         function updatePlayerList() {
-            const ul = document.getElementById('player-list');
-            ul.innerHTML = '';
-            players.forEach(name => {
-                const li = document.createElement('li');
-                li.textContent = name;
-                ul.appendChild(li);
-            });
+            if (!gameStarted) {
+                const ul = document.getElementById('player-list');
+                ul.innerHTML = '';
+                players.forEach(name => {
+                    const li = document.createElement('li');
+                    li.textContent = name;
+                    ul.appendChild(li);
+                });
+            }
         }
     </script>
 </body>

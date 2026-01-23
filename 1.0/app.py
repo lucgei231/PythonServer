@@ -94,6 +94,8 @@ banned_ips = load_banned_ips()
 sessions = {}
 control_to_game = {}
 
+
+
 @app.before_request
 def check_banned_ip():
     ip = get_client_ip()
@@ -926,6 +928,49 @@ def handle_reveal_answers(data):
         emit('answers_revealed', {'correct_answer': correct_answer_text}, room=code)
         sessions[code]['state'] = 'leaderboard'
         emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer_text, 'submitted_answers': submitted_answers}, room=code)
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    # Remove player from all sessions
+    for code in list(sessions.keys()):
+        # Find and remove the player
+        for player in sessions[code]['players'][:]:  # Create a copy to iterate
+            if player['sid'] == request.sid:
+                player_name = player['name']
+                sessions[code]['players'].remove(player)
+                
+                # Remove from scores and last_correct
+                if player_name in sessions[code]['scores']:
+                    del sessions[code]['scores'][player_name]
+                if player_name in sessions[code]['last_correct']:
+                    del sessions[code]['last_correct'][player_name]
+                
+                # Remove from answers list
+                sessions[code]['answers'] = [ans for ans in sessions[code]['answers'] if ans['name'] != player_name]
+                
+                print(datetime.datetime.now(), f"Player '{player_name}' disconnected from game {code}")
+                
+                # Notify all players in the room that this player left using socketio.emit
+                socketio.emit('player_left', {'name': player_name}, room=code)
+                
+                # Update and broadcast the current leaderboard to all remaining players/host
+                if sessions[code]['state'] == 'leaderboard' and sessions[code]['scores']:
+                    leaderboard = []
+                    for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
+                        last_correct = sessions[code]['last_correct'].get(name)
+                        leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
+                    submitted_answers = {ans['name']: ans['answer_text'] for ans in sessions[code]['answers']}
+                    q_index = sessions[code]['current_q'] - 1
+                    q = sessions[code]['questions'][q_index] if q_index >= 0 and q_index < len(sessions[code]['questions']) else None
+                    correct_answer_text = ''
+                    if q:
+                        if q['type'] == 'mc':
+                            correct_answer_text = ', '.join(q['answers'][i] for i in q['correct_indices'])
+                        else:
+                            correct_answer_text = q['answer']
+                    socketio.emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer_text, 'submitted_answers': submitted_answers}, room=code)
+                
+                break
 
 if __name__ == '__main__':
     print(datetime.datetime.now(), "Server is not running. Starting Server...")

@@ -1,4 +1,5 @@
 @echo off
+:start
 REM Production server startup script
 REM For Windows: Uses Flask-SocketIO production-ready server
 REM Note: For Linux/Unix, use: gunicorn --worker-class geventwebsocket.gunicorn.workers.GeventWebSocketWorker -b 0.0.0.0:5710 -w 4 wsgi:app
@@ -15,3 +16,4 @@ cd /d "e:\PythonServer\PythonServer2\1.0"
 %PYTHON% wsgi.py
 
 pause
+goto start

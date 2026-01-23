@@ -97,7 +97,7 @@
         <h1>Controlling Quiz: {{ quiz_name }}</h1>
         <p>Game Code: <span class="game-code">{{ code }}</span></p>
         <p>Players Joined: <span id="player-count">0</span></p>
-        <div class="player-list">
+        <div id="player-list-container" class="player-list">
             <h3>Players:</h3>
             <ul id="player-list"></ul>
         </div>
@@ -148,6 +148,13 @@
 
         socket.on('player_joined', (data) => {
             players.push(data.name);
+            document.getElementById('player-count').textContent = players.length;
+            updatePlayerList();
+        });
+
+        socket.on('player_left', (data) => {
+            const playerName = data.name;
+            players = players.filter(name => name !== playerName);
             document.getElementById('player-count').textContent = players.length;
             updatePlayerList();
         });

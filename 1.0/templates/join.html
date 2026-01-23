@@ -97,6 +97,9 @@
         const socket = io();
         let code;
         let start_time;
+        let hasJoined = false;
+        let inactivityTimer = null;
+        const INACTIVITY_TIMEOUT = 3000; // 3 seconds
 
         // Auto-fill code from URL params
         const urlParams = new URLSearchParams(window.location.search);
@@ -105,6 +108,33 @@
             document.getElementById('code').value = urlCode;
         }
 
+        // Function to start the disconnect timer (when tab is hidden)
+        function startDisconnectTimer() {
+            if (inactivityTimer) {
+                clearTimeout(inactivityTimer);
+            }
+            inactivityTimer = setTimeout(() => {
+                console.log('Tab hidden for 3 seconds, disconnecting...');
+                socket.disconnect();
+            }, INACTIVITY_TIMEOUT);
+        }
+
+        // Track tab/window visibility only
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                // Tab switched away or window closed
+                console.log('Tab hidden, starting disconnect timer');
+                startDisconnectTimer();
+            } else {
+                // Tab came back into view
+                console.log('Tab visible again, stopping disconnect timer');
+                if (inactivityTimer) {
+                    clearTimeout(inactivityTimer);
+                    inactivityTimer = null;
+                }
+            }
+        });
+
         document.getElementById('join-btn').addEventListener('click', () => {
             code = document.getElementById('code').value;
             const name = document.getElementById('name').value;
@@ -112,6 +142,7 @@
         });
 
         socket.on('joined', (data) => {
+            hasJoined = true;
             document.getElementById('join-form').style.display = 'none';
             document.getElementById('lobby').style.display = 'block';
             // Display quiz name
