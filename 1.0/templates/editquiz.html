@@ -134,12 +134,19 @@
 </head>
 <body>
     <div class="editquiz-container">
-        <h1>Edit Quiz: {{ quiz_name }} (note this page is currently broken and idk how to fix it -lucas)</h1>
+        <h1>Edit Quiz: {{ quiz_name }}</h1>
         {% if message %}
         <p style="color: green; text-align: center;">{{ message }}</p>
         {% endif %}
 
+        <button type="button" class="legacy-btn" onclick="toggleEditor()">Switch to Legacy Text Editor</button>
+
         <form id="edit-form" method="POST" action="{{ url_for('edit_quiz', quiz_name=quiz_name) }}">
+            <div style="margin-bottom: 15px;">
+                <label for="new_quiz_name" style="font-weight: bold;">Rename Quiz (leave blank to keep current name):</label>
+                <input type="text" id="new_quiz_name" placeholder="New quiz name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
+            </div>
+
             <div id="modern-editor">
                 <div id="question-section">
                     <h3>Add/Edit Question</h3>
@@ -193,10 +200,22 @@
                 </div>
 
                 <input type="hidden" name="quiz_content" id="quiz_content">
+                <input type="hidden" name="new_quiz_name" id="form_new_quiz_name">
+                <input type="hidden" name="use_legacy" id="use_legacy" value="false">
 
                 <br>
                 <button type="submit" class="btn btn-success" id="save-btn">Save Quiz</button>
             </div>
+
+            <!-- Legacy Text Editor -->
+            <div id="legacy-editor" style="display: none;">
+                <h3>Quiz Content (Text Format):</h3>
+                <textarea id="legacy-content" name="legacy_content" style="width: 100%; height: 400px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: monospace;"></textarea>
+                <br><br>
+                <button type="submit" class="btn btn-success" id="save-legacy-btn">Save Quiz</button>
+            </div>
+
+        </form>
 
         <br>
         <a href="{{ url_for('home') }}" class="btn">Back to Home</a>
@@ -205,6 +224,51 @@
     <script>
         let questions = [];
         let editingIndex = -1;
+        let usingLegacy = false;
+
+        function toggleEditor() {
+            usingLegacy = !usingLegacy;
+            const modernEditor = document.getElementById('modern-editor');
+            const legacyEditor = document.getElementById('legacy-editor');
+            const toggleBtn = document.querySelector('.legacy-btn');
+            
+            if (usingLegacy) {
+                // Switch to legacy editor
+                modernEditor.style.display = 'none';
+                legacyEditor.style.display = 'block';
+                toggleBtn.textContent = 'Switch to Modern Editor';
+                
+                // Get current quiz content from modern editor
+                const currentContent = document.getElementById('quiz_content').value;
+                document.getElementById('legacy-content').value = currentContent;
+                document.getElementById('use_legacy').value = 'true';
+            } else {
+                // Switch to modern editor
+                modernEditor.style.display = 'block';
+                legacyEditor.style.display = 'none';
+                toggleBtn.textContent = 'Switch to Legacy Text Editor';
+                
+                // Get content from legacy editor and parse it
+                const legacyContent = document.getElementById('legacy-content').value;
+                parseQuizContent(legacyContent);
+                document.getElementById('use_legacy').value = 'false';
+            }
+        }
+
+        // Handle form submission to include rename
+        document.getElementById('edit-form').addEventListener('submit', function(e) {
+            const newName = document.getElementById('new_quiz_name').value.trim();
+            if (newName) {
+                document.getElementById('form_new_quiz_name').value = newName;
+            }
+            
+            if (!usingLegacy) {
+                // Modern editor: quiz_content is already set
+            } else {
+                // Legacy editor: copy legacy content to quiz_content
+                document.getElementById('quiz_content').value = document.getElementById('legacy-content').value;
+            }
+        });
 
         // Parse initial quiz_content
         function parseQuizContent(content) {

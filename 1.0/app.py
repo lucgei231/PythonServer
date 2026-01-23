@@ -173,8 +173,11 @@ def log_command():
         sys.stdout.flush()
     return jsonify({'status': 'logged'})
 
-@app.route('/kick', methods=['POST'])
+@app.route('/kick', methods=['POST', 'GET'])
 def kick():
+    if request.method == 'GET':
+        return render_template("error.html", message="Error: Use POST"), 405
+    
     data = request.get_json() or {}
     target_ip = data.get("ip", "").strip()
     if not target_ip:
@@ -345,45 +348,72 @@ def get_quiz_data(quiz_name):
 
 @app.route('/editquiz/<quiz_name>', methods=['GET', 'POST'])
 def edit_quiz(quiz_name):
+    client_ip = get_client_ip()
     quiz_file = os.path.join(os.path.dirname(__file__), "non_static", "quiz", f"{quiz_name}.txt")
     question_file = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{quiz_name}.json")
     
     if request.method == 'GET':
         # Read quiz text content.
-        print(get_client_ip(), "is currently editing", quiz_name)
+        print(client_ip, "is currently editing", quiz_name)
         try:
             with open(quiz_file, "r", encoding="utf-8") as f:
                 quiz_content = f.read()
         except Exception as e:
             quiz_content = ""
-            print(get_client_ip(), "Got an error while reading the quiz: ", str(e)) 
-            print(get_client_ip(), "is currently editing", quiz_name)   
+            print(client_ip, "Got an error while reading the quiz: ", str(e)) 
 
-        # Read question JSON
-        try:
-            with open(question_file, "r", encoding="utf-8") as f:
-                question_data = json.load(f)
-        except Exception as e:
-            question_data = {}
         return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=quiz_content)
     else:
-        # POST: update the quiz text.
-        print(get_client_ip(), "is saving their edits to", quiz_name)
-        new_content = request.form.get("quiz_content")
-
-        # Write updated quiz text.
+        # POST: update the quiz text and/or rename
+        print(client_ip, "is saving their edits to", quiz_name)
+        new_content = request.form.get("quiz_content", "")
+        new_quiz_name = request.form.get("new_quiz_name", "").strip()
+        use_legacy = request.form.get("use_legacy", "false") == "true"
+        
+        # Handle rename
+        if new_quiz_name and new_quiz_name != quiz_name:
+            new_quiz_file = os.path.join(os.path.dirname(__file__), "non_static", "quiz", f"{new_quiz_name}.txt")
+            new_question_file = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{new_quiz_name}.json")
+            
+            try:
+                # Rename quiz file
+                if os.path.exists(quiz_file):
+                    os.rename(quiz_file, new_quiz_file)
+                # Rename question file if it exists
+                if os.path.exists(question_file):
+                    os.rename(question_file, new_question_file)
+                
+                # Update uploaded.json if needed
+                uploaded_data = read_uploaded_json()
+                if client_ip in uploaded_data and quiz_name in uploaded_data[client_ip]:
+                    uploaded_data[client_ip].remove(quiz_name)
+                    if new_quiz_name not in uploaded_data[client_ip]:
+                        uploaded_data[client_ip].append(new_quiz_name)
+                    write_uploaded_json(uploaded_data)
+                
+                quiz_name = new_quiz_name
+                quiz_file = new_quiz_file
+                question_file = new_question_file
+                print(client_ip, "Renamed quiz to", quiz_name)
+            except Exception as e:
+                return f"Error renaming quiz: {str(e)}", 500
+        
+        # Write updated quiz text
         try:
             with open(quiz_file, "w", encoding="utf-8") as f:
                 f.write(new_content)
-                print(get_client_ip(), "Saved edits to", quiz_name, " successfully.")
+                print(client_ip, "Saved edits to", quiz_name, " successfully.")
             message = "Quiz updated successfully."
         except Exception as e:
             return f"Error updating quiz text: {str(e)}", 500
 
-        return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=quiz_content, message=message)
+        return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=new_content, message=message)
 
-@app.route('/quiz/<quiz_name>/quiz/validate', methods=['POST'])
+@app.route('/quiz/<quiz_name>/quiz/validate', methods=['POST', 'GET'])
 def quiz_validate(quiz_name):
+    if request.method == 'GET':
+        return render_template("error.html", message="Error: Use POST"), 405
+    
     answer = request.json.get('answer', '')
     try:
         print(f"Reading quiz {quiz_name}")
@@ -523,8 +553,10 @@ def logs_content():
     #     logs_text = "No logs found."
     return logs_text
 
-@app.route('/quiz/<quiz_name>/answer', methods=['POST'])
+@app.route('/quiz/<quiz_name>/answer', methods=['POST', 'GET'])
 def submit_answer(quiz_name):
+    if request.method == 'GET':
+        return render_template("error.html", message="Error: Use POST"), 405
     client_ip = get_client_ip()
     time_taken = request.form.get('time_elapsed', '0')
     question_name = session.get('current_question_name', "Unknown Question")
@@ -604,8 +636,10 @@ def quiz_results(quiz_name):
                         results.append(q_line)
     return render_template("results.html", quiz_name=quiz_name, results=results)
 
-@app.route('/quiz/<quiz_name>/save_time', methods=['POST'])
+@app.route('/quiz/<quiz_name>/save_time', methods=['POST', 'GET'])
 def save_time(quiz_name):
+    if request.method == 'GET':
+        return render_template("error.html", message="Error: Use POST"), 405
     if not quiz_name or quiz_name.strip() == "":
         print(datetime.datetime.now(), "Error: Quiz name is missing in the URL.")
         return jsonify({'error': 'Quiz name is required in the URL.'}), 400
