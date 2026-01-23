@@ -2,7 +2,13 @@
 Best Quiz
     Who toots the most? 3.55
     Who owns the window couch? 2
+C++ Quiz
 MCreator
+    What is MCreator primarily used for? 10.45
+    Which programming language is commonly used with MCreator? 22.40
+    What is the name of the graphical interface in MCreator for creating mod elements? 6.54
+    Can MCreator generate code automatically for mod elements? 0.82
+    What is the default file format for MCreator workspaces? 24.16
 Bacon the Dog Quiz
 Cooking Quiz 3
 Test Quiz
@@ -15,6 +21,7 @@ MC Quiz 3
 Cooking Quiz
 Cooking Quiz 2
 Example Quiz
+31.94.16.126
 MCreator
 
 192.168.50.94
@@ -23,15 +30,6 @@ Minecraft Quiz
     What are you looking for when using a map to locate a Woodland Mansion? 3.66
     What is the name of the default Minecraft character with brown hair? 432.86
     What item is needed to craft a crafting table? 7.48
-C++ Quiz
-    Who invented C++? 3.27
-    What does daddy want? 227.91
-MCreator
-    What is MCreator primarily used for? 10.45
-    Which programming language is commonly used with MCreator? 22.40
-    What is the name of the graphical interface in MCreator for creating mod elements? 6.54
-    Can MCreator generate code automatically for mod elements? 0.82
-    What is the default file format for MCreator workspaces? 24.16
 quiz
 AIS
 Best Quiz
@@ -77,18 +75,9 @@ quiz for lucas
     What is the purpose of a Minecraft namespace? 4.95
     Which PowerShell cmdlet displays network configuration? 6.24
 Common Knowledge Quiz
-    What is the largest planet in our solar system? 16.80
-    What color is the sky on a clear day? 3.57
-    How many continents are there? 24.20
-    What is the chemical symbol for water? 11.71
-    Who painted the Mona Lisa? 14.68
-    What is the longest river in the world? 5.69
-    What animal is known as the King of the Jungle? 5.01
-    What is the square root of 16? 5.09
 Bacon the Dog Quiz
     does he have a big brown spot 7.75
 Cooking Quiz
-    What utensil is used to measure dry ingredients? 2.72
 MC Quiz 3
     Which gas do plants absorb from the atmosphere? 6.57
     What is the boiling point of water in Celsius? 2.41
@@ -112,20 +101,29 @@ MC Quiz 3
     Which famous scientist developed the theory of relativity? 6.15
     Which element is essential for human bones? 10.04
     What is the capital of France? 3.13
-Gettery quiz
-    Does daddy like spagetti 2.56
-    Who owns the window couch (yes I took this from Best Quiz) 3.66
-    What's the window couch's name 5.59
-    Did daddy use to play Zelda with julie 4.51
-    Daddy likes sausyges 6.71
-    Does mama like Instagram or reddit more 5.49
-    What does mama not like 6.71
-    Who likes La Sausyges 6.60
-    What does daddy want? 33.84
-192.168.50.211
-Cooking Quiz 2
-    What cooking technique involves cooking food in a small amount of fat over moderate heat? 8.37
-31.94.16.126
-62.64.192.134
-MC Quiz 3
     Which planet is known as the Red Planet? 11.21
+Gettery quiz
+192.168.50.211
+192.168.50.159
+Common Knowledge Quiz 2
+    What is the capital of France? 2.73
+    In what year did the Titanic sink? 5.61
+    What is the largest planet in our solar system? 2.46
+    Who painted the Mona Lisa? 1.60
+    What is the chemical symbol for gold? 1.56
+    How many continents are there? 1.78
+    What is the smallest country in the world? 1.71
+    Who wrote Romeo and Juliet? 2.17
+    What is the speed of light? 1.26
+    How many sides does a hexagon have? 1.58
+    What is the largest ocean? 1.00
+    In what country is the Great Wall located? 1.16
+    What year did World War II end? 1.10
+    How many bones are in an adult human body? 1.16
+    What is the capital of Japan? 0.97
+    Who is known as the Father of Modern Physics? 1.11
+    What is the smallest prime number? 36.59
+    How many strings does a standard violin have? 1.37
+192.168.50.159
+Common Knowledge Quiz 2
+    What gas do plants absorb from the atmosphere? 1.36

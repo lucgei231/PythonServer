@@ -84,6 +84,15 @@
         </div>
         <div id="leaderboard" style="display:none;">
             <h3>Leaderboard</h3>
+            <div id="points-display" style="display:none; text-align: center; padding: 15px; background: #f0f0f0; border-radius: 5px; margin-bottom: 15px;">
+                <div style="font-size: 1.2em; margin-bottom: 10px;">
+                    <strong>Points This Question: <span id="question-points" style="color: #28a745;">0</span></strong>
+                </div>
+                <hr style="margin: 10px 0; border: 1px solid #ddd;">
+                <div style="font-size: 1.2em;">
+                    <strong>Total Points: <span id="total-points" style="color: #007bff;">0</span></strong>
+                </div>
+            </div>
             <p id="leaderboard-correct-answer" style="display:none;">Correct answer was: <span id="leaderboard-correct-answer-text"></span></p>
             <ol id="leaderboard-list" style="font-size: 1.5em;"></ol>
         </div>
@@ -99,6 +108,8 @@
         let start_time;
         let hasJoined = false;
         let inactivityTimer = null;
+        let playerName = '';
+        let previousScore = 0;
         const INACTIVITY_TIMEOUT = 3000; // 3 seconds
 
         // Auto-fill code from URL params
@@ -137,8 +148,8 @@
 
         document.getElementById('join-btn').addEventListener('click', () => {
             code = document.getElementById('code').value;
-            const name = document.getElementById('name').value;
-            socket.emit('join_game', {code: code, name: name});
+            playerName = document.getElementById('name').value;
+            socket.emit('join_game', {code: code, name: playerName});
         });
 
         socket.on('joined', (data) => {
@@ -213,6 +224,26 @@
         socket.on('leaderboard', (data) => {
             document.getElementById('question-area').style.display = 'none';
             document.getElementById('leaderboard').style.display = 'block';
+            
+            // Find this player's score in the leaderboard
+            let currentScore = 0;
+            let playerFound = false;
+            data.leaderboard.forEach((item) => {
+                if (item.name === playerName) {
+                    currentScore = item.score;
+                    playerFound = true;
+                }
+            });
+            
+            // Calculate points earned this question
+            const pointsThisQuestion = currentScore - previousScore;
+            previousScore = currentScore;
+            
+            // Show points display
+            document.getElementById('question-points').textContent = Math.max(0, pointsThisQuestion);
+            document.getElementById('total-points').textContent = currentScore;
+            document.getElementById('points-display').style.display = 'block';
+            
             const ol = document.getElementById('leaderboard-list');
             ol.innerHTML = '';
             data.leaderboard.forEach((item, index) => {
