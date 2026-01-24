@@ -238,6 +238,15 @@ def get_avatars():
                 avatars.append(avatar_name)
     return jsonify({'avatars': sorted(avatars)})
 
+@app.route('/data/avatars/<avatar_name>.png')
+def get_avatar_image(avatar_name):
+    avatars_dir = os.path.join(os.path.dirname(__file__), "data", "avatars")
+    avatar_file = os.path.join(avatars_dir, f"{avatar_name}.png")
+    if os.path.exists(avatar_file):
+        return send_file(avatar_file, mimetype='image/png')
+    else:
+        return "Avatar not found", 404
+
 @app.route('/deletequiz', methods=['GET', 'POST'])
 def deletequiz():
     ip = get_client_ip()
@@ -936,7 +945,7 @@ def handle_submit_answer(data):
                         correct = validate_answer(q, ans['answer']) if q else False
                         sessions[code]['last_correct'][name] = correct
                         if correct:
-                            points = max(0, 1000 - time_taken * 50)
+                            points = max(0, round(1000 - time_taken * 50))
                             sessions[code]['scores'][name] += points
                         # Emit to specific player
                         correct_answer_text = ''
@@ -984,7 +993,7 @@ def handle_reveal_answers(data):
             correct = validate_answer(q, ans['answer']) if q else False
             sessions[code]['last_correct'][name] = correct
             if correct:
-                points = max(0, 1000 - time_taken * 50)  # 50 points per second deducted
+                points = max(0, round(1000 - time_taken * 50))  # 50 points per second deducted
                 sessions[code]['scores'][name] += points
             # Emit to specific player
             for player in sessions[code]['players']:

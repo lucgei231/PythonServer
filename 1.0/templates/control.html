@@ -233,8 +233,29 @@
                 const li = document.createElement('li');
                 const status = item.last_correct === null ? 'No answer' : item.last_correct ? 'Correct' : 'Incorrect';
                 const submitted = data.submitted_answers ? data.submitted_answers[item.name] || 'N/A' : 'N/A';
-                const avatar = item.avatar ? item.avatar : '●';
-                li.textContent = `${avatar} ${index + 1}. ${item.name}: ${item.score} points (${status}) - Answered: ${submitted}`;
+                
+                // Create container for avatar and text
+                const container = document.createElement('div');
+                container.style.display = 'flex';
+                container.style.alignItems = 'center';
+                container.style.gap = '10px';
+                
+                // Add avatar image if exists
+                if (item.avatar) {
+                    const img = document.createElement('img');
+                    img.src = `/data/avatars/${item.avatar}.png`;
+                    img.style.height = '1.2em';
+                    img.style.width = '1.2em';
+                    img.style.objectFit = 'contain';
+                    img.onerror = () => { img.textContent = '●'; };
+                    container.appendChild(img);
+                }
+                
+                // Add text
+                const text = document.createElement('span');
+                text.innerHTML = `${item.name}: <span style="color: red;">${item.score}</span> points (${status}) - Answered: ${submitted}`;
+                container.appendChild(text);
+                li.appendChild(container);
                 ul.appendChild(li);
             });
             document.getElementById('leaderboard-correct-answer-text').textContent = data.correct_answer;
@@ -264,8 +285,29 @@
             ul.innerHTML = '';
             data.leaderboard.forEach((item, index) => {
                 const li = document.createElement('li');
-                const avatar = item.avatar ? item.avatar : '●';
-                li.textContent = `${avatar} ${index + 1}. ${item.name}: ${item.score} points`;
+                
+                // Create container for avatar and text
+                const container = document.createElement('div');
+                container.style.display = 'flex';
+                container.style.alignItems = 'center';
+                container.style.gap = '10px';
+                
+                // Add avatar image if exists
+                if (item.avatar) {
+                    const img = document.createElement('img');
+                    img.src = `/data/avatars/${item.avatar}.png`;
+                    img.style.height = '1.2em';
+                    img.style.width = '1.2em';
+                    img.style.objectFit = 'contain';
+                    img.onerror = () => { img.textContent = '●'; };
+                    container.appendChild(img);
+                }
+                
+                // Add text
+                const text = document.createElement('span');
+                text.innerHTML = `${item.name}: <span style="color: red;">${item.score}</span> points`;
+                container.appendChild(text);
+                li.appendChild(container);
                 ul.appendChild(li);
             });
         });

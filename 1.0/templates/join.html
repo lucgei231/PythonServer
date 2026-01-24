@@ -69,7 +69,7 @@
             <label for="name">Your Name:</label>
             <input type="text" id="name" placeholder="Your Name" required style="padding: 8px; margin: 5px; width: 100%;">
             <label for="avatar">Select Avatar:</label>
-            <div id="avatar-selector" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 10px; margin: 10px 0;">
+            <div id="avatar-selector" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 15px; margin: 10px 0;">
                 <!-- Avatars will be loaded here -->
             </div>
             <input type="hidden" id="selected-avatar" value="">
@@ -126,12 +126,29 @@
                 selectorDiv.innerHTML = ''; // Clear existing
                 
                 data.avatars.forEach(avatar => {
+                    const buttonContainer = document.createElement('div');
+                    buttonContainer.style.cssText = 'text-align: center; cursor: pointer;';
+                    
                     const button = document.createElement('button');
                     button.type = 'button';
-                    button.style.cssText = 'padding: 10px; border: 2px solid #ccc; border-radius: 5px; background: white; cursor: pointer; font-size: 0.9em; min-height: 60px;';
-                    button.textContent = avatar;
+                    button.style.cssText = 'padding: 5px; border: 2px solid #ccc; border-radius: 5px; background: white; cursor: pointer; min-height: 60px; min-width: 60px; display: flex; align-items: center; justify-content: center;';
+                    
+                    const img = document.createElement('img');
+                    img.src = `/data/avatars/${avatar}.png`;
+                    img.style.height = '50px';
+                    img.style.width = '50px';
+                    img.style.objectFit = 'contain';
+                    img.onerror = () => { button.textContent = '●'; };
+                    button.appendChild(img);
                     button.onclick = () => selectAvatar(avatar, button);
-                    selectorDiv.appendChild(button);
+                    
+                    const caption = document.createElement('div');
+                    caption.textContent = avatar;
+                    caption.style.cssText = 'margin-top: 5px; font-size: 0.8em; color: #666;';
+                    
+                    buttonContainer.appendChild(button);
+                    buttonContainer.appendChild(caption);
+                    selectorDiv.appendChild(buttonContainer);
                 });
             } catch (error) {
                 console.error('Error loading avatars:', error);
@@ -192,6 +209,12 @@
             code = document.getElementById('code').value;
             playerName = document.getElementById('name').value;
             const avatar = document.getElementById('selected-avatar').value;
+            
+            if (!code || !playerName || !avatar) {
+                alert('Please enter game code, your name, and select an avatar!');
+                return;
+            }
+            
             socket.emit('join_game', {code: code, name: playerName, avatar: avatar});
         });
 
@@ -293,8 +316,29 @@
                 const li = document.createElement('li');
                 const status = item.last_correct === null ? 'No answer' : item.last_correct ? 'Correct' : 'Incorrect';
                 const submitted = data.submitted_answers ? data.submitted_answers[item.name] || 'N/A' : 'N/A';
-                const avatar = item.avatar ? item.avatar : '●';
-                li.textContent = `${avatar} ${index + 1}. ${item.name}: ${item.score} points (${status}) - Answered: ${submitted}`;
+                
+                // Create container for avatar and text
+                const container = document.createElement('div');
+                container.style.display = 'flex';
+                container.style.alignItems = 'center';
+                container.style.gap = '10px';
+                
+                // Add avatar image if exists
+                if (item.avatar) {
+                    const img = document.createElement('img');
+                    img.src = `/data/avatars/${item.avatar}.png`;
+                    img.style.height = '1.2em';
+                    img.style.width = '1.2em';
+                    img.style.objectFit = 'contain';
+                    img.onerror = () => { img.textContent = '●'; };
+                    container.appendChild(img);
+                }
+                
+                // Add text
+                const text = document.createElement('span');
+                text.innerHTML = `${item.name}: <span style="color: red;">${item.score}</span> points (${status}) - Answered: ${submitted}`;
+                container.appendChild(text);
+                li.appendChild(container);
                 ol.appendChild(li);
             });
             if (data.correct_answer) {
@@ -310,8 +354,29 @@
             ol.innerHTML = '';
             data.leaderboard.forEach((item, index) => {
                 const li = document.createElement('li');
-                const avatar = item.avatar ? item.avatar : '●';
-                li.textContent = `${avatar} ${index + 1}. ${item.name}: ${item.score} points`;
+                
+                // Create container for avatar and text
+                const container = document.createElement('div');
+                container.style.display = 'flex';
+                container.style.alignItems = 'center';
+                container.style.gap = '10px';
+                
+                // Add avatar image if exists
+                if (item.avatar) {
+                    const img = document.createElement('img');
+                    img.src = `/data/avatars/${item.avatar}.png`;
+                    img.style.height = '1.2em';
+                    img.style.width = '1.2em';
+                    img.style.objectFit = 'contain';
+                    img.onerror = () => { img.textContent = '●'; };
+                    container.appendChild(img);
+                }
+                
+                // Add text
+                const text = document.createElement('span');
+                text.innerHTML = `${item.name}: <span style="color: red;">${item.score}</span> points`;
+                container.appendChild(text);
+                li.appendChild(container);
                 ol.appendChild(li);
             });
         });
