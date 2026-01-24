@@ -270,16 +270,23 @@
             });
             document.getElementById('leaderboard-correct-answer-text').textContent = data.correct_answer;
             document.getElementById('leaderboard-correct-answer').style.display = 'block';
+            
             // Autoplay countdown
             if (document.getElementById('autoplay').checked) {
                 let count = 5;
                 const countdownEl = document.getElementById('countdown-number');
-                document.getElementById('countdown').style.display = 'block';
+                const countdownDiv = document.getElementById('countdown');
+                countdownDiv.style.display = 'block';
+                countdownEl.textContent = count;
+                
                 const interval = setInterval(() => {
-                    countdownEl.textContent = count;
                     count--;
+                    if (count >= 0) {
+                        countdownEl.textContent = count;
+                    }
                     if (count < 0) {
                         clearInterval(interval);
+                        countdownDiv.style.display = 'none';
                         document.getElementById('next-question').click();
                     }
                 }, 1000);
