@@ -115,6 +115,15 @@
         </div>
         <div id="leaderboard" style="display:none;">
             <h3>Leaderboard</h3>
+            <div id="points-display" style="display:none; text-align: center; padding: 15px; background: #f0f0f0; border-radius: 5px; margin-bottom: 15px;">
+                <div style="font-size: 1.1em; margin-bottom: 10px;">
+                    <strong>Points This Question: <span id="question-points" style="color: #28a745;">-</span></strong>
+                </div>
+                <hr style="margin: 10px 0; border: 1px solid #ddd;">
+                <div style="font-size: 1.1em;">
+                    <strong>Leader: <span id="leader-name" style="color: #007bff;">-</span> with <span id="leader-score" style="color: #007bff;">0</span> points</strong>
+                </div>
+            </div>
             <p id="leaderboard-correct-answer" style="display:none;">Correct answer was: <span id="leaderboard-correct-answer-text"></span></p>
             <p id="countdown" style="display:none;">Next question in: <span id="countdown-number">5</span></p>
             <ol id="leaderboard-list" style="font-size: 1.5em;"></ol>
@@ -199,13 +208,33 @@
         socket.on('leaderboard', (data) => {
             document.getElementById('question-display').style.display = 'none';
             document.getElementById('leaderboard').style.display = 'block';
+            
+            // Show top player info
+            if (data.leaderboard.length > 0) {
+                const topPlayer = data.leaderboard[0];
+                document.getElementById('leader-name').textContent = topPlayer.name;
+                document.getElementById('leader-score').textContent = topPlayer.score;
+                
+                // Calculate points earned this question (assuming previous state)
+                const maxPoints = data.leaderboard.reduce((max, item) => Math.max(max, item.score), 0);
+                if (data.leaderboard.length > 1) {
+                    const secondPlayer = data.leaderboard[1];
+                    const pointsThisQ = topPlayer.score - secondPlayer.score;
+                    document.getElementById('question-points').textContent = Math.max(0, pointsThisQ);
+                } else {
+                    document.getElementById('question-points').textContent = topPlayer.score;
+                }
+                document.getElementById('points-display').style.display = 'block';
+            }
+            
             const ul = document.getElementById('leaderboard-list');
             ul.innerHTML = '';
             data.leaderboard.forEach((item, index) => {
                 const li = document.createElement('li');
                 const status = item.last_correct === null ? 'No answer' : item.last_correct ? 'Correct' : 'Incorrect';
                 const submitted = data.submitted_answers ? data.submitted_answers[item.name] || 'N/A' : 'N/A';
-                li.textContent = `${index + 1}. ${item.name}: ${item.score} points (${status}) - Answered: ${submitted}`;
+                const avatar = item.avatar ? item.avatar : '●';
+                li.textContent = `${avatar} ${index + 1}. ${item.name}: ${item.score} points (${status}) - Answered: ${submitted}`;
                 ul.appendChild(li);
             });
             document.getElementById('leaderboard-correct-answer-text').textContent = data.correct_answer;
@@ -235,7 +264,8 @@
             ul.innerHTML = '';
             data.leaderboard.forEach((item, index) => {
                 const li = document.createElement('li');
-                li.textContent = `${index + 1}. ${item.name}: ${item.score} points`;
+                const avatar = item.avatar ? item.avatar : '●';
+                li.textContent = `${avatar} ${index + 1}. ${item.name}: ${item.score} points`;
                 ul.appendChild(li);
             });
         });

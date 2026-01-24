@@ -68,6 +68,11 @@
             <input type="text" id="code" placeholder="Enter Game Code" required style="padding: 8px; margin: 5px; width: 100%;">
             <label for="name">Your Name:</label>
             <input type="text" id="name" placeholder="Your Name" required style="padding: 8px; margin: 5px; width: 100%;">
+            <label for="avatar">Select Avatar:</label>
+            <div id="avatar-selector" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 10px; margin: 10px 0;">
+                <!-- Avatars will be loaded here -->
+            </div>
+            <input type="hidden" id="selected-avatar" value="">
             <button id="join-btn" class="quiz-btn" style="width: 100%;">Join Game</button>
         </div>
         <div id="lobby" style="display:none; text-align: center;">
@@ -112,6 +117,43 @@
         let previousScore = 0;
         const INACTIVITY_TIMEOUT = 3000; // 3 seconds
 
+        // Load avatars from server
+        async function loadAvatars() {
+            try {
+                const response = await fetch('/get_avatars');
+                const data = await response.json();
+                const selectorDiv = document.getElementById('avatar-selector');
+                selectorDiv.innerHTML = ''; // Clear existing
+                
+                data.avatars.forEach(avatar => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.style.cssText = 'padding: 10px; border: 2px solid #ccc; border-radius: 5px; background: white; cursor: pointer; font-size: 0.9em; min-height: 60px;';
+                    button.textContent = avatar;
+                    button.onclick = () => selectAvatar(avatar, button);
+                    selectorDiv.appendChild(button);
+                });
+            } catch (error) {
+                console.error('Error loading avatars:', error);
+            }
+        }
+
+        // Select avatar
+        function selectAvatar(avatarName, button) {
+            // Remove previous selection
+            document.querySelectorAll('#avatar-selector button').forEach(btn => {
+                btn.style.borderColor = '#ccc';
+                btn.style.background = 'white';
+            });
+            // Highlight selected
+            button.style.borderColor = '#007bff';
+            button.style.background = '#e7f3ff';
+            document.getElementById('selected-avatar').value = avatarName;
+        }
+
+        // Load avatars when page loads
+        loadAvatars();
+
         // Auto-fill code from URL params
         const urlParams = new URLSearchParams(window.location.search);
         const urlCode = urlParams.get('code');
@@ -149,7 +191,8 @@
         document.getElementById('join-btn').addEventListener('click', () => {
             code = document.getElementById('code').value;
             playerName = document.getElementById('name').value;
-            socket.emit('join_game', {code: code, name: playerName});
+            const avatar = document.getElementById('selected-avatar').value;
+            socket.emit('join_game', {code: code, name: playerName, avatar: avatar});
         });
 
         socket.on('joined', (data) => {
@@ -250,7 +293,8 @@
                 const li = document.createElement('li');
                 const status = item.last_correct === null ? 'No answer' : item.last_correct ? 'Correct' : 'Incorrect';
                 const submitted = data.submitted_answers ? data.submitted_answers[item.name] || 'N/A' : 'N/A';
-                li.textContent = `${index + 1}. ${item.name}: ${item.score} points (${status}) - Answered: ${submitted}`;
+                const avatar = item.avatar ? item.avatar : '●';
+                li.textContent = `${avatar} ${index + 1}. ${item.name}: ${item.score} points (${status}) - Answered: ${submitted}`;
                 ol.appendChild(li);
             });
             if (data.correct_answer) {
@@ -266,7 +310,8 @@
             ol.innerHTML = '';
             data.leaderboard.forEach((item, index) => {
                 const li = document.createElement('li');
-                li.textContent = `${index + 1}. ${name}: ${score} points`;
+                const avatar = item.avatar ? item.avatar : '●';
+                li.textContent = `${avatar} ${index + 1}. ${item.name}: ${item.score} points`;
                 ol.appendChild(li);
             });
         });

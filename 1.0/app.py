@@ -227,6 +227,17 @@ def home():
         print("DEBUG: Error in home route:", str(e))
         return f"Error in home route: {str(e)}", 500
 
+@app.route('/get_avatars', methods=['GET'])
+def get_avatars():
+    avatars_dir = os.path.join(os.path.dirname(__file__), "data", "avatars")
+    avatars = []
+    if os.path.exists(avatars_dir):
+        for file in os.listdir(avatars_dir):
+            if file.lower().endswith('.png'):
+                avatar_name = os.path.splitext(file)[0]
+                avatars.append(avatar_name)
+    return jsonify({'avatars': sorted(avatars)})
+
 @app.route('/deletequiz', methods=['GET', 'POST'])
 def deletequiz():
     ip = get_client_ip()
@@ -798,12 +809,13 @@ def join_game():
 def handle_join_game(data):
     code = data['code']
     player_name = data.get('name', 'Anonymous')
+    avatar = data.get('avatar', '')
     if code in sessions:
         join_room(code)
-        sessions[code]['players'].append({'sid': request.sid, 'name': player_name})
+        sessions[code]['players'].append({'sid': request.sid, 'name': player_name, 'avatar': avatar})
         sessions[code]['scores'][player_name] = 0
         sessions[code]['last_correct'][player_name] = None
-        emit('player_joined', {'name': player_name}, room=code, skip_sid=request.sid)
+        emit('player_joined', {'name': player_name, 'avatar': avatar}, room=code, skip_sid=request.sid)
         emit('joined', {'code': code, 'quiz_name': sessions[code]['quiz_name']})
         # Send current state to late joiner
         state = sessions[code]['state']
@@ -816,7 +828,13 @@ def handle_join_game(data):
             leaderboard = []
             for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
                 last_correct = sessions[code]['last_correct'].get(name)
-                leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
+                # Find avatar for this player
+                avatar = ''
+                for player in sessions[code]['players']:
+                    if player['name'] == name:
+                        avatar = player.get('avatar', '')
+                        break
+                leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct, 'avatar': avatar})
             submitted_answers = {ans['name']: ans['answer_text'] for ans in sessions[code]['answers']} if sessions[code]['answers'] else {}
             correct_answer_text = ''
             q_index = sessions[code]['current_q'] - 1
@@ -828,7 +846,15 @@ def handle_join_game(data):
                     correct_answer_text = q['answer']
             emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer_text, 'submitted_answers': submitted_answers})
         elif state == 'finished':
-            leaderboard = [{'name': name, 'score': score} for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True)]
+            leaderboard = []
+            for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
+                # Find avatar for this player
+                avatar = ''
+                for player in sessions[code]['players']:
+                    if player['name'] == name:
+                        avatar = player.get('avatar', '')
+                        break
+                leaderboard.append({'name': name, 'score': score, 'avatar': avatar})
             emit('final_leaderboard', {'leaderboard': leaderboard})
     else:
         emit('error', {'message': 'Invalid code'})
@@ -855,8 +881,15 @@ def handle_control_join(data):
                 emit('new_question', {'question': question['question']})
         elif state == 'leaderboard':
             leaderboard = sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True)
-            leaderboard = [{'name': name, 'score': score, 'last_correct': sessions[code]['last_correct'].get(name)} for name, score in leaderboard]
-            emit('leaderboard', {'leaderboard': leaderboard})
+            leaderboard_items = []
+            for name, score in leaderboard:
+                avatar = ''
+                for player in sessions[code]['players']:
+                    if player['name'] == name:
+                        avatar = player.get('avatar', '')
+                        break
+                leaderboard_items.append({'name': name, 'score': score, 'last_correct': sessions[code]['last_correct'].get(name), 'avatar': avatar})
+            emit('leaderboard', {'leaderboard': leaderboard_items})
         elif state == 'finished':
             leaderboard = sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True)
             emit('final_leaderboard', {'leaderboard': leaderboard})
@@ -921,7 +954,12 @@ def handle_submit_answer(data):
                         leaderboard = []
                         for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
                             last_correct = sessions[code]['last_correct'].get(name)
-                            leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
+                            avatar = ''
+                            for player in sessions[code]['players']:
+                                if player['name'] == name:
+                                    avatar = player.get('avatar', '')
+                                    break
+                            leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct, 'avatar': avatar})
                         submitted_answers = {ans['name']: ans['answer_text'] for ans in sessions[code]['answers']}
                         emit('answers_revealed', {'correct_answer': correct_answer_text}, room=code)
                         sessions[code]['state'] = 'leaderboard'
@@ -957,7 +995,12 @@ def handle_reveal_answers(data):
         leaderboard = []
         for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
             last_correct = sessions[code]['last_correct'].get(name)
-            leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
+            avatar = ''
+            for player in sessions[code]['players']:
+                if player['name'] == name:
+                    avatar = player.get('avatar', '')
+                    break
+            leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct, 'avatar': avatar})
         submitted_answers = {ans['name']: ans['answer_text'] for ans in sessions[code]['answers']}
         emit('answers_revealed', {'correct_answer': correct_answer_text}, room=code)
         sessions[code]['state'] = 'leaderboard'
@@ -992,7 +1035,12 @@ def handle_disconnect():
                     leaderboard = []
                     for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
                         last_correct = sessions[code]['last_correct'].get(name)
-                        leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct})
+                        avatar = ''
+                        for player in sessions[code]['players']:
+                            if player['name'] == name:
+                                avatar = player.get('avatar', '')
+                                break
+                        leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct, 'avatar': avatar})
                     submitted_answers = {ans['name']: ans['answer_text'] for ans in sessions[code]['answers']}
                     q_index = sessions[code]['current_q'] - 1
                     q = sessions[code]['questions'][q_index] if q_index >= 0 and q_index < len(sessions[code]['questions']) else None

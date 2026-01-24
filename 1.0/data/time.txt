@@ -75,6 +75,7 @@ quiz for lucas
     What is the purpose of a Minecraft namespace? 4.95
     Which PowerShell cmdlet displays network configuration? 6.24
 Common Knowledge Quiz
+    What is the square root of 16? 12.64
 Bacon the Dog Quiz
     does he have a big brown spot 7.75
 Cooking Quiz
@@ -103,15 +104,16 @@ MC Quiz 3
     What is the capital of France? 3.13
     Which planet is known as the Red Planet? 11.21
 Gettery quiz
+    What does daddy want? 1.36
 192.168.50.211
 192.168.50.159
 Common Knowledge Quiz 2
-    What is the capital of France? 2.73
-    In what year did the Titanic sink? 5.61
-    What is the largest planet in our solar system? 2.46
-    Who painted the Mona Lisa? 1.60
-    What is the chemical symbol for gold? 1.56
-    How many continents are there? 1.78
+    What is the capital of France? 2.87
+    In what year did the Titanic sink? 3.50
+    What is the largest planet in our solar system? 1.07
+    Who painted the Mona Lisa? 2.19
+    What is the chemical symbol for gold? 1.17
+    How many continents are there? 0.58
     What is the smallest country in the world? 1.71
     Who wrote Romeo and Juliet? 2.17
     What is the speed of light? 1.26
@@ -124,6 +126,15 @@ Common Knowledge Quiz 2
     Who is known as the Father of Modern Physics? 1.11
     What is the smallest prime number? 36.59
     How many strings does a standard violin have? 1.37
-192.168.50.159
-Common Knowledge Quiz 2
     What gas do plants absorb from the atmosphere? 1.36
+French Quiz
+    Fill in the gap: _____ a gauche (Latin characters only) 7.30
+    Which one means "Turn right" 7.54
+    True or false: la mathamatique means geography 8.40
+    Which one is "I study math" in french 7.97
+French Quiz 2
+    Which means turn LEFT 17.20
+    J’etudie le francais 5.56
+192.168.50.1
+Test Quiz
+    hayy 4.94
