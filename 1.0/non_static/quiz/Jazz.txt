@@ -1,0 +1,15 @@
+How many pets do I have?
+
+0
+
+Do I like cats or dogs
+
+Dogs
+
+How old am I
+
+11
+
+How may points will I give for this question
+
+100

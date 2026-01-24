@@ -36,7 +36,7 @@ Best Quiz
 192.168.50.1
 192.168.50.80
 secret
-    bum bum 6.76
+    bum bum 16.17
     spaghetti 1.99
 192.168.50.6
 62.64.192.134
@@ -45,40 +45,43 @@ cool poo
     cool poo 4.11
 Cooking Quiz 3
 quiz for lucas
-    Which Minecraft file type is used to define custom item models? 13.79
-    What is the core design philosophy behind Command Maker? 13.09
-    Which tool is commonly used to test API endpoints during dashboard development? 10.95
-    What Windows command is used to map a network drive? 4.07
-    Which Minecraft folder stores resource pack sounds? 3.15
-    What is the main advantage of a local-first workflow? 4.37
-    Which DNS record type points a domain to an IPv4 address? 1.66
-    What is the purpose of a Vercel deployment preview? 2.18
-    Which Minecraft command is used to run logic repeatedly? 1.75
-    What PowerShell cmdlet lists running processes? 3.41
+    Which Minecraft file type is used to define custom item models? 10.63
+    What is the core design philosophy behind Command Maker? 2.65
+    Which tool is commonly used to test API endpoints during dashboard development? 5.37
+    What Windows command is used to map a network drive? 7.54
+    Which Minecraft folder stores resource pack sounds? 1.88
+    What is the main advantage of a local-first workflow? 1.19
+    Which DNS record type points a domain to an IPv4 address? 1.54
+    What is the purpose of a Vercel deployment preview? 1.27
+    Which Minecraft command is used to run logic repeatedly? 3.56
+    What PowerShell cmdlet lists running processes? 2.09
     Which UI pattern is ideal for modular dashboards? 20.08
-    Which protocol does SMB rely on? 3.05
-    What is the purpose of environment variables in development? 3.85
-    Which Minecraft sound format is used in resource packs? 1.49
-    What is the main benefit of modular code architecture? 15.10
+    Which protocol does SMB rely on? 6.73
+    What is the purpose of environment variables in development? 1.23
+    Which Minecraft sound format is used in resource packs? 2.35
+    What is the main benefit of modular code architecture? 3.16
     Which Vercel feature handles backend logic? 1.93
     What Windows tool manages credentials for SMB shares? 22.00
-    Which Minecraft command block mode runs every tick? 1.89
-    What is the purpose of a reverse proxy? 1.82
-    Which JavaScript library is commonly used for reactive dashboards? 12.17
+    Which Minecraft command block mode runs every tick? 3.19
+    What is the purpose of a reverse proxy? 2.60
+    Which JavaScript library is commonly used for reactive dashboards? 2.26
     What is the advantage of using NBT data in Minecraft? 0.68
-    What file defines a Minecraft datapack? 10.08
-    Which PowerShell cmdlet changes directories? 7.40
+    What file defines a Minecraft datapack? 1.03
+    Which PowerShell cmdlet changes directories? 1.78
     What is the purpose of a build pipeline? 8.25
-    Which Minecraft folder contains functions in a datapack? 8.98
-    What is the benefit of using a custom dashboard for uploads? 5.65
-    Which DNS record is used for subdomain redirection? 5.42
-    What is the purpose of a Minecraft namespace? 4.95
+    Which Minecraft folder contains functions in a datapack? 5.72
+    What is the benefit of using a custom dashboard for uploads? 3.16
+    Which DNS record is used for subdomain redirection? 2.79
+    What is the purpose of a Minecraft namespace? 2.85
     Which PowerShell cmdlet displays network configuration? 6.24
 Common Knowledge Quiz
     What is the square root of 16? 12.64
+    What is the capital of France? 5.41
+    What is the largest planet in our solar system? 14.36
 Bacon the Dog Quiz
     does he have a big brown spot 7.75
 Cooking Quiz
+    What cooking method involves submerging food in hot oil? 3.28
 MC Quiz 3
     Which gas do plants absorb from the atmosphere? 6.57
     What is the boiling point of water in Celsius? 2.41
@@ -128,7 +131,7 @@ Common Knowledge Quiz 2
     How many strings does a standard violin have? 1.37
     What gas do plants absorb from the atmosphere? 1.36
 French Quiz
-    Fill in the gap: _____ a gauche (Latin characters only) 7.30
+    Fill in the gap: _____ a gauche (Latin characters only) 2.48
     Which one means "Turn right" 7.54
     True or false: la mathamatique means geography 8.40
     Which one is "I study math" in french 7.97
@@ -138,5 +141,10 @@ French Quiz 2
 Test Quiz
     hayy 4.94
 31.94.16.101
-French Quiz
-    Fill in the gap: _____ a gauche (Latin characters only) 2.48
+83.105.152.59
+Jazz
+    How many pets do I have? 5.51
+    Do I like cats or dogs 2.95
+192.168.50.1
+Common Knowledge Quiz 2
+    How many continents are there? 5.77
