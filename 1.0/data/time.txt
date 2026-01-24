@@ -135,6 +135,8 @@ French Quiz
 French Quiz 2
     Which means turn LEFT 17.20
     J’etudie le francais 5.56
-192.168.50.1
 Test Quiz
     hayy 4.94
+31.94.16.101
+French Quiz
+    Fill in the gap: _____ a gauche (Latin characters only) 2.48
