@@ -3,9 +3,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Delete Quiz Confirmation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizFabric - Confirm Delete</title>
+  <link rel="icon" href="/data/icon.png" type="image/png">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <style>
+    .app-icon {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        height: 40px;
+        width: 40px;
+        z-index: 1000;
+        opacity: 0.9;
+    }
     .confirm-container {
       margin: 20px;
       text-align: center;
@@ -29,12 +40,13 @@
   </style>
 </head>
 <body>
+<img src="/data/icon.png" alt="QuizFabric" class="app-icon">
   <div class="confirm-container">
     {% if message %}
       <h2>{{ message }}</h2>
       <a href="{{ url_for('routes.home') }}" class="cancel-button">Back to Home</a>
     {% else %}
-      <h2>Are you sure you want to delete the quiz "{{ quiz }}"?</h2>
+      <h2>QuizFabric - Are you sure you want to delete "{{ quiz }}"?</h2>
       <form method="POST" action="{{ url_for('deletequiz') }}">
         <input type="hidden" name="quiz" value="{{ quiz }}">
         <button type="submit" class="confirm-button">Yes, Delete Quiz</button>

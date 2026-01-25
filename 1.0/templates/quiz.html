@@ -3,9 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz - {{ quiz_name }}</title>
+  <title>QuizFabric - {{ quiz_name }}</title>
+  <link rel="icon" href="/data/icon.png" type="image/png">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <style>
+    .app-icon {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      height: 40px;
+      width: 40px;
+      z-index: 1000;
+      opacity: 0.9;
+    }
     .header-container {
       display: flex;
       justify-content: space-between;
@@ -409,6 +419,7 @@
   </script>
 
 <body>
+<img src="/data/icon.png" alt="QuizFabric" class="app-icon">
   <div class="container">
     <div class="card">
       {% if request.args.get('error') == 'incorrect' %}

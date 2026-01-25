@@ -247,6 +247,14 @@ def get_avatar_image(avatar_name):
     else:
         return "Avatar not found", 404
 
+@app.route('/data/icon.png')
+def get_icon():
+    icon_file = os.path.join(os.path.dirname(__file__), "data", "icon.png")
+    if os.path.exists(icon_file):
+        return send_file(icon_file, mimetype='image/png')
+    else:
+        return "Icon not found", 404
+
 @app.route('/deletequiz', methods=['GET', 'POST'])
 def deletequiz():
     ip = get_client_ip()

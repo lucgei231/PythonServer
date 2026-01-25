@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join Quiz</title>
+    <title>QuizFabric - Join Quiz</title>
+    <link rel="icon" href="/data/icon.png" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     {% if is_mobile %}
@@ -22,6 +23,15 @@
     </style>
     {% endif %}
     <style>
+        .app-icon {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            height: 40px;
+            width: 40px;
+            z-index: 1000;
+            opacity: 0.9;
+        }
         @media (max-width: 768px) {
             .join-container {
                 padding: 15px;
@@ -60,9 +70,12 @@
     </style>
 </head>
 <body>
-    <a href="{{ url_for('home') }}" style="position: absolute; top: 10px; right: 10px; background: green; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; z-index: 1000;">Home</a>
+    <div style="position: fixed; top: 10px; right: 10px; display: flex; gap: 10px; align-items: center; z-index: 1000;">
+        <a href="{{ url_for('home') }}" style="background: green; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">Home</a>
+        <img src="/data/icon.png" alt="QuizFabric" style="height: 40px; width: 40px; opacity: 0.9;">
+    </div>
     <div class="quiz-container">
-        <h2>Join Quiz</h2>
+        <h2>QuizFabric - Join Quiz</h2>
         <div id="join-form">
             <label for="code">Game Code:</label>
             <input type="text" id="code" placeholder="Enter Game Code" required style="padding: 8px; margin: 5px; width: 100%;">

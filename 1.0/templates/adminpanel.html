@@ -2,13 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizFabric - Admin Panel</title>
+    <link rel="icon" href="/data/icon.png" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .app-icon {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            height: 40px;
+            width: 40px;
+            z-index: 1000;
+            opacity: 0.9;
+        }
+    </style>
 </head>
 <body>
+<img src="/data/icon.png" alt="QuizFabric" class="app-icon">
     <div class="container">
         {% if not session.admin %}
-            <h1>Admin Login</h1>
+            <h1>QuizFabric - Admin Login</h1>
             {% if error %}
                 <p style="color:red;">{{ error }}</p>
             {% endif %}
@@ -17,7 +31,7 @@
                 <button type="submit">Login</button>
             </form>
         {% else %}
-            <h1>Admin Panel</h1>
+            <h1>QuizFabric - Admin Panel</h1>
             <p>Welcome, Admin!</p>
             <a href="{{ url_for('admin_logout') }}">Logout</a>
             <!-- Additional admin functionality can be added here -->

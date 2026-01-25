@@ -2,9 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Delete Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizFabric - Delete Quiz</title>
+    <link rel="icon" href="/data/icon.png" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
+        .app-icon {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            height: 40px;
+            width: 40px;
+            z-index: 1000;
+            opacity: 0.9;
+        }
         .delete-form {
             margin: 20px;
         }
@@ -19,8 +30,9 @@
     </style>
 </head>
 <body>
+<img src="/data/icon.png" alt="QuizFabric" class="app-icon">
     <div class="delete-form">
-        <h1>Delete Quiz</h1>
+        <h1>QuizFabric - Delete Quiz</h1>
         {% if message %}
         <p style="color: green;">{{ message }}</p>
         {% endif %}

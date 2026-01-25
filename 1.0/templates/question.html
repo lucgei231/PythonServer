@@ -2,9 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Question</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizFabric - Question</title>
+  <link rel="icon" href="/data/icon.png" type="image/png">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <style>
+    .app-icon {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        height: 40px;
+        width: 40px;
+        z-index: 1000;
+        opacity: 0.9;
+    }
     .header-container {
       display: flex;
       justify-content: space-between;
@@ -27,6 +38,7 @@
   </style>
 </head>
 <body>
+<img src="/data/icon.png" alt="QuizFabric" class="app-icon">
   <div class="header-container">
     <div class="question-number">
       Question: {{ question_index|default(1) }}

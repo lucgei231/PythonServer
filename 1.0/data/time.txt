@@ -82,6 +82,8 @@ Bacon the Dog Quiz
     does he have a big brown spot 7.75
 Cooking Quiz
     What cooking method involves submerging food in hot oil? 3.28
+    What utensil is used to measure dry ingredients? 2.33
+    What is the term for cooking food slowly in liquid? 252.74
 MC Quiz 3
     Which gas do plants absorb from the atmosphere? 6.57
     What is the boiling point of water in Celsius? 2.41
@@ -116,7 +118,7 @@ Common Knowledge Quiz 2
     What is the largest planet in our solar system? 1.07
     Who painted the Mona Lisa? 2.19
     What is the chemical symbol for gold? 1.17
-    How many continents are there? 0.58
+    How many continents are there? 5.77
     What is the smallest country in the world? 1.71
     Who wrote Romeo and Juliet? 2.17
     What is the speed of light? 1.26
@@ -143,8 +145,14 @@ Test Quiz
 31.94.16.101
 83.105.152.59
 Jazz
-    How many pets do I have? 5.51
-    Do I like cats or dogs 2.95
+    How many pets do I have? 7.16
+    Do I like cats or dogs 6.19
+    How old am I 1.85
+192.168.50.119
+C++ Quiz
+    Who invented C++? 85.08
+MCreator
+    What is MCreator primarily used for? 1.13
 192.168.50.1
-Common Knowledge Quiz 2
-    How many continents are there? 5.77
+Jazz
+    How old am I 5.18

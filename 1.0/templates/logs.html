@@ -3,9 +3,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Logs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizFabric - Activity Logs</title>
+  <link rel="icon" href="/data/icon.png" type="image/png">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <style>
+    .app-icon {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        height: 40px;
+        width: 40px;
+        z-index: 1000;
+        opacity: 0.9;
+    }
     body {
       margin: 0;
       padding: 0;
@@ -53,7 +64,8 @@
   </style>
 </head>
 <body>
-  <!-- Green Home Button in top right corner -->
+<img src="/data/icon.png" alt="QuizFabric" class="app-icon">
+  <!-- Green Home Button in top left corner -->
   <a href="{{ url_for('home') }}" class="home-button">Home</a>
   <div class="log-container" id="logContainer">
     {{ logs_content }}

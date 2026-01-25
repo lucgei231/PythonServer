@@ -2,9 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Quiz Finished</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizFabric - Finished</title>
+    <link rel="icon" href="/data/icon.png" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
+        .app-icon {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            height: 40px;
+            width: 40px;
+            z-index: 1000;
+            opacity: 0.9;
+        }
         .finish-container {
             margin: 20px;
             text-align: center;
@@ -41,8 +52,9 @@
     </style>
 </head>
 <body>
+<img src="/data/icon.png" alt="QuizFabric" class="app-icon">
     <div class="finish-container">
-        <h1>You finished the Quiz!</h1>
+        <h1>QuizFabric - You finished the Quiz!</h1>
         <table id="timesTable" border="1" style="margin: 20px auto; width: 50%;">
             <thead>
                 <tr>
