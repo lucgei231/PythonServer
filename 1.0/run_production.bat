@@ -14,6 +14,6 @@ set FLASK_ENV=production
 echo Starting production server on 0.0.0.0:5710...
 cd /d "e:\PythonServer\PythonServer2\1.0"
 %PYTHON% wsgi.py
-
-pause
+echo Press any key to restart the server...
+pause null
 goto start

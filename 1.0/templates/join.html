@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>QuizFabric - Join Quiz</title>
     <link rel="icon" href="/data/icon.png" type="image/png">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <link rel="apple-touch-icon" href="/data/icon.png">
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="description" content="A modern quiz application for creating and taking quizzes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="QuizFabric">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     {% if is_mobile %}
@@ -93,6 +100,7 @@
         </div>
         <div id="question-area" style="display:none;">
             <div class="question" id="question"></div>
+            <div id="question-image" style="display:none; text-align:center; margin: 1rem 0;"></div>
             <form id="answer-form">
                 <div id="answer-container"></div>
                 <input type="text" id="answer" name="answer" placeholder="Your Answer" style="padding: 8px; margin: 5px; width: 100%; display: block;">
@@ -252,6 +260,26 @@
             document.getElementById('final-leaderboard').style.display = 'none';
             document.getElementById('question-area').style.display = 'block';
             document.getElementById('question').textContent = data.question;
+            // Show image if provided
+            const qImgDiv = document.getElementById('question-image');
+            if (data.images && data.images.length > 0) {
+                qImgDiv.innerHTML = '';
+                data.images.forEach(src => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.style.maxWidth = '90%';
+                    img.style.maxHeight = '60vh';
+                    img.style.objectFit = 'contain';
+                    img.style.borderRadius = '8px';
+                    img.style.boxShadow = '0 6px 20px rgba(0,0,0,0.2)';
+                    img.style.margin = '0.5rem';
+                    qImgDiv.appendChild(img);
+                });
+                qImgDiv.style.display = 'block';
+            } else {
+                qImgDiv.style.display = 'none';
+                qImgDiv.innerHTML = '';
+            }
             document.getElementById('answer-feedback').style.display = 'none';
             document.getElementById('submit-answer').disabled = false;
             document.getElementById('submit-answer').textContent = 'Submit Answer';

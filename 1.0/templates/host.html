@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>QuizFabric - Host: {{ quiz_name }}</title>
     <link rel="icon" href="/data/icon.png" type="image/png">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <link rel="apple-touch-icon" href="/data/icon.png">
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="description" content="A modern quiz application for creating and taking quizzes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="QuizFabric">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <style>
@@ -125,6 +132,7 @@
         <div id="question-display" style="display:none;">
             <h3>Question:</h3>
             <p id="question"></p>
+            <div id="question-image" style="display:none; text-align:center; margin: 1rem 0;"></div>
             <p id="correct-answer" style="display:none;">Correct Answer: <span id="correct-answer-text"></span></p>
             <div class="btn-container">
                 <button id="start-round" class="quiz-btn">Next Question</button>
@@ -215,6 +223,26 @@
         socket.on('new_question', (data) => {
             document.getElementById('question-display').style.display = 'block';
             document.getElementById('question').textContent = data.question;
+            // Show image if provided
+            const qImgDiv = document.getElementById('question-image');
+            if (data.images && data.images.length > 0) {
+                qImgDiv.innerHTML = '';
+                data.images.forEach(src => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.style.maxWidth = '90%';
+                    img.style.maxHeight = '60vh';
+                    img.style.objectFit = 'contain';
+                    img.style.borderRadius = '8px';
+                    img.style.boxShadow = '0 6px 20px rgba(0,0,0,0.2)';
+                    img.style.margin = '0.5rem';
+                    qImgDiv.appendChild(img);
+                });
+                qImgDiv.style.display = 'block';
+            } else {
+                qImgDiv.style.display = 'none';
+                qImgDiv.innerHTML = '';
+            }
             document.getElementById('correct-answer').style.display = 'none';
             document.getElementById('reveal-answers').style.display = 'none';
         });

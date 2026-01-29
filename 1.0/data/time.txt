@@ -76,7 +76,7 @@ quiz for lucas
     Which PowerShell cmdlet displays network configuration? 6.24
 Common Knowledge Quiz
     What is the square root of 16? 12.64
-    What is the capital of France? 5.41
+    What is the capital of France? 3.94
     What is the largest planet in our solar system? 14.36
 Bacon the Dog Quiz
     does he have a big brown spot 7.75
@@ -147,12 +147,13 @@ Test Quiz
 Jazz
     How many pets do I have? 7.16
     Do I like cats or dogs 6.19
-    How old am I 1.85
+    How old am I 5.18
 192.168.50.119
 C++ Quiz
     Who invented C++? 85.08
+    What is C++? 2.09
 MCreator
     What is MCreator primarily used for? 1.13
 192.168.50.1
-Jazz
-    How old am I 5.18
+C++ Quiz
+    Who invented C++? 1.83

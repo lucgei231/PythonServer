@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>QuizFabric - Edit Quiz</title>
     <link rel="icon" href="/data/icon.png" type="image/png">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <link rel="apple-touch-icon" href="/data/icon.png">
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="description" content="A modern quiz application for creating and taking quizzes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="QuizFabric">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
         .app-icon {
@@ -140,6 +147,68 @@
                 margin-bottom: 5px;
             }
         }
+            .image-upload-section {
+                margin-top: 30px;
+                padding: 20px;
+                background-color: #e8f4f8;
+                border-radius: 8px;
+                border: 2px solid #4f46e5;
+            }
+            .image-upload-section h3 {
+                color: #4f46e5;
+                margin-top: 0;
+            }
+            .image-preview {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 10px;
+                margin-top: 15px;
+            }
+            .image-preview-item {
+                position: relative;
+                border: 2px solid #ddd;
+                border-radius: 4px;
+                overflow: hidden;
+                background: white;
+            }
+            .image-preview-item img {
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
+            }
+            .image-preview-item .remove-btn {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                background: red;
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 25px;
+                height: 25px;
+                cursor: pointer;
+                font-size: 14px;
+            }
+            .image-preview-item .remove-btn:hover {
+                background: darkred;
+            }
+            .upload-status {
+                margin-top: 10px;
+                padding: 10px;
+                border-radius: 4px;
+                display: none;
+                margin-bottom: 10px;
+            }
+            .upload-status.success {
+                background-color: #d4edda;
+                color: #155724;
+                display: block;
+            }
+            .upload-status.error {
+                background-color: #f8d7da;
+                color: #721c24;
+                display: block;
+            }
     </style>
 </head>
 <body>
@@ -149,6 +218,15 @@
         {% if message %}
         <p style="color: green; text-align: center;">{{ message }}</p>
         {% endif %}
+
+            <div class="image-upload-section">
+                <h3>📸 Quiz Images</h3>
+                <p style="color: #666; margin: 10px 0;">Supported formats: PNG, WebP, JPG, JPEG | Max file size: 300MB | Max 20 images per quiz</p>
+                <input type="file" id="image-input" accept=".png,.webp,.jpg,.jpeg" multiple>
+                <button type="button" onclick="uploadImage()" class="btn btn-primary" style="margin-top: 10px;">Upload Images</button>
+                <div id="upload-status" class="upload-status"></div>
+                <div id="image-preview" class="image-preview"></div>
+            </div>
 
         <button type="button" class="legacy-btn" onclick="toggleEditor()">Switch to Legacy Text Editor</button>
 
@@ -236,6 +314,9 @@
         let questions = [];
         let editingIndex = -1;
         let usingLegacy = false;
+            const quizNameDisplay = `{{ quiz_name | replace('\\', '\\\\') | replace('"', '\\"') }}`;
+        
+            document.getElementById('quiz-name-display').textContent = quizNameDisplay;
 
         function toggleEditor() {
             usingLegacy = !usingLegacy;
@@ -467,6 +548,73 @@
             `;
             container.appendChild(div);
         }
+        
+            // Image upload functions
+            async function uploadImage() {
+                const fileInput = document.getElementById('image-input');
+                const statusDiv = document.getElementById('upload-status');
+            
+                if (!fileInput.files.length) {
+                    showStatus('Please select at least one image file', 'error');
+                    return;
+                }
+            
+                for (const file of fileInput.files) {
+                    const formData = new FormData();
+                    formData.append('image', file);
+                
+                    try {
+                        const response = await fetch(`/upload_quiz_image/${encodeURIComponent(quizNameDisplay)}`, {
+                            method: 'POST',
+                            body: formData
+                        });
+                    
+                        const data = await response.json();
+                    
+                        if (response.ok) {
+                            showStatus(`✓ Uploaded: ${file.name}`, 'success');
+                            addImagePreview(data.url, file.name);
+                        } else {
+                            showStatus(`✗ Error uploading ${file.name}: ${data.error}`, 'error');
+                        }
+                    } catch (error) {
+                        showStatus(`✗ Error uploading ${file.name}: ${error.message}`, 'error');
+                    }
+                }
+            
+                fileInput.value = '';
+            }
+        
+            function addImagePreview(url, filename) {
+                const preview = document.getElementById('image-preview');
+                const div = document.createElement('div');
+                div.className = 'image-preview-item';
+                div.innerHTML = `
+                    <img src="${url}" alt="${filename}">
+                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">×</button>
+                `;
+                preview.appendChild(div);
+            }
+        
+            function showStatus(message, type) {
+                const statusDiv = document.getElementById('upload-status');
+                statusDiv.textContent = message;
+                statusDiv.className = `upload-status ${type}`;
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 4000);
+            }
+        
+            // Load existing images on page load
+            document.addEventListener('DOMContentLoaded', function() {
+                loadExistingImages();
+            });
+        
+            function loadExistingImages() {
+                const imageDir = `/UploadedImages/${encodeURIComponent(quizNameDisplay)}/`;
+                // Note: This would require a backend endpoint to list images
+                // For now, we'll leave the preview empty and let users upload new images
+            }
     </script>
 </body>
 </html>

@@ -18,11 +18,22 @@ app = Flask(__name__, template_folder="templates")
 app.secret_key = "your_random_secret_key_here"
 
 socketio = SocketIO(app, async_mode='gevent')
+from werkzeug.utils import secure_filename
 
-# Ensure the logs directory exists.
-logs_dir = os.path.join(os.path.dirname(__file__), "logs")
-if not os.path.exists(logs_dir):
-    os.makedirs(logs_dir)
+# Configuration for file uploads
+ALLOWED_EXTENSIONS = {'.png', '.webp', '.jpg', '.jpeg'}
+MAX_IMAGES_PER_QUIZ = 20
+from werkzeug.utils import secure_filename
+
+# Configuration for file uploads
+ALLOWED_EXTENSIONS = {'.png', '.webp', '.jpg', '.jpeg'}
+MAX_FILE_SIZE = 300 * 1024 * 1024  # 300MB
+MAX_IMAGES_PER_QUIZ = 20
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "UploadedImages")
+
+# Create uploads folder if it doesn't exist
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 print(datetime.datetime.now(), "Logs directory set up at", logs_dir)
 
 # Use a fixed filename for all print() output.
@@ -227,6 +238,35 @@ def home():
         print("DEBUG: Error in home route:", str(e))
         return f"Error in home route: {str(e)}", 500
 
+@app.route('/robots.txt')
+def robots():
+    return '''<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            font-size: 15rem;
+            color: white;
+            text-shadow: 5px 5px 20px rgba(0,0,0,0.5);
+            margin: 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>LOL BOT</h1>
+</body>
+</html>''', 200, {'Content-Type': 'text/html; charset=utf-8'}
+
 @app.route('/get_avatars', methods=['GET'])
 def get_avatars():
     avatars_dir = os.path.join(os.path.dirname(__file__), "data", "avatars")
@@ -321,6 +361,106 @@ def addquiz():
             return render_template("addquiz.html", message="Quiz uploaded successfully!")
     return render_template("addquiz.html")
 
+    @app.route('/upload_quiz_image/<quiz_name>', methods=['POST'])
+    def upload_quiz_image(quiz_name):
+        """Upload image for a quiz with validation"""
+        client_ip = get_client_ip()
+    
+        try:
+            # Check if file is in request
+            if 'image' not in request.files:
+                return jsonify({'error': 'No image file provided'}), 400
+        
+            image_file = request.files['image']
+        
+            if image_file.filename == '':
+                return jsonify({'error': 'No file selected'}), 400
+        
+            # Get file extension
+            filename = secure_filename(image_file.filename)
+            file_ext = os.path.splitext(filename)[1].lower()
+        
+            # Validate file extension
+            if file_ext not in ALLOWED_EXTENSIONS:
+                return jsonify({'error': f'File type not allowed. Only {", ".join(ALLOWED_EXTENSIONS)} are supported'}), 400
+        
+            # Check file size before saving
+            image_file.seek(0, os.SEEK_END)
+            file_size = image_file.tell()
+            image_file.seek(0)
+        
+            if file_size > MAX_FILE_SIZE:
+                return jsonify({'error': f'File too large. Maximum size is 300MB'}), 400
+        
+            # Create quiz-specific directory
+            quiz_image_dir = os.path.join(UPLOAD_FOLDER, secure_filename(quiz_name))
+            if not os.path.exists(quiz_image_dir):
+                os.makedirs(quiz_image_dir)
+        
+            # Check image count
+            existing_images = os.listdir(quiz_image_dir)
+            if len(existing_images) >= MAX_IMAGES_PER_QUIZ:
+                return jsonify({'error': f'Maximum {MAX_IMAGES_PER_QUIZ} images per quiz reached'}), 400
+        
+            # Generate unique filename
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+            new_filename = f"{timestamp}{file_ext}"
+            file_path = os.path.join(quiz_image_dir, new_filename)
+        
+            # Save file
+            image_file.save(file_path)
+
+            # Update per-question images metadata if question_index provided
+            images_meta_dir = os.path.join(os.path.dirname(__file__), "non_static", "question")
+            if not os.path.exists(images_meta_dir):
+                os.makedirs(images_meta_dir)
+            images_meta_file = os.path.join(images_meta_dir, f"{quiz_name}_images.json")
+
+            question_index = request.form.get('question_index')
+            try:
+                if os.path.exists(images_meta_file):
+                    with open(images_meta_file, 'r', encoding='utf-8') as mf:
+                        images_meta = json.load(mf)
+                else:
+                    images_meta = {}
+            except Exception:
+                images_meta = {}
+
+            if question_index is not None and question_index != '':
+                key = str(int(question_index))
+                images_meta.setdefault(key, [])
+                images_meta[key].append(new_filename)
+                try:
+                    with open(images_meta_file, 'w', encoding='utf-8') as mf:
+                        json.dump(images_meta, mf)
+                except Exception as e:
+                    print(datetime.datetime.now(), client_ip, f"Failed to update images metadata: {e}")
+
+            # Return image URL
+            image_url = f"/UploadedImages/{secure_filename(quiz_name)}/{new_filename}"
+            print(datetime.datetime.now(), client_ip, f"Uploaded image for quiz '{quiz_name}': {new_filename}")
+
+            return jsonify({
+                'success': True,
+                'url': image_url,
+                'filename': new_filename
+            }), 200
+    
+        except Exception as e:
+            print(datetime.datetime.now(), client_ip, f"Error uploading image: {str(e)}")
+            return jsonify({'error': f'Upload failed: {str(e)}'}), 500
+
+    @app.route('/UploadedImages/<path:filepath>')
+    def serve_uploaded_image(filepath):
+        """Serve uploaded images"""
+        try:
+            file_path = os.path.join(UPLOAD_FOLDER, filepath)
+            if os.path.exists(file_path) and os.path.isfile(file_path):
+                return send_file(file_path)
+            return jsonify({'error': 'Image not found'}), 404
+        except Exception as e:
+            return jsonify({'error': 'Failed to serve image'}), 500
+
 @app.route('/quiz/<quiz_name>', methods=['GET'])
 def get_quiz_json(quiz_name):
     # quiz_name is defined from the URL.
@@ -356,6 +496,19 @@ def get_quiz_json(quiz_name):
     
     # Otherwise, show the current question.
     question = questions[current_index]
+    # Attach any images for this question (by index) if present
+    images_meta_file = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{quiz_name}_images.json")
+    try:
+        if os.path.exists(images_meta_file):
+            with open(images_meta_file, 'r', encoding='utf-8') as mf:
+                images_meta = json.load(mf)
+        else:
+            images_meta = {}
+    except Exception:
+        images_meta = {}
+    imgs = images_meta.get(str(current_index), [])
+    if imgs:
+        question['images'] = [f"/UploadedImages/{quiz_name}/{fname}" for fname in imgs]
     display_index = current_index + 1
     quiz_total = len(questions)
     session['current_question_name'] = question.get('question', 'Unknown Question')
@@ -372,6 +525,22 @@ def get_quiz_data(quiz_name):
         questions = read_quiz(quiz_name)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    # Attach images metadata to each question if available
+    images_meta_file = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{quiz_name}_images.json")
+    try:
+        if os.path.exists(images_meta_file):
+            with open(images_meta_file, 'r', encoding='utf-8') as mf:
+                images_meta = json.load(mf)
+        else:
+            images_meta = {}
+    except Exception:
+        images_meta = {}
+
+    for idx, q in enumerate(questions):
+        imgs = images_meta.get(str(idx), [])
+        if imgs:
+            q['images'] = [f"/UploadedImages/{quiz_name}/{fname}" for fname in imgs]
+
     return jsonify(questions)
 
 @app.route('/editquiz/<quiz_name>', methods=['GET', 'POST'])
@@ -410,6 +579,19 @@ def edit_quiz(quiz_name):
                 # Rename question file if it exists
                 if os.path.exists(question_file):
                     os.rename(question_file, new_question_file)
+                # Rename images metadata file if exists
+                old_images_meta = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{quiz_name}_images.json")
+                new_images_meta = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{new_quiz_name}_images.json")
+                if os.path.exists(old_images_meta):
+                    os.rename(old_images_meta, new_images_meta)
+                # Rename UploadedImages directory for this quiz
+                old_images_dir = os.path.join(UPLOAD_FOLDER, secure_filename(quiz_name))
+                new_images_dir = os.path.join(UPLOAD_FOLDER, secure_filename(new_quiz_name))
+                if os.path.exists(old_images_dir):
+                    try:
+                        os.rename(old_images_dir, new_images_dir)
+                    except Exception as e:
+                        print(datetime.datetime.now(), client_ip, f"Failed to rename images dir: {e}")
                 
                 # Update uploaded.json if needed
                 uploaded_data = read_uploaded_json()
@@ -806,7 +988,23 @@ def host_quiz(quiz_name):
     control_code = str(random.randint(1000, 9999))
     while control_code in sessions or control_code == code:
         control_code = str(random.randint(1000, 9999))
-    sessions[code] = {'host_sid': None, 'control_sids': [], 'players': [], 'quiz_name': quiz_name, 'questions': read_quiz(quiz_name), 'current_q': 0, 'scores': {}, 'answers': [], 'last_correct': {}, 'state': 'lobby', 'control_code': control_code}
+    # Load questions and attach per-question images if present
+    questions = read_quiz(quiz_name)
+    images_meta_file = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{quiz_name}_images.json")
+    try:
+        if os.path.exists(images_meta_file):
+            with open(images_meta_file, 'r', encoding='utf-8') as mf:
+                images_meta = json.load(mf)
+        else:
+            images_meta = {}
+    except Exception:
+        images_meta = {}
+    for idx, q in enumerate(questions):
+        imgs = images_meta.get(str(idx), [])
+        if imgs:
+            q['images'] = [f"/UploadedImages/{quiz_name}/{fname}" for fname in imgs]
+
+    sessions[code] = {'host_sid': None, 'control_sids': [], 'players': [], 'quiz_name': quiz_name, 'questions': questions, 'current_q': 0, 'scores': {}, 'answers': [], 'last_correct': {}, 'state': 'lobby', 'control_code': control_code}
     control_to_game[control_code] = code
     return render_template('host.html', code=code, quiz_name=quiz_name, control_code=control_code, is_mobile=is_mobile())
 
@@ -839,8 +1037,15 @@ def handle_join_game(data):
         if state == 'question':
             q_index = sessions[code]['current_q'] - 1
             if q_index >= 0:
-                question = sessions[code]['questions'][q_index]['question']
-                emit('new_question', {'question': question})
+                q_obj = sessions[code]['questions'][q_index]
+                payload = {'question': q_obj.get('question')}
+                if q_obj.get('type') == 'mc':
+                    payload.update({'answers': q_obj.get('answers', []), 'type': 'mc'})
+                else:
+                    payload.update({'type': 'type'})
+                if q_obj.get('images'):
+                    payload['images'] = q_obj.get('images')
+                emit('new_question', payload)
         elif state == 'leaderboard':
             leaderboard = []
             for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
@@ -894,8 +1099,15 @@ def handle_control_join(data):
         if state == 'question':
             q_index = sessions[code]['current_q'] - 1
             if q_index >= 0 and q_index < len(sessions[code]['questions']):
-                question = sessions[code]['questions'][q_index]
-                emit('new_question', {'question': question['question']})
+                q_obj = sessions[code]['questions'][q_index]
+                payload = {'question': q_obj.get('question')}
+                if q_obj.get('type') == 'mc':
+                    payload.update({'answers': q_obj.get('answers', []), 'type': 'mc'})
+                else:
+                    payload.update({'type': 'type'})
+                if q_obj.get('images'):
+                    payload['images'] = q_obj.get('images')
+                emit('new_question', payload)
         elif state == 'leaderboard':
             leaderboard = sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True)
             leaderboard_items = []
@@ -917,10 +1129,17 @@ def handle_start_round(data):
     if code in sessions and (sessions[code]['host_sid'] == request.sid or request.sid in sessions[code]['control_sids']):
         q_index = sessions[code]['current_q']
         if q_index < len(sessions[code]['questions']):
-            question = sessions[code]['questions'][q_index]
+            q_obj = sessions[code]['questions'][q_index]
             sessions[code]['answers'] = []
             sessions[code]['state'] = 'question'
-            emit('new_question', {'question': question['question'], 'answers': question['answers'], 'type': question['type']}, room=code)
+            payload = {'question': q_obj.get('question')}
+            if q_obj.get('type') == 'mc':
+                payload.update({'answers': q_obj.get('answers', []), 'type': 'mc'})
+            else:
+                payload.update({'type': 'type'})
+            if q_obj.get('images'):
+                payload['images'] = q_obj.get('images')
+            emit('new_question', payload, room=code)
             sessions[code]['current_q'] += 1
         else:
             sessions[code]['state'] = 'finished'
