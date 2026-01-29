@@ -34,6 +34,11 @@ UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "UploadedImages")
 # Create uploads folder if it doesn't exist
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
+# Ensure logs directory exists and set up log filename
+logs_dir = os.path.join(os.path.dirname(__file__), "logs")
+if not os.path.exists(logs_dir):
+    os.makedirs(logs_dir)
+log_filename = os.path.join(logs_dir, "print.txt")
 print(datetime.datetime.now(), "Logs directory set up at", logs_dir)
 
 # Use a fixed filename for all print() output.
