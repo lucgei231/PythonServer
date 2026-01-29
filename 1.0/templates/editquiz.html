@@ -147,41 +147,54 @@
                 margin-bottom: 5px;
             }
         }
-            .image-upload-section {
-                margin-top: 30px;
-                padding: 20px;
-                background-color: #e8f4f8;
-                border-radius: 8px;
-                border: 2px solid #4f46e5;
+            // Image upload functions - upload for current question (edit mode)
+            async function uploadImageForCurrentQuestion() {
+                const fileInput = document.getElementById('image-input');
+                if (!fileInput.files.length) {
+                    showStatus('Please select at least one image file', 'error');
+                    return;
+                }
+
+                // Determine target question index: editingIndex if editing, otherwise next index (when adding)
+                const targetIndex = (typeof editingIndex === 'number' && editingIndex >= 0) ? editingIndex : questions.length;
+
+                for (const file of fileInput.files) {
+                    const formData = new FormData();
+                    formData.append('image', file);
+                    formData.append('question_index', String(targetIndex));
+
+                    try {
+                                console.log('Uploading', file.name, 'for quiz', quizNameDisplay, 'questionIndex', targetIndex);
+                                const response = await fetch(`/upload_quiz_image/${encodeURIComponent(quizNameDisplay)}`, {
+                                    method: 'POST',
+                                    body: formData
+                                });
+                                console.log('Fetch returned', response.status, response.statusText);
+                        let data = null;
+                        try {
+                            data = await response.json();
+                        } catch (err) {
+                            // Response was not JSON (likely an HTML error page). Show raw text limited.
+                                    const text = await response.text();
+                                    const preview = text.substring(0, 1000);
+                                    console.error('Non-JSON upload response:', response.status, preview);
+                                    showStatus(`✗ Error uploading ${file.name}: HTTP ${response.status} - see console`, 'error');
+                            continue;
+                        }
+                        if (response.ok) {
+                            showStatus(`✓ Uploaded: ${file.name}`, 'success');
+                            addImagePreview(data.url, file.name, targetIndex);
+                        } else {
+                            const errMsg = data && data.error ? data.error : JSON.stringify(data);
+                            showStatus(`✗ Error uploading ${file.name}: ${errMsg}`, 'error');
+                        }
+                    } catch (error) {
+                        showStatus(`✗ Error uploading ${file.name}: ${error.message}`, 'error');
+                    }
+                }
+
+                fileInput.value = '';
             }
-            .image-upload-section h3 {
-                color: #4f46e5;
-                margin-top: 0;
-            }
-            .image-preview {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 10px;
-                margin-top: 15px;
-            }
-            .image-preview-item {
-                position: relative;
-                border: 2px solid #ddd;
-                border-radius: 4px;
-                overflow: hidden;
-                background: white;
-            }
-            .image-preview-item img {
-                width: 100%;
-                height: 150px;
-                object-fit: cover;
-            }
-            .image-preview-item .remove-btn {
-                position: absolute;
-                top: 5px;
-                right: 5px;
-                background: red;
-                color: white;
                 border: none;
                 border-radius: 50%;
                 width: 25px;
@@ -223,7 +236,7 @@
                 <h3>📸 Quiz Images</h3>
                 <p style="color: #666; margin: 10px 0;">Supported formats: PNG, WebP, JPG, JPEG | Max file size: 300MB | Max 20 images per quiz</p>
                 <input type="file" id="image-input" accept=".png,.webp,.jpg,.jpeg" multiple>
-                <button type="button" onclick="uploadImage()" class="btn btn-primary" style="margin-top: 10px;">Upload Images</button>
+                <button type="button" onclick="uploadImageForCurrentQuestion()" class="btn btn-primary" style="margin-top: 10px;">Upload Images For Current Question</button>
                 <div id="upload-status" class="upload-status"></div>
                 <div id="image-preview" class="image-preview"></div>
             </div>
@@ -362,35 +375,90 @@
             }
         });
 
-        // Parse initial quiz_content
+        // Parse initial quiz_content - try JSON first, otherwise treat as legacy and preserve blank lines
         function parseQuizContent(content) {
-            const lines = content.split('\n').map(line => line.trim()).filter(line => line);
-            questions = [];
-            let i = 0;
-            while (i < lines.length) {
-                const question = lines[i];
-                i += 2; // Skip blank line
+            if (!content) {
+                questions = [];
+                updateQuestionsList();
+                return;
+            }
+            // Try JSON (modern editor format)
+            try {
+                const parsed = JSON.parse(content);
+                if (Array.isArray(parsed)) {
+                    questions = parsed;
+                    updateQuestionsList();
+                    usingLegacy = false;
+                    document.getElementById('modern-editor').style.display = 'block';
+                    document.getElementById('legacy-editor').style.display = 'none';
+                    document.getElementById('use_legacy').value = 'false';
+                    return;
+                }
+            } catch (e) {
+                // not JSON, fall through to legacy
+            }
+
+            // Legacy text: preserve content as-is in legacy textarea but DO NOT auto-switch editors.
+            // Load legacy content into the textarea so user can toggle to it manually if desired.
+            document.getElementById('legacy-content').value = content;
+            // Ensure we keep modern editor visible by default
+            document.getElementById('modern-editor').style.display = 'block';
+            document.getElementById('legacy-editor').style.display = 'none';
+            document.getElementById('use_legacy').value = 'false';
+            // Attempt a best-effort parse for modern preview without altering original content: do a non-destructive parse
+            const blocks = content.split(/\n\s*\n+/);
+            const parsedQuestions = [];
+            blocks.forEach(block => {
+                // Split and preserve original spacing for legacy textarea, but use trimmed lines for parsing
+                const rawLines = block.split('\n').map(l => l.replace(/\r$/, ''));
+                const lines = rawLines.map(l => l === undefined ? '' : l);
+                if (lines.length === 0) return;
+
+                // Pick the question as the first non-empty line that does NOT look like an answer (doesn't start with '*')
+                let questionLineIndex = -1;
+                for (let k = 0; k < lines.length; k++) {
+                    const t = (lines[k] || '').trim();
+                    if (!t) continue;
+                    if (!t.startsWith('*')) {
+                        questionLineIndex = k;
+                        break;
+                    }
+                }
+                // If all lines start with '*' or we didn't find a non-answer, fall back to first line
+                if (questionLineIndex === -1) questionLineIndex = 0;
+
+                const question = (lines[questionLineIndex] || '').trim();
                 const answers = [];
                 let correctIndex = -1;
                 let type = 'typein';
-                while (i < lines.length && lines[i] !== '') {
-                    let ans = lines[i];
+                for (let i = 0; i < lines.length; i++) {
+                    if (i === questionLineIndex) continue;
+                    const raw = lines[i];
+                    if (raw === undefined) continue;
+                    const line = raw.trim();
+                    if (!line) continue;
+                    let ans = line;
                     if (ans.startsWith('*')) {
-                        ans = ans.substring(1);
+                        ans = ans.substring(1).trim();
                         correctIndex = answers.length;
                         type = 'mc';
                     }
-                    answers.push(ans);
-                    i++;
+                    answers.push(ans.trim());
                 }
                 if (type === 'mc' && answers.length > 1) {
-                    questions.push({question, answers, correctIndex, type});
+                    parsedQuestions.push({question, answers, correctIndex, type});
                 } else if (type === 'typein' && answers.length === 1) {
-                    questions.push({question, answers, correctIndex: 0, type});
+                    parsedQuestions.push({question, answers, correctIndex: 0, type});
                 }
-                i++; // Skip blank line
+            });
+            if (parsedQuestions.length) {
+                // Populate a best-effort modern preview but keep legacy editor content intact
+                questions = parsedQuestions;
+                updateQuestionsList();
+            } else {
+                questions = [];
+                updateQuestionsList();
             }
-            updateQuestionsList();
         }
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -481,6 +549,7 @@
                 `;
                 container.appendChild(div);
             });
+            // (image select removed; uploads attach to current question)
             // Convert to text format
             let text = '';
             questions.forEach(q => {
@@ -549,52 +618,20 @@
             container.appendChild(div);
         }
         
-            // Image upload functions
-            async function uploadImage() {
-                const fileInput = document.getElementById('image-input');
-                const statusDiv = document.getElementById('upload-status');
-            
-                if (!fileInput.files.length) {
-                    showStatus('Please select at least one image file', 'error');
-                    return;
-                }
-            
-                for (const file of fileInput.files) {
-                    const formData = new FormData();
-                    formData.append('image', file);
-                
-                    try {
-                        const response = await fetch(`/upload_quiz_image/${encodeURIComponent(quizNameDisplay)}`, {
-                            method: 'POST',
-                            body: formData
-                        });
-                    
-                        const data = await response.json();
-                    
-                        if (response.ok) {
-                            showStatus(`✓ Uploaded: ${file.name}`, 'success');
-                            addImagePreview(data.url, file.name);
-                        } else {
-                            showStatus(`✗ Error uploading ${file.name}: ${data.error}`, 'error');
-                        }
-                    } catch (error) {
-                        showStatus(`✗ Error uploading ${file.name}: ${error.message}`, 'error');
-                    }
-                }
-            
-                fileInput.value = '';
-            }
+            // (Old uploadImage removed; use uploadImageForCurrentQuestion instead)
         
-            function addImagePreview(url, filename) {
-                const preview = document.getElementById('image-preview');
-                const div = document.createElement('div');
-                div.className = 'image-preview-item';
-                div.innerHTML = `
-                    <img src="${url}" alt="${filename}">
-                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">×</button>
-                `;
-                preview.appendChild(div);
-            }
+            function addImagePreview(url, filename, questionIndex) {
+                    const preview = document.getElementById('image-preview');
+                    const div = document.createElement('div');
+                    div.className = 'image-preview-item';
+                    const meta = questionIndex !== undefined && questionIndex !== null ? `<div style="padding:6px; font-size:0.85em; color:#333;">Q${questionIndex+1}</div>` : '';
+                    div.innerHTML = `
+                        ${meta}
+                        <img src="${url}" alt="${filename}">
+                        <button type="button" class="remove-btn" onclick="this.parentElement.remove()">×</button>
+                    `;
+                    preview.appendChild(div);
+                }
         
             function showStatus(message, type) {
                 const statusDiv = document.getElementById('upload-status');

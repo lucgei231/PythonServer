@@ -1,1 +1,38 @@
-{"127.0.0.1": ["Minecraft Quiz 2", "Minecraft Quiz", "C++ Quiz", "MCreator", "Best Quiz", "Test Quiz"], "192.168.50.1": ["secret.txt", "Gettery quiz"], "104.28.232.7": [], "92.239.84.83": [], "192.168.50.95": ["MCreator"], "192.168.50.80": ["secret"], "104.28.200.6": ["Minecraft Quiz 2"], "192.168.50.158": ["Dad quiz"], "62.64.192.134": ["hello"], "192.168.50.159": ["French Quiz"], "83.105.152.59": ["Jazz"], "192.168.50.211": []}
+{
+    "127.0.0.1": [
+        "Minecraft Quiz",
+        "C++ Quiz",
+        "MCreator",
+        "Best Quiz",
+        "Test Quiz",
+        "cool poo"
+    ],
+    "192.168.50.1": [
+        "secret.txt",
+        "Gettery quiz"
+    ],
+    "104.28.232.7": [],
+    "92.239.84.83": [],
+    "192.168.50.95": [
+        "MCreator"
+    ],
+    "192.168.50.80": [
+        "secret"
+    ],
+    "104.28.200.6": [
+        "Minecraft Quiz 2"
+    ],
+    "192.168.50.158": [
+        "Dad quiz"
+    ],
+    "62.64.192.134": [
+        "hello"
+    ],
+    "192.168.50.159": [
+        "French Quiz"
+    ],
+    "83.105.152.59": [
+        "Jazz"
+    ],
+    "192.168.50.211": []
+}

@@ -2,29 +2,28 @@
 Best Quiz
     Who toots the most? 3.55
     Who owns the window couch? 2
+cool poo
+Lightbulbs Quiz
+C++ Quiz
 C++ Quiz
 MCreator
-    What is MCreator primarily used for? 10.45
-    Which programming language is commonly used with MCreator? 22.40
-    What is the name of the graphical interface in MCreator for creating mod elements? 6.54
-    Can MCreator generate code automatically for mod elements? 0.82
-    What is the default file format for MCreator workspaces? 24.16
 Bacon the Dog Quiz
-Cooking Quiz 3
-Test Quiz
-Test Quiz
-quiz for lucas
-secret
-cool poo
-MC Quiz 3
-MC Quiz 3
-Cooking Quiz
-Cooking Quiz 2
-Example Quiz
-31.94.16.126
-MCreator
 
 192.168.50.94
+Cooking Quiz 3
+Test Quiz
+quiz for lucas
+31.94.16.101
+secret
+    bum bum 16.17
+    spaghetti 1.99
+cool poo
+    cool poo 4.11
+MC Quiz 3
+Example Quiz
+Cooking Quiz
+Cooking Quiz 2
+31.94.16.126
 Minecraft Quiz 2
 Minecraft Quiz
     What are you looking for when using a map to locate a Woodland Mansion? 3.66
@@ -35,81 +34,12 @@ AIS
 Best Quiz
 192.168.50.1
 192.168.50.80
-secret
-    bum bum 16.17
-    spaghetti 1.99
 192.168.50.6
 62.64.192.134
-Example Quiz
-cool poo
-    cool poo 4.11
-Cooking Quiz 3
-quiz for lucas
-    Which Minecraft file type is used to define custom item models? 10.63
-    What is the core design philosophy behind Command Maker? 2.65
-    Which tool is commonly used to test API endpoints during dashboard development? 5.37
-    What Windows command is used to map a network drive? 7.54
-    Which Minecraft folder stores resource pack sounds? 1.88
-    What is the main advantage of a local-first workflow? 1.19
-    Which DNS record type points a domain to an IPv4 address? 1.54
-    What is the purpose of a Vercel deployment preview? 1.27
-    Which Minecraft command is used to run logic repeatedly? 3.56
-    What PowerShell cmdlet lists running processes? 2.09
-    Which UI pattern is ideal for modular dashboards? 20.08
-    Which protocol does SMB rely on? 6.73
-    What is the purpose of environment variables in development? 1.23
-    Which Minecraft sound format is used in resource packs? 2.35
-    What is the main benefit of modular code architecture? 3.16
-    Which Vercel feature handles backend logic? 1.93
-    What Windows tool manages credentials for SMB shares? 22.00
-    Which Minecraft command block mode runs every tick? 3.19
-    What is the purpose of a reverse proxy? 2.60
-    Which JavaScript library is commonly used for reactive dashboards? 2.26
-    What is the advantage of using NBT data in Minecraft? 0.68
-    What file defines a Minecraft datapack? 1.03
-    Which PowerShell cmdlet changes directories? 1.78
-    What is the purpose of a build pipeline? 8.25
-    Which Minecraft folder contains functions in a datapack? 5.72
-    What is the benefit of using a custom dashboard for uploads? 3.16
-    Which DNS record is used for subdomain redirection? 2.79
-    What is the purpose of a Minecraft namespace? 2.85
-    Which PowerShell cmdlet displays network configuration? 6.24
 Common Knowledge Quiz
-    What is the square root of 16? 12.64
-    What is the capital of France? 3.94
-    What is the largest planet in our solar system? 14.36
 Bacon the Dog Quiz
     does he have a big brown spot 7.75
-Cooking Quiz
-    What cooking method involves submerging food in hot oil? 3.28
-    What utensil is used to measure dry ingredients? 2.33
-    What is the term for cooking food slowly in liquid? 252.74
-MC Quiz 3
-    Which gas do plants absorb from the atmosphere? 6.57
-    What is the boiling point of water in Celsius? 2.41
-    Which element has the atomic number 1? 9.75
-    Which sport is played with a shuttlecock? 5.37
-    What is the largest mammal in the world? 3.38
-    Which continent is the Sahara Desert located in? 5.65
-    What is the main ingredient in guacamole? 9.43
-    Which planet is closest to the Sun? 3.71
-    What is the hardest natural substance on Earth? 2.72
-    Which language is spoken in Brazil? 3.70
-    What is the capital of Australia? 9.59
-    Which gas makes up the majority of Earth's atmosphere? 21.98
-    What is the study of stars and planets called? 27.53
-    Which animal can change its color? 2.59
-    What is the largest bone in the human body? 2.37
-    Which country invented pizza? 2.48
-    What is the chemical symbol for gold? 5.02
-    Which ocean is the Bermuda Triangle located in? 7.83
-    What is the process by which plants make their own food? 3.37
-    Which famous scientist developed the theory of relativity? 6.15
-    Which element is essential for human bones? 10.04
-    What is the capital of France? 3.13
-    Which planet is known as the Red Planet? 11.21
 Gettery quiz
-    What does daddy want? 1.36
 192.168.50.211
 192.168.50.159
 Common Knowledge Quiz 2
@@ -133,16 +63,9 @@ Common Knowledge Quiz 2
     How many strings does a standard violin have? 1.37
     What gas do plants absorb from the atmosphere? 1.36
 French Quiz
-    Fill in the gap: _____ a gauche (Latin characters only) 2.48
-    Which one means "Turn right" 7.54
-    True or false: la mathamatique means geography 8.40
-    Which one is "I study math" in french 7.97
 French Quiz 2
     Which means turn LEFT 17.20
     J’etudie le francais 5.56
-Test Quiz
-    hayy 4.94
-31.94.16.101
 83.105.152.59
 Jazz
     How many pets do I have? 7.16
@@ -150,10 +73,8 @@ Jazz
     How old am I 5.18
 192.168.50.119
 C++ Quiz
-    Who invented C++? 85.08
-    What is C++? 2.09
-MCreator
-    What is MCreator primarily used for? 1.13
-192.168.50.1
-C++ Quiz
     Who invented C++? 1.83
+    What is C++? 2.09
+192.168.50.1
+Gettery quiz
+    What does daddy want? 1.11

@@ -366,105 +366,138 @@ def addquiz():
             return render_template("addquiz.html", message="Quiz uploaded successfully!")
     return render_template("addquiz.html")
 
-    @app.route('/upload_quiz_image/<quiz_name>', methods=['POST'])
-    def upload_quiz_image(quiz_name):
-        """Upload image for a quiz with validation"""
-        client_ip = get_client_ip()
-    
+@app.route('/upload_quiz_image/<quiz_name>', methods=['POST'])
+def upload_quiz_image(quiz_name):
+    """Upload image for a quiz with validation"""
+    client_ip = get_client_ip()
+
+    try:
+        print(datetime.datetime.now(), client_ip, f"Received upload request for quiz '{quiz_name}'")
+        # Check if file is in request
+        if 'image' not in request.files:
+            return jsonify({'error': 'No image file provided'}), 400
+
+        image_file = request.files['image']
+
+        if image_file.filename == '':
+            return jsonify({'error': 'No file selected'}), 400
+
+        # Debug info
         try:
-            # Check if file is in request
-            if 'image' not in request.files:
-                return jsonify({'error': 'No image file provided'}), 400
-        
-            image_file = request.files['image']
-        
-            if image_file.filename == '':
-                return jsonify({'error': 'No file selected'}), 400
-        
-            # Get file extension
-            filename = secure_filename(image_file.filename)
-            file_ext = os.path.splitext(filename)[1].lower()
-        
-            # Validate file extension
-            if file_ext not in ALLOWED_EXTENSIONS:
-                return jsonify({'error': f'File type not allowed. Only {", ".join(ALLOWED_EXTENSIONS)} are supported'}), 400
-        
-            # Check file size before saving
-            image_file.seek(0, os.SEEK_END)
-            file_size = image_file.tell()
-            image_file.seek(0)
-        
-            if file_size > MAX_FILE_SIZE:
-                return jsonify({'error': f'File too large. Maximum size is 300MB'}), 400
-        
-            # Create quiz-specific directory
-            quiz_image_dir = os.path.join(UPLOAD_FOLDER, secure_filename(quiz_name))
-            if not os.path.exists(quiz_image_dir):
-                os.makedirs(quiz_image_dir)
-        
-            # Check image count
-            existing_images = os.listdir(quiz_image_dir)
-            if len(existing_images) >= MAX_IMAGES_PER_QUIZ:
-                return jsonify({'error': f'Maximum {MAX_IMAGES_PER_QUIZ} images per quiz reached'}), 400
-        
-            # Generate unique filename
-            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-            new_filename = f"{timestamp}{file_ext}"
-            file_path = os.path.join(quiz_image_dir, new_filename)
-        
-            # Save file
-            image_file.save(file_path)
+            current_pos = image_file.tell()
+        except Exception:
+            current_pos = None
+        image_file.seek(0, os.SEEK_END)
+        file_size = image_file.tell()
+        image_file.seek(0)
+        print(datetime.datetime.now(), client_ip, f"Uploading file: {image_file.filename} size={file_size} pos={current_pos}")
 
-            # Update per-question images metadata if question_index provided
-            images_meta_dir = os.path.join(os.path.dirname(__file__), "non_static", "question")
-            if not os.path.exists(images_meta_dir):
-                os.makedirs(images_meta_dir)
-            images_meta_file = os.path.join(images_meta_dir, f"{quiz_name}_images.json")
+        # Get file extension
+        filename = secure_filename(image_file.filename)
+        file_ext = os.path.splitext(filename)[1].lower()
 
-            question_index = request.form.get('question_index')
-            try:
-                if os.path.exists(images_meta_file):
-                    with open(images_meta_file, 'r', encoding='utf-8') as mf:
-                        images_meta = json.load(mf)
-                else:
-                    images_meta = {}
-            except Exception:
+        # Validate file extension
+        if file_ext not in ALLOWED_EXTENSIONS:
+            return jsonify({'error': f'File type not allowed. Only {", ".join(ALLOWED_EXTENSIONS)} are supported'}), 400
+
+        # Check file size before saving
+        image_file.seek(0, os.SEEK_END)
+        file_size = image_file.tell()
+        image_file.seek(0)
+
+        if file_size > MAX_FILE_SIZE:
+            return jsonify({'error': f'File too large. Maximum size is 300MB'}), 400
+
+        # Create quiz-specific directory
+        quiz_image_dir = os.path.join(UPLOAD_FOLDER, secure_filename(quiz_name))
+        if not os.path.exists(quiz_image_dir):
+            os.makedirs(quiz_image_dir)
+
+        # Check image count
+        existing_images = os.listdir(quiz_image_dir)
+        if len(existing_images) >= MAX_IMAGES_PER_QUIZ:
+            return jsonify({'error': f'Maximum {MAX_IMAGES_PER_QUIZ} images per quiz reached'}), 400
+
+        # Generate unique filename
+        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+        new_filename = f"{timestamp}{file_ext}"
+        file_path = os.path.join(quiz_image_dir, new_filename)
+
+        # Save file
+        image_file.save(file_path)
+
+        # Update per-question images metadata if question_index provided
+        images_meta_dir = os.path.join(os.path.dirname(__file__), "non_static", "question")
+        if not os.path.exists(images_meta_dir):
+            os.makedirs(images_meta_dir)
+        images_meta_file = os.path.join(images_meta_dir, f"{quiz_name}_images.json")
+
+        question_index = request.form.get('question_index')
+        try:
+            if os.path.exists(images_meta_file):
+                with open(images_meta_file, 'r', encoding='utf-8') as mf:
+                    images_meta = json.load(mf)
+            else:
                 images_meta = {}
+        except Exception:
+            images_meta = {}
 
-            if question_index is not None and question_index != '':
-                key = str(int(question_index))
-                images_meta.setdefault(key, [])
-                images_meta[key].append(new_filename)
-                try:
-                    with open(images_meta_file, 'w', encoding='utf-8') as mf:
-                        json.dump(images_meta, mf)
-                except Exception as e:
-                    print(datetime.datetime.now(), client_ip, f"Failed to update images metadata: {e}")
+        if question_index is not None and question_index != '':
+            key = str(int(question_index))
+            images_meta.setdefault(key, [])
+            images_meta[key].append(new_filename)
+            try:
+                with open(images_meta_file, 'w', encoding='utf-8') as mf:
+                    json.dump(images_meta, mf)
+            except Exception as e:
+                print(datetime.datetime.now(), client_ip, f"Failed to update images metadata: {e}")
 
-            # Return image URL
-            image_url = f"/UploadedImages/{secure_filename(quiz_name)}/{new_filename}"
-            print(datetime.datetime.now(), client_ip, f"Uploaded image for quiz '{quiz_name}': {new_filename}")
-
-            return jsonify({
-                'success': True,
-                'url': image_url,
-                'filename': new_filename
-            }), 200
-    
-        except Exception as e:
-            print(datetime.datetime.now(), client_ip, f"Error uploading image: {str(e)}")
-            return jsonify({'error': f'Upload failed: {str(e)}'}), 500
-
-    @app.route('/UploadedImages/<path:filepath>')
-    def serve_uploaded_image(filepath):
-        """Serve uploaded images"""
+        # Also maintain a human-readable image-names.json inside the quiz upload folder
         try:
-            file_path = os.path.join(UPLOAD_FOLDER, filepath)
-            if os.path.exists(file_path) and os.path.isfile(file_path):
-                return send_file(file_path)
-            return jsonify({'error': 'Image not found'}), 404
+            uploaded_names_file = os.path.join(quiz_image_dir, 'image-names.json')
+            if os.path.exists(uploaded_names_file):
+                with open(uploaded_names_file, 'r', encoding='utf-8') as uf:
+                    uploaded_names = json.load(uf)
+            else:
+                uploaded_names = {}
+        except Exception:
+            uploaded_names = {}
+
+        # Use the original filename as display name (before timestamping)
+        display_name = filename
+        uploaded_names.setdefault(key if 'key' in locals() else '', [])
+        uploaded_names[key].append({'filename': new_filename, 'name': display_name})
+        try:
+            with open(uploaded_names_file, 'w', encoding='utf-8') as uf:
+                json.dump(uploaded_names, uf)
         except Exception as e:
-            return jsonify({'error': 'Failed to serve image'}), 500
+            print(datetime.datetime.now(), client_ip, f"Failed to write uploaded image names: {e}")
+
+        # Return image URL
+        image_url = f"/UploadedImages/{secure_filename(quiz_name)}/{new_filename}"
+        print(datetime.datetime.now(), client_ip, f"Uploaded image for quiz '{quiz_name}': {new_filename}")
+
+        return jsonify({
+            'success': True,
+            'url': image_url,
+            'filename': new_filename
+        }), 200
+
+    except Exception as e:
+        print(datetime.datetime.now(), client_ip, f"Error uploading image: {str(e)}")
+        return jsonify({'error': f'Upload failed: {str(e)}'}), 500
+
+
+@app.route('/UploadedImages/<path:filepath>')
+def serve_uploaded_image(filepath):
+    """Serve uploaded images"""
+    try:
+        file_path = os.path.join(UPLOAD_FOLDER, filepath)
+        if os.path.exists(file_path) and os.path.isfile(file_path):
+            return send_file(file_path)
+        return jsonify({'error': 'Image not found'}), 404
+    except Exception as e:
+        return jsonify({'error': 'Failed to serve image'}), 500
 
 @app.route('/quiz/<quiz_name>', methods=['GET'])
 def get_quiz_json(quiz_name):
@@ -512,8 +545,29 @@ def get_quiz_json(quiz_name):
     except Exception:
         images_meta = {}
     imgs = images_meta.get(str(current_index), [])
-    if imgs:
-        question['images'] = [f"/UploadedImages/{quiz_name}/{fname}" for fname in imgs]
+    # Prefer uploaded image-names.json in the UploadedImages folder for display names
+    uploaded_names_file = os.path.join(UPLOAD_FOLDER, secure_filename(quiz_name), 'image-names.json')
+    try:
+        if os.path.exists(uploaded_names_file):
+            with open(uploaded_names_file, 'r', encoding='utf-8') as uf:
+                uploaded_names_meta = json.load(uf)
+        else:
+            uploaded_names_meta = {}
+    except Exception:
+        uploaded_names_meta = {}
+
+    imgs_list = []
+    # images_meta (non_static) may list filenames; uploaded_names_meta maps question index to objects
+    if str(current_index) in uploaded_names_meta:
+        for item in uploaded_names_meta.get(str(current_index), []):
+            fname = item.get('filename')
+            name = item.get('name') or fname
+            imgs_list.append({'url': f"/UploadedImages/{quiz_name}/{fname}", 'name': name})
+    else:
+        for fname in imgs:
+            imgs_list.append({'url': f"/UploadedImages/{quiz_name}/{fname}", 'name': fname})
+    if imgs_list:
+        question['images'] = imgs_list
     display_index = current_index + 1
     quiz_total = len(questions)
     session['current_question_name'] = question.get('question', 'Unknown Question')
@@ -541,10 +595,29 @@ def get_quiz_data(quiz_name):
     except Exception:
         images_meta = {}
 
+    # Attach images as objects with url and name
+    uploaded_names_meta = {}
+    try:
+        uploaded_names_file = os.path.join(UPLOAD_FOLDER, secure_filename(quiz_name), 'image-names.json')
+        if os.path.exists(uploaded_names_file):
+            with open(uploaded_names_file, 'r', encoding='utf-8') as uf:
+                uploaded_names_meta = json.load(uf)
+    except Exception:
+        uploaded_names_meta = {}
+
     for idx, q in enumerate(questions):
-        imgs = images_meta.get(str(idx), [])
-        if imgs:
-            q['images'] = [f"/UploadedImages/{quiz_name}/{fname}" for fname in imgs]
+        imgs_list = []
+        if str(idx) in uploaded_names_meta:
+            for item in uploaded_names_meta.get(str(idx), []):
+                fname = item.get('filename')
+                name = item.get('name') or fname
+                imgs_list.append({'url': f"/UploadedImages/{quiz_name}/{fname}", 'name': name})
+        else:
+            imgs = images_meta.get(str(idx), [])
+            for fname in imgs:
+                imgs_list.append({'url': f"/UploadedImages/{quiz_name}/{fname}", 'name': fname})
+        if imgs_list:
+            q['images'] = imgs_list
 
     return jsonify(questions)
 
@@ -718,7 +791,8 @@ def makequiz():
             uploaded_data[client_ip].append(filename)
         write_uploaded_json(uploaded_data)
         
-        return render_template("makequiz.html", message="Quiz created successfully!")
+        # After creating the quiz, redirect to the edit page so user can attach images per-question
+        return redirect(url_for('edit_quiz', quiz_name=filename))
     return render_template("makequiz.html")
 
 @app.route('/logs')

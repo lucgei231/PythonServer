@@ -124,7 +124,14 @@
                         <input type="text" id="typein-answer" placeholder="Enter the correct answer">
                     </div>
 
-                    <button type="button" class="btn btn-primary" onclick="addQuestion()">➕ Add Question</button>
+                    <button type="button" class="btn btn-primary" onclick="addQuestion()" id="add-btn">➕ Add Question</button>
+                    <div style="margin-top:12px; border:1px dashed #ddd; padding:10px; border-radius:6px;">
+                        <label style="font-weight:bold; display:block; margin-bottom:6px;">Upload Images For Current Question</label>
+                        <input type="file" id="make-image-input" accept=".png,.webp,.jpg,.jpeg" multiple>
+                        <button type="button" class="btn btn-secondary" style="margin-left:8px;" onclick="uploadImageForCurrentQuestion()">Upload Images</button>
+                        <div id="make-upload-status" style="margin-top:8px; display:none; padding:8px; border-radius:4px;"></div>
+                        <div id="make-image-preview" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:8px; margin-top:8px;"></div>
+                    </div>
                 </div>
 
                 <div class="question-list">
@@ -145,6 +152,7 @@
 
     <script>
         let questions = [];
+        let editingIndex = -1;
 
         document.querySelectorAll('input[name="qtype"]').forEach(radio => {
             radio.addEventListener('change', function() {
@@ -187,9 +195,43 @@
                 return;
             }
 
-            questions.push({question, answers, correctIndex, type: qtype});
+            if (editingIndex >= 0) {
+                questions[editingIndex] = {question, answers, correctIndex, type: qtype};
+                editingIndex = -1;
+                document.getElementById('add-btn').textContent = '➕ Add Question';
+            } else {
+                questions.push({question, answers, correctIndex, type: qtype});
+            }
             updateQuestionsList();
             resetForm();
+        }
+
+        function editQuestion(idx) {
+            const q = questions[idx];
+            document.getElementById('question').value = q.question;
+            if (q.type === 'mc') {
+                document.querySelector('input[name="qtype"][value="mc"]').checked = true;
+                document.getElementById('mc-options').style.display = 'block';
+                document.getElementById('typein-option').style.display = 'none';
+                const container = document.querySelector('.answers-section');
+                container.innerHTML = '';
+                q.answers.forEach((ans, i) => {
+                    const div = document.createElement('div');
+                    div.className = 'answer-input';
+                    div.innerHTML = `
+                        <input type="text" class="answer" placeholder="Answer ${i + 1}" value="${ans}">
+                        <input type="radio" name="correct" value="${i}" ${i === q.correctIndex ? 'checked' : ''}>
+                    `;
+                    container.appendChild(div);
+                });
+            } else {
+                document.querySelector('input[name="qtype"][value="typein"]').checked = true;
+                document.getElementById('mc-options').style.display = 'none';
+                document.getElementById('typein-option').style.display = 'block';
+                document.getElementById('typein-answer').value = q.answers[0];
+            }
+            editingIndex = idx;
+            document.getElementById('add-btn').textContent = 'Update Question';
         }
 
         function resetForm() {
@@ -217,6 +259,7 @@
                         <strong>A:</strong> ${answersText}
                     </div>
                     <div>
+                        <button type="button" class="btn btn-warning" onclick="editQuestion(${idx})">✏️ Edit</button>
                         <button type="button" class="btn btn-danger" onclick="removeQuestion(${idx})">🗑️ Remove</button>
                     </div>
                 `;
@@ -228,6 +271,49 @@
         function removeQuestion(idx) {
             questions.splice(idx, 1);
             updateQuestionsList();
+        }
+
+        // Image upload for makequiz
+        async function uploadImageForCurrentQuestion() {
+            const fileInput = document.getElementById('make-image-input');
+            const status = document.getElementById('make-upload-status');
+            const preview = document.getElementById('make-image-preview');
+            const quizName = document.getElementById('filename').value.trim();
+            if (!quizName) {
+                status.style.display = 'block';
+                status.style.background = '#f8d7da';
+                status.style.color = '#721c24';
+                status.textContent = 'Please enter a quiz name before uploading images.';
+                return;
+            }
+            if (!fileInput.files.length) {
+                status.style.display = 'block';
+                status.style.background = '#f8d7da';
+                status.style.color = '#721c24';
+                status.textContent = 'Please select at least one image file.';
+                return;
+            }
+            const targetIndex = (typeof editingIndex === 'number' && editingIndex >= 0) ? editingIndex : questions.length;
+            for (const file of fileInput.files) {
+                const formData = new FormData();
+                formData.append('image', file);
+                formData.append('question_index', String(targetIndex));
+                try {
+                    const resp = await fetch(`/upload_quiz_image/${encodeURIComponent(quizName)}`, { method: 'POST', body: formData });
+                    let data = null;
+                    try { data = await resp.json(); } catch (e) { const t = await resp.text(); status.textContent = t.substring(0,300); status.style.display='block'; continue; }
+                    if (resp.ok) {
+                        status.style.display = 'block'; status.style.background = '#d4edda'; status.style.color = '#155724'; status.textContent = `Uploaded: ${file.name}`;
+                        const div = document.createElement('div'); div.style.position='relative'; div.innerHTML = `<img src="${data.url}" style="width:100%; height:90px; object-fit:cover;"/><button onclick="this.parentElement.remove()" style="position:absolute; top:4px; right:4px; background:red; color:white; border:none; border-radius:50%; width:22px; height:22px;">×</button>`;
+                        preview.appendChild(div);
+                    } else {
+                        status.style.display = 'block'; status.style.background = '#f8d7da'; status.style.color = '#721c24'; status.textContent = data.error || 'Upload failed';
+                    }
+                } catch (err) {
+                    status.style.display = 'block'; status.style.background = '#f8d7da'; status.style.color = '#721c24'; status.textContent = err.message;
+                }
+            }
+            fileInput.value = '';
         }
     </script>
 </body>

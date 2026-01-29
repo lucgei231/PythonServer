@@ -450,10 +450,21 @@
         <button type="button" onclick="speakText(`{{ question.question|e }}`)" class="btn btn-secondary" style="margin-left: 1rem;">🔊 Speak</button>
       </div>
       {% if question.images %}
-      <div class="question-images" style="display:flex; justify-content:center; margin: 1rem 0;">
+      <div class="question-images" style="display:flex; flex-direction:column; align-items:center; gap:0.5rem; margin: 1rem 0;">
+        <div style="display:flex; justify-content:center; gap:0.5rem; flex-wrap:wrap;">
         {% for img in question.images %}
-        <img src="{{ img }}" alt="Question Image" style="max-width:90%; max-height:60vh; object-fit:contain; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,0.2); margin:0.5rem;">
+          {% if img is mapping %}
+            <div style="text-align:center;">
+              <img src="{{ img.url }}" alt="{{ img.name }}" style="max-width:90%; max-height:60vh; object-fit:contain; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,0.2); margin:0.5rem;">
+              {% if img.name %}<div style="font-size:0.9rem; color:#444; margin-top:6px;">{{ img.name }}</div>{% endif %}
+            </div>
+          {% else %}
+            <div style="text-align:center;">
+              <img src="{{ img }}" alt="Question Image" style="max-width:90%; max-height:60vh; object-fit:contain; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,0.2); margin:0.5rem;">
+            </div>
+          {% endif %}
         {% endfor %}
+        </div>
       </div>
       {% endif %}
       
