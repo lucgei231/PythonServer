@@ -53,11 +53,13 @@
 
     <div class="card">
       <h2>Available Quizzes</h2>
+      <input type="text" id="search" placeholder="Search quizzes..." style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px;">
       {% if quizzes %}
       <ul class="quiz-list">
         {% for quiz in quizzes %}
         <li class="quiz-item">
           <h3>{{ quiz }}</h3>
+          <p>Times Played: {{ plays[quiz] }}</p>
           <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
             <a href="{{ url_for('get_quiz_json', quiz_name=quiz) }}" class="btn btn-primary">▶️ Play Solo</a>
             <a href="{{ url_for('host_quiz', quiz_name=quiz) }}" class="btn btn-secondary">🎤 Host Quiz</a>
@@ -80,6 +82,22 @@
         .then(registration => console.log('Service Worker registered'))
         .catch(error => console.log('Service Worker registration failed:', error));
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const items = document.querySelectorAll('.quiz-item');
+      document.getElementById('search').addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+        items.forEach((item) => {
+          const name = item.querySelector('h3').textContent.toLowerCase();
+          const matches = name.includes(query);
+          if (query === '' || matches) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
   </script>
 </body>
 </html>

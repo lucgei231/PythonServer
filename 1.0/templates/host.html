@@ -363,7 +363,8 @@
                 
                 // Add text
                 const text = document.createElement('span');
-                text.innerHTML = `${item.name}: <span style="color: red;">${item.score}</span> points`;
+                const displayName = item.left ? `<span style="color: purple;">(Left)</span> ${item.name}` : item.name;
+                text.innerHTML = `${displayName}: <span style="color: red;">${item.score}</span> points`;
                 container.appendChild(text);
                 li.appendChild(container);
                 ul.appendChild(li);

@@ -2,21 +2,26 @@
 Best Quiz
     Who toots the most? 3.55
     Who owns the window couch? 2
-cool poo
-Lightbulbs Quiz
-C++ Quiz
-C++ Quiz
-MCreator
+30_01_2026 french quiz
+    What is “Turn Right” in french 0.94
+30_01_2026 french quiz
+30_01_2026 french quiz
+104.28.248.79
+Common Knowledge Quiz
+Common Knowledge Quiz
 Bacon the Dog Quiz
+C++ Quiz
 
 192.168.50.94
+Hello2
+cool poo
+Lightbulbs Quiz
+MCreator
 Cooking Quiz 3
 Test Quiz
 quiz for lucas
 31.94.16.101
 secret
-    bum bum 16.17
-    spaghetti 1.99
 cool poo
     cool poo 4.11
 MC Quiz 3
@@ -26,9 +31,6 @@ Cooking Quiz 2
 31.94.16.126
 Minecraft Quiz 2
 Minecraft Quiz
-    What are you looking for when using a map to locate a Woodland Mansion? 3.66
-    What is the name of the default Minecraft character with brown hair? 432.86
-    What item is needed to craft a crafting table? 7.48
 quiz
 AIS
 Best Quiz
@@ -36,9 +38,6 @@ Best Quiz
 192.168.50.80
 192.168.50.6
 62.64.192.134
-Common Knowledge Quiz
-Bacon the Dog Quiz
-    does he have a big brown spot 7.75
 Gettery quiz
 192.168.50.211
 192.168.50.159
@@ -68,13 +67,15 @@ French Quiz 2
     J’etudie le francais 5.56
 83.105.152.59
 Jazz
-    How many pets do I have? 7.16
-    Do I like cats or dogs 6.19
-    How old am I 5.18
+    How many pets do I have? 4.71
+    Do I like cats or dogs 12.11
+    How old am I 3.10
+    How may points will I give for this question 21.05
 192.168.50.119
 C++ Quiz
     Who invented C++? 1.83
     What is C++? 2.09
-192.168.50.1
-Gettery quiz
-    What does daddy want? 1.11
+Blank 4
+104.28.248.80
+31.94.19.3
+86.23.253.96

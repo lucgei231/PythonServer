@@ -38,6 +38,19 @@ if not os.path.exists(UPLOAD_FOLDER):
 logs_dir = os.path.join(os.path.dirname(__file__), "logs")
 if not os.path.exists(logs_dir):
     os.makedirs(logs_dir)
+
+# Quiz plays tracking
+plays_file = os.path.join(os.path.dirname(__file__), "data", "quiz-plays.json")
+
+def load_plays():
+    if os.path.exists(plays_file):
+        with open(plays_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return {}
+
+def save_plays(plays):
+    with open(plays_file, 'w', encoding='utf-8') as f:
+        json.dump(plays, f, indent=4)
 log_filename = os.path.join(logs_dir, "print.txt")
 print(datetime.datetime.now(), "Logs directory set up at", logs_dir)
 
@@ -238,7 +251,18 @@ def home():
         # Special case: 127.0.0.1 has full access to all quizzes
         if ip == "127.0.0.1":
             user_uploaded = quizzes
-        return render_template('home.html', quizzes=quizzes, user_uploaded=user_uploaded), 200
+        
+        # Load plays
+        plays = load_plays()
+        for q in quizzes:
+            if q not in plays:
+                plays[q] = 0
+        save_plays(plays)
+        
+        # Sort quizzes by plays descending
+        quizzes_sorted = sorted(quizzes, key=lambda x: plays.get(x, 0), reverse=True)
+        
+        return render_template('home.html', quizzes=quizzes_sorted, user_uploaded=user_uploaded, plays=plays), 200
     except Exception as e:
         print("DEBUG: Error in home route:", str(e))
         return f"Error in home route: {str(e)}", 500
@@ -362,6 +386,13 @@ def addquiz():
             if uploaded_file.filename not in uploaded_data[client_ip]:
                 uploaded_data[client_ip].append(uploaded_file.filename)
             write_uploaded_json(uploaded_data)
+            
+            # Initialize play count for uploaded quiz
+            quiz_name = os.path.splitext(uploaded_file.filename)[0]  # Remove .txt extension
+            plays = load_plays()
+            if quiz_name not in plays:
+                plays[quiz_name] = 0
+                save_plays(plays)
             
             return render_template("addquiz.html", message="Quiz uploaded successfully!")
     return render_template("addquiz.html")
@@ -526,6 +557,13 @@ def get_quiz_json(quiz_name):
         question_data = {}
 
     current_index = question_data.get(client_ip, 0)
+    
+    # Increment play count only on first start of solo play
+    if current_index == 0 and not session.get('solo_started_' + quiz_name):
+        plays = load_plays()
+        plays[quiz_name] = plays.get(quiz_name, 0) + 1
+        save_plays(plays)
+        session['solo_started_' + quiz_name] = True
     
     # If the current question index is out-of-range, render finish.html
     if current_index >= len(questions):
@@ -790,6 +828,12 @@ def makequiz():
         if filename not in uploaded_data[client_ip]:
             uploaded_data[client_ip].append(filename)
         write_uploaded_json(uploaded_data)
+        
+        # Initialize play count for new quiz
+        plays = load_plays()
+        if filename not in plays:
+            plays[filename] = 0
+            save_plays(plays)
         
         # After creating the quiz, redirect to the edit page so user can attach images per-question
         return redirect(url_for('edit_quiz', quiz_name=filename))
@@ -1085,6 +1129,12 @@ def host_quiz(quiz_name):
 
     sessions[code] = {'host_sid': None, 'control_sids': [], 'players': [], 'quiz_name': quiz_name, 'questions': questions, 'current_q': 0, 'scores': {}, 'answers': [], 'last_correct': {}, 'state': 'lobby', 'control_code': control_code}
     control_to_game[control_code] = code
+    
+    # Increment play count
+    plays = load_plays()
+    plays[quiz_name] = plays.get(quiz_name, 0) + 1
+    save_plays(plays)
+    
     return render_template('host.html', code=code, quiz_name=quiz_name, control_code=control_code, is_mobile=is_mobile())
 
 @app.route('/control/<code>')
@@ -1105,10 +1155,21 @@ def handle_join_game(data):
     player_name = data.get('name', 'Anonymous')
     avatar = data.get('avatar', '')
     if code in sessions:
+        existing_names = [p['name'] for p in sessions[code]['players']]
+        if player_name in existing_names:
+            emit('error', {'message': 'Username unavailable. Please choose a different one.'})
+            return
         join_room(code)
-        sessions[code]['players'].append({'sid': request.sid, 'name': player_name, 'avatar': avatar})
-        sessions[code]['scores'][player_name] = 0
-        sessions[code]['last_correct'][player_name] = None
+        if player_name in sessions[code]['scores']:
+            # Rejoining
+            sessions[code]['players'].append({'sid': request.sid, 'name': player_name, 'avatar': avatar})
+            # Keep existing score, reset last_correct for new round
+            sessions[code]['last_correct'][player_name] = None
+        else:
+            # New player
+            sessions[code]['players'].append({'sid': request.sid, 'name': player_name, 'avatar': avatar})
+            sessions[code]['scores'][player_name] = 0
+            sessions[code]['last_correct'][player_name] = None
         emit('player_joined', {'name': player_name, 'avatar': avatar}, room=code, skip_sid=request.sid)
         emit('joined', {'code': code, 'quiz_name': sessions[code]['quiz_name']})
         # Send current state to late joiner
@@ -1129,13 +1190,14 @@ def handle_join_game(data):
             leaderboard = []
             for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
                 last_correct = sessions[code]['last_correct'].get(name)
-                # Find avatar for this player
-                avatar = ''
-                for player in sessions[code]['players']:
-                    if player['name'] == name:
-                        avatar = player.get('avatar', '')
-                        break
-                leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct, 'avatar': avatar})
+                left = name not in existing_names + [player_name]  # existing_names doesn't include the new player yet, but since we added, use current players
+                avatar_for_name = ''
+                if not left:
+                    for player in sessions[code]['players']:
+                        if player['name'] == name:
+                            avatar_for_name = player.get('avatar', '')
+                            break
+                leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct, 'avatar': avatar_for_name, 'left': left})
             submitted_answers = {ans['name']: ans['answer_text'] for ans in sessions[code]['answers']} if sessions[code]['answers'] else {}
             correct_answer_text = ''
             q_index = sessions[code]['current_q'] - 1
@@ -1149,13 +1211,14 @@ def handle_join_game(data):
         elif state == 'finished':
             leaderboard = []
             for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
-                # Find avatar for this player
-                avatar = ''
-                for player in sessions[code]['players']:
-                    if player['name'] == name:
-                        avatar = player.get('avatar', '')
-                        break
-                leaderboard.append({'name': name, 'score': score, 'avatar': avatar})
+                left = name not in [p['name'] for p in sessions[code]['players']]
+                avatar_for_name = ''
+                if not left:
+                    for player in sessions[code]['players']:
+                        if player['name'] == name:
+                            avatar_for_name = player.get('avatar', '')
+                            break
+                leaderboard.append({'name': name, 'score': score, 'avatar': avatar_for_name, 'left': left})
             emit('final_leaderboard', {'leaderboard': leaderboard})
     else:
         emit('error', {'message': 'Invalid code'})
@@ -1188,18 +1251,28 @@ def handle_control_join(data):
                     payload['images'] = q_obj.get('images')
                 emit('new_question', payload)
         elif state == 'leaderboard':
-            leaderboard = sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True)
             leaderboard_items = []
-            for name, score in leaderboard:
+            for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
+                left = name not in [p['name'] for p in sessions[code]['players']]
                 avatar = ''
-                for player in sessions[code]['players']:
-                    if player['name'] == name:
-                        avatar = player.get('avatar', '')
-                        break
-                leaderboard_items.append({'name': name, 'score': score, 'last_correct': sessions[code]['last_correct'].get(name), 'avatar': avatar})
+                if not left:
+                    for player in sessions[code]['players']:
+                        if player['name'] == name:
+                            avatar = player.get('avatar', '')
+                            break
+                leaderboard_items.append({'name': name, 'score': score, 'last_correct': sessions[code]['last_correct'].get(name), 'avatar': avatar, 'left': left})
             emit('leaderboard', {'leaderboard': leaderboard_items})
         elif state == 'finished':
-            leaderboard = sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True)
+            leaderboard = []
+            for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
+                left = name not in [p['name'] for p in sessions[code]['players']]
+                avatar = ''
+                if not left:
+                    for player in sessions[code]['players']:
+                        if player['name'] == name:
+                            avatar = player.get('avatar', '')
+                            break
+                leaderboard.append({'name': name, 'score': score, 'avatar': avatar, 'left': left})
             emit('final_leaderboard', {'leaderboard': leaderboard})
 
 @socketio.on('start_round')
@@ -1242,8 +1315,10 @@ def handle_submit_answer(data):
             if player['sid'] == request.sid:
                 sessions[code]['answers'].append({'name': player['name'], 'answer': answer, 'answer_text': answer_text, 'time_taken': time_taken})
                 emit('answer_received', {'name': player['name'], 'answer': answer_text}, room=code, skip_sid=request.sid)
-                # Check if all players have submitted
-                if len(sessions[code]['answers']) == len(sessions[code]['players']):
+                # Check if all active players have submitted
+                active_player_names = [p['name'] for p in sessions[code]['players']]
+                active_answers = [ans for ans in sessions[code]['answers'] if ans['name'] in active_player_names]
+                if len(active_answers) == len(sessions[code]['players']):
                     # Auto-reveal answers
                     for ans in sessions[code]['answers']:
                         name = ans['name']
@@ -1310,12 +1385,14 @@ def handle_reveal_answers(data):
         leaderboard = []
         for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
             last_correct = sessions[code]['last_correct'].get(name)
+            left = name not in [p['name'] for p in sessions[code]['players']]
             avatar = ''
-            for player in sessions[code]['players']:
-                if player['name'] == name:
-                    avatar = player.get('avatar', '')
-                    break
-            leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct, 'avatar': avatar})
+            if not left:
+                for player in sessions[code]['players']:
+                    if player['name'] == name:
+                        avatar = player.get('avatar', '')
+                        break
+            leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct, 'avatar': avatar, 'left': left})
         submitted_answers = {ans['name']: ans['answer_text'] for ans in sessions[code]['answers']}
         emit('answers_revealed', {'correct_answer': correct_answer_text}, room=code)
         sessions[code]['state'] = 'leaderboard'
@@ -1331,14 +1408,7 @@ def handle_disconnect():
                 player_name = player['name']
                 sessions[code]['players'].remove(player)
                 
-                # Remove from scores and last_correct
-                if player_name in sessions[code]['scores']:
-                    del sessions[code]['scores'][player_name]
-                if player_name in sessions[code]['last_correct']:
-                    del sessions[code]['last_correct'][player_name]
-                
-                # Remove from answers list
-                sessions[code]['answers'] = [ans for ans in sessions[code]['answers'] if ans['name'] != player_name]
+                # Do not remove from scores, last_correct, or answers
                 
                 print(datetime.datetime.now(), f"Player '{player_name}' disconnected from game {code}")
                 
@@ -1350,12 +1420,14 @@ def handle_disconnect():
                     leaderboard = []
                     for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
                         last_correct = sessions[code]['last_correct'].get(name)
+                        left = name not in [p['name'] for p in sessions[code]['players']]
                         avatar = ''
-                        for player in sessions[code]['players']:
-                            if player['name'] == name:
-                                avatar = player.get('avatar', '')
-                                break
-                        leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct, 'avatar': avatar})
+                        if not left:
+                            for player in sessions[code]['players']:
+                                if player['name'] == name:
+                                    avatar = player.get('avatar', '')
+                                    break
+                        leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct, 'avatar': avatar, 'left': left})
                     submitted_answers = {ans['name']: ans['answer_text'] for ans in sessions[code]['answers']}
                     q_index = sessions[code]['current_q'] - 1
                     q = sessions[code]['questions'][q_index] if q_index >= 0 and q_index < len(sessions[code]['questions']) else None
