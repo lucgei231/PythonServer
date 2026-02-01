@@ -582,7 +582,8 @@ def get_quiz_json(quiz_name):
     # If the current question index is out-of-range, render finish.html
     if current_index >= len(questions):
         logger.info(f"Quiz '{quiz_name}' completed by {client_ip}")
-        return render_template("finish.html", quiz_name=quiz_name)
+        results = get_quiz_times_for_user(quiz_name, client_ip)
+        return render_template("finish.html", quiz_name=quiz_name, results=results)
     
     # Otherwise, show the current question.
     question = questions[current_index]
@@ -756,6 +757,7 @@ def quiz_validate(quiz_name):
         return render_template("error.html", message="Error: Use POST"), 405
     
     answer = request.json.get('answer', '')
+    time_elapsed = request.json.get('time_elapsed', '0')
     try:
         questions = read_quiz(quiz_name)
     except Exception as e:
@@ -775,6 +777,10 @@ def quiz_validate(quiz_name):
     if current_index >= len(questions):
         current_index = 0
     q = questions[current_index]
+    
+    # Store current question name in session for save_time
+    session['current_question_name'] = q.get('question', f'Question {current_index + 1}')
+    
     # Convert answer to int for MC questions
     if q['type'] == 'mc':
         try:
@@ -956,31 +962,87 @@ def submit_answer(quiz_name):
 @app.route('/quiz/<quiz_name>/results')
 def quiz_results(quiz_name):
     client_ip = get_client_ip()
-    time_file = os.path.join(os.path.dirname(__file__), "data", "time.txt")
-    # Parse the time.txt file for the current client's entries for this quiz.
+    results = get_quiz_times_for_user(quiz_name, client_ip)
+    # Convert to the format expected by results.html (just the question strings)
+    result_strings = [f"{entry['question']} {entry['time']}" for entry in results]
+    return render_template("results.html", quiz_name=quiz_name, results=result_strings)
+
+def get_quiz_times_for_user(quiz_name, client_ip):
+    """Parse time.json and return results for a specific quiz and user as list of dicts"""
+    time_file = os.path.join(os.path.dirname(__file__), "data", "time.json")
     results = []
+
+    # Ensure time.json exists and migrate from time.txt if needed
+    migrate_time_data_if_needed()
+
+    if os.path.exists(time_file):
+        try:
+            with open(time_file, "r", encoding="utf-8") as f:
+                time_data = json.load(f)
+
+            # Get times for this IP and quiz
+            if client_ip in time_data and quiz_name in time_data[client_ip]:
+                quiz_times = time_data[client_ip][quiz_name]
+                for question, time_taken in quiz_times.items():
+                    results.append({'question': question, 'time': time_taken})
+        except Exception as e:
+            logger.error(f"Error reading time.json: {e}")
+
+    return results
+
+def migrate_time_data_if_needed():
+    """Migrate data from time.txt to time.json if time.json doesn't exist"""
+    time_txt = os.path.join(os.path.dirname(__file__), "data", "time.txt")
+    time_json = os.path.join(os.path.dirname(__file__), "data", "time.json")
+
+    if os.path.exists(time_json):
+        return  # Already migrated
+
+    if not os.path.exists(time_txt):
+        # Create empty time.json
+        with open(time_json, "w", encoding="utf-8") as f:
+            json.dump({}, f, indent=2)
+        return
+
+    # Parse time.txt and convert to JSON
+    time_data = {}
     current_ip = None
     current_quiz = None
-    if os.path.exists(time_file):
-        with open(time_file, "r", encoding="utf-8") as f:
+
+    try:
+        with open(time_txt, "r", encoding="utf-8") as f:
             for line in f:
                 line = line.rstrip("\n")
-                # If this line does not start with four spaces, it is either an IP or a quiz name.
                 if not line.startswith("    "):
-                    # If line is an IP, update current_ip.
+                    # IP or quiz name line
                     if re.match(r'\d+\.\d+\.\d+\.\d+', line):
                         current_ip = line
+                        if current_ip not in time_data:
+                            time_data[current_ip] = {}
                     else:
-                        # Otherwise, it's assumed to be a quiz name.
                         current_quiz = line
+                        if current_ip and current_quiz not in time_data[current_ip]:
+                            time_data[current_ip][current_quiz] = {}
                 else:
-                    # Question line.
-                    if current_ip == client_ip and current_quiz == quiz_name:
-                        # Remove leading spaces.
+                    # Question line
+                    if current_ip and current_quiz:
                         q_line = line.strip()
-                        # Expect the format: "<question text> <time_taken>"
-                        results.append(q_line)
-    return render_template("results.html", quiz_name=quiz_name, results=results)
+                        parts = q_line.rsplit(' ', 1)
+                        if len(parts) == 2:
+                            question, time_taken = parts
+                            time_data[current_ip][current_quiz][question] = time_taken
+
+        # Write to JSON with pretty printing
+        with open(time_json, "w", encoding="utf-8") as f:
+            json.dump(time_data, f, indent=2, ensure_ascii=False)
+
+        logger.info("Migrated time.txt to time.json")
+
+    except Exception as e:
+        logger.error(f"Error migrating time data: {e}")
+        # Create empty JSON file
+        with open(time_json, "w", encoding="utf-8") as f:
+            json.dump({}, f, indent=2)
 
 @app.route('/quiz/<quiz_name>/save_time', methods=['POST', 'GET'])
 def save_time(quiz_name):
@@ -996,52 +1058,45 @@ def save_time(quiz_name):
         time_taken = request.form.get('time_elapsed', '0')
     question_name = session.get('current_question_name', "Unknown Question")
     logger.info(f"Time saved for {client_ip} on quiz '{quiz_name}': {question_name} - {time_taken} sec")
-    
-    time_file = os.path.join(os.path.dirname(__file__), "data", "time.txt")
-    data = {}  # structure: {client_ip: {quiz_name: {question_name: time_taken}}}
-    
-    # Read existing file and parse into dictionary.
+
+    # Ensure time.json exists and migrate if needed
+    migrate_time_data_if_needed()
+
+    time_file = os.path.join(os.path.dirname(__file__), "data", "time.json")
+
+    # Read existing JSON data
+    time_data = {}
     if os.path.exists(time_file):
-        with open(time_file, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-        current_ip = None
-        current_quiz = None
-        for line in lines:
-            line = line.rstrip("\n")
-            if not line.startswith("    "):
-                if current_ip is None or (current_ip and current_quiz):
-                    current_ip = line
-                    data.setdefault(current_ip, {})
-                    current_quiz = None
-                else:
-                    current_quiz = line
-                    data[current_ip].setdefault(current_quiz, {})
-            else:
-                if current_ip is not None and current_quiz is not None:
-                    entry = line.strip()
-                    parts = entry.rsplit(" ", 1)
-                    if len(parts) == 2:
-                        q_name, q_time = parts
-                        data[current_ip][current_quiz][q_name] = q_time
+        try:
+            with open(time_file, "r", encoding="utf-8") as f:
+                time_data = json.load(f)
+        except Exception as e:
+            logger.error(f"Error reading time.json: {e}")
+            time_data = {}
 
-    data.setdefault(client_ip, {})
-    data[client_ip].setdefault(quiz_name, {})
-    data[client_ip][quiz_name][question_name] = time_taken
+    # Update the data structure
+    if client_ip not in time_data:
+        time_data[client_ip] = {}
+    if quiz_name not in time_data[client_ip]:
+        time_data[client_ip][quiz_name] = {}
+    time_data[client_ip][quiz_name][question_name] = time_taken
 
-    with open(time_file, "w", encoding="utf-8") as f:
-        for ip, quizzes in data.items():
-            f.write(f"{ip}\n")
-            for quiz, questions in quizzes.items():
-                f.write(f"{quiz}\n")
-                for q, t in questions.items():
-                    f.write(f"    {q} {t}\n")
+    # Write back to JSON with pretty printing
+    try:
+        with open(time_file, "w", encoding="utf-8") as f:
+            json.dump(time_data, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        logger.error(f"Error writing time.json: {e}")
+        return jsonify({'error': 'Failed to save time data.'}), 500
+
     return jsonify({'status': 'ok', 'quiz_name': quiz_name})
 
 @app.route('/quiz/<quiz_name>/finish')
 def finish_quiz(quiz_name):
     client_ip = get_client_ip()
     logger.info(f"{client_ip} finished quiz '{quiz_name}'")
-    return render_template("finish.html", quiz_name=quiz_name)
+    results = get_quiz_times_for_user(quiz_name, client_ip)
+    return render_template("finish.html", quiz_name=quiz_name, results=results)
 
 @app.route('/quiz/<quiz_name>/reset')
 def reset_quiz(quiz_name):
@@ -1070,13 +1125,13 @@ def reset_quiz(quiz_name):
 def view_times():
     client_ip = get_client_ip()
     logger.info(f"{client_ip} accessed view times page")
-    time_file = os.path.join(os.path.dirname(__file__), "data", "time.txt")
-    return send_file(time_file, mimetype="text/plain")
+    time_file = os.path.join(os.path.dirname(__file__), "data", "time.json")
+    return send_file(time_file, mimetype="application/json")
 
 @app.route('/view_times_file')
 def view_times_file():
-    time_file = os.path.join(os.path.dirname(__file__), "data", "time.txt")
-    return send_file(time_file, mimetype="text/plain")
+    time_file = os.path.join(os.path.dirname(__file__), "data", "time.json")
+    return send_file(time_file, mimetype="application/json")
 
 {
   "INAPPROPRIATE_WORDS": [

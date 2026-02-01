@@ -35,6 +35,11 @@
       font-size: 18px;
       font-weight: bold;
     }
+    .timer {
+      font-size: 18px;
+      font-weight: bold;
+      color: #4f46e5;
+    }
     .home-button a {
       background-color: green;
       color: white;
@@ -49,6 +54,9 @@
   <div class="header-container">
     <div class="question-number">
       Question: {{ question_index|default(1) }}
+    </div>
+    <div class="timer">
+      Time: <span id="timer">0.00</span>s
     </div>
     <div class="home-button">
       <a href="{{ url_for('home') }}">Home</a>
@@ -76,13 +84,26 @@
     {% endif %}
   </div>
   <script>
+    let startTime = Date.now();
+    let timerInterval;
+
+    // Start timer
+    function updateTimer() {
+      const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+      document.getElementById('timer').textContent = elapsed;
+    }
+
+    timerInterval = setInterval(updateTimer, 100);
+
     document.getElementById("answer-form").addEventListener("submit", function(e){
       e.preventDefault();
       const answerValue = document.querySelector('input[name="answer"]').value;
+      const timeElapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+
       fetch("{{ url_for('quiz_validate', quiz_name=quiz_name) }}", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ answer: answerValue })
+        body: JSON.stringify({ answer: answerValue, time_elapsed: timeElapsed })
       })
       .then(response => response.json())
       .then(data => {
@@ -91,7 +112,27 @@
           window.location.href = data.redirect;
         } else if(data.is_correct) {
           feedbackDiv.innerHTML = "<span style='color:green;'>Correct!</span>";
-          setTimeout(() => { window.location.reload(); }, 2000);
+          // Save the time
+          if (navigator.onLine) {
+            fetch("{{ url_for('save_time', quiz_name=quiz_name) }}", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ time_elapsed: timeElapsed })
+            })
+            .then(resp => resp.json())
+            .then(timeData => {
+              clearInterval(timerInterval);
+              setTimeout(() => { window.location.reload(); }, 2000);
+            })
+            .catch(err => {
+              console.error("Error saving time:", err);
+              clearInterval(timerInterval);
+              setTimeout(() => { window.location.reload(); }, 2000);
+            });
+          } else {
+            clearInterval(timerInterval);
+            setTimeout(() => { window.location.reload(); }, 2000);
+          }
         } else {
           feedbackDiv.innerHTML = "<span style='color:red;'>Incorrect! Try Again!</span>";
         }
