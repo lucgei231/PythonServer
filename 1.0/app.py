@@ -5,6 +5,7 @@ import datetime
 import re
 import sys
 import threading
+import logging
 
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for, send_file
 
@@ -13,6 +14,13 @@ from flask_socketio import SocketIO, emit, join_room, leave_room
 from non_static.quiz import read_quiz, get_random_question, validate_answer  # adjust imports as needed
 
 from non_static.utils import read_uploaded_json, write_uploaded_json
+
+try:
+    from colorama import init, Fore, Back, Style
+    init()
+    COLORAMA_AVAILABLE = True
+except ImportError:
+    COLORAMA_AVAILABLE = False
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = "your_random_secret_key_here"
@@ -51,26 +59,64 @@ def load_plays():
 def save_plays(plays):
     with open(plays_file, 'w', encoding='utf-8') as f:
         json.dump(plays, f, indent=4)
-log_filename = os.path.join(logs_dir, "print.txt")
-print(datetime.datetime.now(), "Logs directory set up at", logs_dir)
 
-# Use a fixed filename for all print() output.
-# log_filename = os.path.join(os.path.dirname(__file__), "logs", "print.txt")
+# Minecraft-style colored logging setup
+class MinecraftFormatter(logging.Formatter):
+    """Custom formatter with Minecraft-inspired colors"""
 
-class Logger(object):
-    def __init__(self, logfile):
-        self.terminal = sys.stdout
-        self.log = open(logfile, "a", encoding="utf-8")
-    def write(self, message):
-        self.terminal.write(message)
-        self.log.write(message)
-        self.log.flush()
-    def flush(self):
-        self.terminal.flush()
-        self.log.flush()
+    COLORS = {
+        'DEBUG': Fore.CYAN + Style.DIM,      # §b (aqua) for debug
+        'INFO': Fore.GREEN,                  # §a (green) for info
+        'WARNING': Fore.YELLOW,              # §e (yellow) for warnings
+        'ERROR': Fore.RED,                   # §c (red) for errors
+        'CRITICAL': Fore.RED + Back.WHITE    # §c with white background for critical
+    }
 
-# sys.stdout = Logger(log_filename)
-print(datetime.datetime.now(), "Starting Server with logger.")
+    def format(self, record):
+        if COLORAMA_AVAILABLE:
+            # Add color to level name
+            level_color = self.COLORS.get(record.levelname, Fore.WHITE)
+            colored_levelname = f"{level_color}{record.levelname}{Style.RESET_ALL}"
+
+            # Add timestamp in gold color (like Minecraft chat)
+            timestamp = datetime.datetime.fromtimestamp(record.created).strftime('%H:%M:%S')
+            colored_timestamp = f"{Fore.YELLOW}{timestamp}{Style.RESET_ALL}"
+
+            # Get the message (ANSI codes should work directly with colorama)
+            message = record.getMessage()
+
+            # Manual formatting to preserve colors
+            return f"{colored_timestamp} [{colored_levelname}] {message}"
+        else:
+            return super().format(record)
+
+# Set up logger
+logger = logging.getLogger('QuizFabric')
+logger.setLevel(logging.INFO)
+
+# Create console handler
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+
+# Create file handler
+log_filename = os.path.join(logs_dir, f"log_{datetime.datetime.now().strftime('%Y%m%d')}.txt")
+file_handler = logging.FileHandler(log_filename, encoding='utf-8')
+file_handler.setLevel(logging.INFO)
+
+# Create formatter
+formatter = MinecraftFormatter('%(timestamp)s [%(levelname)s] %(message)s')
+console_handler.setFormatter(formatter)
+
+# Plain formatter for file (no colors)
+file_formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
+file_handler.setFormatter(file_formatter)
+
+# Add handlers to logger
+logger.addHandler(console_handler)
+logger.addHandler(file_handler)
+
+# Log server startup
+logger.info("QuizFabric server starting up...")
 
 def get_client_ip():
     forwarded_for = request.headers.get('X-Forwarded-For')
@@ -89,9 +135,7 @@ def log_connection():
 
 @app.after_request
 def log_disconnection(response):
-    ip = get_client_ip()
-    # Optional: Add disconnection logging here
-    print(datetime.datetime.now(), ip, "connection closed.")
+    # Removed verbose connection logging
     return response
 
 # Ensure the data directory exists.
@@ -128,78 +172,61 @@ control_to_game = {}
 @app.before_request
 def check_banned_ip():
     ip = get_client_ip()
-    print(datetime.datetime.now(), ip, "accessing", request.path)
     # Allow log-related endpoints even if banned.
     allowed_paths = ['/logs', '/logs-content', '/unban-ip', '/log-command']
     if request.path in allowed_paths:
-        print(datetime.datetime.now(), ip, "request path", request.path, "is allowed even if banned.")
         return
     if ip in banned_ips:
         reason = banned_ips[ip]
-        print(datetime.datetime.now(), ip, "is banned for reason:", reason)
+        logger.warning(f"Blocked banned IP {ip}: {reason}")
         return render_template("error.html", message=f"IP {ip} banned: {reason}"), 403
 
 
 @app.route('/ban-ip', methods=['GET', 'POST'])
 def ban_ip():
     ip = get_client_ip()
-    print(datetime.datetime.now(), ip, "entered /ban-ip route with method", request.method)
     if request.method == "GET":
         protocol = request.environ.get("SERVER_PROTOCOL", "HTTP/1.1")
         message = f"GET {request.path} {protocol} Not Allowed: Use POST"
-        print(datetime.datetime.now(), ip, "GET request at /ban-ip; returning error message:", message)
         return render_template("error.html", message=message), 405
     data = request.get_json()
-    print(datetime.datetime.now(), ip, "received data in ban-ip:", data)
-    ip_to_ban = data.get('ip', '').strip()   # <<-- Trim here
+    ip_to_ban = data.get('ip', '').strip()
     reason = data.get('reason', 'No reason provided.')
     if ip_to_ban:
         banned_ips[ip_to_ban] = reason
         save_banned_ips(banned_ips)
-        print(datetime.datetime.now(), ip, "banned IP", ip_to_ban, "for reason:", reason)
+        logger.warning(f"Admin {ip} banned IP {ip_to_ban}: {reason}")
         return render_template("error.html", message=f"IP {ip_to_ban} banned: {reason}")
-    else:
-        print(datetime.datetime.now(), ip, "no IP provided in ban-ip request.")
     return jsonify({'error': 'No IP provided.'}), 400
 
 @app.route('/unban-ip', methods=['GET', 'POST'])
 def unban_ip():
     ip = get_client_ip()
-    print(datetime.datetime.now(), ip, "entered /unban-ip route with method", request.method)
     if request.method == "GET":
         protocol = request.environ.get("SERVER_PROTOCOL", "HTTP/1.1")
         message = f"GET {request.path} {protocol} Not Allowed: Use POST"
-        print(datetime.datetime.now(), ip, "GET request at /unban-ip; returning error message:", message)
         return render_template("error.html", message=message), 405
     data = request.get_json() or {}
-    print(datetime.datetime.now(), ip, "received data in unban-ip:", data)
-    ip_to_unban = data.get('ip', '').strip()  # <<-- Also trim here
-    print(datetime.datetime.now(), ip, "attempting to unban IP:", repr(ip_to_unban))
-    print(datetime.datetime.now(), ip, "banned IPs currently:", list(banned_ips.keys()))
+    ip_to_unban = data.get('ip', '').strip()
     if ip_to_unban in banned_ips:
         del banned_ips[ip_to_unban]
         save_banned_ips(banned_ips)
-        print(datetime.datetime.now(), ip, "unbanned IP:", ip_to_unban)
+        logger.info(f"Admin {ip} unbanned IP {ip_to_unban}")
         return jsonify({'status': f'IP {ip_to_unban} unbanned.'})
     else:
-        print(datetime.datetime.now(), ip, "IP", repr(ip_to_unban), "not found in banned list.")
         return jsonify({'error': 'IP not found in banned list.'}), 404
 
 @app.route('/log-command', methods=['GET', 'POST'])
 def log_command():
     ip = get_client_ip()
-    print(datetime.datetime.now(), ip, "entered /log-command with method", request.method)
     if request.method == "GET":
         protocol = request.environ.get("SERVER_PROTOCOL", "HTTP/1.1")
         message = f"GET {request.path} {protocol} Not Allowed: Use POST"
-        print(datetime.datetime.now(), ip, "GET request at /log-command; returning error message:", message)
         return render_template("error.html", message=message), 405
     data = request.get_json()
-    print(datetime.datetime.now(), ip, "data received in /log-command:", data)
     command = data.get('command', '').strip()
     if command:
-        print(datetime.datetime.now(), ip, "logging command:", "> " + command)
-        sys.stdout.flush()
+        logger.info(f"Command from {ip}: {command}")
     return jsonify({'status': 'logged'})
 
 @app.route('/kick', methods=['POST', 'GET'])
@@ -214,22 +241,23 @@ def kick():
     reason = data.get('reason', 'Kicked for 5 seconds.')
     banned_ips[target_ip] = reason
     save_banned_ips(banned_ips)
-    print(datetime.datetime.now(), target_ip, f"Kicked for 5 seconds: {reason}")
-    
+    logger.warning(f"Kicked IP {target_ip} for 5 seconds: {reason}")
+
     # Schedule to unban the target IP after 5 seconds.
     def unban_after_kick():
         if target_ip in banned_ips and banned_ips[target_ip] == reason:
             del banned_ips[target_ip]
             save_banned_ips(banned_ips)
-            print(datetime.datetime.now(), target_ip, "automatically unbanned after kick.")
+            logger.info(f"Auto-unbanned IP {target_ip} after kick timeout")
     timer = threading.Timer(5.0, unban_after_kick)
     timer.start()
-    
+
     return jsonify({'status': f'IP {target_ip} kicked for 5 seconds.'})
 
 @app.route('/')
 def home():
-    print("DEBUG:", datetime.datetime.now(), "Entered home route.")
+    client_ip = get_client_ip()
+    logger.info(f"{client_ip} accessed home page")
     try:
         quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
         quizzes = []
@@ -238,7 +266,6 @@ def home():
                 if file.endswith(".txt"):
                     quiz_name = os.path.splitext(file)[0]
                     quizzes.append(quiz_name)
-                    print("DEBUG: Found quiz:", quiz_name)
         # Load uploaded quizzes for current IP
         uploaded_file = os.path.join(os.path.dirname(__file__), "data", "uploaded.json")
         user_uploaded = []
@@ -247,7 +274,6 @@ def home():
             with open(uploaded_file, "r", encoding="utf-8") as f:
                 uploaded_data = json.load(f)
             user_uploaded = uploaded_data.get(ip, [])
-            print("DEBUG: Uploaded quizzes for IP", ip, ":", user_uploaded)
         # Special case: 127.0.0.1 has full access to all quizzes
         if ip == "127.0.0.1":
             user_uploaded = quizzes
@@ -264,7 +290,7 @@ def home():
         
         return render_template('home.html', quizzes=quizzes_sorted, user_uploaded=user_uploaded, plays=plays), 200
     except Exception as e:
-        print("DEBUG: Error in home route:", str(e))
+        logger.error(f"Error in home route: {str(e)}")
         return f"Error in home route: {str(e)}", 500
 
 @app.route('/robots.txt')
@@ -328,17 +354,16 @@ def get_icon():
 def deletequiz():
     ip = get_client_ip()
     if request.method == "GET":
+        logger.info(f"{ip} accessed delete quiz page")
         # Expect the quiz name as a query parameter: ?quiz=quizname
         quiz = request.args.get("quiz")
         if not quiz:
             return redirect(url_for("home"))
-        print( ip, " is confirming if they want to delete", quiz)
         # Check if the quiz exists in the uploaded quizzes for this IP.
         return render_template("deletequiz_confirm.html", quiz=quiz)
-    
+
     # POST: actually delete the quiz.
     quiz_to_delete = request.form.get("quiz")
-    print(ip, " is deleting", quiz_to_delete)
     uploaded_file = os.path.join(os.path.dirname(__file__), "data", "uploaded.json")
     if os.path.exists(uploaded_file):
         with open(uploaded_file, "r", encoding="utf-8") as f:
@@ -346,11 +371,10 @@ def deletequiz():
     else:
         uploaded_data = {}
     user_uploaded = uploaded_data.get(ip, [])
-    
-    print(ip, " is confirming if they want to delete", quiz_to_delete)
+
     # Check if the quiz exists in the uploaded quizzes for this IP.
     if quiz_to_delete in user_uploaded:
-        print(ip, " is deleting", quiz_to_delete)
+        logger.info(f"User {ip} deleting quiz: {quiz_to_delete}")
         quiz_dir = os.path.join(os.path.dirname(__file__), "non_static", "quiz")
         quiz_file = os.path.join(quiz_dir, quiz_to_delete + ".txt")
         if os.path.exists(quiz_file):
@@ -359,14 +383,15 @@ def deletequiz():
         uploaded_data[ip] = user_uploaded
         with open(uploaded_file, "w", encoding="utf-8") as f:
             json.dump(uploaded_data, f)
-    
+
     # Redirect to home page after deletion.
-    print(ip, " is redirecting to home after deleting", quiz_to_delete)
     return redirect(url_for("home"))
 
 @app.route('/addquiz', methods=['GET', 'POST'])
 def addquiz():
     client_ip = get_client_ip()
+    if request.method == 'GET':
+        logger.info(f"{client_ip} accessed add quiz page")
     if request.method == 'POST':
         uploaded_file = request.files.get("quiz_file")
         if uploaded_file:
@@ -403,7 +428,6 @@ def upload_quiz_image(quiz_name):
     client_ip = get_client_ip()
 
     try:
-        print(datetime.datetime.now(), client_ip, f"Received upload request for quiz '{quiz_name}'")
         # Check if file is in request
         if 'image' not in request.files:
             return jsonify({'error': 'No image file provided'}), 400
@@ -412,16 +436,6 @@ def upload_quiz_image(quiz_name):
 
         if image_file.filename == '':
             return jsonify({'error': 'No file selected'}), 400
-
-        # Debug info
-        try:
-            current_pos = image_file.tell()
-        except Exception:
-            current_pos = None
-        image_file.seek(0, os.SEEK_END)
-        file_size = image_file.tell()
-        image_file.seek(0)
-        print(datetime.datetime.now(), client_ip, f"Uploading file: {image_file.filename} size={file_size} pos={current_pos}")
 
         # Get file extension
         filename = secure_filename(image_file.filename)
@@ -481,7 +495,7 @@ def upload_quiz_image(quiz_name):
                 with open(images_meta_file, 'w', encoding='utf-8') as mf:
                     json.dump(images_meta, mf)
             except Exception as e:
-                print(datetime.datetime.now(), client_ip, f"Failed to update images metadata: {e}")
+                logger.warning(f"Failed to update images metadata for {client_ip}: {e}")
 
         # Also maintain a human-readable image-names.json inside the quiz upload folder
         try:
@@ -502,11 +516,11 @@ def upload_quiz_image(quiz_name):
             with open(uploaded_names_file, 'w', encoding='utf-8') as uf:
                 json.dump(uploaded_names, uf)
         except Exception as e:
-            print(datetime.datetime.now(), client_ip, f"Failed to write uploaded image names: {e}")
+            logger.warning(f"Failed to update image metadata for {client_ip}: {e}")
 
         # Return image URL
         image_url = f"/UploadedImages/{secure_filename(quiz_name)}/{new_filename}"
-        print(datetime.datetime.now(), client_ip, f"Uploaded image for quiz '{quiz_name}': {new_filename}")
+        logger.info(f"Image uploaded by {client_ip} for quiz '{quiz_name}': {new_filename}")
 
         return jsonify({
             'success': True,
@@ -515,7 +529,7 @@ def upload_quiz_image(quiz_name):
         }), 200
 
     except Exception as e:
-        print(datetime.datetime.now(), client_ip, f"Error uploading image: {str(e)}")
+        logger.error(f"Image upload failed for {client_ip}: {str(e)}")
         return jsonify({'error': f'Upload failed: {str(e)}'}), 500
 
 
@@ -535,12 +549,12 @@ def get_quiz_json(quiz_name):
     # quiz_name is defined from the URL.
     session['quiz_name'] = quiz_name
     client_ip = get_client_ip()
-    print(client_ip, "is playing", quiz_name)
-    
+    logger.info(f"{client_ip} is playing quiz '{quiz_name}'")
+
     try:
         questions = read_quiz(quiz_name)
     except Exception as e:
-        print(client_ip, "error reading quiz:", str(e))
+        logger.error(f"Error reading quiz '{quiz_name}' for {client_ip}: {str(e)}")
         return f"Error reading quiz: {str(e)}", 500
 
     if not questions:
@@ -567,7 +581,7 @@ def get_quiz_json(quiz_name):
     
     # If the current question index is out-of-range, render finish.html
     if current_index >= len(questions):
-        print(client_ip, f"Quiz '{quiz_name}' finished for client {client_ip}. Rendering finish.html.")
+        logger.info(f"Quiz '{quiz_name}' completed by {client_ip}")
         return render_template("finish.html", quiz_name=quiz_name)
     
     # Otherwise, show the current question.
@@ -662,23 +676,24 @@ def get_quiz_data(quiz_name):
 @app.route('/editquiz/<quiz_name>', methods=['GET', 'POST'])
 def edit_quiz(quiz_name):
     client_ip = get_client_ip()
+    if request.method == 'GET':
+        logger.info(f"{client_ip} is editing quiz '{quiz_name}'")
+    # ... rest of function
     quiz_file = os.path.join(os.path.dirname(__file__), "non_static", "quiz", f"{quiz_name}.txt")
     question_file = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{quiz_name}.json")
     
     if request.method == 'GET':
         # Read quiz text content.
-        print(client_ip, "is currently editing", quiz_name)
         try:
             with open(quiz_file, "r", encoding="utf-8") as f:
                 quiz_content = f.read()
         except Exception as e:
             quiz_content = ""
-            print(client_ip, "Got an error while reading the quiz: ", str(e)) 
+            logger.warning(f"Error reading quiz '{quiz_name}' for editing by {client_ip}: {str(e)}")
 
         return render_template("editquiz.html", quiz_name=quiz_name, quiz_content=quiz_content)
     else:
         # POST: update the quiz text and/or rename
-        print(client_ip, "is saving their edits to", quiz_name)
         new_content = request.form.get("quiz_content", "")
         new_quiz_name = request.form.get("new_quiz_name", "").strip()
         use_legacy = request.form.get("use_legacy", "false") == "true"
@@ -707,7 +722,7 @@ def edit_quiz(quiz_name):
                     try:
                         os.rename(old_images_dir, new_images_dir)
                     except Exception as e:
-                        print(datetime.datetime.now(), client_ip, f"Failed to rename images dir: {e}")
+                        logger.warning(f"Failed to rename images dir for {client_ip}: {e}")
                 
                 # Update uploaded.json if needed
                 uploaded_data = read_uploaded_json()
@@ -720,7 +735,7 @@ def edit_quiz(quiz_name):
                 quiz_name = new_quiz_name
                 quiz_file = new_quiz_file
                 question_file = new_question_file
-                print(client_ip, "Renamed quiz to", quiz_name)
+                logger.info(f"Quiz renamed to '{quiz_name}' by {client_ip}")
             except Exception as e:
                 return f"Error renaming quiz: {str(e)}", 500
         
@@ -728,7 +743,7 @@ def edit_quiz(quiz_name):
         try:
             with open(quiz_file, "w", encoding="utf-8") as f:
                 f.write(new_content)
-                print(client_ip, "Saved edits to", quiz_name, " successfully.")
+            logger.info(f"Quiz '{quiz_name}' updated by {client_ip}")
             message = "Quiz updated successfully."
         except Exception as e:
             return f"Error updating quiz text: {str(e)}", 500
@@ -742,13 +757,11 @@ def quiz_validate(quiz_name):
     
     answer = request.json.get('answer', '')
     try:
-        print(f"Reading quiz {quiz_name}")
         questions = read_quiz(quiz_name)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     if not questions:
         return jsonify({'error': 'No questions found.'}), 404
-    print(f"Loading question file for {quiz_name}")
     question_file = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{quiz_name}.json")
     try:
         with open(question_file, "r", encoding="utf-8") as f:
@@ -758,7 +771,6 @@ def quiz_validate(quiz_name):
     if not isinstance(question_data, dict):
         question_data = {}
     client_ip = get_client_ip()
-    print(f"Got ip of {client_ip}")
     current_index = question_data.get(client_ip, 0)
     if current_index >= len(questions):
         current_index = 0
@@ -778,10 +790,8 @@ def quiz_validate(quiz_name):
         else:
             question_data[client_ip] = new_index
             try:
-                print(f"dumping question file")
                 with open(question_file, "w", encoding="utf-8") as f:
                     json.dump(question_data, f)
-                    print("done dumping question file")
             except Exception as e:
                 return jsonify({'error': 'Failed to update question index.'}), 500
             return jsonify({'is_correct': True})
@@ -790,6 +800,9 @@ def quiz_validate(quiz_name):
 @app.route('/makequiz', methods=['GET', 'POST'])
 def makequiz():
     client_ip = get_client_ip()
+    if request.method == 'GET':
+        logger.info(f"{client_ip} accessed make quiz page")
+    # ... rest of the function
     if request.method == 'POST':
         filename = request.form.get("filename")
         quiz_content = request.form.get("quiz_content")
@@ -841,6 +854,8 @@ def makequiz():
 
 @app.route('/logs')
 def view_logs():
+    client_ip = get_client_ip()
+    logger.info(f"{client_ip} accessed logs page")
     logs_dir = os.path.join(os.path.dirname(__file__), "logs")
     logs_content = ""
     # if os.path.exists(logs_dir):
@@ -922,12 +937,10 @@ def submit_answer(quiz_name):
     
     new_index = current_index + 1
 
-    print(datetime.datetime.now(), client_ip, f"Quiz '{quiz_name}': current_index={current_index}, new_index={new_index}, total_questions={len(questions)}")
-    
     # When the new_index is equal to or exceeds the total questions,
     # redirect to the finish quiz page instead of updating the current index.
     if new_index >= len(questions):
-        print(datetime.datetime.now(), client_ip, f"Finished quiz '{quiz_name}'")
+        logger.info(f"Quiz '{quiz_name}' completed by {client_ip}")
         return redirect(url_for('finish_quiz', quiz_name=quiz_name))
     else:
         # Update the question index normally.
@@ -936,7 +949,7 @@ def submit_answer(quiz_name):
             with open(question_file, "w", encoding="utf-8") as f:
                 json.dump(question_data, f)
         except Exception as e:
-            print(datetime.datetime.now(), client_ip, "failed to update question index:", str(e))
+            logger.error(f"Failed to update question index for {client_ip}: {str(e)}")
             return jsonify({'error': 'Failed to update question index.'}), 500
         return redirect(url_for('get_quiz_json', quiz_name=quiz_name))
 
@@ -974,18 +987,15 @@ def save_time(quiz_name):
     if request.method == 'GET':
         return render_template("error.html", message="Error: Use POST"), 405
     if not quiz_name or quiz_name.strip() == "":
-        print(datetime.datetime.now(), "Error: Quiz name is missing in the URL.")
+        logger.error("Quiz name missing in save_time URL")
         return jsonify({'error': 'Quiz name is required in the URL.'}), 400
-    print("Save time")
     client_ip = get_client_ip()
-    print(f"IP: {client_ip}")
-    print("request.json")
     if request.is_json:
         time_taken = request.json.get('time_elapsed', '0')
     else:
         time_taken = request.form.get('time_elapsed', '0')
     question_name = session.get('current_question_name', "Unknown Question")
-    print(datetime.datetime.now(), client_ip, f"Saving time for quiz '{quiz_name}': {question_name} {time_taken} sec")
+    logger.info(f"Time saved for {client_ip} on quiz '{quiz_name}': {question_name} - {time_taken} sec")
     
     time_file = os.path.join(os.path.dirname(__file__), "data", "time.txt")
     data = {}  # structure: {client_ip: {quiz_name: {question_name: time_taken}}}
@@ -1017,7 +1027,6 @@ def save_time(quiz_name):
     data.setdefault(client_ip, {})
     data[client_ip].setdefault(quiz_name, {})
     data[client_ip][quiz_name][question_name] = time_taken
-    print(datetime.datetime.now(), client_ip, f"Updated time for {question_name} in quiz '{quiz_name}' to {time_taken} sec")
 
     with open(time_file, "w", encoding="utf-8") as f:
         for ip, quizzes in data.items():
@@ -1030,40 +1039,37 @@ def save_time(quiz_name):
 
 @app.route('/quiz/<quiz_name>/finish')
 def finish_quiz(quiz_name):
-    # Optionally perform any finalization tasks here.
-    print(datetime.datetime.now(), get_client_ip(), f"Finished quiz '{quiz_name}'")
+    client_ip = get_client_ip()
+    logger.info(f"{client_ip} finished quiz '{quiz_name}'")
     return render_template("finish.html", quiz_name=quiz_name)
-    print(datetime.datetime.now(), get_client_ip(), f"Successfully rendered finish.html for quiz '{quiz_name}'")
 
 @app.route('/quiz/<quiz_name>/reset')
 def reset_quiz(quiz_name):
     client_ip = get_client_ip()
-    print(datetime.datetime.now(), client_ip, f"Resetting quiz '{quiz_name}'")
+    logger.info(f"{client_ip} reset quiz '{quiz_name}'")
     question_file = os.path.join(os.path.dirname(__file__), "non_static", "question", f"{quiz_name}.json")
     try:
-        print(datetime.datetime.now(), client_ip, "attempting to read question file:", question_file)
         with open(question_file, "r", encoding="utf-8") as f:
             question_data = json.load(f)
     except Exception as e:
         question_data = {}
-        print(datetime.datetime.now(), client_ip, "failed to read question file:", str(e))
     if not isinstance(question_data, dict):
         question_data = {}
     # Reset the current index to 0 for this client.
     question_data[client_ip] = 0
-    print(datetime.datetime.now(), client_ip, "resetting question index to 0")
     # Write the updated question data back to the file.
     try:
         with open(question_file, "w", encoding="utf-8") as f:
             json.dump(question_data, f)
-        print(datetime.datetime.now(), client_ip, "successfully reset question index to 0")
     except Exception as e:
-        print(datetime.datetime.now(), client_ip, "failed to reset question index:", str(e))
+        logger.error(f"Failed to reset quiz '{quiz_name}' for {client_ip}: {str(e)}")
         return jsonify({'error': 'Failed to reset question index.'}), 500
     return redirect(url_for("get_quiz_json", quiz_name=quiz_name))
 
 @app.route('/view_times')
 def view_times():
+    client_ip = get_client_ip()
+    logger.info(f"{client_ip} accessed view times page")
     time_file = os.path.join(os.path.dirname(__file__), "data", "time.txt")
     return send_file(time_file, mimetype="text/plain")
 
@@ -1104,6 +1110,8 @@ def view_times_file():
 
 @app.route('/host/<quiz_name>')
 def host_quiz(quiz_name):
+    client_ip = get_client_ip()
+    logger.info(f"{client_ip} is hosting quiz '{quiz_name}'")
     import random
     code = str(random.randint(1000, 9999))  # 4-digit code
     while code in sessions:
@@ -1147,6 +1155,8 @@ def control_quiz(code):
 
 @app.route('/join')
 def join_game():
+    client_ip = get_client_ip()
+    logger.info(f"{client_ip} accessed join game page")
     return render_template('join.html', is_mobile=is_mobile())
 
 @socketio.on('join_game')
@@ -1154,11 +1164,16 @@ def handle_join_game(data):
     code = data['code']
     player_name = data.get('name', 'Anonymous')
     avatar = data.get('avatar', '')
+    client_ip = get_client_ip()
+    
     if code in sessions:
         existing_names = [p['name'] for p in sessions[code]['players']]
         if player_name in existing_names:
+            logger.warning(f"{client_ip} failed to join game \x1b[95m{code}\x1b[0m with name \x1b[94m{player_name}\x1b[0m: Username unavailable")
             emit('error', {'message': 'Username unavailable. Please choose a different one.'})
             return
+        # Successful join
+        logger.info(f"{client_ip} successfully joined game \x1b[95m{code}\x1b[0m with name \x1b[94m{player_name}\x1b[0m")
         join_room(code)
         if player_name in sessions[code]['scores']:
             # Rejoining
@@ -1221,6 +1236,7 @@ def handle_join_game(data):
                 leaderboard.append({'name': name, 'score': score, 'avatar': avatar_for_name, 'left': left})
             emit('final_leaderboard', {'leaderboard': leaderboard})
     else:
+        logger.warning(f"{client_ip} failed to join game \x1b[95m{code}\x1b[0m with name \x1b[94m{player_name}\x1b[0m: Invalid game code")
         emit('error', {'message': 'Invalid code'})
 
 @socketio.on('host_join')
@@ -1410,7 +1426,7 @@ def handle_disconnect():
                 
                 # Do not remove from scores, last_correct, or answers
                 
-                print(datetime.datetime.now(), f"Player '{player_name}' disconnected from game {code}")
+                logger.info(f"Player '{player_name}' disconnected from game {code}")
                 
                 # Notify all players in the room that this player left using socketio.emit
                 socketio.emit('player_left', {'name': player_name}, room=code)
@@ -1441,10 +1457,17 @@ def handle_disconnect():
                 
                 break
 
+@app.errorhandler(404)
+def page_not_found(e):
+    """Handle 404 errors by showing the spinning 404 page"""
+    return render_template('404.html'), 404
+
 if __name__ == '__main__':
-    print(datetime.datetime.now(), "Server is not running. Starting Server...")
+    logger.info("Starting QuizFabric development server on port 5710...")
     # Production: Use debug=False and recommend gunicorn with socketio
-    socketio.run(app, debug=False, host="0.0.0.0", port=5710)
-    print(datetime.datetime.now(), "Server Error. Stopping Server...")
-    # Optional: Add any cleanup code here if needed.
-    print(datetime.datetime.now(), "Server stopped.")
+    try:
+        socketio.run(app, debug=False, host="0.0.0.0", port=5710)
+    except Exception as e:
+        logger.error(f"Server error: {e}")
+    finally:
+        logger.info("QuizFabric server stopped.")

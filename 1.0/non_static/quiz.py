@@ -7,7 +7,6 @@ def read_quiz(quiz_name):
     # Append only the 'quiz' folder since this file is already in non_static
     quiz_dir = os.path.join(base_dir, "quiz")
     file_path = os.path.join(quiz_dir, f"{quiz_name}.txt")
-    print("Reading quiz file from:", file_path)
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"Quiz file {file_path} not found")
         

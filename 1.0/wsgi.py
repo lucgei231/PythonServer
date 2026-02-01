@@ -9,11 +9,11 @@ from dotenv import load_dotenv
 
 load_dotenv('.env.production')
 
-from app import app, socketio
+from app import app, socketio, logger
 
 if __name__ == "__main__":
-    print(datetime.datetime.now(), "Starting production server...")
+    logger.info("Starting QuizFabric production server on port 5710...")
     socketio.run(app, debug=False, host="0.0.0.0", port=5710)
 else:
     # For gunicorn WSGI deployment
-    pass
+    logger.info("QuizFabric WSGI application loaded for gunicorn deployment")
