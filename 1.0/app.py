@@ -6,10 +6,20 @@ import re
 import sys
 import threading
 import logging
+import time
+import queue
+import multiprocessing
 
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for, send_file
 
 from flask_socketio import SocketIO, emit, join_room, leave_room
+
+try:
+    import tkinter as tk
+    from tkinter import messagebox, simpledialog
+    GUI_AVAILABLE = True
+except ImportError:
+    GUI_AVAILABLE = False
 
 from non_static.quiz import read_quiz, get_random_question, validate_answer  # adjust imports as needed
 
@@ -26,6 +36,14 @@ app = Flask(__name__, template_folder="templates")
 app.secret_key = "your_random_secret_key_here"
 
 socketio = SocketIO(app, async_mode='gevent')
+
+# Globals for IP monitoring - will be set by main process
+active_clients = None
+ip_to_sid = None
+actions_queue = None
+
+# Globals for IP monitoring
+
 from werkzeug.utils import secure_filename
 
 # Configuration for file uploads
@@ -128,9 +146,23 @@ def is_mobile():
     return any(keyword in user_agent for keyword in mobile_keywords)
 
 @app.before_request
+def before_request():
+    log_connection()
+    track_page()
+
 def log_connection():
     ip = get_client_ip()
     # Optional: Add connection logging here
+
+def track_page():
+    if active_clients is None:
+        return
+    ip = get_client_ip()
+    active_clients[ip] = {
+        'page': request.path,
+        'last_seen': time.time(),
+        'sid': ip_to_sid.get(ip) if ip_to_sid else None
+    }
 
 
 @app.after_request
@@ -253,6 +285,22 @@ def kick():
     timer.start()
 
     return jsonify({'status': f'IP {target_ip} kicked for 5 seconds.'})
+
+@app.route('/gui_data')
+def gui_data():
+    if active_clients is None:
+        return jsonify([])
+    now = time.time()
+    data = [{'ip': ip, 'page': data['page'], 'last_seen': data['last_seen']} for ip, data in active_clients.items() if now - data['last_seen'] < 300]
+    return jsonify(data)
+
+@app.route('/gui_action', methods=['POST'])
+def gui_action():
+    if actions_queue is None:
+        return jsonify({'status': 'no queue'})
+    data = request.json
+    actions_queue.put(data)
+    return jsonify({'status': 'ok'})
 
 @app.route('/')
 def home():
@@ -1214,6 +1262,69 @@ def join_game():
     logger.info(f"{client_ip} accessed join game page")
     return render_template('join.html', is_mobile=is_mobile())
 
+@socketio.on('connect')
+def handle_connect():
+    if ip_to_sid is None or active_clients is None:
+        return
+    ip = get_client_ip()
+    sid = request.sid
+    ip_to_sid[ip] = sid
+    if ip in active_clients:
+        active_clients[ip]['sid'] = sid
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    if active_clients is None or ip_to_sid is None:
+        return
+    sid = request.sid
+    # Remove from active_clients
+    for ip, data in list(active_clients.items()):
+        if data.get('sid') == sid:
+            del active_clients[ip]
+            if ip in ip_to_sid and ip_to_sid[ip] == sid:
+                del ip_to_sid[ip]
+            break
+    # Remove player from all sessions
+    for code in list(sessions.keys()):
+        # Find and remove the player
+        for player in sessions[code]['players'][:]:  # Create a copy to iterate
+            if player['sid'] == request.sid:
+                player_name = player['name']
+                sessions[code]['players'].remove(player)
+                
+                # Do not remove from scores, last_correct, or answers
+                
+                logger.info(f"Player '{player_name}' disconnected from game {code}")
+                
+                # Notify all players in the room that this player left using socketio.emit
+                socketio.emit('player_left', {'name': player_name}, room=code)
+                
+                # Update and broadcast the current leaderboard to all remaining players/host
+                if sessions[code]['state'] == 'leaderboard' and sessions[code]['scores']:
+                    leaderboard = []
+                    for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
+                        last_correct = sessions[code]['last_correct'].get(name)
+                        left = name not in [p['name'] for p in sessions[code]['players']]
+                        avatar = ''
+                        if not left:
+                            for player in sessions[code]['players']:
+                                if player['name'] == name:
+                                    avatar = player.get('avatar', '')
+                                    break
+                        leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct, 'avatar': avatar, 'left': left})
+                    submitted_answers = {ans['name']: ans['answer_text'] for ans in sessions[code]['answers']}
+                    q_index = sessions[code]['current_q'] - 1
+                    q = sessions[code]['questions'][q_index] if q_index >= 0 and q_index < len(sessions[code]['questions']) else None
+                    correct_answer_text = ''
+                    if q:
+                        if q['type'] == 'mc':
+                            correct_answer_text = ', '.join(q['answers'][i] for i in q['correct_indices'])
+                        else:
+                            correct_answer_text = q['answer']
+                    socketio.emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer_text, 'submitted_answers': submitted_answers}, room=code)
+                
+                break
+
 @socketio.on('join_game')
 def handle_join_game(data):
     code = data['code']
@@ -1469,48 +1580,88 @@ def handle_reveal_answers(data):
         sessions[code]['state'] = 'leaderboard'
         emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer_text, 'submitted_answers': submitted_answers}, room=code)
 
-@socketio.on('disconnect')
-def handle_disconnect():
-    # Remove player from all sessions
-    for code in list(sessions.keys()):
-        # Find and remove the player
-        for player in sessions[code]['players'][:]:  # Create a copy to iterate
-            if player['sid'] == request.sid:
-                player_name = player['name']
-                sessions[code]['players'].remove(player)
-                
-                # Do not remove from scores, last_correct, or answers
-                
-                logger.info(f"Player '{player_name}' disconnected from game {code}")
-                
-                # Notify all players in the room that this player left using socketio.emit
-                socketio.emit('player_left', {'name': player_name}, room=code)
-                
-                # Update and broadcast the current leaderboard to all remaining players/host
-                if sessions[code]['state'] == 'leaderboard' and sessions[code]['scores']:
-                    leaderboard = []
-                    for name, score in sorted(sessions[code]['scores'].items(), key=lambda x: x[1], reverse=True):
-                        last_correct = sessions[code]['last_correct'].get(name)
-                        left = name not in [p['name'] for p in sessions[code]['players']]
-                        avatar = ''
-                        if not left:
-                            for player in sessions[code]['players']:
-                                if player['name'] == name:
-                                    avatar = player.get('avatar', '')
-                                    break
-                        leaderboard.append({'name': name, 'score': score, 'last_correct': last_correct, 'avatar': avatar, 'left': left})
-                    submitted_answers = {ans['name']: ans['answer_text'] for ans in sessions[code]['answers']}
-                    q_index = sessions[code]['current_q'] - 1
-                    q = sessions[code]['questions'][q_index] if q_index >= 0 and q_index < len(sessions[code]['questions']) else None
-                    correct_answer_text = ''
-                    if q:
-                        if q['type'] == 'mc':
-                            correct_answer_text = ', '.join(q['answers'][i] for i in q['correct_indices'])
-                        else:
-                            correct_answer_text = q['answer']
-                    socketio.emit('leaderboard', {'leaderboard': leaderboard, 'correct_answer': correct_answer_text, 'submitted_answers': submitted_answers}, room=code)
-                
-                break
+def process_actions():
+    if actions_queue is None:
+        return
+    while True:
+        try:
+            action = actions_queue.get(timeout=1)
+            if action['action'] == 'ban':
+                ip = action['ip']
+                banned_ips[ip] = 'Banned from GUI'
+                save_banned_ips(banned_ips)
+                sid = active_clients.get(ip, {}).get('sid')
+                if sid:
+                    socketio.disconnect(sid)
+            elif action['action'] == 'send_popup':
+                ip = action['ip']
+                sid = active_clients.get(ip, {}).get('sid')
+                if sid:
+                    socketio.emit('show_popup', {'message': action['message']}, to=sid)
+            # clean old
+            now = time.time()
+            for ip in list(active_clients.keys()):
+                if now - active_clients[ip]['last_seen'] > 300:
+                    del active_clients[ip]
+        except queue.Empty:
+            pass
+
+def run_gui(shared_clients, shared_queue):
+    if not GUI_AVAILABLE:
+        return
+    root = tk.Tk()
+    root.title("IP Monitor")
+    listbox = tk.Listbox(root, width=50)
+    listbox.pack(fill=tk.BOTH, expand=True)
+    button_frame = tk.Frame(root)
+    button_frame.pack()
+    info_button = tk.Button(button_frame, text="Info", command=lambda: info_callback(listbox.get(tk.ACTIVE), shared_clients))
+    ban_button = tk.Button(button_frame, text="Ban", command=lambda: ban_callback(listbox.get(tk.ACTIVE), shared_queue))
+    send_button = tk.Button(button_frame, text="Send Message", command=lambda: send_popup_callback(listbox.get(tk.ACTIVE), shared_queue))
+    info_button.pack(side=tk.LEFT)
+    ban_button.pack(side=tk.LEFT)
+    send_button.pack(side=tk.LEFT)
+
+    def update_list():
+        listbox.delete(0, tk.END)
+        now = time.time()
+        active = {ip: data for ip, data in shared_clients.items() if now - data['last_seen'] < 300}
+        for ip, data in active.items():
+            listbox.insert(tk.END, f"{ip} - {data['page']} - {time.ctime(data['last_seen'])}")
+        root.after(1000, update_list)
+
+    update_list()
+    root.mainloop()
+
+def info_callback(ip_str, shared_clients):
+    if not ip_str:
+        return
+    ip = ip_str.split(' - ')[0]
+    data = shared_clients.get(ip, {})
+    messagebox.showinfo("Info", f"IP: {ip}\nPage: {data.get('page', 'Unknown')}\nLast Seen: {time.ctime(data.get('last_seen', 0))}")
+
+def ban_callback(ip_str, shared_queue):
+    if not ip_str:
+        return
+    ip = ip_str.split(' - ')[0]
+    shared_queue.put({'action': 'ban', 'ip': ip})
+
+def send_popup_callback(ip_str, shared_queue):
+    if not ip_str:
+        return
+    ip = ip_str.split(' - ')[0]
+    msg = simpledialog.askstring("Send Message", "Enter message:")
+    if msg:
+        shared_queue.put({'action': 'send_popup', 'ip': ip, 'message': msg})
+
+def start_gui():
+    global gui_process
+    if GUI_AVAILABLE and active_clients is not None:
+        gui_process = multiprocessing.Process(target=run_gui, args=(active_clients, actions_queue))
+        gui_process.start()
+
+threading.Thread(target=process_actions, daemon=True).start()
+# GUI started by main process
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -1518,6 +1669,11 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 if __name__ == '__main__':
+    multiprocessing.freeze_support()
+    # Set up shared data for GUI - but since GUI is separate, use regular dicts
+    active_clients = {}
+    ip_to_sid = {}
+    actions_queue = queue.Queue()
     logger.info("Starting QuizFabric development server on port 5710...")
     # Production: Use debug=False and recommend gunicorn with socketio
     try:
